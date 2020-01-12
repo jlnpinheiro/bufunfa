@@ -41,9 +41,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             var query = _efContext.Agendamentos
                 .Include(x => x.Conta)
                 .Include(x => x.CartaoCredito)
-                .Include(x => x.Categoria)
-                    .ThenInclude(x => x.CategoriaPai)
-                    .ThenInclude(x => x.CategoriasFilha)
+                .Include(x => x.Categoria.CategoriaPai)
                 .Include(x => x.Pessoa)
                 .Include(x => x.Parcelas)
                 .AsNoTracking()
@@ -67,8 +65,8 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             if (procurarEntrada.Concluido.HasValue)
             {
                 query = procurarEntrada.Concluido.Value
-                    ? query.Where(x => !x.Parcelas.Any(y => y.ObterStatus() == StatusParcela.Aberta))
-                    : query.Where(x => x.Parcelas.Any(y => y.ObterStatus() == StatusParcela.Aberta));
+                    ? query.AsEnumerable().Where(x => !x.Parcelas.Any(y => y.ObterStatus() == StatusParcela.Aberta)).AsQueryable()
+                    : query.AsEnumerable().Where(x => x.Parcelas.Any(y => y.ObterStatus() == StatusParcela.Aberta)).AsQueryable();
             }
 
             if (procurarEntrada.Paginar())
