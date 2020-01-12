@@ -348,3 +348,9 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+**/appsettings.*.json
+**/_db
+**/ModeloER.mwb.bak
+**/_publish
+**/google_credentials.json
