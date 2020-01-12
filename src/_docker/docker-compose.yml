@@ -1,0 +1,11 @@
+version: '3'
+services:
+  api:
+    depends_on:
+      - dbServer
+    image: jlnpinheiro/bufunfa-api:1.0
+    container_name: bufunfa_api
+    ports:
+      - "8081:80"
+    networks:
+      - bufufnfa-network

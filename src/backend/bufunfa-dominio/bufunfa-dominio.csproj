@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>JNogueira.Bufunfa.Dominio</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NETCore.Encrypt" Version="2.0.8" />
+    <PackageReference Include="NotifiqueMe" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\infraestrutura-logging\bufunfa-infraestrutura-logging.csproj" />
+    <ProjectReference Include="..\bufunfa-infraestrutura\bufunfa-infraestrutura.csproj" />
+  </ItemGroup>
+
+</Project>

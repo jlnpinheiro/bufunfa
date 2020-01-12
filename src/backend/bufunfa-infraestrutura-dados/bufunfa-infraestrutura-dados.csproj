@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>JNogueira.Bufunfa.Infraestrutura.Dados</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.0" />
+    <PackageReference Include="X.PagedList" Version="7.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\infraestrutura-logging\bufunfa-infraestrutura-logging.csproj" />
+    <ProjectReference Include="..\bufunfa-dominio\bufunfa-dominio.csproj" />
+  </ItemGroup>
+
+</Project>
