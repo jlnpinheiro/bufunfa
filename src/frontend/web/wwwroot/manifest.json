@@ -1,0 +1,36 @@
+﻿{
+  "name": "Bufunfa!",
+  "short_name": "Bufunfa!",
+  "icons": [
+    {
+      "src": "/img/icone-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/icone-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/icone-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/icone-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/icone-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/login",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "orientation": "portrait",
+  "theme_color": "#0D2237"
+}

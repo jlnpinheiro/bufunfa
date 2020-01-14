@@ -19,9 +19,9 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             _efContext = efContext;
         }
 
-        public async Task<Lancamento> ObterPorId(int idLancamento, bool habilitarTracking = false)
+        public async Task<Lancamento> ObterPorId(int idLancamento)
         {
-            var query = _efContext.Lancamentos
+            return await _efContext.Lancamentos
                 .Include(x => x.Conta)
                 .Include(x => x.Categoria.CategoriaPai)
                 .Include(x => x.Pessoa)
@@ -29,24 +29,10 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
                 .Include(x => x.Anexos)
                 .Include(x => x.Detalhes)
                     .ThenInclude(x => x.Categoria.CategoriaPai)
-                .AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.FirstOrDefaultAsync(x => x.Id == idLancamento);
+                .FirstOrDefaultAsync(x => x.Id == idLancamento);
         }
 
-        public async Task<IEnumerable<Lancamento>> ObterPorIdTransferencia(string idTransferencia, bool habilitarTracking = false)
-        {
-            var query = _efContext.Lancamentos
-                .AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.Where(x => x.IdTransferencia == idTransferencia).ToListAsync();
-        }
+        public async Task<IEnumerable<Lancamento>> ObterPorIdTransferencia(string idTransferencia) => await _efContext.Lancamentos.Where(x => x.IdTransferencia == idTransferencia).ToListAsync();
 
         public async Task<ProcurarSaida> Procurar(ProcurarLancamentoEntrada procurarEntrada)
         {
@@ -98,10 +84,10 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             }
             else
             {
-                var totalRegistros = await query.CountAsync();
+                var totalRegistros = query.Count();
 
                 return new ProcurarSaida(
-                    (await query.ToListAsync()).Select(x => new LancamentoSaida(x)),
+                    query.ToList().Select(x => new LancamentoSaida(x)),
                     procurarEntrada.OrdenarPor,
                     procurarEntrada.OrdenarSentido,
                     totalRegistros);

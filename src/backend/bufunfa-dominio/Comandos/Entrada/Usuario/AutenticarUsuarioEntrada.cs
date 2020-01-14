@@ -1,5 +1,4 @@
-﻿using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
-using JNogueira.Bufunfa.Dominio.Resources;
+﻿using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.Infraestrutura.NotifiqueMe;
 using NETCore.Encrypt.Extensions;
 
@@ -8,7 +7,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
     /// <summary>
     /// Comando utilizado na autenticação de um usuário
     /// </summary>
-    public class AutenticarUsuarioEntrada : Notificavel, IEntrada
+    public class AutenticarUsuarioEntrada : Notificavel
     {
         /// <summary>
         /// E-mail do usuário

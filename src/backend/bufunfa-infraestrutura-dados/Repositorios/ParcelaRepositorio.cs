@@ -1,5 +1,4 @@
-﻿using JNogueira.Bufunfa.Dominio;
-using JNogueira.Bufunfa.Dominio.Entidades;
+﻿using JNogueira.Bufunfa.Dominio.Entidades;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,24 +18,19 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             _efContext = efContext;
         }
 
-        public async Task<Parcela> ObterPorId(int idParcela, bool habilitarTracking = false)
+        public async Task<Parcela> ObterPorId(int idParcela)
         {
-            var query = _efContext.Parcelas
+            return await _efContext.Parcelas
                 .Include(x => x.Agendamento)
                     .ThenInclude(x => x.Parcelas)
                 .Include(x => x.Agendamento.Pessoa)
                 .Include(x => x.Agendamento.Categoria)
                     .ThenInclude(x => x.CategoriaPai)
-                    .ThenInclude(x => x.CategoriasFilha)
-                .AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.FirstOrDefaultAsync(x => x.Id == idParcela);
+                //.ThenInclude(x => x.CategoriasFilha)
+                .FirstOrDefaultAsync(x => x.Id == idParcela);
         }
 
-        public async Task<IEnumerable<Parcela>> ObterPorCartaoCredito(int idCartaoCredito, DateTime? dataFatura = null, bool habilitarTracking = false)
+        public async Task<IEnumerable<Parcela>> ObterPorCartaoCredito(int idCartaoCredito, DateTime? dataFatura = null)
         {
             var query = (from agendamento in _efContext.Agendamentos
                          from parcela in agendamento.Parcelas
@@ -44,13 +38,8 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
                          select parcela)
                          .Include(x => x.Agendamento.Parcelas)
                          .Include(x => x.Agendamento.Pessoa)
-                          .Include(x => x.Agendamento.Categoria)
-                            .ThenInclude(x => x.CategoriaPai)
-                            .ThenInclude(x => x.CategoriasFilha)
-                          .AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
+                         .Include(x => x.Agendamento.Categoria.CategoriaPai)
+                         .AsQueryable();
 
             if (dataFatura.HasValue)
             {
@@ -64,15 +53,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             return await query.ToListAsync();
         }
 
-        public async Task<IEnumerable<Parcela>> ObterPorFatura(int idFatura, bool habilitarTracking = false)
-        {
-            var query = _efContext.Parcelas.AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.Where(x => x.IdFatura == idFatura).ToListAsync();
-        }
+        public async Task<IEnumerable<Parcela>> ObterPorFatura(int idFatura) => await _efContext.Parcelas.Where(x => x.IdFatura == idFatura).ToListAsync();
 
         public async Task<IEnumerable<Parcela>> ObterPorPeriodo(DateTime dataInicio, DateTime dataFim, int idUsuario, bool somenteParcelasAbertas = true)
         {

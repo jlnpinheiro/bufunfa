@@ -1,0 +1,53 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+
+@model IEnumerable<Parcela>
+
+@if (Model?.Any() == true)
+{
+    <div class="kt-timeline-v2">
+        <div class="kt-timeline-v2__items">
+            @foreach (var parcela in Model.OrderBy(x => x.Data))
+            {
+                <div class="kt-timeline-v2__item">
+                    <span class="kt-timeline-v2__item-time kt-font-lg text-right"><span>@parcela.Data.ToString("MMM").ToUpper()</span> <span class="kt-font-dark">@parcela.Data.ToString("dd")</span><br /><span class="kt-font-md">@parcela.Data.ToString("ddd").ToUpper()</span></span>
+                    <div class="kt-timeline-v2__item-cricle">
+
+                        @switch (parcela.ObterCor())
+                        {
+                            case Cor.Verde:
+                                {
+                                    <i class="fa fa-genderless kt-font-success"></i>
+                                    break;
+                                }
+
+                            case Cor.Amarelo:
+                                {
+                                    <i class="fa fa-genderless kt-font-warning"></i>
+                                    break;
+                                }
+
+                            case Cor.Vermelho:
+                                {
+                                    <i class="fa fa-genderless kt-font-danger"></i>
+                                    break;
+                                }
+                        }
+                    </div>
+                    <div class="kt-timeline-v2__item-text  kt-padding-top-5">
+                        @if (!string.IsNullOrEmpty(parcela.Agendamento.Pessoa))
+                        {
+                            <span class="kt-font-bold">@parcela.Agendamento.Pessoa</span><br />
+                        }
+                        <i class="fa fa-tag kt-font-@(parcela.Agendamento.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") kt-font-sm"></i> @parcela.Agendamento.CategoriaCaminho<br />
+                        <span class="kt-font-@(parcela.Agendamento.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") kt-font-bold">@parcela.ObterValorEmReais()</span>
+                        <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables visualizar-agendamento" data-id-agendamento="@parcela.Agendamento.Id" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Visualizar agendamento"><i class="fa fa-calendar-alt"></i></a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center">Nenhuma parcela aberta encontrada.</div>
+}

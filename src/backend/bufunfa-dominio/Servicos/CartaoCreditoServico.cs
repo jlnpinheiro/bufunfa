@@ -121,7 +121,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             if (entrada.Invalido)
                 return new Saida(false, entrada.Mensagens, null);
 
-            var cartao = await _cartaoCreditoRepositorio.ObterPorId(idCartaoCredito, true);
+            var cartao = await _cartaoCreditoRepositorio.ObterPorId(idCartaoCredito);
 
             // Verifica se o cartão existe
             this.NotificarSeNulo(cartao, CartaoCreditoMensagem.Id_Cartao_Nao_Existe);
@@ -243,7 +243,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             var dataFatura = new DateTime(entrada.AnoFatura, entrada.MesFatura, cartaoCredito.DiaVencimentoFatura);
 
             // Obtém todas as parcelas que compôem a fatura
-            var parcelas = await _parcelaRepositorio.ObterPorCartaoCredito(entrada.IdCartaoCredito, dataFatura, true);
+            var parcelas = await _parcelaRepositorio.ObterPorCartaoCredito(entrada.IdCartaoCredito, dataFatura);
 
             var valorFatura = parcelas?.Where(x => !x.Lancada && !x.Descartada).Sum(x => x.Valor) + (entrada.ValorAdicionalDebito.HasValue ? entrada.ValorAdicionalDebito.Value : 0) - (entrada.ValorAdicionalCredito.HasValue ? entrada.ValorAdicionalCredito.Value : 0) ?? 0;
 
@@ -294,6 +294,8 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
 
             // Insere o lançamento referente ao pagamento da fatura
             await _lancamentoRepositorio.Inserir(lancamentoFatura);
+
+            await _uow.Commit();
 
             var fatura = new Fatura(
                 entrada.IdCartaoCredito,

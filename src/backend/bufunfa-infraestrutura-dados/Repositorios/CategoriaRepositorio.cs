@@ -19,18 +19,13 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             _efContext = efContext;
         }
 
-        public async Task<Categoria> ObterPorId(int idCategoria, bool habilitarTracking = false)
+        public async Task<Categoria> ObterPorId(int idCategoria)
         {
-            var query = _efContext.Categorias
-                    .Include(x => x.CategoriaPai)
-                    .Include(x => x.CategoriasFilha)
-                        .ThenInclude(y => y.CategoriasFilha)
-                    .AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.FirstOrDefaultAsync(x => x.Id == idCategoria);
+            return await _efContext.Categorias
+                .Include(x => x.CategoriaPai)
+                .Include(x => x.CategoriasFilha)
+                    .ThenInclude(y => y.CategoriasFilha)
+                .FirstOrDefaultAsync(x => x.Id == idCategoria);
         }
 
         public async Task<ProcurarSaida> Procurar(ProcurarCategoriaEntrada procurarEntrada)

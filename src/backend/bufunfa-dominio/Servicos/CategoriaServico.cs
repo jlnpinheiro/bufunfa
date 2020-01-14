@@ -108,7 +108,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             if (entrada.Invalido)
                 return new Saida(false, entrada.Mensagens, null);
 
-            var categoria = await _categoriaRepositorio.ObterPorId(idCategoria, true);
+            var categoria = await _categoriaRepositorio.ObterPorId(idCategoria);
 
             // Verifica se a categoria existe
             this.NotificarSeNulo(categoria, CategoriaMensagem.Id_Categoria_Nao_Existe);

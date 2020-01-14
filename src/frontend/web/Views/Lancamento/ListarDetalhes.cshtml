@@ -1,0 +1,33 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+
+@model IEnumerable<JNogueira.Bufunfa.Web.Models.LancamentoDetalhe>
+
+@if (Model.Any())
+{
+    <div class="kt-widget4">
+        @foreach (var detalhe in Model)
+        {
+            <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <span class="kt-widget4__icon">
+                    <i class="fa fa-tag kt-font-@(detalhe.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") kt-font-md"></i>
+                </span>
+                <div class="kt-widget4__info">
+                    <span class="kt-widget4__title">@(detalhe.Categoria.Nome)</span>
+                    <p class="kt-widget4__text">@(detalhe.Observacao)</p>
+                </div>
+                <span class="kt-widget4__number kt-font-@(detalhe.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger")">@detalhe.ObterValorEmReais() <button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables excluir-detalhe" data-id="@detalhe.Id"><span class="la la-trash"></span></button></span>
+            </div>
+        }
+        <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+            <div class="kt-widget4__info ml-4 mt-2">
+                <span class="kt-widget4__title">TOTAL</span>
+            </div>
+            <span class="kt-widget4__number kt-font-dark kt-font-bolder mr-4 mt-2">@(Model.Sum(x => x.Valor).ToString("C2"))</span>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center">Nenhum item encontrado</div>
+}
+

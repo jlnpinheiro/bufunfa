@@ -18,22 +18,16 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             _efContext = efContext;
         }
 
-        public async Task<Agendamento> ObterPorId(int idAgendamento, bool habilitarTracking = false)
+        public async Task<Agendamento> ObterPorId(int idAgendamento)
         {
-            var query = _efContext.Agendamentos
+            return await _efContext.Agendamentos
                 .Include(x => x.Conta)
                 .Include(x => x.CartaoCredito)
-                .Include(x => x.Categoria)
-                    .ThenInclude(x => x.CategoriaPai)
-                    .ThenInclude(x => x.CategoriasFilha)
+                .Include(x => x.Categoria.CategoriaPai)
+                //.Include(x => x.Categoria.CategoriasFilha)
                 .Include(x => x.Pessoa)
                 .Include(x => x.Parcelas)
-                .AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.FirstOrDefaultAsync(x => x.Id == idAgendamento);
+                .FirstOrDefaultAsync(x => x.Id == idAgendamento);
         }
 
         public async Task<ProcurarSaida> Procurar(ProcurarAgendamentoEntrada procurarEntrada)
@@ -73,14 +67,12 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             {
                 var pagedList = await query.ToPagedListAsync(procurarEntrada.PaginaIndex.Value, procurarEntrada.PaginaTamanho.Value);
 
-                var lst = string.IsNullOrEmpty(procurarEntrada.OrdenarSentido) || procurarEntrada.OrdenarSentido == "ASC"
-                    ? pagedList.ToList().OrderBy(x => x.ObterDataProximaParcelaAberta()).ThenBy(x => x.Id).Select(x => new AgendamentoSaida(x))
-                    : pagedList.ToList().OrderByDescending(x => x.ObterDataProximaParcelaAberta()).ThenBy(x => x.Id).Select(x => new AgendamentoSaida(x));
+                var lst = pagedList.ToList().OrderBy(x => x.ObterDataProximaParcelaAberta()).ThenBy(x => x.Id).Select(x => new AgendamentoSaida(x));
 
                 return new ProcurarSaida(
                     lst,
-                    procurarEntrada.OrdenarPor,
-                    procurarEntrada.OrdenarSentido,
+                    "DataProximaParcelaAberta",
+                    "ASC",
                     pagedList.TotalItemCount,
                     pagedList.PageCount,
                     procurarEntrada.PaginaIndex,
@@ -88,16 +80,12 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             }
             else
             {
-                var totalRegistros = await query.CountAsync();
-
-                var lst = string.IsNullOrEmpty(procurarEntrada.OrdenarSentido) || procurarEntrada.OrdenarSentido == "ASC"
-                    ? (await query.ToListAsync()).OrderBy(x => x.ObterDataProximaParcelaAberta()).ThenBy(x => x.Id).Select(x => new AgendamentoSaida(x))
-                    : (await query.ToListAsync()).OrderByDescending(x => x.ObterDataProximaParcelaAberta()).ThenBy(x => x.Id).Select(x => new AgendamentoSaida(x));
+                var totalRegistros = query.Count();
 
                 return new ProcurarSaida(
-                    lst,
-                    procurarEntrada.OrdenarPor,
-                    procurarEntrada.OrdenarSentido,
+                    query.ToList().Select(x => new AgendamentoSaida(x)),
+                    "DataProximaParcelaAberta",
+                    "ASC",
                     totalRegistros);
             }
         }

@@ -1,0 +1,54 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+
+@model IEnumerable<Conta>
+
+@if (Model != null && Model.Any())
+{
+    <div class="table-responsive no-padding">
+        <table class="table table-hover table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Instituição</th>
+                    <th style="width: 10%;">Agência</th>
+                    <th style="width: 10%;">Número</th>
+                    <th class="text-right text-nowrap" style="width: 10%;">Saldo disponível</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var conta in Model)
+                {
+                    conta.ValorSaldoAtual = !conta.ValorSaldoAtual.HasValue ? 0 : conta.ValorSaldoAtual.Value;
+
+                    <tr>
+                        <td>@conta.Nome</td>
+                        <td class="text-nowrap"><i class="fa fa-university" style="color: @(conta.ObterCorPorTipoConta());"></i> @conta.DescricaoTipo</td>
+                        <td>@conta.NomeInstituicao</td>
+                        <td class="text-nowrap">@conta.NumeroAgencia</td>
+                        <td class="text-nowrap">@conta.Numero</td>
+                        <td class="text-right text-nowrap @(conta.ValorSaldoAtual >= 0 ? "kt-font-success" : "kt-font-danger") coluna-valor kt-font-bold">@conta.ObterSaldoAtualEmReais()</td>
+                        <td style="width:1px;"><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables alterar-conta-rf" data-id-conta="@conta.Id" data-tipo="RF" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Alterar"><span class="la la-edit"></span></button></td>
+                        <td style="width:1px;"><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables excluir-conta-rf" data-id-conta="@conta.Id" data-tipo="RF" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Excluir"><span class="la la-trash"></span></button></td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                @{
+                    var valorTotal = Model.Where(x => x.ValorSaldoAtual.HasValue).Sum(x => x.ValorSaldoAtual.Value);
+                }
+                <tr>
+                    <td class="text-right kt-font-bold" colspan="5">TOTAL</td>
+                    <td class="text-right kt-font-bold @(valorTotal >= 0 ? "kt-font-success" : "kt-font-danger") kt-font-boldest">@valorTotal.ToString("c2")</td>
+                    <td colspan="2"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}
+else
+{
+    <div class="text-center">Nenhuma conta encontrada.</div>
+}

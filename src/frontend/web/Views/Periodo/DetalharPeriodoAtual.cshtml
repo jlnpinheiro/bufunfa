@@ -1,0 +1,65 @@
+﻿@model JNogueira.Bufunfa.Web.Models.Periodo
+
+<div class="kt-portlet app-modal-md" style="margin-bottom:0;" id="portlet-manter">
+    <div class="kt-portlet__head popup">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Período atual
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="row">
+            <div class="col-md-12 col-lg-6">
+                <div class="kt-widget1" style="padding:10px;">
+                    <div class="kt-widget1__item">
+                        <div class="kt-widget1__info">
+                            <h3 class="kt-widget1__title">Nome</h3>
+                            <span class="kt-widget1__desc kt-font-primary kt-font-bolder">@Model.Nome</span>
+                        </div>
+                    </div>
+                    <div class="kt-widget1__item">
+                        <div class="kt-widget1__info">
+                            <h3 class="kt-widget1__title">Início em</h3>
+                            <span class="kt-widget1__desc">@(Model.DataInicio.ToString("dd/MM/yyyy")) <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> @(Model.DataInicio.ToString("ddd").ToUpper())</span>
+                        </div>
+                    </div>
+                    <div class="kt-widget1__item">
+                        <div class="kt-widget1__info">
+                            <h3 class="kt-widget1__title">Término em</h3>
+                            <span class="kt-widget1__desc">@(Model.DataFim.ToString("dd/MM/yyyy")) <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> @(Model.DataFim.ToString("ddd").ToUpper())</span>
+                        </div>
+                    </div>
+                    <div class="kt-widget1__item">
+                        <div class="kt-widget1__info">
+                            <h3 class="kt-widget1__title">Quantidade de dias</h3>
+                            <span class="kt-widget1__desc">@Model.QuantidadeDias dias</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-12 col-lg-6">
+                <div class="liquid-meter-wrapper liquid-meter-lg mt-sm text-center">
+                    <span class="kt-font-lg" id="span-resta"></span>
+                    <div class="liquid-meter">
+                        <meter min="1" max="100" id="meterDias" data-percentual-conclusao="@Model.ObterPercentualConclusao()" data-qtd-dias-fim-periodo="@Model.QuantidadeDiasFimPeriodo"></meter>
+                    </div>
+                    <span class="kt-font-lg">para conclusão</span>
+                    <h6 class="text-center kt-font-bolder" id="porcentagem"></h6>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="kt-portlet__foot popup">
+        <div class="kt-form__actions">
+            <div class="row">
+                <div class="col-lg-12 kt-align-right">
+                    <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

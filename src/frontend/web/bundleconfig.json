@@ -1,0 +1,92 @@
+[
+  {
+    "outputFileName": "wwwroot/css/bufunfa.min.css",
+    "inputFiles": [
+      "wwwroot/css/bufunfa.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/app-modal.min.js",
+    "inputFiles": [
+      "wwwroot/js/app-modal.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/app-modal.min.css",
+    "inputFiles": [
+      "wwwroot/css/app-modal.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/app-feedback.min.js",
+    "inputFiles": [
+      "wwwroot/js/app-feedback.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/app.min.js",
+    "inputFiles": [
+      "wwwroot/js/app.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/usuario-login.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/usuario-login.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/conta.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/conta.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/categoria.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/categoria.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/periodo.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/periodo.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/pessoa.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/pessoa.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/bufunfa.min.js",
+    "inputFiles": [
+      "wwwroot/js/bufunfa.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/lancamento.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/lancamento.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/agendamento.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/agendamento.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/atalho.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/atalho.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/dashboard.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/dashboard.js"
+    ]
+  }
+]

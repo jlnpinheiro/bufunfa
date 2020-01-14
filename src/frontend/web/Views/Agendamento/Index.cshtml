@@ -1,0 +1,116 @@
+﻿@using JNogueira.Bufunfa.Web.Helpers
+@using JNogueira.Bufunfa.Web.Models
+
+@inject CustomHtmlHelper customHtmlHelper
+
+@{
+    ViewData["Titulo"] = "Agendamentos";
+    Layout = "_Master";
+
+    var periodoAtual = ViewBag.PeriodoAtual != null ? (Periodo)ViewBag.PeriodoAtual : null;
+}
+
+@section ViewsJs
+{
+    <environment include="Development">
+        <script src="~/js/views/agendamento.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/views/agendamento.min.js"></script>
+    </environment>
+}
+
+<div class="row mb-3">
+    <div class="col-sm-12">
+        <button class="btn btn-sm btn-secondary btn-hover-primary" id="btn-cadastrar-agendamento">
+            <i class="la la-plus"></i>Adicionar
+        </button>
+        <button class="btn btn-sm btn-secondary btn-hover-primary" data-toggle="modal" data-target="#mProcurar" data-backdrop="static">
+            <i class="la la-search"></i>Procurar
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div id="div-agendamentos">
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mProcurar" role="dialog">
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+        <div class="modal-content" style="border: none;">
+            <form class="kt-form kt-form--label-right" id="form-procurar-agendamento">
+                <div class="modal-header popup">
+                    <h5 class="modal-title" id="exampleModalLabel">Procurar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-sm-12 form-group-sub">
+                            <label for="sProcurarPeriodo">Período</label><br />
+                            <select class="form-control" id="sProcurarPeriodo" name="sProcurarPeriodo" style="width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 form-group-sub">
+                            <div class="form-group">
+                                <label>Início da parcela</label>
+                                <div class="input-group date">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
+                                    <input type="text" class="form-control datepicker" id="iProcurarDataInicio" name="iProcurarDataInicio">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group-sub">
+                            <div class="form-group">
+                                <label>Término da parcela</label>
+                                <div class="input-group date">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
+                                    <input type="text" class="form-control datepicker" id="iProcurarDataFim" name="iProcurarDataFim">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-12 form-group-sub">
+                            <label>Conta ou cartão</label>
+                            @customHtmlHelper.SelectContasCartoesCredito("sProcurarConta", "form-control", null)
+                            <span class="form-text text-muted"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12 form-group-sub">
+                            <label for="sProcurarCategoria">Categoria</label><br />
+                            @customHtmlHelper.SelectCategorias("sProcurarCategoria", "form-control", string.Empty, false)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12 form-group-sub">
+                            <label for="sProcurarPessoa">Pessoa</label><br />
+                            <select class="form-control" id="sProcurarPessoa" name="sProcurarPessoa" style="width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12 form-group-sub">
+                            <span class="kt-switch kt-switch--outline kt-switch--sm kt-switch--primary">
+                                <label>
+                                    <input type="checkbox" name="cProcurarConcluido" id="cProcurarConcluido"> <div style="display: inline-block; padding-top: 4px; padding-left: 5px;">Exibir agendamentos sem parcelas abertas.</div>
+                                    <span></span>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer popup">
+                    <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate" data-dismiss="modal"><i class="la la-close"></i> Cancelar</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="bProcurar"><i class="la la-search"></i> Procurar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

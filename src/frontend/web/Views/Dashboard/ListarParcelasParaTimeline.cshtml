@@ -1,0 +1,138 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+
+@model IEnumerable<Parcela>
+@{
+    var lstData = Model != null ? Model.OrderBy(x => x.Data).Select(x => x.Data).Distinct() : new List<DateTime>();
+
+    var cont = 1;
+}
+@if (lstData?.Any() == true)
+{
+    <div class="kt-timeline-v1 kt-timeline-v1--justified ml-2">
+        <div class="kt-timeline-v1__items" style="margin-bottom: 0;">
+            <div class="kt-timeline-v1__marker"></div>
+            @foreach (var data in lstData)
+            {
+                var lstParcelaPorData = Model.Where(x => x.Data == data).OrderBy(x => x.Agendamento.CartaoCredito).ThenBy(x => x.Agendamento.Id);
+
+                <div class="kt-timeline-v1__item @(cont == 1 ? "kt-timeline-v1__item--first" : string.Empty)">
+                    <div class="kt-timeline-v1__item-circle">
+                        @if (lstParcelaPorData.Any(x => x.ObterCor() == Cor.Vermelho))
+                        {
+                            <div class="kt-bg-danger"></div>
+                        }
+                        else if (lstParcelaPorData.Any(x => x.ObterCor() == Cor.Amarelo))
+                        {
+                            <div class="kt-bg-warning"></div>
+                        }
+                        else
+                        {
+                            <div class="kt-bg-success"></div>
+                        }
+                    </div>
+                    <span class="kt-timeline-v1__item-time kt-font-primary" style="white-space:nowrap;">@(data.ToString("MMM").ToUpper().Trim())<span class="kt-font-dark">@(data.ToString("dd"))</span> <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span><span style="color:#959cb6;" class="kt-font-bold">@(data.ToString("ddd").ToUpper().Trim())</span></span>
+                    <div class="kt-timeline-v1__item-content" style="padding: 1.5rem;">
+                        <div class="kt-timeline-v1__item-body">
+                            <div class="table-responsive no-padding">
+                                <div class="kt-widget4">
+                                    @foreach (var parcela in lstParcelaPorData)
+                                    {
+                                        <div class="kt-widget4__item">
+                                            <div class="kt-widget4__pic kt-hidden-mobile">
+                                                @switch (parcela.ObterCor())
+                                                {
+                                                    case Cor.Verde:
+                                                        {
+                                                            <div class="kt-iconbox kt-iconbox--success" style="padding: 0;" data-toggle="kt-popover" data-placement="top" data-boundary="window" title="" data-content="@(parcela.Lancada ? $"Parcela lançada em {parcela.DataLancamento?.ToString("dd/MM/yyyy")}" : (!string.IsNullOrEmpty(parcela.MotivoDescarte) ? $"Motivo: {parcela.MotivoDescarte}" : "Motivo não informado."))" data-original-title="@(parcela.Lancada ? "Parcela lançada" : "Parcela descartada")">
+                                                                <div class="kt-iconbox__body">
+                                                                    <div class="kt-iconbox__icon" style="padding: 0;">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon" style="width: 25px; height:25px;">
+                                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                                <rect x="0" y="0" width="24" height="24" />
+                                                                                <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
+                                                                                <path d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z" fill="#000000" fill-rule="nonzero" />
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            break;
+                                                        }
+
+                                                    case Cor.Amarelo:
+                                                        {
+                                                            <div class="kt-iconbox kt-iconbox--warning" style="padding: 0;">
+                                                                <div class="kt-iconbox__body">
+                                                                    <div class="kt-iconbox__icon" style="padding: 0;">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon" style="width: 25px; height:25px;">
+                                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                                <rect x="0" y="0" width="24" height="24" />
+                                                                                <path d="M11.1669899,4.49941818 L2.82535718,19.5143571 C2.557144,19.9971408 2.7310878,20.6059441 3.21387153,20.8741573 C3.36242953,20.9566895 3.52957021,21 3.69951446,21 L21.2169432,21 C21.7692279,21 22.2169432,20.5522847 22.2169432,20 C22.2169432,19.8159952 22.1661743,19.6355579 22.070225,19.47855 L12.894429,4.4636111 C12.6064401,3.99235656 11.9909517,3.84379039 11.5196972,4.13177928 C11.3723594,4.22181902 11.2508468,4.34847583 11.1669899,4.49941818 Z" fill="#000000" opacity="0.3" />
+                                                                                <rect fill="#000000" x="11" y="9" width="2" height="7" rx="1" />
+                                                                                <rect fill="#000000" x="11" y="17" width="2" height="2" rx="1" />
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            break;
+                                                        }
+
+                                                    case Cor.Vermelho:
+                                                        {
+                                                            <div class="kt-iconbox kt-iconbox--danger" style="padding: 0;">
+                                                                <div class="kt-iconbox__body">
+                                                                    <div class="kt-iconbox__icon" style="padding: 0;">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon" style="width: 25px; height:25px;">
+                                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                                <rect x="0" y="0" width="24" height="24" />
+                                                                                <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
+                                                                                <path d="M12.0355339,10.6213203 L14.863961,7.79289322 C15.2544853,7.40236893 15.8876503,7.40236893 16.2781746,7.79289322 C16.6686989,8.18341751 16.6686989,8.81658249 16.2781746,9.20710678 L13.4497475,12.0355339 L16.2781746,14.863961 C16.6686989,15.2544853 16.6686989,15.8876503 16.2781746,16.2781746 C15.8876503,16.6686989 15.2544853,16.6686989 14.863961,16.2781746 L12.0355339,13.4497475 L9.20710678,16.2781746 C8.81658249,16.6686989 8.18341751,16.6686989 7.79289322,16.2781746 C7.40236893,15.8876503 7.40236893,15.2544853 7.79289322,14.863961 L10.6213203,12.0355339 L7.79289322,9.20710678 C7.40236893,8.81658249 7.40236893,8.18341751 7.79289322,7.79289322 C8.18341751,7.40236893 8.81658249,7.40236893 9.20710678,7.79289322 L12.0355339,10.6213203 Z" fill="#000000" />
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            break;
+                                                        }
+                                                }
+                                            </div>
+                                            <div class="kt-widget4__info">
+                                                <span class="kt-widget4__username kt-font-bolder">
+                                                    @(Html.Raw(!string.IsNullOrEmpty(parcela.Agendamento.CartaoCredito) ? $"<i class=\"fa fa-credit-card kt-font-sm pr-2\"></i>{parcela.Agendamento.CartaoCredito}" : $"<i class=\"fa fa-university kt-font-sm pr-2\"></i>{parcela.Agendamento.Conta}")) @(Html.Raw(!string.IsNullOrEmpty(parcela.Agendamento.Pessoa) ? $"<span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> <span class=\"kt-font-bold\">{parcela.Agendamento.Pessoa}</span><br/>" : string.Empty))
+                                                </span>
+                                                <p class="kt-widget4__text">
+                                                    <i class="fa fa-tag kt-font-@(parcela.Agendamento.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") kt-font-sm"></i> @parcela.Agendamento.CategoriaCaminho<br />
+                                                    @(Html.Raw(!string.IsNullOrEmpty(parcela.Observacao) ? $"<span class=\"kt-font-bold\">{parcela.Observacao}</span> <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> Parcela {parcela.Numero} de {parcela.Agendamento.QuantidadeParcelas}" : $"Parcela {parcela.Numero} de {parcela.Agendamento.QuantidadeParcelas}"))
+                                                    @if (parcela.Lancada || parcela.Descartada)
+                                                    {
+                                                        <br />
+                                                        <span class="kt-font-success kt-font-bold kt-font-sm">@(parcela.Lancada ? $"Lançada em {parcela.DataLancamento?.ToString("dd/MM/yyyy")}" : (!string.IsNullOrEmpty(parcela.MotivoDescarte) ? $"Descartada: {parcela.MotivoDescarte}" : "Descartada"))</span>
+                                                    }
+                                                </p>
+                                            </div>
+                                            <div class="pr-1 pl-1">
+                                                <span class="kt-font-@(parcela.Agendamento.ObterTipo() == TipoCategoria.Credito ? "success" : "danger")">@parcela.ObterValorEmReais()</span>
+                                            </div>
+                                            <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables visualizar-agendamento" data-id-agendamento="@parcela.Agendamento.Id" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Visualizar agendamento"><i class="fa fa-calendar-alt"></i></a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                cont++;
+
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center">Nenhuma parcela encontrada para o período.</div>
+}

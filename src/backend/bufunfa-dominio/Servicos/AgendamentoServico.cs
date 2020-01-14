@@ -15,6 +15,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
     {
         private readonly IAgendamentoRepositorio _agendamentoRepositorio;
         private readonly ICartaoCreditoRepositorio _cartaoCreditoRepositorio;
+        private readonly ICartaoCreditoServico _cartaoCreditoServico;
         private readonly ICategoriaRepositorio _categoriaRepositorio;
         private readonly IContaRepositorio _contaRepositorio;
         private readonly ILancamentoRepositorio _lancamentoRepositorio;
@@ -30,10 +31,12 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             ILancamentoRepositorio lancamentoRepositorio,
             IParcelaRepositorio parcelaRepositorio,
             IPessoaRepositorio pessoaRepositorio,
+            ICartaoCreditoServico cartaoCreditoServico,
             IUnitOfWork uow)
         {
             _agendamentoRepositorio   = agendamentoRepositorio;
             _cartaoCreditoRepositorio = cartaoCreditoRepositorio;
+            _cartaoCreditoServico     = cartaoCreditoServico;
             _categoriaRepositorio     = categoriaRepositorio;
             _contaRepositorio         = contaRepositorio;
             _lancamentoRepositorio    = lancamentoRepositorio;
@@ -90,7 +93,13 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
                     .NotificarSeVerdadeiro(conta?.Tipo == TipoConta.RendaVariavel, AgendamentoMensagem.Tipo_Conta_Invalida);
             }
             else
-                this.NotificarSeFalso(await _cartaoCreditoRepositorio.VerificarExistenciaPorId(entrada.IdUsuario, entrada.IdCartaoCredito.Value), CartaoCreditoMensagem.Id_Cartao_Nao_Existe);
+            {
+                var cartao = (CartaoCreditoSaida)(await _cartaoCreditoServico.ObterCartaoCreditoPorId(entrada.IdCartaoCredito.Value, entrada.IdUsuario)).Retorno;
+
+                this
+                    .NotificarSeNulo(cartao, CartaoCreditoMensagem.Id_Cartao_Nao_Existe)
+                    .NotificarSeVerdadeiro(cartao != null && (cartao.ValorLimiteDisponivel ?? 0) < entrada.QuantidadeParcelas * entrada.ValorParcela, $"O valor total do agendamento ({(entrada.QuantidadeParcelas * entrada.ValorParcela).ToString("C2")}) é superior ao valor do limite disponível para o cartão ({cartao.ValorLimiteDisponivel?.ToString("C2")}).");
+            }
 
             // Verifica se a pessoa existe a partir do ID informado.
             if (entrada.IdPessoa.HasValue)
@@ -114,7 +123,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             if (entrada.Invalido)
                 return new Saida(false, entrada.Mensagens, null);
 
-            var agendamento = await _agendamentoRepositorio.ObterPorId(idAgendamento, true);
+            var agendamento = await _agendamentoRepositorio.ObterPorId(idAgendamento);
 
             // Verifica se o agendamento existe
             this.NotificarSeNulo(agendamento, string.Format(AgendamentoMensagem.Id_Agendamento_Nao_Existe, idAgendamento));
@@ -218,7 +227,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             if (entrada.Invalido)
                 return new Saida(false, entrada.Mensagens, null);
 
-            var agendamento = await _agendamentoRepositorio.ObterPorId(idAgendamento, true);
+            var agendamento = await _agendamentoRepositorio.ObterPorId(idAgendamento);
 
             // Verifica se o agendamento existe
             this.NotificarSeNulo(agendamento, AgendamentoMensagem.Id_Agendamento_Nao_Existe);
@@ -250,7 +259,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             if (entrada.Invalido)
                 return new Saida(false, entrada.Mensagens, null);
 
-            var parcela = await _parcelaRepositorio.ObterPorId(idParcela, true);
+            var parcela = await _parcelaRepositorio.ObterPorId(idParcela);
 
             // Verifica se a parcela existe
             this.NotificarSeNulo(parcela, ParcelaMensagem.Id_Parcela_Nao_Existe);
@@ -282,7 +291,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             if (entrada.Invalido)
                 return new Saida(false, entrada.Mensagens, null);
 
-            var parcela = await _parcelaRepositorio.ObterPorId(idParcela, true);
+            var parcela = await _parcelaRepositorio.ObterPorId(idParcela);
 
             // Verifica se a parcela existe
             this.NotificarSeNulo(parcela, ParcelaMensagem.Id_Parcela_Nao_Existe);
@@ -335,7 +344,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             if (entrada.Invalido)
                 return new Saida(false, entrada.Mensagens, null);
 
-            var parcela = await _parcelaRepositorio.ObterPorId(idParcela, true);
+            var parcela = await _parcelaRepositorio.ObterPorId(idParcela);
 
             // Verifica se a parcela existe
             this.NotificarSeNulo(parcela, string.Format(ParcelaMensagem.Id_Parcela_Nao_Existe, idParcela));
@@ -374,7 +383,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             if (this.Invalido)
                 return new Saida(false, this.Mensagens, null);
 
-            var parcela = await _parcelaRepositorio.ObterPorId(idParcela, true);
+            var parcela = await _parcelaRepositorio.ObterPorId(idParcela);
 
             // Verifica se a parcela existe
             this.NotificarSeNulo(parcela, ParcelaMensagem.Id_Parcela_Nao_Existe);

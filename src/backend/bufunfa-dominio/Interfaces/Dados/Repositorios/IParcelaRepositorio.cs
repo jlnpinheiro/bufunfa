@@ -13,18 +13,17 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         /// <summary>
         /// Obtém uma parcela a partir do seu ID
         /// </summary>
-        /// <param name="habilitarTracking">Indica que o tracking do EF deverá estar habilitado, permitindo alteração dos dados.</param>
-        Task<Parcela> ObterPorId(int idParcela, bool habilitarTracking = false);
+        Task<Parcela> ObterPorId(int idParcela);
 
         /// <summary>
         /// Obtém as parcelas não lançadas e não descartadas associadas a um determinado cartão de crédito.
         /// </summary>
-        Task<IEnumerable<Parcela>> ObterPorCartaoCredito(int idCartaoCredito, DateTime? dataFatura = null, bool habilitarTracking = false);
+        Task<IEnumerable<Parcela>> ObterPorCartaoCredito(int idCartaoCredito, DateTime? dataFatura = null);
 
         /// <summary>
         /// Obtém as parcelas associadas a uma determinado fatura de cartão de crédito.
         /// </summary>
-        Task<IEnumerable<Parcela>> ObterPorFatura(int idFatura, bool habilitarTracking = false);
+        Task<IEnumerable<Parcela>> ObterPorFatura(int idFatura);
 
         /// <summary>
         /// Obtém as parcelas pertencentes a um determinado intervalo de tempo

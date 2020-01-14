@@ -1,10 +1,9 @@
-﻿using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
-using JNogueira.Bufunfa.Dominio.Resources;
+﻿using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.Infraestrutura.NotifiqueMe;
 
 namespace JNogueira.Bufunfa.Dominio.Comandos
 {
-    public class AtalhoEntrada : Notificavel, IEntrada
+    public class AtalhoEntrada : Notificavel
     {
         /// <summary>
         /// Id do usuário

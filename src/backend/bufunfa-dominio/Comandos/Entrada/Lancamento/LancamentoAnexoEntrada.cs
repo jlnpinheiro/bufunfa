@@ -1,11 +1,10 @@
-﻿using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
-using JNogueira.Bufunfa.Dominio.Resources;
+﻿using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.Infraestrutura.NotifiqueMe;
 using System;
 
 namespace JNogueira.Bufunfa.Dominio.Comandos
 {
-    public class LancamentoAnexoEntrada : Notificavel, IEntrada
+    public class LancamentoAnexoEntrada : Notificavel
     {
         /// <summary>
         /// Id do usuário

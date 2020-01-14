@@ -1,0 +1,176 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+@using JNogueira.Bufunfa.Web.Helpers
+
+@inject CustomHtmlHelper customHtmlHelper
+
+@{
+    ViewData["Titulo"] = "Dashboard";
+    Layout = "_Master";
+
+    var periodoAtual = ViewBag.PeriodoAtual != null ? (Periodo)ViewBag.PeriodoAtual : null;
+}
+
+@section ViewsJs
+{
+    <environment include="Development">
+        <script src="~/js/views/dashboard.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/views/dashboard.min.js"></script>
+    </environment>
+}
+
+<div class="row">
+    <div class="col-xl-6 order-lg-1 order-xl-1">
+
+        <!--Begin::Portlet-->
+        <div class="kt-portlet kt-portlet--height-fluid" data-ktportlet="true" id="portlet-timeline">
+            <div class="kt-portlet__head popup">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon kt-hidden-mobile">
+                        <i class="flaticon-calendar-with-a-clock-time-tools"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-title">
+                        Timeline de parcelas
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-actions">
+                        <a href="#" data-toggle="modal" data-target="#mProcurar-Timeline" data-backdrop="static" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-filter"></i></a>
+                        <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body kt-scroll" data-scroll="true" data-height="700" data-mobile-height="300">
+                <div id="div-timeline"></div>
+            </div>
+        </div>
+
+        <!--End::Portlet-->
+    </div>
+    <div class="col-xl-6 order-lg-1 order-xl-1">
+        <div class="kt-portlet" data-ktportlet="true">
+            <div class="kt-portlet__head popup">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon kt-hidden-mobile">
+                        <i class="fa fa-university"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-title">Contas<small>Saldo disponível</small></h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-actions">
+                        <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="kt-portlet__content">
+                    <div id="div-listar-contas"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-portlet" data-ktportlet="true">
+            <div class="kt-portlet__head popup">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon kt-hidden-mobile">
+                        <i class="fa fa-credit-card"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-title">Cartões<small>Limite disponível</small></h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-actions">
+                        <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="kt-portlet__content">
+                    <div id="div-listar-cartoes"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-portlet" data-ktportlet="true">
+            <div class="kt-portlet__head popup">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon kt-hidden-mobile">
+                        <i class="flaticon2-line-chart"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-title">Ativos</h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-actions">
+                        <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="kt-portlet__content">
+                    <div id="div-listar-acoes"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mProcurar-Timeline" role="dialog">
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+        <div class="modal-content" style="border: none;">
+            <form class="kt-form kt-form--label-right" id="form-filtro-parcelas-timeline">
+                <div class="modal-header popup">
+                    <h5 class="modal-title" id="exampleModalLabel">Filtro <small>Timeline de parcelas</small></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-sm-12 form-group-sub">
+                            <label for="sProcurarPeriodo">Período</label><br />
+                            <select class="form-control" id="sProcurarPeriodo" name="sProcurarPeriodo" style="width: 100%;">
+                                @if (periodoAtual != null)
+                                {
+                                    <option value="@periodoAtual.Id" data-dataInicio="@periodoAtual.DataInicio.ToString("dd/MM/yyyy 00:00:00")" data-dataFim="@periodoAtual.DataFim.ToString("dd/MM/yyyy 23:59:59")">@periodoAtual.Nome</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 form-group-sub">
+                            <div class="form-group">
+                                <label>Início do período</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                <div class="input-group date">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
+                                    <input type="text" class="form-control datepicker" id="iProcurarDataInicio" name="iProcurarDataInicio" value="@(periodoAtual != null ? periodoAtual.DataInicio.ToString("dd/MM/yyyy") : new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("dd/MM/yyyy"))" @(periodoAtual != null ? "disabled" : string.Empty)>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group-sub">
+                            <div class="form-group">
+                                <label>Término do período</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                <div class="input-group date">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
+                                    <input type="text" class="form-control datepicker" id="iProcurarDataFim" name="iProcurarDataFim" value="@(periodoAtual != null ? periodoAtual.DataFim.ToString("dd/MM/yyyy") : new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("dd/MM/yyyy"))" @(periodoAtual != null ? "disabled" : string.Empty)>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12 form-group-sub">
+                            <span class="kt-switch kt-switch--outline kt-switch--sm kt-switch--primary">
+                                <label>
+                                    <input type="checkbox" name="cExibirParcelasAbertasTimeline" id="cExibirParcelasAbertasTimeline" checked> <div style="display: inline-block; padding-top: 4px; padding-left: 5px;">Exibir somente parcelas abertas.</div>
+                                    <span></span>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer popup">
+                    <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate" data-dismiss="modal"><i class="la la-close"></i> Cancelar</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="bFiltrarParcelasTimeline"><i class="la la-filter"></i> Filtrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

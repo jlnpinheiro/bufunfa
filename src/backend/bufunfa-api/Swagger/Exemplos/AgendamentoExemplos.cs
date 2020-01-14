@@ -131,10 +131,8 @@ namespace JNogueira.Bufunfa.Api.Swagger.Exemplos
                 IdCategoria = 80,
                 IdConta = 1,
                 IdPessoa = null,
-                OrdenarPor = "DataProximaParcelaAberta",
-                OrdenarSentido = "ASC",
                 PaginaIndex = 1,
-                PaginaTamanho = 30
+                PaginaTamanho = 10
             };
         }
     }

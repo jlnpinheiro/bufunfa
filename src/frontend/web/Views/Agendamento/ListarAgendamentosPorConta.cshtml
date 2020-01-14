@@ -1,0 +1,51 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+
+@model IEnumerable<Agendamento>
+
+<div class="table-responsive no-padding">
+    <table class="table table-hover table-striped table-sm" style="width:100%;">
+        <thead>
+            <tr>
+                <th style="width:25%;">Pessoa</th>
+                <th style="width:50%;">Categoria</th>
+                <th style="width:25%;">Observação</th>
+                <th style="white-space: nowrap;" class="text-center">Próxima parcela</th>
+                <th style="white-space: nowrap;" class="text-center">Parcelas fechadas</th>
+                <th style="white-space: nowrap;" class="text-center">Última parcela</th>
+                <th style="white-space: nowrap;" class="text-right">Valor total</th>
+                <th style="width:1px;"></th>
+                <th style="width:1px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var agendamento in Model)
+            {
+                <tr>
+                    <td style="white-space: nowrap;">@agendamento.Pessoa?.Nome</td>
+                    <td style="white-space: nowrap;"><i class="fa fa-tag kt-font-@(agendamento.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") kt-font-sm"></i> @agendamento.Categoria.Caminho</td>
+                    <td style="white-space: nowrap;">@agendamento.Observacao</td>
+                    <td style="white-space: nowrap;" class="text-right">
+                        @if (agendamento.DataProximaParcelaAberta.HasValue)
+                        {
+                            @agendamento.DataProximaParcelaAberta?.ToString("dd/MM/yyyy")<span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm ml-2 mr-2"></span><span class="kt-font-@(agendamento.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger")">@agendamento.ObterValorProximaParcelaEmReais()</span>
+                        }
+                    </td>
+                    <td style="white-space: nowrap;" class="text-center kt-font-sm">
+                        <div class="pb-1">@(agendamento.QuantidadeParcelasFechadas) de @(agendamento.QuantidadeParcelas) <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <span class="kt-font-bold">@(agendamento.PercentualConclusao.ToString("N0"))%</span></div>
+                        <div class="progress" style="height:10px;">
+                            <div class="progress-bar progress-bar-striped bg-dark" role="progressbar" style="width: @(agendamento.PercentualConclusao.ToString("N0"))%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </td>
+                    <td style="white-space: nowrap;" class="text-center">@agendamento.DataUltimaParcelaAberta?.ToString("dd/MM/yyyy")</td>
+                    <td style="white-space: nowrap;" class="kt-font-@(agendamento.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") kt-font-bold text-right coluna-valor">@agendamento.ObterValorTotalEmReais()</td>
+                    <td>
+                        <button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables alterar-agendamento" data-id="@agendamento.Id" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Alterar"><span class="la la-edit"></span></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables excluir-agendamento" data-id="@agendamento.Id" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Excluir"><span class="la la-trash"></span></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

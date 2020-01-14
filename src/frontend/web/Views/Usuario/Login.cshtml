@@ -1,0 +1,378 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<!-- begin::Head -->
+<head>
+    <!--begin::Base Path (base relative path for assets of this page) -->
+    <base href="../../../../"><!--end::Base Path -->
+    <meta charset="utf-8" />
+
+    <title>Bufunfa! Gerenciador financeiro</title>
+    <meta name="description" content="Sistema de gestão financeira pessoal contruído para a plataforma ASP.Net Core">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--begin::Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
+    <!--end::Fonts -->
+    <!--begin::Global Theme Styles(used by all pages) -->
+    <link href="~/plugins/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/vendors/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" type="text/css" />
+    <!--end::Global Theme Styles -->
+    <!--begin::Global Theme Styles(used by all pages) -->
+    <environment include="Development">
+        <link href="~/css/style.bundle.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/app-modal.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/bufunfa.css" rel="stylesheet" type="text/css" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/css/style.bundle.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/app-modal.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/bufunfa.min.css" rel="stylesheet" type="text/css" />
+    </environment>
+    <!--end::Global Theme Styles -->
+    <style>
+        .kt-login.kt-login--v2 {
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+            .kt-login.kt-login--v2 .kt-login__wrapper {
+                padding: 6% 2rem 1rem 2rem;
+                margin: 0 auto 2rem auto;
+                overflow: hidden;
+            }
+
+                .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container {
+                    width: 430px;
+                    margin: 0 auto;
+                }
+
+                    .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-login__logo {
+                        text-align: center;
+                        margin: 0 auto 4rem auto;
+                    }
+
+                    .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-login__head {
+                        margin-top: 1rem;
+                    }
+
+                        .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-login__head .kt-login__title {
+                            text-align: center;
+                            font-size: 1.5rem;
+                            font-weight: 500;
+                            color: #333;
+                        }
+
+                        .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-login__head .kt-login__desc {
+                            margin-top: 1.5rem;
+                            text-align: center;
+                            font-size: 1.1rem;
+                            font-weight: 400;
+                            color: #666;
+                        }
+
+                    .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form {
+                        margin: 0 auto;
+                    }
+
+                        .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .input-group {
+                            padding: 0;
+                            margin: 0 auto;
+                        }
+
+                        .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .form-control {
+                            height: 40px;
+                            border: 1px solid #ccc;
+                            padding-left: 1.5rem;
+                            padding-right: 1.5rem;
+                            margin-top: 1.5rem;
+                            background: #f9f9f9;
+                            opacity: 0.6;
+                            color: #000;
+                        }
+
+                            .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .form-control::-moz-placeholder {
+                                color: #333;
+                                opacity: 1;
+                            }
+
+                            .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .form-control:-ms-input-placeholder {
+                                color: #333;
+                            }
+
+                            .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .form-control::-webkit-input-placeholder {
+                                color: #333;
+                            }
+
+                            .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .form-control.is-valid + .valid-feedback,
+                            .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .form-control.is-invalid + .invalid-feedback {
+                                font-weight: 500;
+                                font-size: 0.9rem;
+                                padding-left: 1.6rem;
+                            }
+
+                        .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__extra {
+                            padding-left: 7px;
+                            padding-right: 7px;
+                            margin: 15px auto;
+                            color: #333;
+                            font-size: 1rem;
+                        }
+
+                            .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__extra .kt-checkbox {
+                                font-size: 1rem;
+                            }
+
+                                .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__extra .kt-checkbox > span {
+                                    border: 1px solid #666;
+                                }
+
+                                .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__extra .kt-checkbox input:checked ~ span {
+                                    border: 1px solid #666;
+                                }
+
+                                    .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__extra .kt-checkbox input:checked ~ span:after {
+                                        border: solid #666;
+                                    }
+
+                            .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__extra .kt-login__link {
+                                font-size: 1rem;
+                                color: #666;
+                            }
+
+                                .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__extra .kt-login__link:hover {
+                                    color: #333;
+                                }
+
+                        .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__actions {
+                            text-align: center;
+                            margin-top: 7%;
+                        }
+
+                            .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__actions .kt-login__btn-primary,
+                            .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__actions .kt-login__btn-secondary {
+                                height: 46px;
+                                display: inline-block;
+                                text-align: center;
+                                padding-left: 4rem;
+                                padding-right: 4rem;
+                                margin-top: 0.8rem;
+                                border-radius: 60px;
+                                background: #3C8DBC;
+                                color: #fff;
+                            }
+
+                                .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__actions .kt-login__btn-primary.active, .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__actions .kt-login__btn-primary:active, .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__actions .kt-login__btn-primary:hover,
+                                .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__actions .kt-login__btn-secondary.active,
+                                .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__actions .kt-login__btn-secondary:active,
+                                .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__actions .kt-login__btn-secondary:hover {
+                                    background: #367FA9;
+                                    color: #fff;
+                                }
+
+                            .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__actions .kt-login__btn-secondary {
+                                color: rgba(255, 255, 255, 0.4);
+                                border-color: rgba(255, 255, 255, 0.3);
+                            }
+
+                                .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__actions .kt-login__btn-secondary.active, .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__actions .kt-login__btn-secondary:active, .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .kt-login__actions .kt-login__btn-secondary:hover {
+                                    color: #fff;
+                                    border-color: #fff;
+                                }
+
+                    .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-login__account {
+                        text-align: center;
+                        margin-top: 2rem;
+                    }
+
+                        .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-login__account .kt-login__account-link {
+                            font-size: 1.1rem;
+                            font-weight: 500;
+                        }
+
+            .kt-login.kt-login--v2.kt-login--signin .kt-login__signup {
+                display: none;
+            }
+
+            .kt-login.kt-login--v2.kt-login--signin .kt-login__signin {
+                display: block;
+            }
+
+            .kt-login.kt-login--v2.kt-login--signin .kt-login__forgot {
+                display: none;
+            }
+
+            .kt-login.kt-login--v2.kt-login--signup .kt-login__signup {
+                display: block;
+            }
+
+            .kt-login.kt-login--v2.kt-login--signup .kt-login__signin {
+                display: none;
+            }
+
+            .kt-login.kt-login--v2.kt-login--signup .kt-login__forgot {
+                display: none;
+            }
+
+            .kt-login.kt-login--v2.kt-login--signup .kt-login__account {
+                display: none;
+            }
+
+            .kt-login.kt-login--v2.kt-login--forgot .kt-login__signup {
+                display: none;
+            }
+
+            .kt-login.kt-login--v2.kt-login--forgot .kt-login__signin {
+                display: none;
+            }
+
+            .kt-login.kt-login--v2.kt-login--forgot .kt-login__forgot {
+                display: block;
+            }
+
+        .kt-link:hover:after {
+            border-bottom: 1px solid #333;
+            opacity: 0.3;
+        }
+
+        @@media (max-width: 1024px) {
+            .kt-login.kt-login--v2 .kt-login__wrapper {
+                padding-top: 5rem;
+                width: 100%;
+            }
+
+                .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container {
+                    margin: 0 auto;
+                }
+
+                    .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-login__account {
+                        margin-top: 10rem;
+                    }
+        }
+
+        @@media (max-width: 768px) {
+            .kt-login.kt-login--v2 .kt-login__wrapper {
+                width: 100%;
+            }
+
+                .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container {
+                    width: 100%;
+                    max-width: 400px;
+                    margin: 0 auto;
+                }
+
+                    .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form {
+                        width: 100%;
+                        margin: 0 auto;
+                    }
+
+                    .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-login__actions .kt-login__btn-submit {
+                        padding: 0.8rem 3rem;
+                    }
+
+                    .kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-login__account {
+                        margin-top: 1.5rem;
+                    }
+        }
+    </style>
+    <link rel="shortcut icon" href="~/img/favicon.png" />
+</head>
+<!-- end::Head -->
+<!-- begin::Body -->
+<body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--fixed kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
+    <!-- begin:: Page -->
+    <div class="kt-grid kt-grid--ver kt-grid--root">
+        <div class="kt-grid kt-grid--hor kt-grid--root kt-login kt-login--v2 kt-login--signin" id="kt_login">
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background-image: url(./img/bg-1.jpg); background-position: center;">
+                <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
+                    <div class="kt-login__container">
+                        <div class="kt-login__logo">
+                            <img src="~/img/logo-login.png">
+                        </div>
+                        <div class="kt-login__signin">
+                            <div class="kt-login__head">
+                                <h3 class="kt-login__title">Login</h3>
+                            </div>
+                            <form class="kt-form" action="">
+                                @Html.AntiForgeryToken()
+                                <div class="input-group">
+                                    <input class="form-control" type="text" placeholder="E-mail" name="email" id="email" autocomplete="off">
+                                </div>
+                                <div class="input-group">
+                                    <input class="form-control" type="password" placeholder="Senha" name="password" id="password">
+                                </div>
+                                <div class="row kt-login__extra">
+                                    <div class="col">
+                                        <label class="kt-checkbox">
+                                            <input type="checkbox" name="remember" id="remember"> Permanecer logado
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                    @*<div class="col kt-align-right">
+                                        <a href="javascript:;" id="kt_login_forgot" class="kt-link kt-login__link">Esqueceu a senha ?</a>
+                                    </div>*@
+                                </div>
+                                <div class="kt-login__actions">
+                                    <button id="kt_login_signin_submit" class="btn btn-pill kt-login__btn-primary">Entrar</button>
+                                </div>
+                            </form>
+                        </div>
+                        @*<div class="kt-login__forgot">
+                            <div class="kt-login__head">
+                                <h3 class="kt-login__title">Esqueceu a senha ?</h3>
+                                <div class="kt-login__desc">Informe seu e-mail para resetar sua senha:</div>
+                            </div>
+                            <form class="kt-form" action="">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" placeholder="E-mail" name="email" id="kt_email" autocomplete="off">
+                                </div>
+                                <div class="kt-login__actions">
+                                    <button id="kt_login_forgot_submit" class="btn btn-pill kt-login__btn-primary">Resetar</button>&nbsp;&nbsp;
+                                    <button id="kt_login_forgot_cancel" class="btn btn-pill kt-login__btn-secondary">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end:: Page -->
+    <!-- begin::Global Config(global config for global JS sciprts) -->
+    <script>
+        var KTAppOptions = { "colors": { "state": { "brand": "#5d78ff", "dark": "#282a3c", "light": "#ffffff", "primary": "#5867dd", "success": "#34bfa3", "info": "#36a3f7", "warning": "#ffb822", "danger": "#fd3995" }, "base": { "label": ["#c5cbe3", "#a1a8c3", "#3d4465", "#3e4466"], "shape": ["#f0f3ff", "#d9dffa", "#afb4d4", "#646c9a"] } } };
+    </script>
+    <!-- end::Global Config -->
+    <!--begin::Global Theme Bundle(used by all pages) -->
+    <script src="~/plugins/plugins.bundle.js" type="text/javascript"></script>
+    <script src="~/js/scripts.bundle.js" type="text/javascript"></script>
+    <!--end::Global Theme Bundle -->
+    <!--begin:: Global Mandatory Vendors -->
+    <script src="~/vendors/jquery-confirm/jquery-confirm.min.js" type="text/javascript"></script>
+    <!--end:: Global Mandatory Vendors -->
+    <!--begin::Global Theme Bundle(used by all pages) -->
+    <environment include="Development">
+        <script src="~/js/app.js" type="text/javascript"></script>
+        <script src="~/js/app-modal.js" type="text/javascript"></script>
+        <script src="~/js/app-feedback.js" type="text/javascript"></script>
+        <script src="~/js/views/usuario-login.js" type="text/javascript"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/app.min.js" type="text/javascript"></script>
+        <script src="~/js/app-modal.min.js" type="text/javascript"></script>
+        <script src="~/js/app-feedback.min.js" type="text/javascript"></script>
+        <script src="~/js/views/usuario-login.min.js" type="text/javascript"></script>
+    </environment>
+    <script>
+        $(document).ajaxSend(function (e, xhr, options) {
+            if (options.type.toUpperCase() == "POST") {
+                var token = $("input[name='__RequestVerificationToken']").val();
+                xhr.setRequestHeader("RequestVerificationToken", token);
+            }
+        });
+    </script>
+    <!--end::Global Theme Bundle -->
+</body>
+<!-- end::Body -->
+</html>

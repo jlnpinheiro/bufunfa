@@ -1,0 +1,40 @@
+﻿@using JNogueira.Bufunfa.Web.Helpers
+
+@model JNogueira.Bufunfa.Web.Models.Atalho
+
+<div class="kt-portlet app-modal-md" style="margin-bottom:0;">
+    <div class="kt-portlet__head popup">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                @(Model == null ? "Adicionar" : "Alterar") atalho
+            </h3>
+        </div>
+    </div>
+    <form class="kt-form kt-form--label-right" id="form-manter-atalho">
+        <input type="hidden" id="iIdAtalho" name="iIdAtalho" value="@(Model != null ? Model.Id.ToString() : string.Empty)">
+        <div class="kt-portlet__body">
+            <div class="form-group row">
+                <div class="col-lg-12">
+                    <label>Nome</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                    <input type="text" class="form-control" id="iTitulo" name="iTitulo" value="@Model?.Titulo">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-12">
+                    <label>URL</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                    <input type="text" class="form-control" id="iUrl" name="iUrl" value="@Model?.Url">
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__foot popup">
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-12 kt-align-right">
+                        <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Cancelar</button>
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="la la-check"></i> Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

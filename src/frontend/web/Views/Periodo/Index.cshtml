@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Titulo"] = "Períodos";
+    Layout = "_Master";
+}
+
+@section VendorsCss
+{
+    <link rel="stylesheet" href="~/plugins/custom/datatables/datatables.bundle.css">
+}
+
+@section VendorsJs
+{
+    <script src="~/plugins/custom/datatables/datatables.bundle.js"></script>
+}
+
+@section ViewsJs
+{
+    <environment include="Development">
+        <script src="~/js/views/periodo.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/views/periodo.min.js"></script>
+    </environment>
+}
+
+<div class="row mb-3">
+    <div class="col-sm-12">
+        <button class="btn btn-sm btn-secondary btn-hover-primary" id="btn-cadastrar-periodo">
+            <i class="la la-plus"></i>Adicionar
+        </button>
+    </div>
+</div>
+
+<div class="kt-portlet">
+    <div class="kt-portlet__body">
+        <table class="table table-striped table-hover table-sm" id="tblPeriodo">
+            <thead>
+                <tr>
+                    <th class="text-nowrap">Nome</th>
+                    <th class="text-nowrap">Início em</th>
+                    <th class="text-nowrap">Término em</th>
+                    <th style="padding-top:0;"></th>
+                    <th style="padding-top:0;"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

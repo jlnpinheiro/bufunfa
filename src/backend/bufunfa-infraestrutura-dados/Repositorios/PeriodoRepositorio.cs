@@ -19,15 +19,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             _efContext = efContext;
         }
 
-        public async Task<Periodo> ObterPorId(int idPeriodo, bool habilitarTracking = false)
-        {
-            var query = _efContext.Periodos.AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.FirstOrDefaultAsync(x => x.Id == idPeriodo);
-        }
+        public async Task<Periodo> ObterPorId(int idPeriodo) => await _efContext.Periodos.FirstOrDefaultAsync(x => x.Id == idPeriodo);
 
         public async Task<Periodo> ObterPorData(DateTime data, int idUsuario)
         {
@@ -77,10 +69,10 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             }
             else
             {
-                var totalRegistros = await query.CountAsync();
+                var totalRegistros = query.Count();
 
                 return new ProcurarSaida(
-                    (await query.ToListAsync()).Select(x => new PeriodoSaida(x)),
+                    query.ToList().Select(x => new PeriodoSaida(x)),
                     procurarEntrada.OrdenarPor,
                     procurarEntrada.OrdenarSentido,
                     totalRegistros);

@@ -13,8 +13,7 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         /// <summary>
         /// Obtém uma conta a partir do seu ID
         /// </summary>
-        /// <param name="habilitarTracking">Indica que o tracking do EF deverá estar habilitado, permitindo alteração dos dados.</param>
-        Task<Conta> ObterPorId(int idConta, bool habilitarTracking = false);
+        Task<Conta> ObterPorId(int idConta);
 
         /// <summary>
         /// Obtém as contas de um usuário.

@@ -6,7 +6,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:5000",
-      "launchBrowser": true
+      "launchBrowser": false
     },
     "PRD": {
       "commandName": "Project",

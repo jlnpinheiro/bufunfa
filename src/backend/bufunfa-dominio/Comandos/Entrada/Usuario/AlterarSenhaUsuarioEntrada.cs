@@ -1,10 +1,9 @@
-﻿using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
-using JNogueira.Infraestrutura.NotifiqueMe;
+﻿using JNogueira.Infraestrutura.NotifiqueMe;
 using NETCore.Encrypt.Extensions;
 
 namespace JNogueira.Bufunfa.Dominio.Comandos
 {
-    public class AlterarSenhaUsuarioEntrada : Notificavel, IEntrada
+    public class AlterarSenhaUsuarioEntrada : Notificavel
     {
         public string Email { get; }
         

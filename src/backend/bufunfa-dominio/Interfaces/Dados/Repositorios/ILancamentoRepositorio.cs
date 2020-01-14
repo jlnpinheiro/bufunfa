@@ -14,14 +14,12 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         /// <summary>
         /// Obtém um lançamento a partir do seu ID
         /// </summary>
-        /// <param name="habilitarTracking">Indica que o tracking do EF deverá estar habilitado, permitindo alteração dos dados.</param>
-        Task<Lancamento> ObterPorId(int idLancamento, bool habilitarTracking = false);
+        Task<Lancamento> ObterPorId(int idLancamento);
 
         /// <summary>
         /// Obtém os lançamentos relacionadas a uma transferência, a partir do ID da transferência
         /// </summary>
-        /// <param name="habilitarTracking">Indica que o tracking do EF deverá estar habilitado, permitindo alteração dos dados.</param>
-        Task<IEnumerable<Lancamento>> ObterPorIdTransferencia(string idTransferencia, bool habilitarTracking = false);
+        Task<IEnumerable<Lancamento>> ObterPorIdTransferencia(string idTransferencia);
 
         /// <summary>
         /// Obtém os lançamentos de um usuário.

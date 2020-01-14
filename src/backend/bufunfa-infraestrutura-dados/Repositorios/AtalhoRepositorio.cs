@@ -18,15 +18,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             _efContext = efContext;
         }
 
-        public async Task<Atalho> ObterPorId(int idAtalho, bool habilitarTracking = false)
-        {
-            var query = _efContext.Atalhos.AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.FirstOrDefaultAsync(x => x.Id == idAtalho);
-        }
+        public async Task<Atalho> ObterPorId(int idAtalho) => await _efContext.Atalhos.FirstOrDefaultAsync(x => x.Id == idAtalho);
 
         public async Task<IEnumerable<Atalho>> ObterPorUsuario(int idUsuario) => await _efContext.Atalhos.Where(x => x.IdUsuario == idUsuario).OrderBy(x => x.Titulo).ToListAsync();
         

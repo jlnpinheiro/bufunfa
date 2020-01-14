@@ -72,7 +72,7 @@ namespace JNogueira.Bufunfa.Api.Controllers
         [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(ProcurarAgendamentoResponseExemplo))]
         public async Task<IActionResult> Procurar([FromBody, SwaggerParameter("Parâmetros utilizados para realizar a procura.", Required = true)] ProcurarAgendamentoViewModel model)
         {
-            var entrada = new ProcurarAgendamentoEntrada(base.ObterIdUsuarioClaim(), model.OrdenarPor, model.OrdenarSentido, model.PaginaIndex, model.PaginaTamanho)
+            var entrada = new ProcurarAgendamentoEntrada(base.ObterIdUsuarioClaim())
             {
                 DataFimParcela    = model.DataFimParcela,
                 DataInicioParcela = model.DataInicioParcela,
@@ -80,7 +80,9 @@ namespace JNogueira.Bufunfa.Api.Controllers
                 IdCategoria       = model.IdCategoria,
                 IdConta           = model.IdConta,
                 IdPessoa          = model.IdPessoa,
-                Concluido         = model.Concluido
+                Concluido         = model.Concluido,
+                PaginaIndex       = model.PaginaIndex,
+                PaginaTamanho     = model.PaginaTamanho
             };
 
             return new ApiResult(await _agendamentoServico.ProcurarAgendamentos(entrada));

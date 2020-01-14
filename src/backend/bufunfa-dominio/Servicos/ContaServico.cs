@@ -98,7 +98,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             if (entrada.Invalido)
                 return new Saida(false, entrada.Mensagens, null);
 
-            var conta = await _contaRepositorio.ObterPorId(idConta, true);
+            var conta = await _contaRepositorio.ObterPorId(idConta);
 
             // Verifica se a conta existe
             this.NotificarSeNulo(conta, string.Format(ContaMensagem.Id_Conta_Nao_Existe, idConta));

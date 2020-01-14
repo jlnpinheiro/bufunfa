@@ -12,8 +12,7 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         /// <summary>
         /// Obtém um atalho a partir do seu ID
         /// </summary>
-        /// <param name="habilitarTracking">Indica que o tracking do EF deverá estar habilitado, permitindo alteração dos dados.</param>
-        Task<Atalho> ObterPorId(int idAtalho, bool habilitarTracking = false);
+        Task<Atalho> ObterPorId(int idAtalho);
 
         /// <summary>
         /// Obtém todos os atalhos de um usuário

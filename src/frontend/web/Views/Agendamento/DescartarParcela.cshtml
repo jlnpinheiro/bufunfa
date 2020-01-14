@@ -1,0 +1,30 @@
+﻿<div class="kt-portlet app-modal-md" style="margin-bottom:0;" id="portlet-manter">
+    <div class="kt-portlet__head popup">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Descartar parcela
+            </h3>
+        </div>
+    </div>
+    <form class="kt-form kt-form--label-right" id="form-descartar-parcela">
+        <input type="hidden" id="iIdParcela" name="iIdParcela" value="@(ViewBag.IdParcela)">
+        <div class="kt-portlet__body">
+            <div class="form-group row">
+                <div class="col-lg-12">
+                    <label>Motivo</label>
+                    <input type="text" class="form-control" id="iMotivo" name="iMotivo" placeholder="Descreva o motivo do descarte da parcela">
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__foot popup">
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-12 kt-align-right">
+                        <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Cancelar</button>
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="la la-check"></i> Descartar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

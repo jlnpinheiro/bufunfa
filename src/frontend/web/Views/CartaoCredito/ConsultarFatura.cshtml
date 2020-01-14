@@ -1,0 +1,63 @@
+﻿@using JNogueira.Bufunfa.Web.Helpers
+
+@inject CustomHtmlHelper customHtmlHelper
+
+<div class="kt-portlet app-modal-md" style="margin-bottom:0;">
+    <div class="kt-portlet__head popup">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Consultar fatura
+            </h3>
+        </div>
+    </div>
+    <form class="kt-form kt-form--label-right" id="form-procurar-fatura">
+        <div class="kt-portlet__body">
+            <div class="form-group row">
+                <div class="col-lg-12  form-group-sub">
+                    <label>Cartão de crédito</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                    @customHtmlHelper.SelectContasCartoesCredito("sCartaoCreditoFatura", "form-control", null, TipoItemSelectContasCartoesCredito.SomenteCartoesCredito)
+                    <span class="form-text text-muted"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6 form-group-sub">
+                    <label>Mês</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                    @{
+                        var lstMes = new List<SelectListItem>()
+                                                                                                                                                                                                                            {
+                            new SelectListItem("Janeiro", "1", DateTime.Now.Month == 1),
+                            new SelectListItem("Fevereiro", "2", DateTime.Now.Month == 2),
+                            new SelectListItem("Março", "3", DateTime.Now.Month == 3),
+                            new SelectListItem("Abril", "4", DateTime.Now.Month == 4),
+                            new SelectListItem("Maio", "5", DateTime.Now.Month == 5),
+                            new SelectListItem("Junho", "6", DateTime.Now.Month == 6),
+                            new SelectListItem("Julho", "7", DateTime.Now.Month == 7),
+                            new SelectListItem("Agosto", "8", DateTime.Now.Month == 8),
+                            new SelectListItem("Setembro", "9", DateTime.Now.Month == 9),
+                            new SelectListItem("Outubro", "10", DateTime.Now.Month == 10),
+                            new SelectListItem("Novembro", "11", DateTime.Now.Month == 11),
+                            new SelectListItem("Dezembro", "12", DateTime.Now.Month == 12)
+                        };
+                    }
+                    <select class="form-control kt-select2" id="sMesFatura" name="sMesFatura" style="width: 100%;" asp-items="@lstMes">
+                    </select>
+                </div>
+
+                <div class="col-sm-6 form-group-sub">
+                    <label>Ano</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                    <input type="text" class="form-control" id="iAnoFatura" name="iAnoFatura" value="@DateTime.Now.Year">
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__foot popup">
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-12 kt-align-right">
+                        <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Cancelar</button>
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="la la-search"></i> Procurar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,70 @@
+﻿@using JNogueira.Bufunfa.Web
+
+@model Feedback
+ 
+<html>
+<head>
+    <!--begin::Base Path (base relative path for assets of this page) -->
+    <base href="../../../"><!--end::Base Path -->
+    <meta charset="utf-8" />
+
+    <title>Bufunfa! Gerenciador financeiro</title>
+    <meta name="description" content="Sistema de gestão financeira pessoal contruído para a plataforma ASP.Net Core">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--begin::Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
+    <!--end::Fonts -->
+    <!--begin::Global Theme Styles(used by all pages) -->
+    <link href="~/plugins/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/vendors/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" type="text/css" />
+    <!--end::Global Theme Styles -->
+    <!--begin::Global Theme Styles(used by all pages) -->
+    <environment include="Development">
+        <link href="~/css/style.bundle.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/app-modal.css" rel="stylesheet" type="text/css" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/css/style.bundle.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/app-modal.min.css" rel="stylesheet" type="text/css" />
+    </environment>
+    <!--end::Global Theme Styles -->
+    <link rel="shortcut icon" href="~/img/favicon.png" />
+</head>
+<body>
+    <!-- begin::Global Config(global config for global JS sciprts) -->
+    <script>
+        var KTAppOptions = { "colors": { "state": { "brand": "#2c77f4", "light": "#ffffff", "dark": "#282a3c", "primary": "#5867dd", "success": "#34bfa3", "info": "#36a3f7", "warning": "#ffb822", "danger": "#fd3995" }, "base": { "label": ["#c5cbe3", "#a1a8c3", "#3d4465", "#3e4466"], "shape": ["#f0f3ff", "#d9dffa", "#afb4d4", "#646c9a"] } } };
+    </script>
+    <!-- end::Global Config -->
+    <!--begin::Global Theme Bundle(used by all pages) -->
+    <script src="~/plugins/plugins.bundle.js" type="text/javascript"></script>
+    <script src="~/js/scripts.bundle.js" type="text/javascript"></script>
+    <!--end::Global Theme Bundle -->
+    <!--begin:: Global Mandatory Vendors -->
+    <script src="~/vendors/bootstrap-datepicker/bootstrap-datepicker.pt-BR.min.js" type="text/javascript"></script>
+    <script src="~/vendors/moment/pt-br.js" type="text/javascript"></script>
+    <script src="~/vendors/jquery-confirm/jquery-confirm.min.js" type="text/javascript"></script>
+    <script src="~/vendors/numerals/numeral.min.js"></script>
+    <!--end:: Global Mandatory Vendors -->
+    <!--begin::Global Theme Bundle(used by all pages) -->
+    <environment include="Development">
+        <script src="~/js/app.js" type="text/javascript"></script>
+        <script src="~/js/app-modal.js" type="text/javascript"></script>
+        <script src="~/js/app-feedback.js" type="text/javascript"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/app.min.js" type="text/javascript"></script>
+        <script src="~/js/app-modal.min.js" type="text/javascript"></script>
+        <script src="~/js/app-feedback.min.js" type="text/javascript"></script>
+    </environment>
+    <!--end::Global Theme Bundle -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var feedback = new Feedback('@(Model.Tipo.ObterDescricao())', '@(Model.Mensagem)', '@(Html.Raw(Model.MensagemAdicional))', @((int)Model.TipoAcao));
+            feedback.exibir();
+        });
+    </script>
+</body>
+</html>

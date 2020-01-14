@@ -13,8 +13,7 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         /// <summary>
         /// Obtém uma categoria a partir do seu ID
         /// </summary>
-        /// <param name="habilitarTracking">Indica que o tracking do EF deverá estar habilitado, permitindo alteração dos dados.</param>
-        Task<Categoria> ObterPorId(int idCategoria, bool habilitarTracking = false);
+        Task<Categoria> ObterPorId(int idCategoria);
 
         /// <summary>
         /// Obtém as categorias de um usuário.

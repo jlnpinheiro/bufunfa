@@ -1,7 +1,5 @@
-﻿using JNogueira.Bufunfa.Dominio.Comandos;
-using JNogueira.Bufunfa.Dominio.Entidades;
+﻿using JNogueira.Bufunfa.Dominio.Entidades;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
-using JNogueira.Bufunfa.Infraestrutura.Integracoes.AlphaVantage;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,28 +14,19 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
 
         public ContaRepositorio(EfDataContext efContext)
         {
-            _efContext            = efContext;
+            _efContext = efContext;
         }
 
-        public async Task<Conta> ObterPorId(int idConta, bool habilitarTracking = false)
-        {
-            var query = _efContext.Contas.AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.FirstOrDefaultAsync(x => x.Id == idConta);
-        }
+        public async Task<Conta> ObterPorId(int idConta) => await _efContext.Contas.FirstOrDefaultAsync(x => x.Id == idConta);
 
         public async Task<IEnumerable<Conta>> ObterPorUsuario(int idUsuario)
         {
-            return await _efContext
-                   .Contas
-                   .AsNoTracking()
-                   .Where(x => x.IdUsuario == idUsuario)
-                   .OrderBy(x => x.Tipo)
-                   .ThenBy(x => x.Nome)
-                   .ToListAsync();
+            return await _efContext.Contas
+                .Where(x => x.IdUsuario == idUsuario)
+                .OrderBy(x => x.Tipo)
+                .ThenBy(x => x.Nome)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<bool> VerificarExistenciaPorNome(int idUsuario, string nome, int? idConta = null)

@@ -1,0 +1,44 @@
+﻿@using JNogueira.Bufunfa.Web.Helpers
+
+@model JNogueira.Bufunfa.Web.Models.Conta
+
+@inject CustomHtmlHelper customHtmlHelper
+
+<div class="kt-portlet app-modal-sm" style="margin-bottom:0;">
+    <div class="kt-portlet__head popup">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Cotação
+            </h3>
+        </div>
+    </div>
+    <form class="kt-form kt-form--label-right" id="form-valor-cotacao">
+        <div class="kt-portlet__body">
+
+            <div class="alert alert-secondary  fade show" role="alert">
+                <div class="alert-icon"><i class="fa fa-info"></i></div>
+                <div class="alert-text">Informe o valor da cotação para a ação <b>@Model.Nome</b>. Você pode obter esse valor clicando <a href="https://www.google.com/search?q=@(Model.Nome)&safe=active" target="_blank">aqui</a></div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-12 form-group-sub">
+                    <label>Valor da cotação</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                    <div class="input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">R$</span></div>
+                        <input type="text" class="form-control" id="iValorCotacao" name="iValorCotacao">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__foot popup">
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-12 kt-align-right">
+                        <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Cancelar</button>
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="la la-calculator"></i> Recalcular</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

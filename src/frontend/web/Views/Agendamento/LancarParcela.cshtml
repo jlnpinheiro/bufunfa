@@ -1,0 +1,52 @@
+﻿@using JNogueira.Bufunfa.Web.Helpers
+
+@model JNogueira.Bufunfa.Web.Models.Parcela
+
+
+<div class="kt-portlet app-modal-md" style="margin-bottom:0;" id="portlet-manter">
+    <div class="kt-portlet__head popup">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Lançar parcela
+            </h3>
+        </div>
+    </div>
+    <form class="kt-form kt-form--label-right" id="form-lancar-parcela">
+        <input type="hidden" id="iIdParcela" name="iIdParcela" value="@(Model.Id)">
+        <div class="kt-portlet__body">
+            <div class="form-group row">
+                <div class="col-md-6 form-group-sub">
+                    <label>Data do lançamento</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                    <div class="input-group date">
+                        <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
+                        <input type="text" class="form-control datepicker" id="iLancamentoData" name="iLancamentoData" value="" data-date-end-date="0d">
+                    </div>
+                </div>
+
+                <div class="col-sm-6 form-group-sub">
+                    <label>Valor</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                    <div class="input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">R$</span></div>
+                        <input type="text" class="form-control" id="iLancamentoValor" name="iLancamentoValor" value="@(Model.Valor.ToString("N2"))">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-12">
+                    <label>Observação</label>
+                    <input type="text" class="form-control" id="iObservacao" name="iObservacao" value="@Model.Observacao">
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__foot popup">
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-12 kt-align-right">
+                        <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Cancelar</button>
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="la la-check"></i> Lançar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

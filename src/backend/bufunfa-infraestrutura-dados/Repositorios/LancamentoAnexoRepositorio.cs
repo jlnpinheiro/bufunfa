@@ -7,7 +7,6 @@ using JNogueira.Infraestrutura.NotifiqueMe;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
@@ -31,17 +30,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             _periodoRepositorio  = periodoRepositorio;
         }
 
-        public async Task<LancamentoAnexo> ObterPorId(int idAnexo, bool habilitarTracking = false)
-        {
-            var query = _efContext.LancamentosAnexo
-                .Include(x => x.Lancamento)
-                .AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.FirstOrDefaultAsync(x => x.Id == idAnexo);
-        }
+        public async Task<LancamentoAnexo> ObterPorId(int idAnexo) => await _efContext.LancamentosAnexo.Include(x => x.Lancamento).FirstOrDefaultAsync(x => x.Id == idAnexo);
 
         public async Task<LancamentoAnexo> Inserir(int idLancamento, DateTime dataLancamento, LancamentoAnexoEntrada cadastroEntrada)
         {

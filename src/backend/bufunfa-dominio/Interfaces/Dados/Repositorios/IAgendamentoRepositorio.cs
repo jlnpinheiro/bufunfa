@@ -12,8 +12,7 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         /// <summary>
         /// Obtém um agendamento a partir do seu ID
         /// </summary>
-        /// <param name="habilitarTracking">Indica que o tracking do EF deverá estar habilitado, permitindo alteração dos dados.</param>
-        Task<Agendamento> ObterPorId(int idAgendamento, bool habilitarTracking = false);
+        Task<Agendamento> ObterPorId(int idAgendamento);
 
         /// <summary>
         /// Obtém os agendamentos baseados nos parâmetros de procura

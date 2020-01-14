@@ -136,7 +136,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             if (entrada.Invalido)
                 return new Saida(false, entrada.Mensagens, null);
 
-            var lancamento = await _lancamentoRepositorio.ObterPorId(idLancamento, true);
+            var lancamento = await _lancamentoRepositorio.ObterPorId(idLancamento);
 
             // Verifica se o lançamento existe
             this.NotificarSeNulo(lancamento, LancamentoMensagem.Id_Lancamento_Nao_Existe);
@@ -227,7 +227,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
 
                 if (fatura != null)
                 {
-                    var parcelas = await _parcelaRepositorio.ObterPorFatura(fatura.Id, true);
+                    var parcelas = await _parcelaRepositorio.ObterPorFatura(fatura.Id);
 
                     foreach(var parcela in parcelas)
                     {
@@ -239,7 +239,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             // Caso o lançamento esteja associado a uma parcela, a parcela deve ser reaberta.
             if (lancamento.IdParcela.HasValue)
             {
-                var parcela = await _parcelaRepositorio.ObterPorId(lancamento.IdParcela.Value, true);
+                var parcela = await _parcelaRepositorio.ObterPorId(lancamento.IdParcela.Value);
 
                 parcela?.DesfazerLancamento();
             }

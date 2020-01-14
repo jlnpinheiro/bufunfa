@@ -1,0 +1,169 @@
+﻿@using JNogueira.Bufunfa.Web.Helpers
+@using JNogueira.Bufunfa.Web.Models
+
+@inject CustomHtmlHelper customHtmlHelper
+
+@model JNogueira.Bufunfa.Web.Models.Conta
+
+@{
+    ViewData["Titulo"] = "Lançamentos";
+    ViewBag.ExibirQuickPanel = true;
+    Layout = "_Master";
+
+    var periodoAtual = ViewBag.PeriodoAtual != null ? (Periodo)ViewBag.PeriodoAtual : null;
+}
+
+@section VendorsCss
+{
+    <link rel="stylesheet" href="~/plugins/custom/datatables/datatables.bundle.css">
+}
+
+@section VendorsJs
+{
+    <script src="~/plugins/custom/datatables/datatables.bundle.js"></script>
+}
+
+@section ViewsJs
+{
+    <environment include="Development">
+        <script src="~/js/views/lancamento.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/views/lancamento.min.js"></script>
+    </environment>
+}
+
+@section QuickPanel
+{
+    <div class="kt-padding-10">
+        <div class="kt-portlet kt-portlet--mobile kt-portlet--bordered" style="border: none;">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Parcelas abertas
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div id="div-parcelas-abertas-por-conta"></div>
+            </div>
+        </div>
+    </div>
+}
+
+<input type="hidden" id="iIdConta" value="@Model.Id" />
+
+<div class="row mb-3">
+    <div class="col-sm-12">
+        <button class="btn btn-sm btn-secondary btn-hover-primary" id="btn-cadastrar-lancamento">
+            <i class="la la-plus"></i>Lançar
+        </button>
+        <button class="btn btn-sm btn-secondary btn-hover-primary" data-toggle="modal" data-target="#mProcurar" data-backdrop="static">
+            <i class="la la-search"></i>Procurar
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="kt-portlet" id="portlet-renda-fixa" data-ktportlet="true">
+            <div class="kt-portlet__head" style="border-bottom-width: 10px;">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon" style="font-size: 1.8rem;">
+                        <i class="fa fa-university kt-hidden-mobile" style="color:@(Model.ObterCorPorTipoConta())"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-title" style="line-height: 1.0;">
+                        @Model.Nome<br />
+                        <span class="kt-hidden-mobile" style="font-size:11px; color:#999; font-weight: normal;">@Html.Raw(Model.NomeInstituicao + (!string.IsNullOrEmpty(Model.NumeroAgencia) ? " <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> Agência: " + Model.NumeroAgencia : string.Empty) + (!string.IsNullOrEmpty(Model.Numero) ? " <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> Número: " + Model.Numero : string.Empty))</span>
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar" id="div-saldo-atual">
+                    @await Html.PartialAsync("~/Views/Conta/ContaSaldoAtual.cshtml", Model)
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <table class="table table-striped table-hover table-sm" id="tblLancamento">
+                    <thead>
+                        <tr>
+                            <th class="text-nowrap" style="width:15%;">Data</th>
+                            <th style="width:30%;">Categoria</th>
+                            <th style="width:20%;">Pessoa</th>
+                            <th style="width:20%;">Observação</th>
+                            <th class="text-right" style="width:15%;">Valor</th>
+                            <th style="padding-top:0;"></th>
+                            <th style="padding-top:0;"></th>
+                            <th style="padding-top:0;"></th>
+                            <th style="padding-top:0;"></th>
+                            <th style="padding-top:0;"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mProcurar" role="dialog">
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+        <div class="modal-content" style="border: none;">
+            <form class="kt-form kt-form--label-right" id="form-procurar-lancamento">
+                <div class="modal-header popup">
+                    <h5 class="modal-title" id="exampleModalLabel">Procurar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-sm-12 form-group-sub">
+                            <label for="sProcurarPeriodo">Período</label><br />
+                            <select class="form-control" id="sProcurarPeriodo" name="sProcurarPeriodo" style="width: 100%;">
+                                @if (periodoAtual != null)
+                                {
+                                    <option value="@periodoAtual.Id" data-dataInicio="@periodoAtual.DataInicio.ToString("dd/MM/yyyy 00:00:00")" data-dataFim="@periodoAtual.DataFim.ToString("dd/MM/yyyy 23:59:59")">@periodoAtual.Nome</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 form-group-sub">
+                            <div class="form-group">
+                                <label>Início do período</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                <div class="input-group date">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
+                                    <input type="text" class="form-control datepicker" id="iProcurarDataInicio" name="iProcurarDataInicio" value="@(periodoAtual != null ? periodoAtual.DataInicio.ToString("dd/MM/yyyy") : new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("dd/MM/yyyy"))" @(periodoAtual != null ? "disabled" : string.Empty)>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group-sub">
+                            <div class="form-group">
+                                <label>Término do período</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                <div class="input-group date">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
+                                    <input type="text" class="form-control datepicker" id="iProcurarDataFim" name="iProcurarDataFim" value="@(periodoAtual != null ? periodoAtual.DataFim.ToString("dd/MM/yyyy") : new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("dd/MM/yyyy"))" @(periodoAtual != null ? "disabled" : string.Empty)>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12 form-group-sub">
+                            <label for="sProcurarCategoria">Categoria</label><br />
+                            @customHtmlHelper.SelectCategorias("sProcurarCategoria", "form-control", string.Empty, false)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12 form-group-sub">
+                            <label for="sProcurarPessoa">Pessoa</label><br />
+                            <select class="form-control" id="sProcurarPessoa" name="sProcurarPessoa" style="width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer popup">
+                    <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate" data-dismiss="modal"><i class="la la-close"></i> Cancelar</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="bProcurar"><i class="la la-search"></i> Procurar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,216 @@
+﻿@using JNogueira.Bufunfa.Web.Helpers
+@using JNogueira.Bufunfa.Web.Models
+
+@inject CustomHtmlHelper customHtmlHelper
+
+@model JNogueira.Bufunfa.Web.Models.Fatura
+
+@{
+    var dataFatura = new DateTime(Model.Ano, Model.Mes, 1);
+}
+
+<input type="hidden" id="iIdLancamentoFatura" value="@(Model.Id.HasValue ? Model.Id.Value.ToString() : string.Empty)" />
+<input type="hidden" id="iIdCartaoCreditoFatura" value="@(Model.CartaoCredito.Id)" />
+<input type="hidden" id="iMesFatura" value="@(Model.Mes)" />
+<input type="hidden" id="iAnoFatura" value="@(Model.Ano)" />
+
+<div class="kt-portlet app-modal-lg" style="margin-bottom:0;">
+    <div class="kt-portlet__head popup">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Fatura de @(dataFatura.ToString("MMMM").ToUpper())/@(dataFatura.ToString("yyyy")) <small>@(Model.CartaoCredito.Nome)</small>
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        @if (Model.Lancamento != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <div class="alert-text">
+                    <h4 class="alert-heading">Fatura paga!</h4>
+                    <p style="margin-bottom:0;">Essa fatura foi paga em <b>@(Model.Lancamento.Data.ToString("dd/MM/yyyy"))</b>.</p>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning" role="alert">
+                <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                <div class="alert-text">Essa fatura ainda não foi paga, e o seu vencimento é no próximo dia <b>@(new DateTime(Model.Ano, Model.Mes, Model.CartaoCredito.DiaVencimentoFatura).ToString("dd/MM/yyyy"))</b> <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <b>@(new DateTime(Model.Ano, Model.Mes, Model.CartaoCredito.DiaVencimentoFatura).ToString("ddd").ToUpper())</b>.</div>
+            </div>
+
+        }
+
+        <div class="row row-no-padding row-col-separator-sm mb-3">
+
+            <div class="col-md-12 col-lg-6 col-xl-4">
+                <div class="kt-widget24" style="padding:20px; line-height:1.5rem">
+                    <div class="kt-widget24__details">
+                        <div class="kt-widget24__info">
+                            <h4 class="kt-widget24__title">
+                                Total das parcelas
+                            </h4>
+                            <span class="kt-widget24__desc">
+                                A
+                            </span>
+                        </div>
+
+                        <span class="kt-widget24__stats kt-font-danger" style="font-size: 1.4rem;" id="span-valor-total-parcelas" data-valor-total-parcelas="@Model.ValorTotalParcelas?.ToString()">
+                            @Model.ValorTotalParcelas?.ToString("C2")
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-6 col-xl-4">
+                <div class="kt-widget24" style="padding:20px; line-height:1.5rem">
+                    <div class="kt-widget24__details">
+                        <div class="kt-widget24__info">
+                            <h4 class="kt-widget24__title">
+                                Valores adicionais
+                            </h4>
+                            <span class="kt-widget24__desc">
+                                B
+                            </span>
+                        </div>
+                        @{
+                            var valorAdicionalCredito = Model.ValorAdicionalCredito.HasValue ? Model.ValorAdicionalCredito.Value : 0;
+                            var valorAdicionalDebito = Model.ValorAdicionalDebito.HasValue ? Model.ValorAdicionalDebito.Value : 0;
+
+                            var valorTotalAdicional = valorAdicionalDebito - valorAdicionalCredito;
+                        }
+                        <span class="kt-widget24__stats kt-font-@(valorTotalAdicional < 0 ? "success" : (valorTotalAdicional == 0 ? "dark" : "danger"))" style="font-size: 1.4rem;" id="span-valor-adicional-total">
+
+                            @((valorAdicionalDebito - valorAdicionalCredito).ToString("C2"))
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-6 col-xl-4">
+                <div class="kt-widget24" style="padding:20px; line-height:1.5rem">
+                    <div class="kt-widget24__details">
+                        <div class="kt-widget24__info">
+                            <h4 class="kt-widget24__title kt-font-bolder">
+                                Valor da fatura
+                            </h4>
+                            <span class="kt-widget24__desc">
+                                A + B
+                            </span>
+                        </div>
+
+                        <span class="kt-widget24__stats kt-font-danger" style="font-size: 1.4rem;" id="span-valor-total-fatura">
+                            @Model.ValorFatura.ToString("C2")
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="kt-portlet kt-portlet--bordered">
+            <div class="kt-portlet__head" style="min-height:40px; padding: 0 15px;">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title" style="font-size: 1.0rem;">
+                        Parcelas
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body" style="padding: 15px;">
+                <div class="table-responsive no-padding">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Parcela</th>
+                                <th>Observação</th>
+                                <th>Pessoa</th>
+                                <th>Categoria</th>
+                                <th style="width:1px; white-space:nowrap;" class="text-center">Valor</th>
+                                <th style="width:1px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var parcela in Model.Parcelas.OrderByDescending(x => x.Id))
+                            {
+                                <tr>
+                                    <td style="white-space: nowrap;" class="text-center">@($"{parcela.Numero} de {parcela.Agendamento.QuantidadeParcelas}")</td>
+                                    <td style="white-space: nowrap;">@parcela.Observacao</td>
+                                    <td style="white-space: nowrap;">@parcela.Agendamento.Pessoa</td>
+                                    <td style="white-space: nowrap;"><i class="fa fa-tag kt-font-@(parcela.Agendamento.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") kt-font-sm"></i> @parcela.Agendamento.CategoriaCaminho</td>
+                                    <td style="white-space: nowrap;" class="coluna-valor text-right kt-font-@(parcela.Agendamento.ObterTipo() == TipoCategoria.Credito ? "success" : "danger")">@parcela.ObterValorEmReais()</td>
+                                    <td>
+                                        <button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables visualizar-agendamento" data-id="@parcela.IdAgendamento" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Visualizar agendamento"><span class="fa fa-calendar-alt"></span></button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" class="text-right kt-font-bold">TOTAL</td>
+                                <td class="text-right kt-font-bolder" style="white-space:nowrap;">@(Model.Parcelas.Sum(x => x.Valor).ToString("C2"))</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-portlet kt-portlet--bordered">
+            <div class="kt-portlet__head" style="min-height:40px; padding: 0 15px;">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title" style="font-size: 1.0rem;">
+                        Valores adicionais
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body" style="padding: 15px;">
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        <label>Créditos adicionais</label>
+                        <input type="text" class="form-control" id="iObservaoCreditoAdicionalFatura" name="iObservaoCreditoAdicionalFatura" value="@Model.ObservacaoCredito" maxlength="100" @(Model.Lancamento != null ? "readonly" : string.Empty)>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Valor do crédito</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text">R$</span></div>
+                            <input type="text" class="form-control" id="iValorCreditoAdicionalFatura" name="iValorCreditoAdicionalFatura" value="@(Model.ValorAdicionalCredito?.ToString("N2"))" @(Model.Lancamento != null ? "disabled" : string.Empty)>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        <label>Débitos adicionais</label>
+                        <input type="text" class="form-control" id="iObservaoDebitoAdicionalFatura" name="iObservaoDebitoAdicionalFatura" value="@Model.ObservacaoDebito" maxlength="100" @(Model.Lancamento != null ? "readonly" : string.Empty)>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Valor do débito</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text">R$</span></div>
+                            <input type="text" class="form-control" id="iValorDebitoAdicionalFatura" name="iValorDebitoAdicionalFatura" value="@(Model.ValorAdicionalDebito?.ToString("N2"))" @(Model.Lancamento != null ? "disabled" : string.Empty)>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (Model.Lancamento != null)
+        {
+            @await Html.PartialAsync("~/Views/Lancamento/LancamentoInformacoes.cshtml", Model.Lancamento)
+        }
+    </div>
+    <div class="kt-portlet__foot popup">
+        <div class="kt-form__actions">
+            <div class="row">
+                <div class="col-lg-12 kt-align-right">
+                    <button type="button" class="btn btn-sm btn-outline-hover-primary btn-elevate" id="bConsultarFatura"><i class="la la-search"></i> Consultar...</button>
+                    <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Fechar</button>
+                    @if (Model.Lancamento == null)
+                    {
+                        <button type="button" class="btn btn-sm btn-primary" id="bPagarFatura"><i class="la la-dollar"></i> Pagar...</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

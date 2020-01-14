@@ -1,7 +1,6 @@
 ﻿using JNogueira.Bufunfa.Dominio.Entidades;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
@@ -15,49 +14,34 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             _efContext = efContext;
         }
 
-        public async Task<Fatura> ObterPorId(int idFatura, bool habilitarTracking = false)
+        public async Task<Fatura> ObterPorId(int idFatura)
         {
-            var query = _efContext.Faturas
+            return await _efContext.Faturas
                 .Include(x => x.Lancamento.Conta)
                 .Include(x => x.Lancamento.Categoria.CategoriaPai)
                 .Include(x => x.Lancamento.Pessoa)
                 .Include(x => x.CartaoCredito)
-                .AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.FirstOrDefaultAsync(x => x.Id == idFatura);
+                .FirstOrDefaultAsync(x => x.Id == idFatura);
         }
 
-        public async Task<Fatura> ObterPorLancamento(int idLancamento, bool habilitarTracking = false)
+        public async Task<Fatura> ObterPorLancamento(int idLancamento)
         {
-            var query = _efContext.Faturas
+            return await _efContext.Faturas
                 .Include(x => x.Lancamento.Conta)
                 .Include(x => x.Lancamento.Categoria.CategoriaPai)
                 .Include(x => x.Lancamento.Pessoa)
                 .Include(x => x.CartaoCredito)
-                .AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.FirstOrDefaultAsync(x => x.IdLancamento == idLancamento);
+                .FirstOrDefaultAsync(x => x.IdLancamento == idLancamento);
         }
 
-        public async Task<Fatura> ObterPorCartaoCreditoMesAno(int idCartao, int mesFatura, int anoFatura, bool habilitarTracking = false)
+        public async Task<Fatura> ObterPorCartaoCreditoMesAno(int idCartao, int mesFatura, int anoFatura)
         {
-            var query = _efContext.Faturas
+            return await _efContext.Faturas
                 .Include(x => x.Lancamento.Conta)
                 .Include(x => x.Lancamento.Categoria.CategoriaPai)
                 .Include(x => x.Lancamento.Pessoa)
                 .Include(x => x.CartaoCredito)
-                .AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.FirstOrDefaultAsync(x => x.IdCartaoCredito == idCartao && x.MesAno == mesFatura.ToString().PadLeft(2, '0') + anoFatura.ToString());
+                .FirstOrDefaultAsync(x => x.IdCartaoCredito == idCartao && x.MesAno == mesFatura.ToString().PadLeft(2, '0') + anoFatura.ToString());
         }
 
         public async Task Inserir(Fatura fatura)

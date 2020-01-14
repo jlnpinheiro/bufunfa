@@ -5,7 +5,7 @@ using System;
 
 namespace JNogueira.Bufunfa.Dominio.Comandos
 {
-    public class AgendamentoEntrada : Notificavel, IEntrada
+    public class AgendamentoEntrada : Notificavel
     {
         /// <summary>
         /// Id do usuário proprietário da conta

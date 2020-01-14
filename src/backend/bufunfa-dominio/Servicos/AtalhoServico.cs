@@ -85,7 +85,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             if (entrada.Invalido)
                 return new Saida(false, entrada.Mensagens, null);
 
-            var atalho = await _atalhoRepositorio.ObterPorId(idAtalho, true);
+            var atalho = await _atalhoRepositorio.ObterPorId(idAtalho);
 
             // Verifica se o atalho existe
             this.NotificarSeNulo(atalho, string.Format(AtalhoMensagem.Id_Atalho_Nao_Existe, idAtalho));

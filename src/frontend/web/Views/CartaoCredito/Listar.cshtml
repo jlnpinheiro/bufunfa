@@ -1,0 +1,55 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+
+@model IEnumerable<CartaoCredito>
+
+@if (Model != null && Model.Any())
+{
+    <div class="table-responsive no-padding">
+        <table class="table table-hover table-striped table-sm">
+            <thead>
+                <tr>
+                    <th class="text-nowrap">Nome</th>
+                    <th class="text-nowrap">Vencimento da fatura</th>
+                    <th class="text-right text-nowrap" style="width:10%;">Limite de crédito</th>
+                    <th class="text-right text-nowrap" style="width:10%;">Débitos em aberto</th>
+                    <th class="text-right text-nowrap" style="width:10%;">Crédito disponível</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cartao in Model)
+                {
+                    var valorLimiteDisponivel = cartao.ValorLimiteDisponivel.HasValue ? cartao.ValorLimiteDisponivel.Value : 0;
+
+                    <tr>
+                        <td class="text-nowrap">@cartao.Nome</td>
+                        <td class="text-nowrap">Dia @cartao.DiaVencimentoFatura</td>
+                        <td class="text-right text-nowrap">@cartao.ValorLimite.ToString("c2")</td>
+                        <td class="text-right text-nowrap @((cartao.ValorLimite - valorLimiteDisponivel) == 0 ? "kt-font-success" : "kt-font-danger") kt-font-bold">@((cartao.ValorLimite - valorLimiteDisponivel).ToString("c2"))</td>
+                        <td class="text-green text-right text-nowrap">@valorLimiteDisponivel.ToString("c2")</td>
+                        <td style="width:1px;"><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables alterar-cartao" data-id-cartao="@cartao.Id" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Alterar"><span class="la la-edit"></span></button></td>
+                        <td style="width:1px;"><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables excluir-cartao" data-id-cartao="@cartao.Id" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Excluir"><span class="la la-trash"></span></button></td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                @{
+                    var valorTotalCredito = !Model.Sum(x => x.ValorLimiteDisponivel).HasValue ? 0 : Model.Sum(x => x.ValorLimiteDisponivel).Value;
+                    var valorTotalDebito = Model.Sum(x => x.ValorLimite - (x.ValorLimiteDisponivel.HasValue ? x.ValorLimiteDisponivel.Value : 0));
+                }
+                <tr>
+                    <td class="text-right kt-font-bold" colspan="2">TOTAL</td>
+                    <td class="text-right kt-font-bold">@Model.Sum(x => x.ValorLimite).ToString("c2")</td>
+                    <td class="text-right kt-font-bold @(valorTotalDebito == 0 ? "kt-font-success" : "kt-font-danger") kt-font-boldest">@valorTotalDebito.ToString("c2")</td>
+                    <td class="text-right kt-font-bold">@valorTotalCredito.ToString("c2")</td>
+                    <td colspan="2"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}
+else
+{
+    <div class="text-center">Nenhum cartão encontrado.</div>
+}

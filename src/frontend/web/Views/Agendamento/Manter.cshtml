@@ -1,0 +1,276 @@
+﻿@using JNogueira.Bufunfa.Web.Helpers
+@using JNogueira.Bufunfa.Web
+
+@inject CustomHtmlHelper customHtmlHelper
+
+@model JNogueira.Bufunfa.Web.Models.Agendamento
+
+    <div class="kt-portlet @(Model != null ? "kt-portlet--tabs" : string.Empty) app-modal-md" style="margin-bottom:0;" id="portlet-manter">
+        <div class="kt-portlet__head popup">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">
+                    @(Model == null ? "Adicionar agendamento" : "Agendamento")
+                </h3>
+            </div>
+            @if (Model != null)
+            {
+                <div class="kt-portlet__head-toolbar">
+                    <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line nav-tabs-line-right nav-tabs-line-primary nav-tabs-line-2x" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#aba-info" role="tab">Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#aba-parcelas" role="tab">Parcelas</a>
+                        </li>
+                    </ul>
+                </div>
+            }
+        </div>
+        @if (Model != null)
+        {
+            <div class="kt-portlet__body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="aba-info">
+                        <form class="kt-form kt-form--label-right" id="form-manter-agendamento">
+                            <input type="hidden" id="iIdAgendamento" name="iIdAgendamento" value="@(Model != null ? Model.Id.ToString() : string.Empty)">
+                            <div class="form-group row">
+                                <div class="col-lg-12 form-group-sub">
+                                    <label>Conta ou cartão</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                    @customHtmlHelper.SelectContasCartoesCredito("sAgendamentoConta", "form-control", Model != null ? (Model.Conta != null ? Model.Conta.Id.ToString() : Model.CartaoCredito.Id.ToString()) : null)
+                                    <span class="form-text text-muted"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12 form-group-sub">
+                                    <label>Categoria</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                    @customHtmlHelper.SelectCategorias("sAgendamentoCategoria", "form-control", Model != null ? Model.Categoria.Id.ToString() : null, false)
+                                    <span class="form-text text-muted"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12 form-group-sub">
+                                    <label>Pessoa</label><br />
+                                    <select class="form-control" id="sAgendamentoPessoa" name="sAgendamentoPessoa" style="width: 100%;">
+                                        @if (Model?.Pessoa != null && Model.Pessoa.Id != 0)
+                                        {
+                                            <option value="@Model.Pessoa.Id">@Model.Pessoa.Nome</option>
+                                        }
+                                    </select>
+                                    <span class="form-text text-muted">Caso a pessoa selecionada não exista, ela será cadastrada.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12 col-md-6 form-group-sub">
+                                    <label>Método</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                    @{
+                                        var lstMetodo = new List<SelectListItem>()
+                                                                                                                                                                                                                                                                                            {
+                            new SelectListItem(string.Empty, string.Empty, Model == null),
+                            new SelectListItem("Cheque", ((int)MetodoPagamento.Cheque).ToString(), Model != null && Model.CodigoTipoMetodoPagamento == (int)MetodoPagamento.Cheque),
+                            new SelectListItem("Débito", ((int)MetodoPagamento.Debito).ToString(), Model != null && Model.CodigoTipoMetodoPagamento == (int)MetodoPagamento.Debito),
+                            new SelectListItem("Depósito", ((int)MetodoPagamento.Deposito).ToString(), Model != null && Model.CodigoTipoMetodoPagamento == (int)MetodoPagamento.Deposito),
+                            new SelectListItem("Transferência", ((int)MetodoPagamento.Transferencia).ToString(), Model != null && Model.CodigoTipoMetodoPagamento == (int)MetodoPagamento.Transferencia),
+                            new SelectListItem("Dinheiro", ((int)MetodoPagamento.Dinheiro).ToString(), Model != null && Model.CodigoTipoMetodoPagamento == (int)MetodoPagamento.Dinheiro),
+                        };
+                                    }
+                                    <select class="form-control" id="sAgendamentoMetodo" name="sAgendamentoMetodo" style="width: 100%;" asp-items="@lstMetodo">
+                                    </select>
+                                    <span class="form-text text-muted"></span>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 form-group-sub">
+                                    <label>Observação</label>
+                                    <input type="text" class="form-control" id="iAgendamentoObservacao" name="iAgendamentoObservacao" value="@Model?.Observacao" maxlength="500">
+                                </div>
+                            </div>
+
+                            <div class="kt-portlet kt-portlet--bordered mt-2 mb-0">
+                                <div class="kt-portlet__head popup" style="min-height:40px; padding: 0 15px;">
+                                    <div class="kt-portlet__head-label">
+                                        <h3 class="kt-portlet__head-title" style="font-size: 1.0rem;">
+                                            Configuração das parcelas
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="kt-portlet__body">
+                                    <div class="form-group row">
+                                        <div class="col-sm-12 col-md-6 form-group-sub">
+                                            <label>Periodicidade</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                            <select class="form-control" id="sAgendamentoPeriodicidade" name="sAgendamentoPeriodicidade" style="width: 100%;">
+                                                <option value=""></option>
+                                                <option value="1">Mensal</option>
+                                                <option value="3">Trimestral</option>
+                                                <option value="6">Semestral</option>
+                                                <option value="12">Anual</option>
+                                            </select>
+                                            <span class="form-text text-muted"></span>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-6 form-group-sub">
+                                            <label>Quantidade</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                            <input type="text" class="form-control" id="iAgendamentoQuantidadeParcelas" name="iAgendamentoQuantidadeParcelas" value="@Model?.QuantidadeParcelas" maxlength="4">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-12 col-md-6 form-group-sub">
+                                            <label>Data da primeira parcela</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                            <div class="input-group date">
+                                                <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
+                                                <input type="text" class="form-control datepicker" id="iAgendamentoDataPrimeiraParcela" name="iAgendamentoDataPrimeiraParcela">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-6 form-group-sub">
+                                            <label>Valor da parcela</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"><span class="input-group-text">R$</span></div>
+                                                <input type="text" class="form-control" id="iAgendamentoValorParcela" name="iAgendamentoValorParcela">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="aba-parcelas">
+                        <div id="divParcelas">
+                            @await Html.PartialAsync("~/Views/Agendamento/ListarParcelasPorAgendamento.cshtml", Model)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__foot popup">
+                <div class="kt-form__actions">
+                    <div class="row">
+                        <div class="col-lg-12 kt-align-right">
+                            <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Cancelar</button>
+                            <button type="submit" class="btn btn-sm btn-primary" id="btn-salvar-agendamento"><i class="la la-check"></i> Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <form class="kt-form kt-form--label-right" id="form-manter-agendamento">
+                <input type="hidden" id="iIdAgendamento" name="iIdAgendamento" value="@(Model != null ? Model.Id.ToString() : string.Empty)">
+                <div class="kt-portlet__body">
+                    <div class="form-group row">
+                        <div class="col-lg-12 form-group-sub">
+                            <label>Conta ou cartão</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                            @customHtmlHelper.SelectContasCartoesCredito("sAgendamentoConta", "form-control", Model != null ? (Model.Conta != null ? Model.Conta.Id.ToString() : Model.CartaoCredito.Id.ToString()) : null)
+                            <span class="form-text text-muted"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12 form-group-sub">
+                            <label>Categoria</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                            @customHtmlHelper.SelectCategorias("sAgendamentoCategoria", "form-control", Model != null ? Model.Categoria.Id.ToString() : null, false)
+                            <span class="form-text text-muted"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12 form-group-sub">
+                            <label>Pessoa</label><br />
+                            <select class="form-control" id="sAgendamentoPessoa" name="sAgendamentoPessoa" style="width: 100%;">
+                                @if (Model?.Pessoa != null && Model.Pessoa.Id != 0)
+                                {
+                                    <option value="@Model.Pessoa.Id">@Model.Pessoa.Nome</option>
+                                }
+                            </select>
+                            <span class="form-text text-muted">Caso a pessoa selecionada não exista, ela será cadastrada.</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12 col-md-6 form-group-sub">
+                            <label>Método</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                            @{
+                                var lstMetodo = new List<SelectListItem>()
+                                                                                                                                                                                                                {
+                            new SelectListItem(string.Empty, string.Empty, Model == null),
+                            new SelectListItem("Cheque", ((int)MetodoPagamento.Cheque).ToString(), Model != null && Model.CodigoTipoMetodoPagamento == (int)MetodoPagamento.Cheque),
+                            new SelectListItem("Débito", ((int)MetodoPagamento.Debito).ToString(), Model != null && Model.CodigoTipoMetodoPagamento == (int)MetodoPagamento.Debito),
+                            new SelectListItem("Depósito", ((int)MetodoPagamento.Deposito).ToString(), Model != null && Model.CodigoTipoMetodoPagamento == (int)MetodoPagamento.Deposito),
+                            new SelectListItem("Transferência", ((int)MetodoPagamento.Transferencia).ToString(), Model != null && Model.CodigoTipoMetodoPagamento == (int)MetodoPagamento.Transferencia),
+                            new SelectListItem("Dinheiro", ((int)MetodoPagamento.Dinheiro).ToString(), Model != null && Model.CodigoTipoMetodoPagamento == (int)MetodoPagamento.Dinheiro),
+                        };
+                            }
+                            <select class="form-control" id="sAgendamentoMetodo" name="sAgendamentoMetodo" style="width: 100%;" asp-items="@lstMetodo">
+                            </select>
+                            <span class="form-text text-muted"></span>
+                        </div>
+
+                        <div class="col-sm-12 col-md-6 form-group-sub">
+                            <label>Observação</label>
+                            <input type="text" class="form-control" id="iAgendamentoObservacao" name="iAgendamentoObservacao" value="@Model?.Observacao" maxlength="500">
+                        </div>
+                    </div>
+
+                    <div class="kt-portlet kt-portlet--bordered mt-2 mb-0">
+                        <div class="kt-portlet__head popup" style="min-height:40px; padding: 0 15px;">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title" style="font-size: 1.0rem;">
+                                    Configuração das parcelas
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body">
+                            <div class="form-group row">
+                                <div class="col-sm-12 col-md-6 form-group-sub">
+                                    <label>Periodicidade</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                    <select class="form-control" id="sAgendamentoPeriodicidade" name="sAgendamentoPeriodicidade" style="width: 100%;">
+                                        <option value=""></option>
+                                        <option value="1">Mensal</option>
+                                        <option value="3">Trimestral</option>
+                                        <option value="6">Semestral</option>
+                                        <option value="12">Anual</option>
+                                    </select>
+                                    <span class="form-text text-muted"></span>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 form-group-sub">
+                                    <label>Quantidade</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                    <input type="text" class="form-control" id="iAgendamentoQuantidadeParcelas" name="iAgendamentoQuantidadeParcelas" value="@Model?.QuantidadeParcelas" maxlength="4">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12 col-md-6 form-group-sub">
+                                    <label>Data da primeira parcela</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                    <div class="input-group date">
+                                        <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
+                                        <input type="text" class="form-control datepicker" id="iAgendamentoDataPrimeiraParcela" name="iAgendamentoDataPrimeiraParcela">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 form-group-sub">
+                                    <label>Valor da parcela</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text">R$</span></div>
+                                        <input type="text" class="form-control" id="iAgendamentoValorParcela" name="iAgendamentoValorParcela">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-portlet__foot popup">
+                    <div class="kt-form__actions">
+                        <div class="row">
+                            <div class="col-lg-12 kt-align-right">
+                                <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Cancelar</button>
+                                <button type="submit" class="btn btn-sm btn-primary"><i class="la la-check"></i> Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        }
+    </div>

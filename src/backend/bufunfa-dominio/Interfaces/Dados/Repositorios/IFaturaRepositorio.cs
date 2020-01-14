@@ -11,20 +11,17 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         /// <summary>
         /// Obtém uma fatura a partir do seu ID
         /// </summary>
-        /// <param name="habilitarTracking">Indica que o tracking do EF deverá estar habilitado, permitindo alteração dos dados.</param>
-        Task<Fatura> ObterPorId(int idFatura, bool habilitarTracking = false);
+        Task<Fatura> ObterPorId(int idFatura);
 
         /// <summary>
         /// Obtém uma fatura a partir do ID do lançamento
         /// </summary>
-        /// <param name="habilitarTracking">Indica que o tracking do EF deverá estar habilitado, permitindo alteração dos dados.</param>
-        Task<Fatura> ObterPorLancamento(int idLancamento, bool habilitarTracking = false);
+        Task<Fatura> ObterPorLancamento(int idLancamento);
 
         /// <summary>
         /// Obtém uma fatura a partir do seu ID cartão de crédito, mês e ano da fatura
         /// </summary>
-        /// <param name="habilitarTracking">Indica que o tracking do EF deverá estar habilitado, permitindo alteração dos dados.</param>
-        Task<Fatura> ObterPorCartaoCreditoMesAno(int idCartao, int mesFatura, int anoFatura, bool habilitarTracking = false);
+        Task<Fatura> ObterPorCartaoCreditoMesAno(int idCartao, int mesFatura, int anoFatura);
 
         /// <summary>
         /// Insere uma nova fatura

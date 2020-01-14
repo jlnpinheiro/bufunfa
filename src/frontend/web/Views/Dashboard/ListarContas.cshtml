@@ -1,0 +1,45 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+
+@model IEnumerable<Conta>
+
+@if (Model != null && Model.Any())
+{
+    <div class="kt-widget11">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="text-nowrap">Nome</td>
+                        <td class="kt-hidden-mobile text-nowrap">Instituição</td>
+                        <td class="kt-hidden-mobile text-nowrap text-center">Agência</td>
+                        <td class="kt-hidden-mobile text-nowrap text-center">Número</td>
+                        <td class="text-nowrap text-right">Saldo disponível</td>
+                        <td style="width:1px"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var conta in Model)
+                    {
+                        conta.ValorSaldoAtual = !conta.ValorSaldoAtual.HasValue ? 0 : conta.ValorSaldoAtual.Value;
+
+                        <tr>
+                            <td class="text-nowrap">
+                                <span class="kt-widget11__title">@conta.Nome</span>
+                                <span class="kt-widget11__sub"><i class="fa fa-university" style="color: @(conta.ObterCorPorTipoConta());"></i> @conta.DescricaoTipo</span>
+                            </td>
+                            <td class="kt-hidden-mobile text-nowrap">@conta.NomeInstituicao</td>
+                            <td class="kt-hidden-mobile text-nowrap text-center">@conta.NumeroAgencia</td>
+                            <td class="kt-hidden-mobile text-nowrap text-center">@conta.Numero</td>
+                            <td class="text-right text-nowrap @(conta.ValorSaldoAtual >= 0 ? "kt-font-success" : "kt-font-danger") kt-font-bold">@conta.ObterSaldoAtualEmReais()</td>
+                            <td><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables lancamentos" data-id-conta="@conta.Id" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Lançamentos"><span class="fa fa-exchange-alt"></span></button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center">Nenhuma conta encontrada.</div>
+}

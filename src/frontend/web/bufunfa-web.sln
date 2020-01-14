@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bufunfa-web", "bufunfa-web.csproj", "{FDE8F10C-6459-416D-A6A9-61957E71AB83}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bufunfa-infraestrutura-logging", "..\..\infraestrutura-logging\bufunfa-infraestrutura-logging.csproj", "{B3C43AAC-4D39-4487-9148-4CB45A1814B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FDE8F10C-6459-416D-A6A9-61957E71AB83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDE8F10C-6459-416D-A6A9-61957E71AB83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDE8F10C-6459-416D-A6A9-61957E71AB83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDE8F10C-6459-416D-A6A9-61957E71AB83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3C43AAC-4D39-4487-9148-4CB45A1814B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3C43AAC-4D39-4487-9148-4CB45A1814B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3C43AAC-4D39-4487-9148-4CB45A1814B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3C43AAC-4D39-4487-9148-4CB45A1814B9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {88D66899-2958-43F7-9E4E-90937E126ACE}
+	EndGlobalSection
+EndGlobal

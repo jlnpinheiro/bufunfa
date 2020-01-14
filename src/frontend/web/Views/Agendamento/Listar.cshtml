@@ -1,0 +1,77 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+
+@model IEnumerable<Agendamento>
+
+@{
+    var contas = Model.Where(x => x.Conta != null).OrderBy(x => x.Conta.Nome).Select(x => x.Conta.Nome).Distinct();
+
+    var cartoesCredito = Model.Where(x => x.CartaoCredito != null).OrderBy(x => x.CartaoCredito.Nome).Select(x => x.CartaoCredito.Nome).Distinct();
+}
+
+@if (Model?.Any() != false)
+{
+    @foreach (var nome in contas)
+    {
+        var conta = Model.FirstOrDefault(x => x.Conta != null && x.Conta.Nome == nome).Conta;
+
+        var quantidadePorConta = Model.Count(x => x.Conta != null && x.Conta.Id == conta.Id);
+
+        <div class="kt-portlet" data-ktportlet="true">
+            <div class="kt-portlet__head popup">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon">
+                        <i class="fa fa-university"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-title">
+                        @conta.Nome <small>@($"{quantidadePorConta} {(quantidadePorConta > 1 ? "agendamentos" : "agendamento")}")</small>
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-actions">
+                        <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body" style="padding:15px;">
+                @await Html.PartialAsync("~/Views/Agendamento/ListarAgendamentosPorConta.cshtml", Model.Where(x => x.Conta != null && x.Conta.Id == conta.Id))
+            </div>
+        </div>
+    }
+
+    @foreach (var nome in cartoesCredito)
+    {
+        var cartao = Model.FirstOrDefault(x => x.CartaoCredito != null && x.CartaoCredito.Nome == nome).CartaoCredito;
+
+        var quantidadePorCartao = Model.Count(x => x.CartaoCredito != null && x.CartaoCredito.Id == cartao.Id);
+
+        <div class="kt-portlet" data-ktportlet="true">
+            <div class="kt-portlet__head popup">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon">
+                        <i class="fa fa-credit-card"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-title">
+                        @cartao.Nome <small>@($"{quantidadePorCartao} {(quantidadePorCartao > 1 ? "agendamentos" : "agendamento")}")</small>
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-actions">
+                        <button class="btn btn-sm btn-icon btn-clean btn-icon-md exibir-fatura" data-id-cartao="@cartao.Id" data-mes="@DateTime.Now.Month" data-ano="@DateTime.Now.Year" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Fatura atual"><i class="fa fa-barcode"></i></button>
+                        <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body" style="padding:15px;">
+                @await Html.PartialAsync("~/Views/Agendamento/ListarAgendamentosPorConta.cshtml", Model.Where(x => x.CartaoCredito != null && x.CartaoCredito.Id == cartao.Id))
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="kt-portlet">
+        <div class="kt-portlet__body">
+            <div class="text-center">Nenhum agendamento encontrado.</div>
+        </div>
+    </div>
+}

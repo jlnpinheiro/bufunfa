@@ -1,0 +1,31 @@
+﻿@using JNogueira.Bufunfa.Web.Helpers
+
+@inject CustomHtmlHelper customHtmlHelper
+
+@model IEnumerable<JNogueira.Bufunfa.Web.Models.Conta>
+
+<div class="kt-portlet app-modal-md" style="margin-bottom:0;" id="portlet-conta-lancamento">
+    <form class="kt-form kt-form--label-right" id="form-popup-conta">
+        <div class="kt-portlet__body">
+            <div class="form-group row">
+                <div class="col-lg-12">
+                    <div class="alert alert-secondary  fade show" role="alert">
+                        <div class="alert-icon"><i class="fa fa-info"></i></div>
+                        <div class="alert-text">Escolha a conta desejada para visualizar os lançamentos.</div>
+                    </div>
+                    @customHtmlHelper.SelectContasCartoesCredito("sContaLancamento", "form-control kt-select2", null, TipoItemSelectContasCartoesCredito.SomenteContas)
+                    <span class="form-text text-muted"></span>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__foot popup">
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-12 kt-align-right">
+                        <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

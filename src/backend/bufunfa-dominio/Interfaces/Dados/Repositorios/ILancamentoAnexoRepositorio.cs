@@ -15,8 +15,7 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         /// <summary>
         /// Obtém um anexo a partir do seu ID
         /// </summary>
-        /// <param name="habilitarTracking">Indica que o tracking do EF deverá estar habilitado, permitindo alteração dos dados.</param>
-        Task<LancamentoAnexo> ObterPorId(int idAnexo, bool habilitarTracking = false);
+        Task<LancamentoAnexo> ObterPorId(int idAnexo);
 
         /// <summary>
         /// Insere um novo anexo no banco de dados.

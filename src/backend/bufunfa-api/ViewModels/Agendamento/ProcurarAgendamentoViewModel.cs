@@ -5,7 +5,7 @@ using System;
 namespace JNogueira.Bufunfa.Api.ViewModels
 {
     // View model utilizado para o procurar agendamentos
-    public class ProcurarAgendamentoViewModel : ProcurarViewModel
+    public class ProcurarAgendamentoViewModel
     {
         /// <summary>
         /// Id da conta
@@ -44,9 +44,14 @@ namespace JNogueira.Bufunfa.Api.ViewModels
         /// </summary>
         public bool? Concluido { get; set; }
 
-        public ProcurarAgendamentoViewModel()
-        {
-            this.OrdenarPor = "DataProximaParcelaAberta";
-        }
+        /// <summary>
+        /// Página atual da listagem que exibirá o resultado da pesquisa
+        /// </summary>
+        public int? PaginaIndex { get; set; }
+
+        /// <summary>
+        /// Quantidade de registros exibidos por página na listagem que exibirá o resultado da pesquisa
+        /// </summary>
+        public int? PaginaTamanho { get; set; }
     }
 }

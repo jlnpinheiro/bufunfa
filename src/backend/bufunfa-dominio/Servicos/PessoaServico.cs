@@ -76,7 +76,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             if (entrada.Invalido)
                 return new Saida(false, entrada.Mensagens, null);
 
-            var pessoa = await _pessoaRepositorio.ObterPorId(idPessoa, true);
+            var pessoa = await _pessoaRepositorio.ObterPorId(idPessoa);
 
             // Verifica se a pessoa existe
             this.NotificarSeNulo(pessoa, string.Format(PessoaMensagem.Id_Pessoa_Nao_Existe, idPessoa));

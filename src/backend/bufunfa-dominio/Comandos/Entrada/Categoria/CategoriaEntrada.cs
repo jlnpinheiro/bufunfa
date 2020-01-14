@@ -1,5 +1,4 @@
-﻿using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
-using JNogueira.Bufunfa.Dominio.Resources;
+﻿using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.Infraestrutura.NotifiqueMe;
 
 namespace JNogueira.Bufunfa.Dominio.Comandos
@@ -7,7 +6,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
     /// <summary>
     /// Comando utilizado para o cadastro de uma nova categoria
     /// </summary>
-    public class CategoriaEntrada : Notificavel, IEntrada
+    public class CategoriaEntrada : Notificavel
     {
         /// <summary>
         /// Id do usuário proprietário

@@ -113,7 +113,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             if (entrada.Invalido)
                 return new Saida(false, entrada.Mensagens, null);
 
-            var periodo = await _periodoRepositorio.ObterPorId(idPeriodo, true);
+            var periodo = await _periodoRepositorio.ObterPorId(idPeriodo);
 
             // Verifica se o período existe
             this.NotificarSeNulo(periodo, PeriodoMensagem.Id_Periodo_Nao_Existe);

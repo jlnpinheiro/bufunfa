@@ -18,15 +18,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             _efContext = efContext;
         }
 
-        public async Task<Pessoa> ObterPorId(int idPessoa, bool habilitarTracking = false)
-        {
-            var query = _efContext.Pessoas.AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.FirstOrDefaultAsync(x => x.Id == idPessoa);
-        }
+        public async Task<Pessoa> ObterPorId(int idPessoa) => await _efContext.Pessoas.FirstOrDefaultAsync(x => x.Id == idPessoa);
 
         public async Task<ProcurarSaida> Procurar(ProcurarPessoaEntrada procurarEntrada)
         {
@@ -54,10 +46,10 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             }
             else
             {
-                var totalRegistros = await query.CountAsync();
+                var totalRegistros = query.Count();
 
                 return new ProcurarSaida(
-                    (await query.ToListAsync()).Select(x => new PessoaSaida(x)),
+                    query.ToList().Select(x => new PessoaSaida(x)),
                     procurarEntrada.OrdenarPor,
                     procurarEntrada.OrdenarSentido,
                     totalRegistros);

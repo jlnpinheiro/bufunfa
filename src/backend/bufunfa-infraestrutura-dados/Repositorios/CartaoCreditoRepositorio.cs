@@ -17,15 +17,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             _efContext = efContext;
         }
 
-        public async Task<CartaoCredito> ObterPorId(int idCartaoCredito, bool habilitarTracking = false)
-        {
-            var query = _efContext.CartoesCredito.AsQueryable();
-
-            if (!habilitarTracking)
-                query = query.AsNoTracking();
-
-            return await query.FirstOrDefaultAsync(x => x.Id == idCartaoCredito);
-        }
+        public async Task<CartaoCredito> ObterPorId(int idCartaoCredito) => await _efContext.CartoesCredito.FirstOrDefaultAsync(x => x.Id == idCartaoCredito);
 
         public async Task<IEnumerable<CartaoCredito>> ObterPorUsuario(int idUsuario)
         {

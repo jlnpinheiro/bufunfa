@@ -1,0 +1,410 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+@using JNogueira.Bufunfa.Web.Helpers
+@using Microsoft.AspNetCore.Http.Extensions
+@using Microsoft.AspNetCore.Http
+
+@inject CookieHelper cookieHelper
+@inject IHttpContextAccessor httpContext
+
+@{
+    var url = UriHelper.GetDisplayUrl(httpContext.HttpContext.Request);
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<!-- begin::Head -->
+<head>
+    <!--begin::Base Path (base relative path for assets of this page) -->
+    <meta charset="utf-8" />
+    <title>Bufunfa! Gerenciador financeiro</title>
+    <meta name="description" content="Sistema de gestão financeira pessoal contruído para a plataforma ASP.Net Core">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--begin::Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
+    <!--end::Fonts -->
+    <!--begin::Page Vendors Styles(used by this page) -->
+    @RenderSection("VendorsCss", required: false)
+    <!--end::Page Vendors Styles -->
+    <!--begin::Global Theme Styles(used by all pages) -->
+    <link href="~/plugins/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/vendors/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" type="text/css" />
+    <!--end::Global Theme Styles -->
+    <!--begin::Global Theme Styles(used by all pages) -->
+    <environment include="Development">
+        <link href="~/css/app-modal.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/bufunfa.css" rel="stylesheet" type="text/css" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/css/app-modal.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/bufunfa.min.css" rel="stylesheet" type="text/css" />
+    </environment>
+    <!--end::Global Theme Styles -->
+    <link rel="shortcut icon" href="~/img/favicon.png" />
+</head>
+<!-- end::Head -->
+<!-- begin::Body -->
+<body class="kt-page--loading-enabled kt-page--loading kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--fixed kt-page--loading">
+    <!-- begin:: Page -->
+    <!-- begin:: Header Mobile -->
+    <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
+        <div class="kt-header-mobile__logo">
+            <img alt="Logo" src="~/img/topo-logo-branco.png" />
+        </div>
+        <div class="kt-header-mobile__toolbar">
+            <button class="kt-header-mobile__toolbar-toggler kt-header-mobile__toolbar-toggler--left" id="kt_aside_mobile_toggler"><span></span></button>
+
+            <button class="kt-header-mobile__toolbar-toggler" id="kt_header_mobile_toggler"><span></span></button>
+
+            <button class="kt-header-mobile__toolbar-topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more"></i></button>
+        </div>
+    </div>
+    <!-- end:: Header Mobile -->
+    <div class="kt-grid kt-grid--hor kt-grid--root">
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+            <!-- begin:: Aside -->
+            <button class="kt-aside-close " id="kt_aside_close_btn"><i class="la la-close"></i></button>
+
+            <div class="kt-aside  kt-aside--fixed  kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop" id="kt_aside">
+                <!-- begin:: Aside -->
+                <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
+                    <div class="kt-aside__brand-logo">
+                        <a href="demo12/index.html">
+                            <img alt="Logo" src="~/img/topo-logo-branco.png">
+                        </a>
+                    </div>
+
+                    <div class="kt-aside__brand-tools">
+                        <button class="kt-aside__brand-aside-toggler" id="kt_aside_toggler"><span></span></button>
+                    </div>
+                </div>
+                <!-- end:: Aside -->	<!-- begin:: Aside Menu -->
+                <div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
+                    <div id="kt_aside_menu"
+                         class="kt-aside-menu "
+                         data-ktmenu-vertical="1"
+                         data-ktmenu-scroll="1" data-ktmenu-dropdown-timeout="500">
+
+                        <ul class="kt-menu__nav ">
+                            <li class="kt-menu__section kt-menu__section--first">
+                                <h4 class="kt-menu__section-text">Menu</h4>
+                            </li>
+                            <li class="kt-menu__item kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                                <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-start-up"></i><span class="kt-menu__link-text">Acesso rápido</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                <div class="kt-menu__submenu ">
+                                    <span class="kt-menu__arrow"></span>
+                                    <ul class="kt-menu__subnav">
+                                        <li class="kt-menu__item" aria-haspopup="true" id="lLancar"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Lançar...</span></a></li>
+                                        <li class="kt-menu__item" aria-haspopup="true" id="lTransferir"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Transferir...</span></a></li>
+                                        <li class="kt-menu__item" aria-haspopup="true" id="lAgendar"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Agendar...</span></a></li>
+                                        <li class="kt-menu__item" aria-haspopup="true" id="lFatura"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Consultar fatura...</span></a></li>
+                                        <li class="kt-menu__item" aria-haspopup="true" id="lPagarPicpay"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Pagar com Picpay...</span></a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("dashboard"))"><a href="/dashboard" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-dashboard"></i><span class="kt-menu__link-text">Dashboard</span></a></li>
+                            <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("contas"))"><a href="/contas" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-price-tag"></i><span class="kt-menu__link-text">Contas, cartões e ativos</span></a></li>
+                            <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("lancamentos"))"><a href="" id="lLancamentos" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-exchange-alt"></i><span class="kt-menu__link-text">Lançamentos</span></a></li>
+                            <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("agendamentos"))"><a href="/agendamentos" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-calendar-alt"></i><span class="kt-menu__link-text">Agendamentos</span></a></li>
+                            <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("categorias", "periodos", "pessoas")) kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                                <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-settings"></i><span class="kt-menu__link-text">Cadastros</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                <div class="kt-menu__submenu ">
+                                    <span class="kt-menu__arrow"></span>
+                                    <ul class="kt-menu__subnav">
+                                        <li class="kt-menu__item @(url.EndsWith("atalhos") ? "kt-menu__item--active" : string.Empty)" aria-haspopup="true"><a href="/atalhos" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Atalhos</span></a></li>
+                                        <li class="kt-menu__item @(url.EndsWith("categorias") ? "kt-menu__item--active" : string.Empty)" aria-haspopup="true"><a href="/categorias" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Categorias</span></a></li>
+                                        <li class="kt-menu__item @(url.EndsWith("periodos") ? "kt-menu__item--active" : string.Empty)" aria-haspopup="true"><a href="/periodos" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Períodos</span></a></li>
+                                        <li class="kt-menu__item @(url.EndsWith("pessoas") ? "kt-menu__item--active" : string.Empty)" aria-haspopup="true"><a href="/pessoas" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Pessoas</span></a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- end:: Aside Menu -->
+            </div>
+            <!-- end:: Aside -->
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+                <!-- begin:: Header -->
+                <div id="kt_header" class="kt-header kt-grid__item  kt-header--fixed ">
+                    <!-- begin: Header Menu -->
+                    <button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
+                    <div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
+
+                        <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout-default ">
+                            <ul class="kt-menu__nav ">
+                                @if (ViewBag.Atalhos != null)
+                                {
+                                    foreach (var atalho in (IEnumerable<Atalho>)ViewBag.Atalhos)
+                                    {
+                                        <li class="kt-menu__item " aria-haspopup="true"><a href="@(atalho.Url)" target="_blank" class="kt-menu__link "><span class="kt-menu__link-text">@(atalho.Titulo)</span></a></li>
+                                    }
+                                }
+                                else
+                                {
+                                    <li class="kt-menu__item pt-md-4 kt-font-light kt-font-sm" aria-haspopup="true"><i>Nenhum atalho criado</i></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- end: Header Menu -->
+                    <!-- begin:: Header Topbar -->
+                    <div class="kt-header__topbar">
+                        @if (ViewBag.ExibirQuickPanel != null && (bool)ViewBag.ExibirQuickPanel)
+                        {
+                            <!--begin: Quick panel toggler -->
+                            <div class="kt-header__topbar-item kt-header__topbar-item--quick-panel" data-toggle="kt-tooltip" title="Quick panel" data-placement="right">
+                                <span class="kt-header__topbar-icon" id="kt_quick_panel_toggler_btn">
+                                    <i class="flaticon-grid-menu"></i>
+                                </span>
+                            </div>
+                            <!--end: Quick panel toggler -->
+                        }
+                        <!--begin: User Bar -->
+                        <div class="kt-header__topbar-item kt-header__topbar-item--user">
+                            <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
+                                <div class="kt-header__topbar-user">
+                                    <span class="kt-header__topbar-welcome kt-hidden-mobile">Olá,</span>
+                                    <span class="kt-header__topbar-username kt-hidden-mobile">@cookieHelper.ObterPrimeiroNomeUsuario()</span>
+                                    <img alt="Pic" class="kt-radius-100" src="~/img/img-usuario.jpg" />
+                                    <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
+                                </div>
+                            </div>
+
+                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
+                                <!--begin: Navigation -->
+                                <div class="kt-notification">
+                                    <a href="#" id="lAlterarSenha" class="kt-notification__item">
+                                        <div class="kt-notification__item-icon">
+                                            <i class="flaticon2-lock kt-font-primary"></i>
+                                        </div>
+                                        <div class="kt-notification__item-details">
+                                            <div class="kt-notification__item-title kt-font-bold">
+                                                Alterar senha
+                                            </div>
+                                            <div class="kt-notification__item-time">
+                                                Alterar senha de acesso
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="kt-notification__custom kt-space-between">
+                                        <button class="btn btn-sm btn-secondary btn-hover-primary" id="btn-sair">Sair</button>
+                                    </div>
+                                </div>
+                                <!--end: Navigation -->
+                            </div>
+                        </div>
+                        <!--end: User Bar -->
+
+                    </div>
+                    <!-- end:: Header Topbar -->
+                </div>
+                <!-- end:: Header -->
+
+                <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+
+                    <!-- begin:: Subheader -->
+                    <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+                        <div class="kt-container  kt-container--fluid">
+                            <div class="kt-subheader__main">
+                                <h3 class="kt-subheader__title">
+                                    @ViewData["Titulo"]
+                                </h3>
+                                <div class="kt-subheader__breadcrumbs">
+                                    <span class="kt-subheader__breadcrumbs-home"><i class="flaticon2-calendar-2"></i></span>
+                                    <span class="kt-subheader__breadcrumbs-separator"></span>
+                                    <span class="kt-subheader__breadcrumbs-link">
+                                        @(DateTime.Now.ToString("ddd, dd MMM yyyy").ToUpper())
+                                    </span>
+                                    @if (ViewBag.PeriodoAtual != null)
+                                    {
+                                        <span class="kt-subheader__breadcrumbs-separator kt-hidden-mobile"></span><span class="kt-subheader__breadcrumbs-link kt-hidden-mobile kt-font-boldest kt-font-primary">@(((Periodo)ViewBag.PeriodoAtual).Nome)</span><span class="kt-subheader__breadcrumbs-separator kt-hidden-mobile"></span><a href="#" id="lDetalharPeriodoAtual" class="kt-subheader__breadcrumbs-home" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Detalhar período"><i class="flaticon2-search-1"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <span class="kt-subheader__breadcrumbs-separator kt-hidden-mobile"></span><span class="kt-font-warning kt-font-bolder"><i class="la la-warning"></i> Nenhum período abrange a data atual.</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end:: Subheader -->
+                    <!-- begin:: Content -->
+                    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+                        @Html.AntiForgeryToken()
+                        @RenderBody()
+                    </div>
+                    <!-- end:: Content -->
+                </div>
+
+                <!-- begin:: Footer -->
+                <div class="kt-footer  kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop" id="kt_footer">
+                    <div class="kt-container  kt-container--fluid ">
+                        <div class="kt-footer__copyright">
+                            2019&nbsp;&copy;&nbsp;<a href="http://jnogueira.net.br/" target="_blank" class="kt-link">Jorge Nogueira</a>
+                        </div>
+                        <div class="kt-footer__menu">
+                            <a href="https://github.com/jlnpinheiro/bufunfa" target="_blank" class="kt-footer__menu-link kt-link" data-toggle="kt-tooltip" data-boundary="window" data-placement="left" data-original-title="Repositório no Github"><i class="fab fa-github"></i></a>
+                            <a href="https://twitter.com/jlnpinheiro_" target="_blank" class="kt-footer__menu-link kt-link" data-toggle="kt-tooltip" data-boundary="window" data-placement="left" data-original-title="Meu perfil no Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.linkedin.com/in/jlnpinheiro/" target="_blank" class="kt-footer__menu-link kt-link" data-toggle="kt-tooltip" data-boundary="window" data-placement="left" data-original-title="Meu perfil no LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- end:: Footer -->
+            </div>
+        </div>
+    </div>
+    <!-- end:: Page -->
+    <!-- begin::Quick Panel -->
+    <div id="kt_quick_panel" class="kt-quick-panel">
+        <a href="#" class="kt-quick-panel__close" id="kt_quick_panel_close_btn"><i class="flaticon2-delete"></i></a>
+
+        @RenderSection("QuickPanel", required: false)
+    </div>
+    <!-- end::Quick Panel -->
+    <!-- begin::Scrolltop -->
+    <div id="kt_scrolltop" class="kt-scrolltop">
+        <i class="fa fa-arrow-up"></i>
+    </div>
+    <!-- end::Scrolltop -->
+    <!-- begin::Global Config(global config for global JS sciprts) -->
+    <script>
+        var KTAppOptions = { "colors": { "state": { "brand": "#2c77f4", "light": "#ffffff", "dark": "#282a3c", "primary": "#5867dd", "success": "#34bfa3", "info": "#36a3f7", "warning": "#ffb822", "danger": "#fd3995" }, "base": { "label": ["#c5cbe3", "#a1a8c3", "#3d4465", "#3e4466"], "shape": ["#f0f3ff", "#d9dffa", "#afb4d4", "#646c9a"] } } };
+    </script>
+    <!-- end::Global Config -->
+    <!--begin::Global Theme Bundle(used by all pages) -->
+    <script src="~/plugins/plugins.bundle.js" type="text/javascript"></script>
+    <script src="~/js/scripts.bundle.js" type="text/javascript"></script>
+    <!--end::Global Theme Bundle -->
+    <!--begin:: Global Mandatory Vendors -->
+    <script src="~/vendors/select2/i18n/pt-BR.js" type="text/javascript"></script>
+    <script src="~/vendors/bootstrap-datepicker/bootstrap-datepicker.pt-BR.min.js" type="text/javascript"></script>
+    <script src="~/vendors/moment/pt-br.js" type="text/javascript"></script>
+    <script src="~/vendors/jquery-confirm/jquery-confirm.min.js" type="text/javascript"></script>
+    <script src="~/vendors/numerals/numeral.min.js"></script>
+    <script src="~/vendors/countUp/countup.min.js"></script>
+    <script src="~/vendors/snap-svg/snap.svg.min.js"></script>
+    <script src="~/vendors/liquid-meter/liquid.meter.min.js"></script>
+    <!--end:: Global Mandatory Vendors -->
+    <!--begin:: Page Optional Vendors -->
+    @RenderSection("VendorsJs", required: false)
+    <!--end:: PAge Optional Vendors -->
+    <environment include="Development">
+        <script src="~/js/app.js" type="text/javascript"></script>
+        <script src="~/js/app-modal.js" type="text/javascript"></script>
+        <script src="~/js/app-feedback.js" type="text/javascript"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/app.min.js" type="text/javascript"></script>
+        <script src="~/js/app-modal.min.js" type="text/javascript"></script>
+        <script src="~/js/app-feedback.min.js" type="text/javascript"></script>
+    </environment>
+    <!--end::Global Theme Bundle -->
+    <!--begin::Page Scripts(used by this page) -->
+    <environment include="Development">
+        <script src="~/js/bufunfa.js" type="text/javascript"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/bufunfa.min.js" type="text/javascript"></script>
+    </environment>
+    <script type="text/javascript">
+        $(document).ajaxStart(function () { App.bloquear(); });
+        $(document).ajaxStop(function () { App.desbloquear(); });
+        $(document).ajaxError(function () { App.desbloquear(); });
+    </script>
+    @RenderSection("ViewsJs", required: false)
+    <!--end::Page Scripts -->
+    <script type="text/javascript">
+        // Adiciona a toda requisição AJAX o token AntiforgeryToken
+        $(document).ajaxSend(function (e, xhr, options) {
+            if (options.type.toUpperCase() == "POST" || options.type.toUpperCase() == "PUT") {
+                var token = $("input[name='__RequestVerificationToken']").val();
+                xhr.setRequestHeader("RequestVerificationToken", token);
+            }
+        });
+
+        $(document).ready(function () {
+            $("#lAlterarSenha").click(function (e) {
+                e.preventDefault();
+                Bufunfa.alterarSenhaUsuario();
+            });
+
+            $("#lLancar").click(function (e) {
+                e.preventDefault();
+
+                let opcoes = {
+                    permitirSelecao: true,
+                    callbacks: {
+                        salvar: function () {
+                            if (window.Conta != null) {
+                                window.Conta.atualizar();
+                            }
+                            else if (window.Lancamento != null) {
+                                window.Lancamento.atualizar();
+                            }
+                        }
+                    }
+                }
+
+                Bufunfa.manterLancamento(null, null, opcoes);
+            });
+
+            $("#lTransferir").click(function (e) {
+                e.preventDefault();
+                Bufunfa.realizarTransferencia();
+            });
+
+            if ($("#lDetalharPeriodoAtual").length) {
+                $("#lDetalharPeriodoAtual").click(function (e) {
+                    e.preventDefault();
+                    Bufunfa.detalharPeriodoAtual();
+                });
+            }
+
+            $("#lAgendar").click(function (e) {
+                e.preventDefault();
+                Bufunfa.manterAgendamento();
+            });
+
+            $("#lFatura").click(function (e) {
+                e.preventDefault();
+                Bufunfa.consultarFatura();
+            });
+
+            $("#lLancamentos").click(function (e) {
+                e.preventDefault();
+                Bufunfa.exibirPopupSelecaoContaLancamento();
+            });
+
+            $("#lPagarPicpay").click(function (e) {
+                e.preventDefault();
+                Bufunfa.pagarComPicpay();
+            });
+
+            $("#btn-sair").click(function () {
+                AppModal.exibirConfirmacao("Deseja realmente sair?", "Sim", "Não", function () {
+                    $.post(App.corrigirPathRota("/usuario/logout"), function () {
+                        location.href = App.corrigirPathRota("/login");
+                    });
+                });
+            });
+        })
+    </script>
+</body>
+<!-- end::Body -->
+</html>
+
+@functions {
+    public string VerificarCssClassMenuItemAtivo(params string[] palavrasChaves)
+    {
+        var url = Microsoft.AspNetCore.Http.Extensions.UriHelper.GetDisplayUrl(httpContext.HttpContext.Request);
+
+        foreach (var palavra in palavrasChaves)
+        {
+            if (url.Contains(palavra))
+                return "kt-menu__item--here kt-menu__item--open";
+        }
+
+        return string.Empty;
+    }
+}

@@ -1,0 +1,25 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+
+@model IEnumerable<JNogueira.Bufunfa.Web.Models.LancamentoAnexo>
+
+@if (Model.Any())
+{
+    <div class="kt-widget4">
+        @foreach (var anexo in Model)
+        {
+            <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <div class="kt-widget4__info">
+                    <span class="kt-widget4__title">@(anexo.Descricao)</span>
+                    <p class="kt-widget4__text">@(anexo.NomeArquivo)</p>
+                </div>
+                <a href="" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables download-anexo" data-id="@anexo.Id"><span class="la la-download"></span></a>
+                <button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables excluir-anexo" data-id="@anexo.Id"><span class="la la-trash"></span></button>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-center">Nenhum item encontrado</div>
+}
+

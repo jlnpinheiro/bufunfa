@@ -1,0 +1,39 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+
+@model JNogueira.Bufunfa.Web.Models.Lancamento
+
+<div class="kt-portlet kt-portlet--bordered">
+    <div class="kt-portlet__head" style="min-height:40px; padding: 0 15px;">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title" style="font-size: 1.0rem;">
+                Lançamento
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body" style="padding: 15px;">
+        <table class="table" style="margin-bottom: 0;">
+            <tbody>
+                <tr>
+                    <td style="border-top: none; border-bottom: 1px dashed #ebedf2;">
+                        <span class="kt-font-bold">Data</span><br />
+                        <span>@(Model.Data.ToString("dd/MM/yyyy")) <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <small class="kt-font-bolder kt-font-primary">@(Model.Data.ToString("ddd").ToUpper())</small></span>
+                    </td>
+                    <td style="border-top: none; border-bottom: 1px dashed #ebedf2;">
+                        <span class="kt-font-bold">Categoria</span><br />
+                        <span><i class="fa fa-tag kt-font-@(Model.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger")"></i>  @(Model.Categoria.Caminho)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border-top: none;">
+                        <span class="kt-font-bold">Valor</span><br />
+                        <span class="kt-font-@(Model.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger")">@Model.ObterValorEmReais()</span>
+                    </td>
+                    <td style="border-top: none;">
+                        <span class="kt-font-bold">Pessoa</span><br />
+                        <span>@(Model.Pessoa != null ? Model.Pessoa.Nome : "-")</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,8 +1,6 @@
-﻿using JNogueira.Bufunfa.Dominio.Entidades;
-using JNogueira.Bufunfa.Dominio.Resources;
+﻿using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.Infraestrutura.NotifiqueMe;
 using System;
-using System.Reflection;
 
 namespace JNogueira.Bufunfa.Dominio.Comandos
 {

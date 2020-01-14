@@ -1,5 +1,4 @@
-﻿using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
-using JNogueira.Bufunfa.Dominio.Resources;
+﻿using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.Infraestrutura.NotifiqueMe;
 using System;
 
@@ -8,7 +7,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
     /// <summary>
     /// Comando utilizado para entrada referente a um transferência entre contas
     /// </summary>
-    public class TransferenciaEntrada : Notificavel, IEntrada
+    public class TransferenciaEntrada : Notificavel
     {
         /// <summary>
         /// Id do usuário responsável

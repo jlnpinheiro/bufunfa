@@ -1,5 +1,4 @@
-﻿using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
-using JNogueira.Bufunfa.Dominio.Resources;
+﻿using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.Infraestrutura.NotifiqueMe;
 
 namespace JNogueira.Bufunfa.Dominio.Comandos
@@ -7,7 +6,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
     /// <summary>
     /// Comando utilizado para descartar uma parcela
     /// </summary>
-    public class DescartarParcelaEntrada : Notificavel, IEntrada
+    public class DescartarParcelaEntrada : Notificavel
     {
         /// <summary>
         /// Id do usuário

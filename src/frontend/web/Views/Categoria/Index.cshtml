@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Titulo"] = "Categorias";
+    Layout = "_Master";
+}
+
+@section VendorsCss
+{
+    <link href="~/plugins/custom/jstree/jstree.bundle.css" rel="stylesheet" type="text/css" />
+}
+
+@section VendorsJs
+{
+    <script src="~/plugins/custom/jstree/jstree.bundle.js" type="text/javascript"></script>
+}
+
+@section ViewsJs
+{
+    <environment include="Development">
+        <script src="~/js/views/categoria.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/views/categoria.min.js"></script>
+    </environment>
+}
+
+<div class="kt-portlet">
+    <div class="kt-portlet__body">
+        <div class="alert alert-secondary  fade show" role="alert">
+            <div class="alert-icon"><i class="fa fa-info"></i></div>
+            <div class="alert-text">Clique com o botão direito do mouse sobre a categoria desejada para visualizar as opções disponíveis.</div>
+            <div class="alert-close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="la la-close"></i></span>
+                </button>
+            </div>
+        </div>
+
+        <div id="tree" class="tree-demo table-responsive">
+
+        </div>
+    </div>
+</div>

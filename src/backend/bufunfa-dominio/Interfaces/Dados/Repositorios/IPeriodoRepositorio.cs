@@ -15,7 +15,7 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         /// Obtém um período a partir do seu ID
         /// </summary>
         /// <param name="habilitarTracking">Indica que o tracking do EF deverá estar habilitado, permitindo alteração dos dados.</param>
-        Task<Periodo> ObterPorId(int idPeriodo, bool habilitarTracking = false);
+        Task<Periodo> ObterPorId(int idPeriodo);
 
         /// <summary>
         /// Obtém um período que compreenda a data informada

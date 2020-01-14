@@ -12,8 +12,7 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         /// <summary>
         /// Obtém um detalhe a partir do seu ID
         /// </summary>
-        /// <param name="habilitarTracking">Indica que o tracking do EF deverá estar habilitado, permitindo alteração dos dados.</param>
-        Task<LancamentoDetalhe> ObterPorId(int idDetalhe, bool habilitarTracking = false);
+        Task<LancamentoDetalhe> ObterPorId(int idDetalhe);
 
         /// <summary>
         /// Insere um novo detalhe no banco de dados.

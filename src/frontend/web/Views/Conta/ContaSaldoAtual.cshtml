@@ -1,0 +1,37 @@
+﻿@model JNogueira.Bufunfa.Web.Models.Conta
+
+<div class="kt-iconbox @(Model.ValorSaldoAtual >= 0 ? "kt-iconbox--success" : "kt-iconbox--warning")" style="padding: 0.8rem;">
+    <div class="kt-iconbox__body">
+        <div class="kt-iconbox__icon kt-hidden-mobile" style="padding-right: 5px;">
+            @if (Model.ValorSaldoAtual >= 0)
+            {
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect id="bound" x="0" y="0" width="24" height="24" />
+                        <path d="M9,10 L9,19 L10.1525987,19.3841996 C11.3761964,19.7920655 12.6575468,20 13.9473319,20 L17.5405883,20 C18.9706314,20 20.2018758,18.990621 20.4823303,17.5883484 L21.231529,13.8423552 C21.5564648,12.217676 20.5028146,10.6372006 18.8781353,10.3122648 C18.6189212,10.260422 18.353992,10.2430672 18.0902299,10.2606513 L14.5,10.5 L14.8641964,6.49383981 C14.9326895,5.74041495 14.3774427,5.07411874 13.6240179,5.00562558 C13.5827848,5.00187712 13.5414031,5 13.5,5 L13.5,5 C12.5694044,5 11.7070439,5.48826024 11.2282564,6.28623939 L9,10 Z" id="Path-42" fill="#000000" />
+                        <rect id="Rectangle-153" fill="#000000" opacity="0.3" x="2" y="9" width="5" height="11" rx="1" />
+                    </g>
+                </svg>
+            }
+            else
+            {
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect id="bound" x="0" y="0" width="24" height="24" />
+                        <path d="M11.1669899,4.49941818 L2.82535718,19.5143571 C2.557144,19.9971408 2.7310878,20.6059441 3.21387153,20.8741573 C3.36242953,20.9566895 3.52957021,21 3.69951446,21 L21.2169432,21 C21.7692279,21 22.2169432,20.5522847 22.2169432,20 C22.2169432,19.8159952 22.1661743,19.6355579 22.070225,19.47855 L12.894429,4.4636111 C12.6064401,3.99235656 11.9909517,3.84379039 11.5196972,4.13177928 C11.3723594,4.22181902 11.2508468,4.34847583 11.1669899,4.49941818 Z" id="Path-117" fill="#000000" opacity="0.3" />
+                        <rect id="Rectangle-9" fill="#000000" x="11" y="9" width="2" height="7" rx="1" />
+                        <rect id="Rectangle-9-Copy" fill="#000000" x="11" y="17" width="2" height="2" rx="1" />
+                    </g>
+                </svg>
+            }
+        </div>
+        <div class="kt-iconbox__desc">
+            <div class="kt-iconbox__content">
+                Saldo atual
+            </div>
+            <h3 class="kt-iconbox__title">
+                <span data-valor="@(Model.ValorSaldoAtual)" class="@(Model.ValorSaldoAtual >= 0 ? "kt-font-success" : "kt-font-danger")" id="span-saldo-atual">@(Model.ObterSaldoAtualEmReais())</span>
+            </h3>
+        </div>
+    </div>
+</div>

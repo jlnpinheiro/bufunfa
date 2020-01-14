@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Titulo"] = "Contas, cartões e ativos";
+    Layout = "_Master";
+}
+
+@section ViewsJs
+{
+    <environment include="Development">
+        <script src="~/js/views/conta.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/views/conta.min.js"></script>
+    </environment>
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="kt-portlet" id="portlet-renda-fixa" data-ktportlet="true">
+            <div class="kt-portlet__head popup">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon">
+                        <i class="fa fa-university"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-title">
+                        Conta corrente e renda fixa
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-actions">
+                        <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-sm-12 mb-3">
+                        <button class="btn btn-sm btn-secondary btn-hover-primary" id="btn-cadastrar-renda-fixa">
+                            <i class="la la-plus"></i>Adicionar
+                        </button>
+                        <button class="btn btn-sm btn-secondary btn-hover-primary" id="btn-cadastrar-renda-fixa">
+                            <i class="fa fa-retweet"></i>Transferir
+                        </button>
+                    </div>
+                </div>
+                <div id="divRendaFixa">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="kt-portlet" id="portlet-cartao-credito" data-ktportlet="true">
+            <div class="kt-portlet__head popup">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon">
+                        <i class="fa fa-credit-card"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-title">
+                        Cartões de crédito
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-group">
+                        <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-sm-12 mb-3">
+                        <button class="btn btn-sm btn-secondary btn-hover-primary" id="btn-cadastrar-cartao-credito">
+                            <i class="la la-plus"></i>Adicionar
+                        </button>
+                    </div>
+                </div>
+                <div id="divCartoes">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="kt-portlet" id="portlet-renda-variavel" data-ktportlet="true">
+            <div class="kt-portlet__head popup">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon">
+                        <i class="flaticon2-line-chart"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-title">
+                        Ativos
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-group">
+                        <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-sm-12 mb-3">
+                        <button class="btn btn-sm btn-secondary btn-hover-primary" id="btn-cadastrar-renda-variavel">
+                            <i class="la la-plus"></i>Adicionar
+                        </button>
+                    </div>
+                </div>
+                <div id="divRendaVariavel">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

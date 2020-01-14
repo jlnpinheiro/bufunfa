@@ -13,7 +13,7 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         /// Obtém um cartão a partir do seu ID
         /// </summary>
         /// <param name="habilitarTracking">Indica que o tracking do EF deverá estar habilitado, permitindo alteração dos dados.</param>
-        Task<CartaoCredito> ObterPorId(int idCartaoCredito, bool habilitarTracking = false);
+        Task<CartaoCredito> ObterPorId(int idCartaoCredito);
 
         /// <summary>
         /// Obtém os cartões de um usuário.

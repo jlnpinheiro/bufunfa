@@ -1,0 +1,52 @@
+﻿@model JNogueira.Bufunfa.Web.Models.Lancamento
+
+<div class="kt-portlet app-modal-md" style="margin-bottom:0;" id="portlet-manter">
+    <div class="kt-portlet__head popup">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Detalhes
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <input type="hidden" id="iIdLancamento" name="iIdLancamento" value="@Model.Id">
+        @await Html.PartialAsync("~/Views/Lancamento/LancamentoInformacoes.cshtml", Model)
+
+        <div class="alert alert-secondary  fade show" role="alert">
+            <div class="alert-icon"><i class="fa fa-info"></i></div>
+            <div class="alert-text">Os detalhes permitem fragmentar os valores que compõem o valor de um lançamento.</div>
+            <div class="alert-close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="la la-close"></i></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="kt-portlet kt-portlet--bordered" style="margin-bottom: 0;">
+            <div class="kt-portlet__head" style="min-height:50px; padding: 0 15px;">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title" style="font-size: 1.0rem;">Detalhes do lançamento</h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <button class="btn btn-sm btn-outline-hover-primary btn-square" id="btn-cadastrar-detalhe">
+                        <i class="la la-plus"></i>Adicionar
+                    </button>
+                </div>
+            </div>
+            <div class="kt-portlet__body" style="padding: 15px;">
+                <div id="div-detalhes">
+                    @await Html.PartialAsync("~/Views/Lancamento/ListarDetalhes.cshtml", Model.Detalhes)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__foot popup">
+        <div class="kt-form__actions">
+            <div class="row">
+                <div class="col-lg-12 kt-align-right">
+                    <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
