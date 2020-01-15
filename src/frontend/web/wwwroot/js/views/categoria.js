@@ -77,7 +77,7 @@
                             return menuItems;
                         }
                     },
-                    "plugins": ["contextmenu", "types"]
+                    "plugins": ["contextmenu", "types", "dnd"]
                 })
                     .on('select_node.jstree', function (e, data) {
                         setTimeout(function () {
@@ -147,6 +147,28 @@
                     })
                     .on("select_node.jstree", function (e, data) {
                         $(data.node.a_attr).trigger('contextmenu');
+                    }).on('move_node.jstree', function (e, data) {
+                        var categoria = {
+                            Id: data.node.id,
+                            IdCategoriaPai: data.node.parent,
+                            Nome: data.node.text.trim(),
+                            Tipo: data.node.type == "folha-credito" || data.node.state == "pai-credito" ? "C" : "D"
+                        };
+
+                        $.post('/categorias/alterar-categoria', { entrada: categoria }, function (retorno) {
+                            data.instance.set_id(data.node, retorno.id);
+                            if (retorno.Tipo == "C")
+                                data.instance.set_type(data.node, "folha-credito");
+                            else
+                                data.instance.set_type(data.node, "folha-debito");
+
+                            atualizarArvore();
+                        })
+                            .fail(function (jqXhr) {
+                                atualizarArvore();
+                                var feedback = Feedback.converter(jqXhr.responseJSON);
+                                feedback.exibir();
+                            });
                     });
             })
             .fail(function (jqXhr) {

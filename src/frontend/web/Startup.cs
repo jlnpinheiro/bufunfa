@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Globalization;
@@ -61,11 +62,17 @@ namespace bufunfa_web
                     .Build());
             });
 
-            services.AddControllersWithViews(options =>
+            var builder = services.AddControllersWithViews(options =>
             {
                 // Previne ataques CSRF - Cross-Site Request Forgery (Falsificação de solicitação entre sites) (https://www.eduardopires.net.br/2018/02/prevenindo-ataques-csrf-no-asp-net-core/)
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
+
+            if (Environment.IsDevelopment())
+            {
+                // Posibilita que ao atualizar um arquivo *.cshtml, a alteração seja refletida sem que seja necessário recompilar o projeto (https://docs.microsoft.com/en-us/aspnet/core/mvc/views/view-compilation?view=aspnetcore-3.1)
+                builder.AddRazorRuntimeCompilation();
+            }
 
             // Habilita a compressão do response
             services.AddResponseCompression(options =>
