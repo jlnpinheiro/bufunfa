@@ -278,45 +278,52 @@ namespace JNogueira.Bufunfa.Web.Controllers
         }
 
         [HttpGet]
-        [Route("pagar-com-picpay")]
-        public IActionResult PagarPicpay()
+        [Route("pagar-com")]
+        public IActionResult PagarCom()
         {
-            return PartialView("PagarPicpay");
+            return PartialView("PagarCom");
         }
 
         [HttpPost]
-        [Route("pagar-com-picpay")]
-        [FeedbackExceptionFilter("Ocorreu um erro ao pagar com o Picpay.", TipoAcaoAoOcultarFeedback.Ocultar)]
-        public async Task<IActionResult> PagarPicpay(PagarPicpay entrada)
+        [Route("pagar-com")]
+        [FeedbackExceptionFilter("Ocorreu um erro ao pagar.", TipoAcaoAoOcultarFeedback.Ocultar)]
+        public async Task<IActionResult> PagarCom(Pagar entrada)
         {
             if (entrada == null)
                 return new FeedbackResult(new Feedback(TipoFeedback.Atencao, "As informações não foram preenchidas.", new[] { "Verifique se todas as informações foram preenchidas." }, TipoAcaoAoOcultarFeedback.Ocultar));
 
             var pessoaSaida = await _proxy.ProcurarPessoas(new ProcurarPessoa
             {
-                Nome = "Picpay",
+                Nome = entrada.NomePessoa,
                 OrdenarPor = "Nome",
                 OrdenarSentido = "ASC",
                 PaginaIndex = 1,
-                PaginaTamanho = 1
+                PaginaTamanho = 10
             });
 
             if (!pessoaSaida.Sucesso)
-                return new FeedbackResult(new Feedback(TipoFeedback.Atencao, "A pessoa com o nome \"Picpay\" não foi encontrada.", new[] { "Cadastre uma pessoa com o nome \"Picpay\"." }, TipoAcaoAoOcultarFeedback.Ocultar));
+                return new FeedbackResult(new Feedback(TipoFeedback.Atencao, $"Não foi possível procurar a pessoa com o nome \"{entrada.NomePessoa}\".", tipoAcao: TipoAcaoAoOcultarFeedback.Ocultar));
+
+            var pessoa = pessoaSaida.Retorno.Registros.FirstOrDefault(x => x.Nome.Equals(entrada.NomePessoa, StringComparison.InvariantCultureIgnoreCase));
+
+            if (pessoa == null)
+                return new FeedbackResult(new Feedback(TipoFeedback.Atencao, $"A pessoa com o nome \"{entrada.NomePessoa}\" não foi encontrada.", new[] { $"Cadastre uma pessoa com o nome \"{entrada.NomePessoa}\" antes de realizar o pagamento." }, TipoAcaoAoOcultarFeedback.Ocultar));
 
             var cartao = (await _proxy.ObterCartaoCreditoPorId(entrada.IdCartaoCredito)).Retorno;
 
             var dataVencimentoFatura = new DateTime(entrada.DataCompra.Year, entrada.DataCompra.Month, cartao.DiaVencimentoFatura);
 
-            var dataParcela = dataVencimentoFatura >= entrada.DataCompra || entrada.DataCompra.Subtract(dataVencimentoFatura).TotalDays <= 3
-                ? dataVencimentoFatura.AddMonths(1)
-                : dataVencimentoFatura;
+            var dataProximoVencimentoFatura = dataVencimentoFatura.AddMonths(1);
+
+            DateTime dataParcela = entrada.DataCompra >= dataVencimentoFatura && entrada.DataCompra <= dataProximoVencimentoFatura.AddDays(-3)
+                ? dataProximoVencimentoFatura
+                : dataProximoVencimentoFatura.AddMonths(1);
 
             var agendamentoEntrada = new ManterAgendamento
             {
                 IdCartaoCredito       = entrada.IdCartaoCredito,
                 IdCategoria           = entrada.IdCategoria,
-                IdPessoa              = pessoaSaida.Retorno.Registros.FirstOrDefault()?.Id,
+                IdPessoa              = pessoa.Id,
                 Observacao            = entrada.Observacao,
                 PeriodicidadeParcelas = Periodicidade.Mensal,
                 TipoMetodoPagamento   = MetodoPagamento.Debito,
@@ -328,8 +335,8 @@ namespace JNogueira.Bufunfa.Web.Controllers
             var saida = await _proxy.CadastrarAgendamento(agendamentoEntrada);
 
             return !saida.Sucesso
-                ? new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível pagar com o Picpay.", saida.Mensagens))
-                : new FeedbackResult(new Feedback(TipoFeedback.Sucesso, "Pagamento com o Picpay realizado com sucesso.", tipoAcao: TipoAcaoAoOcultarFeedback.OcultarMoldais));
+                ? new FeedbackResult(new Feedback(TipoFeedback.Erro, $"Não foi possível pagar com o {entrada.NomePessoa}.", saida.Mensagens))
+                : new FeedbackResult(new Feedback(TipoFeedback.Sucesso, $"Pagamento com o {entrada.NomePessoa} realizado com sucesso.", tipoAcao: TipoAcaoAoOcultarFeedback.OcultarMoldais));
         }
     }
 }

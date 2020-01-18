@@ -2,30 +2,46 @@
 
 @inject CustomHtmlHelper customHtmlHelper
 
-<div class="kt-portlet app-modal-md" style="margin-bottom:0;" id="portlet-picpay">
+<div class="kt-portlet app-modal-md" style="margin-bottom:0;" id="portlet-pagar-com">
     <div class="kt-portlet__head popup">
         <div class="kt-portlet__head-label">
             <h3 class="kt-portlet__head-title">
-                Pagar com Picpay
+                Pagar
             </h3>
         </div>
     </div>
-    <form class="kt-form kt-form--label-right" id="form-pagar-picpay">
+    <form class="kt-form kt-form--label-right" id="form-pagar-com">
         <div class="kt-portlet__body">
             <div class="alert alert-secondary  fade show" role="alert">
                 <div class="alert-icon"><i class="fa fa-info"></i></div>
-                <div class="alert-text">Cria um agendamento para o cartão de crédito selecionado, com data do próximo vencimento da fatura e para a pessoa <b>Picpay</b>.</div>
+                <div class="alert-text">Cria um agendamento para o cartão de crédito selecionado, com data do próximo vencimento da fatura e para a pessoa selecionada.</div>
                 <div class="alert-close">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true"><i class="la la-close"></i></span>
                     </button>
                 </div>
             </div>
-            
+
+            <div class="form-group row">
+                <div class="col-lg-12 form-group-sub">
+                    <label for="sCategoria">Pagar com</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                    <div class="kt-radio-inline">
+                        <label class="kt-radio kt-radio--bold kt-radio--primary">
+                            <input type="radio" name="iPagarComPessoa" value="Picpay" checked> <img src="~/img/logo-picpay.png" />
+                            <span></span>
+                        </label>
+                        <label class="kt-radio kt-radio--bold kt-radio--primary">
+                            <input type="radio" name="iPagarComPessoa" value="AME"> <img src="~/img/logo-ame.png" />
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group row">
                 <div class="col-lg-12  form-group-sub">
                     <label>Cartão de crédito</label> @CustomHtmlHelper.IconeCampoObrigatorio()
-                    @customHtmlHelper.SelectContasCartoesCredito("sPicpayCartao", "form-control", null, TipoItemSelectContasCartoesCredito.SomenteCartoesCredito)
+                    @customHtmlHelper.SelectContasCartoesCredito("sPagarComCartao", "form-control", null, TipoItemSelectContasCartoesCredito.SomenteCartoesCredito)
                     <span class="form-text text-muted"></span>
                 </div>
             </div>
@@ -33,7 +49,7 @@
             <div class="form-group row">
                 <div class="col-lg-12 form-group-sub">
                     <label for="sCategoria">Categoria</label> @CustomHtmlHelper.IconeCampoObrigatorio()
-                    @customHtmlHelper.SelectCategorias("sPicpayCategoria", "form-control", null, false)
+                    @customHtmlHelper.SelectCategorias("sPagarComCategoria", "form-control", null, false)
                     <span class="form-text text-muted"></span>
                 </div>
             </div>
@@ -43,7 +59,7 @@
                     <label>Data da compra</label> @CustomHtmlHelper.IconeCampoObrigatorio()
                     <div class="input-group date">
                         <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
-                        <input type="text" class="form-control datepicker" id="iPicpayDataCompra" name="iPicpayDataCompra" data-date-end-date="0d">
+                        <input type="text" class="form-control datepicker" id="iPagarComDataCompra" name="iPagarComDataCompra" data-date-end-date="0d">
                     </div>
                 </div>
 
@@ -51,7 +67,7 @@
                     <label>Valor da compra</label> @CustomHtmlHelper.IconeCampoObrigatorio()
                     <div class="input-group">
                         <div class="input-group-prepend"><span class="input-group-text">R$</span></div>
-                        <input type="text" class="form-control" id="iPicpayValorCompra" name="iPicpayValorCompra">
+                        <input type="text" class="form-control" id="iPagarComValorCompra" name="iPagarComValorCompra">
                     </div>
                 </div>
             </div>
@@ -59,7 +75,7 @@
             <div class="form-group row">
                 <div class="col-sm-12">
                     <label>Observação</label>
-                    <input type="text" class="form-control" id="iPicpayObservacao" name="iPicpayObservacao">
+                    <input type="text" class="form-control" id="iPagarComObservacao" name="iPagarComObservacao">
                 </div>
             </div>
         </div>

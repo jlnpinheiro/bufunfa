@@ -95,10 +95,10 @@
                                     <span class="kt-menu__arrow"></span>
                                     <ul class="kt-menu__subnav">
                                         <li class="kt-menu__item" aria-haspopup="true" id="lLancar"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Lançar...</span></a></li>
-                                        <li class="kt-menu__item" aria-haspopup="true" id="lTransferir"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Transferir...</span></a></li>
                                         <li class="kt-menu__item" aria-haspopup="true" id="lAgendar"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Agendar...</span></a></li>
+                                        <li class="kt-menu__item" aria-haspopup="true" id="lPagar"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Pagar...</span></a></li>
+                                        <li class="kt-menu__item" aria-haspopup="true" id="lTransferir"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Transferir...</span></a></li>
                                         <li class="kt-menu__item" aria-haspopup="true" id="lFatura"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Consultar fatura...</span></a></li>
-                                        <li class="kt-menu__item" aria-haspopup="true" id="lPagarPicpay"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Pagar com Picpay...</span></a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -376,7 +376,7 @@
                 Bufunfa.exibirPopupSelecaoContaLancamento();
             });
 
-            $("#lPagarPicpay").click(function (e) {
+            $("#lPagar").click(function (e) {
                 e.preventDefault();
                 Bufunfa.pagarComPicpay();
             });

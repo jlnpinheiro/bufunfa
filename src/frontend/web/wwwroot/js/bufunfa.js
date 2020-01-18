@@ -1400,35 +1400,36 @@
             });
         },
 
-        // Realiza um pagamento utilizando o Picpay
+        // Realiza um pagamento
         pagarComPicpay: function () {
-            AppModal.exibirPorRota(App.corrigirPathRota("/agendamentos/pagar-com-picpay"), function () {
-                $("#form-pagar-picpay").validate({
+            AppModal.exibirPorRota(App.corrigirPathRota("/agendamentos/pagar-com"), function () {
+                $("#form-pagar-com").validate({
                     rules: {
-                        sPicpayCartao: {
+                        sPagarComCartao: {
                             required: true
                         },
-                        iPicpayDataCompra: {
+                        iPagarComDataCompra: {
                             required: true
                         },
-                        sPicpayCategoria: {
+                        sPagarComCategoria: {
                             required: true
                         },
-                        iPicpayValorCompra: {
+                        iPagarComValorCompra: {
                             required: true
                         }
                     },
                     submitHandler: function () {
 
                         let entrada = {
-                            IdCartaoCredito: $("#sPicpayCartao").val(),
-                            IdCategoria: $("#sPicpayCategoria").val(),
-                            DataCompra: $("#iPicpayDataCompra").val(),
-                            ValorCompra: $("#iPicpayValorCompra").val(),
-                            Observacao: $("#iPicpayObservacao").val()
+                            IdCartaoCredito: $("#sPagarComCartao").val(),
+                            IdCategoria: $("#sPagarComCategoria").val(),
+                            NomePessoa: $("input[name='iPagarComPessoa']:checked").val(),
+                            DataCompra: $("#iPagarComDataCompra").val(),
+                            ValorCompra: $("#iPagarComValorCompra").val(),
+                            Observacao: $("#iPagarComObservacao").val()
                         };
 
-                        $.post(App.corrigirPathRota("/agendamentos/pagar-com-picpay"), { entrada: entrada })
+                        $.post(App.corrigirPathRota("/agendamentos/pagar-com"), { entrada: entrada })
                             .done(function (feedbackResult) {
                                 let feedback = Feedback.converter(feedbackResult);
 
@@ -1468,11 +1469,11 @@
 
                 $('.datepicker').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy", placeholder: 'dd/mm/aaaa' });
 
-                Bufunfa.criarSelectContasCartoesCredito({ selector: "#sPicpayCartao", dropDownParentSelector: ".jconfirm", obrigatorio: true });
+                Bufunfa.criarSelectContasCartoesCredito({ selector: "#sPagarComCartao", dropDownParentSelector: ".jconfirm", obrigatorio: true });
 
-                Bufunfa.criarSelectCategorias({ selector: "#sPicpayCategoria", dropDownParentSelector: ".jconfirm", obrigatorio: true });
+                Bufunfa.criarSelectCategorias({ selector: "#sPagarComCategoria", dropDownParentSelector: ".jconfirm", obrigatorio: true });
 
-                $('#iPicpayValorCompra').inputmask('decimal', {
+                $('#iPagarComValorCompra').inputmask('decimal', {
                     radixPoint: ",",
                     groupSeparator: ".",
                     autoGroup: true,

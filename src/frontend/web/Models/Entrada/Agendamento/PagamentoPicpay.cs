@@ -3,14 +3,19 @@
 namespace JNogueira.Bufunfa.Web.Models
 {
     /// <summary>
-    /// Classe de entrada para os pagamentos realizados com Picpay
+    /// Classe de entrada para os pagamentos realizados com a funcionalidade "Pagar com..."
     /// </summary>
-    public class PagarPicpay : BaseModel
+    public class Pagar : BaseModel
     {
         /// <summary>
         /// Id do cartão de crédito
         /// </summary>
         public int IdCartaoCredito { get; set; }
+
+        /// <summary>
+        /// Nome da pessoa para quem será feito o pagamento
+        /// </summary>
+        public string NomePessoa { get; set; }
 
         /// <summary>
         /// Data da compra
