@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bufunfa-api", "bufunfa-api\bufunfa-api.csproj", "{DC2CCF2D-7A97-43A8-991B-34B23364CA5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bufunfa-api", "bufunfa-api\bufunfa-api.csproj", "{DC2CCF2D-7A97-43A8-991B-34B23364CA5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bufunfa-dominio", "bufunfa-dominio\bufunfa-dominio.csproj", "{7B335051-F4BC-441B-8481-7A8D1422EE4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bufunfa-dominio", "bufunfa-dominio\bufunfa-dominio.csproj", "{7B335051-F4BC-441B-8481-7A8D1422EE4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bufunfa-infraestrutura", "bufunfa-infraestrutura\bufunfa-infraestrutura.csproj", "{43A4876A-90F6-4FA2-A5EF-1535D5B26ACE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bufunfa-infraestrutura", "bufunfa-infraestrutura\bufunfa-infraestrutura.csproj", "{43A4876A-90F6-4FA2-A5EF-1535D5B26ACE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bufunfa-infraestrutura-dados", "bufunfa-infraestrutura-dados\bufunfa-infraestrutura-dados.csproj", "{EB6682E3-5B8E-422E-A495-9AF1D052D59E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bufunfa-infraestrutura-dados", "bufunfa-infraestrutura-dados\bufunfa-infraestrutura-dados.csproj", "{EB6682E3-5B8E-422E-A495-9AF1D052D59E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bufunfa-infraestrutura-logging", "..\infraestrutura-logging\bufunfa-infraestrutura-logging.csproj", "{B48920E8-9E4D-44F8-A355-4CE8F9FB5B97}"
 EndProject

@@ -1,4 +1,5 @@
 ﻿using JNogueira.Bufunfa.Infraestrutura.Logging.Slack;
+using JNogueira.Logger.Discord;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -18,15 +19,15 @@ namespace JNogueira.Bufunfa.Api
             {
                 if (!hostingContext.HostingEnvironment.IsProduction())
                 {
-                    logging.AddFilter<SlackLoggerProvider>("Microsoft", LogLevel.Error);
+                    //logging.AddFilter<SlackLoggerProvider>("Microsoft", LogLevel.Error);
+                    logging.AddFilter<DiscordLoggerProvider>("Microsoft", LogLevel.Error);
                     logging.AddConsole();
                 }
                 else
                 {
-                    logging.AddFilter<SlackLoggerProvider>("Microsoft", LogLevel.Warning);
+                    //logging.AddFilter<SlackLoggerProvider>("Microsoft", LogLevel.Warning);
+                    logging.AddFilter<DiscordLoggerProvider>("Microsoft", LogLevel.Warning);
                 }
-
-                //logging.AddFilter<SlackLoggerProvider>("Bufunfa", LogLevel.Error);
             })
             .ConfigureWebHostDefaults(webBuilder =>
             {

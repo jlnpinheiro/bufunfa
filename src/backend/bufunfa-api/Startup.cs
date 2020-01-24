@@ -8,6 +8,7 @@ using JNogueira.Bufunfa.Infraestrutura.Dados;
 using JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios;
 using JNogueira.Bufunfa.Infraestrutura.Integracoes.AlphaVantage;
 using JNogueira.Bufunfa.Infraestrutura.Logging.Slack;
+using JNogueira.Logger.Discord;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -20,7 +21,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
@@ -125,13 +125,7 @@ namespace JNogueira.Bufunfa.Api
                     .RequireAuthenticatedUser().Build());
             });
 
-            services
-                .AddControllers(options => options.Filters.Add(typeof(CustomModelStateValidationFilterAttribute)))
-                .AddNewtonsoftJson(options =>
-                {
-                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                    options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
-                });
+            services.AddControllers(options => options.Filters.Add(typeof(CustomModelStateValidationFilterAttribute)));
 
             var swaggerDescricao = "API que disponibiliza o acesso as informações geridas pelo sistema \"Bufunfa!\".<br>" +
                                     "<ul>" +
@@ -203,7 +197,9 @@ namespace JNogueira.Bufunfa.Api
 
             loggerFactory
                 // Adiciona o logger para mandar mensagem pelo Slack.
-                .AddSlackLoggerProvider(Configuration["Slack:Webhook"], Configuration["Slack:Channel"], httpContextAccessor, Environment.EnvironmentName, Configuration["Slack:Modulo"], Configuration["Slack:UserName"]);
+                //.AddSlackLoggerProvider(Configuration["Slack:Webhook"], Configuration["Slack:Channel"], httpContextAccessor, Environment.EnvironmentName, Configuration["Slack:Modulo"], Configuration["Slack:UserName"])
+                // Adiciona o logger provider para o Discord.
+                .AddDiscord(new DiscordLoggerOptions(Configuration["Discord:Webhook"]) { ApplicationName = "Backend", EnvironmentName = Environment.EnvironmentName, UserName = "bufunfa-bot" }, httpContextAccessor);
 
             // Definindo a cultura padrão: pt-BR
             var supportedCultures = new[] { new CultureInfo("pt-BR") };

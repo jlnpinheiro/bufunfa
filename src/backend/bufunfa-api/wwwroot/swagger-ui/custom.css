@@ -46,6 +46,11 @@
 
     .swagger-ui .opblock-body pre span {
         color: #333 !important;
+        font-weight: normal;
+    }
+
+    .swagger-ui .opblock-body pre.microlight span {
+        color: #333 !important;
     }
 
 .swagger-ui .topbar .download-url-wrapper .select-label {
