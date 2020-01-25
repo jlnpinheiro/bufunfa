@@ -1,5 +1,5 @@
 ﻿using JNogueira.Bufunfa.Dominio.Resources;
-using JNogueira.Infraestrutura.NotifiqueMe;
+using JNogueira.NotifiqueMe;
 using NETCore.Encrypt.Extensions;
 
 namespace JNogueira.Bufunfa.Dominio.Comandos

@@ -1,5 +1,5 @@
 ﻿using JNogueira.Bufunfa.Dominio.Resources;
-using JNogueira.Infraestrutura.NotifiqueMe;
+using JNogueira.NotifiqueMe;
 
 namespace JNogueira.Bufunfa.Dominio.Comandos
 {

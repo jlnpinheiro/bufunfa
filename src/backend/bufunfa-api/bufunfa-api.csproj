@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\infraestrutura-logging\bufunfa-infraestrutura-logging.csproj" />
     <ProjectReference Include="..\bufunfa-dominio\bufunfa-dominio.csproj" />
     <ProjectReference Include="..\bufunfa-infraestrutura-dados\bufunfa-infraestrutura-dados.csproj" />
     <ProjectReference Include="..\bufunfa-infraestrutura\bufunfa-infraestrutura.csproj" />

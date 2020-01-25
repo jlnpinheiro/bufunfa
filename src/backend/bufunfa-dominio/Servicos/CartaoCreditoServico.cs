@@ -4,7 +4,7 @@ using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
 using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Resources;
-using JNogueira.Infraestrutura.NotifiqueMe;
+using JNogueira.NotifiqueMe;
 using System;
 using System.Collections.Generic;
 using System.Linq;

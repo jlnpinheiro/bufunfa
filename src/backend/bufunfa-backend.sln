@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bufunfa-infraestrutura", "b
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bufunfa-infraestrutura-dados", "bufunfa-infraestrutura-dados\bufunfa-infraestrutura-dados.csproj", "{EB6682E3-5B8E-422E-A495-9AF1D052D59E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bufunfa-infraestrutura-logging", "..\infraestrutura-logging\bufunfa-infraestrutura-logging.csproj", "{B48920E8-9E4D-44F8-A355-4CE8F9FB5B97}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{EB6682E3-5B8E-422E-A495-9AF1D052D59E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB6682E3-5B8E-422E-A495-9AF1D052D59E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB6682E3-5B8E-422E-A495-9AF1D052D59E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B48920E8-9E4D-44F8-A355-4CE8F9FB5B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B48920E8-9E4D-44F8-A355-4CE8F9FB5B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B48920E8-9E4D-44F8-A355-4CE8F9FB5B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B48920E8-9E4D-44F8-A355-4CE8F9FB5B97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

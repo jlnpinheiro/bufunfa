@@ -24,7 +24,6 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
                 .Include(x => x.Conta)
                 .Include(x => x.CartaoCredito)
                 .Include(x => x.Categoria.CategoriaPai)
-                //.Include(x => x.Categoria.CategoriasFilha)
                 .Include(x => x.Pessoa)
                 .Include(x => x.Parcelas)
                 .FirstOrDefaultAsync(x => x.Id == idAgendamento);
@@ -83,7 +82,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
                 var totalRegistros = query.Count();
 
                 return new ProcurarSaida(
-                    query.ToList().Select(x => new AgendamentoSaida(x)),
+                    query.ToList().OrderBy(x => x.ObterDataProximaParcelaAberta()).ThenBy(x => x.Id).Select(x => new AgendamentoSaida(x)),
                     "DataProximaParcelaAberta",
                     "ASC",
                     totalRegistros);

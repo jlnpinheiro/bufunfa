@@ -6,7 +6,7 @@ using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
 using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.Bufunfa.Infraestrutura.Integracoes.AlphaVantage;
-using JNogueira.Infraestrutura.NotifiqueMe;
+using JNogueira.NotifiqueMe;
 using System;
 using System.Collections.Generic;
 using System.Linq;

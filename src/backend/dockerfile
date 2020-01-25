@@ -1,0 +1,33 @@
+# Define a imagem do SDK
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build-env
+
+LABEL maintainer="Jorge Nogueira" version="1.0" description="Bunfunfa API"
+
+# Cria o diretório src e copiando todo o código-fonte para ele
+WORKDIR /src
+COPY . ./
+
+# Acessa o diretório da API, publicando para o diretório "publish"
+WORKDIR /src/bufunfa-api
+RUN dotnet publish -c Release -o publish
+
+# Define a imagem do runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
+
+WORKDIR /app
+
+# Copia todos os publicáveis para o diretório app
+COPY --from=build-env /src/bufunfa-api/publish .
+
+RUN rm appsettings.Development.json
+
+# Define o environment
+ENV ASPNETCORE_ENVIRONMENT=Docker
+
+# Define a porta
+ENV ASPNETCORE_URLS=http://+:80
+
+# Expõe a porta do container
+EXPOSE 80
+
+ENTRYPOINT ["dotnet", "bufunfa-api.dll"]

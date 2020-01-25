@@ -7,11 +7,10 @@
 
   <ItemGroup>
     <PackageReference Include="NETCore.Encrypt" Version="2.0.8" />
-    <PackageReference Include="NotifiqueMe" Version="2.0.0" />
+    <PackageReference Include="NotifiqueMe" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\infraestrutura-logging\bufunfa-infraestrutura-logging.csproj" />
     <ProjectReference Include="..\bufunfa-infraestrutura\bufunfa-infraestrutura.csproj" />
   </ItemGroup>
 

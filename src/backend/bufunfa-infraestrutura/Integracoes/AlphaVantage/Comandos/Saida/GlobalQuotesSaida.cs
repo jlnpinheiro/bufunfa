@@ -1,4 +1,4 @@
-﻿using JNogueira.Infraestrutura.Utilzao;
+﻿using JNogueira.Utilzao;
 using Newtonsoft.Json;
 using System;
 

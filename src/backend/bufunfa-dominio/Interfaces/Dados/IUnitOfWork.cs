@@ -1,4 +1,4 @@
-﻿using JNogueira.Infraestrutura.NotifiqueMe;
+﻿using JNogueira.NotifiqueMe;
 using System.Threading.Tasks;
 
 namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados

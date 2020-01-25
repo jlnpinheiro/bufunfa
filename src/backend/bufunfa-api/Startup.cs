@@ -7,7 +7,6 @@ using JNogueira.Bufunfa.Dominio.Servicos;
 using JNogueira.Bufunfa.Infraestrutura.Dados;
 using JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios;
 using JNogueira.Bufunfa.Infraestrutura.Integracoes.AlphaVantage;
-using JNogueira.Bufunfa.Infraestrutura.Logging.Slack;
 using JNogueira.Logger.Discord;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -196,8 +195,6 @@ namespace JNogueira.Bufunfa.Api
             app.UseStaticFiles();
 
             loggerFactory
-                // Adiciona o logger para mandar mensagem pelo Slack.
-                //.AddSlackLoggerProvider(Configuration["Slack:Webhook"], Configuration["Slack:Channel"], httpContextAccessor, Environment.EnvironmentName, Configuration["Slack:Modulo"], Configuration["Slack:UserName"])
                 // Adiciona o logger provider para o Discord.
                 .AddDiscord(new DiscordLoggerOptions(Configuration["Discord:Webhook"]) { ApplicationName = "Backend", EnvironmentName = Environment.EnvironmentName, UserName = "bufunfa-bot" }, httpContextAccessor);
 

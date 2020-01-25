@@ -1,6 +1,6 @@
 ﻿using JNogueira.Bufunfa.Dominio.Comandos;
 using JNogueira.Bufunfa.Dominio.Entidades;
-using JNogueira.Infraestrutura.NotifiqueMe;
+using JNogueira.NotifiqueMe;
 using System;
 using System.IO;
 using System.Threading.Tasks;
