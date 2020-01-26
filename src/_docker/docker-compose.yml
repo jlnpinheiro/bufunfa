@@ -1,11 +1,12 @@
 version: '3'
 services:
+  # Banco de dados - MySQL 5.7
   bufunfa-db:
-    image: mysql:5.7
+    image: jlnpinheiro/bufunfa-database:1.0
     container_name: bufunfa-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "Suf1st@"
-      MYSQL_DATABASE: "bufunfa_db"
+      MYSQL_ROOT_PASSWORD: "Bufunf@"
+      MYSQL_DATABASE: "db_bufunfa" #NÃO ALTERAR O NOME DO BANCO (na imagem para criação do banco, existe um script que gera o banco que faz referência a esse nome)
       MYSQL_USER: "bufunfa"
       MYSQL_PASSWORD: "bufunfa"
     restart: always
@@ -16,6 +17,7 @@ services:
     networks:
       - bufunfa-network
 
+  # Backend - API ASP.NET Core 3.1
   bufunfa-backend:
     depends_on:
       - bufunfa-db
@@ -26,6 +28,7 @@ services:
     networks:
       - bufunfa-network
 
+  # Frontend - ASP.NET Core 3.1
   bufunfa-frontend:
     depends_on:
       - bufunfa-db
