@@ -2,19 +2,19 @@ version: '3'
 services:
   dbServer:
     image: mysql:5.7
-    container_name: bufunfa_mysql_db
+    container_name: bufunfa_mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "1234"
-      MYSQL_DATABASE: "db_bufunfa"
+      MYSQL_ROOT_PASSWORD: "Suf1st@"
+      MYSQL_DATABASE: "bufunfa_db"
       MYSQL_USER: "bufunfa"
-      MYSQL_PASSWORD: "Bufunf@"
+      MYSQL_PASSWORD: "bufunfa"
     restart: always
     ports:
       - "3306:3306"
     expose:
       - "3306"
     volumes:
-      - ./_db:/var/lib/mysql
+      - ../_mysql:/var/lib/mysql
     networks:
       - bufufnfa-network
 

@@ -1,11 +1,42 @@
 version: '3'
 services:
-  api:
-    depends_on:
-      - dbServer
-    image: jlnpinheiro/bufunfa-api:1.0
-    container_name: bufunfa_api
+  bufunfa-db:
+    image: mysql:5.7
+    container_name: bufunfa-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "Suf1st@"
+      MYSQL_DATABASE: "bufunfa_db"
+      MYSQL_USER: "bufunfa"
+      MYSQL_PASSWORD: "bufunfa"
+    restart: always
     ports:
-      - "8081:80"
+      - "3306:3306"
+    volumes:
+      - ../_mysql:/var/lib/mysql
     networks:
-      - bufufnfa-network
+      - bufunfa-network
+
+  bufunfa-backend:
+    depends_on:
+      - bufunfa-db
+    image: jlnpinheiro/bufunfa-backend:1.0
+    container_name: bufunfa-backend
+    ports:
+      - "3000:80"
+    networks:
+      - bufunfa-network
+
+  bufunfa-frontend:
+    depends_on:
+      - bufunfa-db
+      - bufunfa-backend
+    image: jlnpinheiro/bufunfa-frontend:1.0
+    container_name: bufunfa-frontend
+    ports:
+      - "3001:80"
+    networks:
+      - bufunfa-network
+
+networks: 
+  bufunfa-network:
+    driver: bridge

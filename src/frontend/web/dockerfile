@@ -1,0 +1,46 @@
+# Define a imagem do SDK
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build-env
+
+LABEL maintainer="Jorge Nogueira" version="1.0" description="Bunfunfa Frontend"
+
+# Cria o diretório src e copiando todo o código-fonte para ele
+WORKDIR /src
+COPY . ./
+
+# Acessa o diretório do frontend, publicando para o diretório "publish"
+WORKDIR /src/bufunfa-web
+RUN dotnet publish -c Release -o publish
+
+# Define a imagem do runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
+
+WORKDIR /app
+
+# Copia todos os publicáveis para o diretório app
+COPY --from=build-env /src/bufunfa-web/publish .
+
+RUN rm appsettings.Development.json
+RUN rm bundleconfig.json
+RUN rm -r publish
+RUN rm -r cs
+RUN rm -r de
+RUN rm -r es
+RUN rm -r fr
+RUN rm -r it
+RUN rm -r ja
+RUN rm -r ko
+RUN rm -r pl
+RUN rm -r ru
+RUN rm -r tr
+RUN rm -r zh-*
+
+# Install cultures (same approach as Alpine SDK image)
+RUN apk add --no-cache icu-libs
+
+# Disable the invariant mode (set in base image)
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
+# Define o environment
+ENV ASPNETCORE_ENVIRONMENT=Docker
+
+ENTRYPOINT ["dotnet", "bufunfa-web.dll"]

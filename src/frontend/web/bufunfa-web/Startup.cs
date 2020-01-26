@@ -1,9 +1,10 @@
-﻿using JNogueira.Bufunfa.Infraestrutura.Logging.Slack;
-using JNogueira.Bufunfa.Web.Helpers;
+﻿using JNogueira.Bufunfa.Web.Helpers;
 using JNogueira.Bufunfa.Web.Proxy;
+using JNogueira.Logger.Discord;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
@@ -15,11 +16,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Globalization;
+using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
 
-namespace bufunfa_web
+namespace JNogueira.Bufunfa.Web
 {
     public class Startup
     {
@@ -62,6 +64,11 @@ namespace bufunfa_web
                     .Build());
             });
 
+            // Configuração necessária para utilização do AntiforgeryToken (http://blog.etrupja.com/2018/08/the-antiforgery-token-could-not-be-decrypted/)
+            services.AddDataProtection()
+                .SetApplicationName("Bufunfa-Frontend")
+                .PersistKeysToFileSystem(new DirectoryInfo(AppContext.BaseDirectory));
+
             var builder = services.AddControllersWithViews(options =>
             {
                 // Previne ataques CSRF - Cross-Site Request Forgery (Falsificação de solicitação entre sites) (https://www.eduardopires.net.br/2018/02/prevenindo-ataques-csrf-no-asp-net-core/)
@@ -84,17 +91,11 @@ namespace bufunfa_web
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor)
         {
             loggerFactory
-                // Adiciona o logger para mandar mensagem pelo Slack.
-                .AddSlackLoggerProvider(
-                    Configuration["Slack:Webhook"],
-                    Configuration["Slack:Channel"],
-                    httpContextAccessor,
-                    env.EnvironmentName,
-                    Configuration["Slack:Modulo"],
-                    Configuration["Slack:UserName"]);
+                // Adiciona o logger provider para o Discord.
+                .AddDiscord(new DiscordLoggerOptions(Configuration["Discord:Webhook"]) { ApplicationName = "Frontend", EnvironmentName = Environment.EnvironmentName, UserName = "bufunfa-bot" }, httpContextAccessor);
 
             // Definindo a cultura padrão: pt-BR
             var supportedCultures = new[] { new CultureInfo("pt-BR") };
