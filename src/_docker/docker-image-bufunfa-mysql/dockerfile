@@ -1,6 +1,4 @@
 FROM mysql:5.7
 
-LABEL maintainer="Jorge Nogueira" version="1.0" description="Bunfunfa MySQL Database"
-
 # A imagem utilizada executa todos os scripts SQL de dentro da pasta docker-entrypoint-initdb.d ao iniciar o container (https://medium.com/@johnathanfercher/mysql-docker-7ff6d50d6cf1)
 COPY ./_script/ /docker-entrypoint-initdb.d/ 

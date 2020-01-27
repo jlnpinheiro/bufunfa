@@ -5,6 +5,7 @@ using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.Bufunfa.Infraestrutura.Integracoes.Google;
 using JNogueira.NotifiqueMe;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -14,20 +15,20 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
     public class LancamentoAnexoRepositorio : Notificavel, ILancamentoAnexoRepositorio
     {
         private readonly IPeriodoRepositorio _periodoRepositorio;
-
         private readonly EfDataContext _efContext;
         private readonly ApiGoogleDriveProxy _apiGoogleDriveProxy;
 
         /// <summary>
         /// ID da pasta raiz no Google Drive onde os anexos serão armazenados ("Bufunfa - Anexos")
         /// </summary>
-        private const string ID_PASTA_GOOGLE_DRIVE = "1SIlmDfZBepgzZ4qOEdIwV9Rrmc8wBGwS";
+        private string _idPastaGoogleDrive;
 
-        public LancamentoAnexoRepositorio(EfDataContext efContext, IPeriodoRepositorio periodoRepositorio)
+        public LancamentoAnexoRepositorio(EfDataContext efContext, IPeriodoRepositorio periodoRepositorio, IConfiguration configuration)
         {
             _apiGoogleDriveProxy = new ApiGoogleDriveProxy();
             _efContext           = efContext;
             _periodoRepositorio  = periodoRepositorio;
+            _idPastaGoogleDrive  = configuration["GoogleDrive:IdPastaAnexos"];
         }
 
         public async Task<LancamentoAnexo> ObterPorId(int idAnexo) => await _efContext.LancamentosAnexo.Include(x => x.Lancamento).FirstOrDefaultAsync(x => x.Id == idAnexo);
@@ -77,6 +78,11 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
                 return null;
             }
 
+            this.NotificarSeNaoNuloOuVazio(_idPastaGoogleDrive, "O ID da pasta no Google Drive não foi encontrado no arquivo appsettings.json");
+
+            if (this.Invalido)
+                return null;
+
             var periodo = await _periodoRepositorio.ObterPorData(dataLancamento, cadastroEntrada.IdUsuario);
 
             Google.Apis.Drive.v3.Data.File pastaPeriodo;
@@ -84,12 +90,12 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             if (periodo != null)
             {
                 // Caso exista um período, é criado uma pasta com o nome do período
-                pastaPeriodo = await _apiGoogleDriveProxy.CriarPasta(periodo.Nome, ID_PASTA_GOOGLE_DRIVE);
+                pastaPeriodo = await _apiGoogleDriveProxy.CriarPasta(periodo.Nome, _idPastaGoogleDrive);
             }
             else
             {
                 // Caso não exista um período, é criado uma pasta com a partir do mês/ano do lançamento
-                pastaPeriodo = await _apiGoogleDriveProxy.CriarPasta(dataLancamento.ToString("MM/yyyy"), ID_PASTA_GOOGLE_DRIVE);
+                pastaPeriodo = await _apiGoogleDriveProxy.CriarPasta(dataLancamento.ToString("MM/yyyy"), _idPastaGoogleDrive);
             }
 
             // Verifica se um arquivo com o mesmo nome já existe na pasta do mês do lançamento

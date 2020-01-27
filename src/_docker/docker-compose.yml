@@ -2,7 +2,7 @@ version: '3'
 services:
   # Banco de dados - MySQL 5.7
   bufunfa-db:
-    image: jlnpinheiro/bufunfa-database:1.0
+    image: jlnpinheiro/bufunfa:1.0.0-database
     container_name: bufunfa-mysql
     environment:
       MYSQL_ROOT_PASSWORD: "Bufunf@"
@@ -21,7 +21,7 @@ services:
   bufunfa-backend:
     depends_on:
       - bufunfa-db
-    image: jlnpinheiro/bufunfa-backend:1.0
+    image: jlnpinheiro/bufunfa:1.0.0-backend
     container_name: bufunfa-backend
     ports:
       - "3000:80"
@@ -33,7 +33,7 @@ services:
     depends_on:
       - bufunfa-db
       - bufunfa-backend
-    image: jlnpinheiro/bufunfa-frontend:1.0
+    image: jlnpinheiro/bufunfa:1.0.0-frontend
     container_name: bufunfa-frontend
     ports:
       - "3001:80"

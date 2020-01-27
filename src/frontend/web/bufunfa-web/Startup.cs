@@ -93,9 +93,12 @@ namespace JNogueira.Bufunfa.Web
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor)
         {
-            loggerFactory
-                // Adiciona o logger provider para o Discord.
-                .AddDiscord(new DiscordLoggerOptions(Configuration["Discord:Webhook"]) { ApplicationName = "Frontend", EnvironmentName = Environment.EnvironmentName, UserName = "bufunfa-bot" }, httpContextAccessor);
+            if (Convert.ToBoolean(Configuration["Discord:Ativo"]))
+            {
+                loggerFactory
+                    // Adiciona o logger provider para o Discord.
+                    .AddDiscord(new DiscordLoggerOptions(Configuration["Discord:Webhook"]) { ApplicationName = "Frontend", EnvironmentName = Environment.EnvironmentName, UserName = "bufunfa-bot" }, httpContextAccessor);
+            }
 
             // Definindo a cultura padrão: pt-BR
             var supportedCultures = new[] { new CultureInfo("pt-BR") };
