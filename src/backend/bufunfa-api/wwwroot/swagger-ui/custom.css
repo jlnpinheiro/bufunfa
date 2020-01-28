@@ -4,7 +4,6 @@
 
 .swagger-ui {
     font-family: Poppins;
-    
 }
 
     .swagger-ui .wrapper {
@@ -50,6 +49,10 @@
     }
 
     .swagger-ui .opblock-body pre.microlight span {
+        color: #333 !important;
+    }
+
+    .swagger-ui .opblock-body pre.microlight {
         color: #333 !important;
     }
 
@@ -316,22 +319,22 @@
     background-color: #F6F6F6 !important;
 }
 
-.swagger-ui .opblock.opblock-post {
-    border-color: #fca130;
-    background: rgba(97,175,254,.1);
-}
-
-    .swagger-ui .opblock.opblock-post .opblock-summary-method {
-        background: #fca130;
-    }
-
-    .swagger-ui .opblock.opblock-post .opblock-summary {
+    .swagger-ui .opblock.opblock-post {
         border-color: #fca130;
+        background: rgba(97,175,254,.1);
     }
 
-    .swagger-ui .opblock.opblock-post .tab-header .tab-item.active h4 span:after {
-        background: #fca130;
-    }
+        .swagger-ui .opblock.opblock-post .opblock-summary-method {
+            background: #fca130;
+        }
+
+        .swagger-ui .opblock.opblock-post .opblock-summary {
+            border-color: #fca130;
+        }
+
+        .swagger-ui .opblock.opblock-post .tab-header .tab-item.active h4 span:after {
+            background: #fca130;
+        }
 
 .swagger-ui .btn.authorize {
     line-height: 1;

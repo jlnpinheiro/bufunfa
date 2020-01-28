@@ -187,7 +187,7 @@ namespace JNogueira.Bufunfa.Api
 
         public void Configure(IApplicationBuilder app, IHttpContextAccessor httpContextAccessor, ILoggerFactory loggerFactory)
         {
-            //app.UsePathBase("/api");
+            app.UsePathBase("/api");
 
             // Entende que a página default é a "index.html" dentro da pasta "wwwroot"
             app.UseDefaultFiles();
@@ -223,10 +223,10 @@ namespace JNogueira.Bufunfa.Api
             app.UseSwaggerUI(options =>
             {
                 options.RoutePrefix = "docs"; // Define a documentação no endereço http://{url}/docs/
-                options.SwaggerEndpoint("/docs/v1/swagger.json", "v1");
+                options.SwaggerEndpoint("v1/swagger.json", "v1");
                 options.DefaultModelsExpandDepth(-1); // Oculta a sessão "Models"
                 options.DocExpansion(DocExpansion.None);
-                options.InjectStylesheet("/swagger-ui/custom.css");
+                options.InjectStylesheet("/api/swagger-ui/custom.css");
                 options.DocumentTitle = "Bufunfa! Backend";
                 options.IndexStream = () => GetType().GetTypeInfo().Assembly.GetManifestResourceStream("JNogueira.Bufunfa.Api.Swagger.UI.index.html"); // Permite a utilização de um index.html customizado
             });
