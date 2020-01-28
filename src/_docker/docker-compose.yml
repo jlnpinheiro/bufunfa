@@ -40,6 +40,18 @@ services:
     networks:
       - bufunfa-network
 
+  # Ngnix - Proxy reverso
+  bufunfa-reverse-proxy:
+    depends_on:
+      - bufunfa-frontend
+      - bufunfa-backend
+    image: jlnpinheiro/bufunfa:1.0.0-reverse-proxy
+    container_name: bufunfa-reverse-proxy
+    ports:
+      - "80:80"
+    networks:
+      - bufunfa-network
+      
 networks: 
   bufunfa-network:
     driver: bridge
