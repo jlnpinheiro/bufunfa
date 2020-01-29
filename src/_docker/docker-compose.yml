@@ -23,8 +23,6 @@ services:
       - bufunfa-db
     image: jlnpinheiro/bufunfa:1.0.0-backend
     container_name: bufunfa-backend
-    ports:
-      - "3000:80"
     restart: always
     networks:
       - bufunfa-network
@@ -36,8 +34,6 @@ services:
       - bufunfa-backend
     image: jlnpinheiro/bufunfa:1.0.0-frontend
     container_name: bufunfa-frontend
-    ports:
-      - "3001:80"
     restart: always
     networks:
       - bufunfa-network
@@ -51,6 +47,7 @@ services:
     container_name: bufunfa-reverse-proxy
     ports:
       - "80:80"
+      - "443:443"
     restart: always
     networks:
       - bufunfa-network
