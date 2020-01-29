@@ -265,6 +265,10 @@
                 _manterConta(null, "RF");
             });
 
+            $("#btn-transferir-renda-fixa").click(function () {
+                Bufunfa.realizarTransferencia();
+            });
+
             $("#btn-cadastrar-renda-variavel").click(function () {
                 _manterConta(null, "RV");
             });

@@ -23,7 +23,7 @@
                         <i class="fa fa-university"></i>
                     </span>
                     <h3 class="kt-portlet__head-title">
-                        @conta.Nome <small>@($"{quantidadePorConta} {(quantidadePorConta > 1 ? "agendamentos" : "agendamento")}")</small>
+                        @conta.Nome <small class="kt-hidden-mobile">@($"{quantidadePorConta} {(quantidadePorConta > 1 ? "agendamentos" : "agendamento")}")</small>
                     </h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">
@@ -51,7 +51,7 @@
                         <i class="fa fa-credit-card"></i>
                     </span>
                     <h3 class="kt-portlet__head-title">
-                        @cartao.Nome <small>@($"{quantidadePorCartao} {(quantidadePorCartao > 1 ? "agendamentos" : "agendamento")}")</small>
+                        @cartao.Nome <small class="kt-hidden-mobile">@($"{quantidadePorCartao} {(quantidadePorCartao > 1 ? "agendamentos" : "agendamento")}")</small>
                     </h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">

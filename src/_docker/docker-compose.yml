@@ -13,7 +13,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ../_mysql:/var/lib/mysql
+      - ./_mysql:/var/lib/mysql
     networks:
       - bufunfa-network
 
