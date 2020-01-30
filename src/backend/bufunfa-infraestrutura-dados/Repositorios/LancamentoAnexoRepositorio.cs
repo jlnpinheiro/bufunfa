@@ -77,7 +77,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
                 return null;
             }
 
-            this.NotificarSeNaoNuloOuVazio(_idPastaGoogleDrive, "O ID da pasta no Google Drive não foi encontrado no arquivo appsettings.json");
+            this.NotificarSeNuloOuVazio(_idPastaGoogleDrive, "O ID da pasta no Google Drive não foi informado.");
 
             if (this.Invalido)
                 return null;
