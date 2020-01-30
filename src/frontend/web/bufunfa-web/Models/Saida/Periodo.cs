@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using JNogueira.Utilzao;
+using Newtonsoft.Json;
 using System;
 
 namespace JNogueira.Bufunfa.Web.Models
@@ -35,7 +36,7 @@ namespace JNogueira.Bufunfa.Web.Models
         /// </summary>
         public double QuantidadeDias { get; set; }
 
-        public double QuantidadeDiasFimPeriodo => Math.Round(this.DataFim.Subtract(DateTime.Now).TotalDays, 0);
+        public double QuantidadeDiasFimPeriodo => Math.Round(this.DataFim.Subtract(DateTime.Now.ConverterHorarioOficialBrasil()).TotalDays, 0);
 
         public double ObterPercentualConclusao()
         {

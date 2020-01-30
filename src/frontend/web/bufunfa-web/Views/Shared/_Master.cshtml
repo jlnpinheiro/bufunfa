@@ -1,5 +1,6 @@
 ﻿@using JNogueira.Bufunfa.Web.Models
 @using JNogueira.Bufunfa.Web.Helpers
+@using JNogueira.Utilzao
 @using Microsoft.AspNetCore.Http.Extensions
 @using Microsoft.AspNetCore.Http
 
@@ -214,7 +215,7 @@
                                     <span class="kt-subheader__breadcrumbs-home"><i class="flaticon2-calendar-2"></i></span>
                                     <span class="kt-subheader__breadcrumbs-separator"></span>
                                     <span class="kt-subheader__breadcrumbs-link">
-                                        @(DateTime.Now.ToString("ddd, dd MMM yyyy").ToUpper())
+                                        @(DateTime.Now.ConverterHorarioOficialBrasil().ToString("ddd, dd MMM yyyy").ToUpper())
                                     </span>
                                     @if (ViewBag.PeriodoAtual != null)
                                     {

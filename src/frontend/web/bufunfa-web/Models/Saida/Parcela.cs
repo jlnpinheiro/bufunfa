@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using JNogueira.Utilzao;
+using Newtonsoft.Json;
 using System;
 
 namespace JNogueira.Bufunfa.Web.Models
@@ -79,7 +80,7 @@ namespace JNogueira.Bufunfa.Web.Models
             if (this.Lancada || this.Descartada)
                 return Cor.Verde;
 
-            if (this.Data > DateTime.Now)
+            if (this.Data > DateTime.Now.ConverterHorarioOficialBrasil())
                 return Cor.Amarelo;
 
             return Cor.Vermelho;

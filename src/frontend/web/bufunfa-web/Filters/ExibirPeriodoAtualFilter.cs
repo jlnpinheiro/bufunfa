@@ -1,4 +1,5 @@
 ﻿using JNogueira.Bufunfa.Web.Proxy;
+using JNogueira.Utilzao;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
@@ -33,7 +34,7 @@ namespace JNogueira.Bufunfa.Web.Filters
 
                 if (controller == null) return;
 
-                var saida = _proxy.ObterPeriodoPorDataReferencia(DateTime.Now).Result;
+                var saida = _proxy.ObterPeriodoPorDataReferencia(DateTime.Now.ConverterHorarioOficialBrasil()).Result;
 
                 if (saida.Sucesso)
                     controller.ViewBag.PeriodoAtual = saida.Retorno;

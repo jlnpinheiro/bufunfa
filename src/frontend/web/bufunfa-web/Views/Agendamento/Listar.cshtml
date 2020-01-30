@@ -1,4 +1,5 @@
 ﻿@using JNogueira.Bufunfa.Web.Models
+@using JNogueira.Utilzao
 
 @model IEnumerable<Agendamento>
 
@@ -56,7 +57,7 @@
                 </div>
                 <div class="kt-portlet__head-toolbar">
                     <div class="kt-portlet__head-actions">
-                        <button class="btn btn-sm btn-icon btn-clean btn-icon-md exibir-fatura" data-id-cartao="@cartao.Id" data-mes="@DateTime.Now.Month" data-ano="@DateTime.Now.Year" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Fatura atual"><i class="fa fa-barcode"></i></button>
+                        <button class="btn btn-sm btn-icon btn-clean btn-icon-md exibir-fatura" data-id-cartao="@cartao.Id" data-mes="@DateTime.Now.ConverterHorarioOficialBrasil().Month" data-ano="@DateTime.Now.ConverterHorarioOficialBrasil().Year" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Fatura atual"><i class="fa fa-barcode"></i></button>
                         <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
                     </div>
                 </div>

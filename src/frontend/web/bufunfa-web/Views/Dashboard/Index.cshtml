@@ -1,5 +1,6 @@
 ﻿@using JNogueira.Bufunfa.Web.Models
 @using JNogueira.Bufunfa.Web.Helpers
+@using JNogueira.Utilzao
 
 @inject CustomHtmlHelper customHtmlHelper
 
@@ -141,7 +142,7 @@
                                 <label>Início do período</label> @CustomHtmlHelper.IconeCampoObrigatorio()
                                 <div class="input-group date">
                                     <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
-                                    <input type="text" class="form-control datepicker" id="iProcurarDataInicio" name="iProcurarDataInicio" value="@(periodoAtual != null ? periodoAtual.DataInicio.ToString("dd/MM/yyyy") : new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("dd/MM/yyyy"))" @(periodoAtual != null ? "disabled" : string.Empty)>
+                                    <input type="text" class="form-control datepicker" id="iProcurarDataInicio" name="iProcurarDataInicio" value="@(periodoAtual != null ? periodoAtual.DataInicio.ToString("dd/MM/yyyy") : new DateTime(DateTime.Now.ConverterHorarioOficialBrasil().Year, DateTime.Now.ConverterHorarioOficialBrasil().Month, 1).ToString("dd/MM/yyyy"))" @(periodoAtual != null ? "disabled" : string.Empty)>
                                 </div>
                             </div>
                         </div>
@@ -150,7 +151,7 @@
                                 <label>Término do período</label> @CustomHtmlHelper.IconeCampoObrigatorio()
                                 <div class="input-group date">
                                     <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
-                                    <input type="text" class="form-control datepicker" id="iProcurarDataFim" name="iProcurarDataFim" value="@(periodoAtual != null ? periodoAtual.DataFim.ToString("dd/MM/yyyy") : new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("dd/MM/yyyy"))" @(periodoAtual != null ? "disabled" : string.Empty)>
+                                    <input type="text" class="form-control datepicker" id="iProcurarDataFim" name="iProcurarDataFim" value="@(periodoAtual != null ? periodoAtual.DataFim.ToString("dd/MM/yyyy") : new DateTime(DateTime.Now.ConverterHorarioOficialBrasil().Year, DateTime.Now.ConverterHorarioOficialBrasil().Month, DateTime.DaysInMonth(DateTime.Now.ConverterHorarioOficialBrasil().Year, DateTime.Now.ConverterHorarioOficialBrasil().Month)).ToString("dd/MM/yyyy"))" @(periodoAtual != null ? "disabled" : string.Empty)>
                                 </div>
                             </div>
                         </div>

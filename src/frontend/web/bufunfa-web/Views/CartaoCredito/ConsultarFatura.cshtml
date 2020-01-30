@@ -1,4 +1,5 @@
 ﻿@using JNogueira.Bufunfa.Web.Helpers
+@using JNogueira.Utilzao
 
 @inject CustomHtmlHelper customHtmlHelper
 
@@ -25,18 +26,18 @@
                     @{
                         var lstMes = new List<SelectListItem>()
                                                                                                                                                                                                                             {
-                            new SelectListItem("Janeiro", "1", DateTime.Now.Month == 1),
-                            new SelectListItem("Fevereiro", "2", DateTime.Now.Month == 2),
-                            new SelectListItem("Março", "3", DateTime.Now.Month == 3),
-                            new SelectListItem("Abril", "4", DateTime.Now.Month == 4),
-                            new SelectListItem("Maio", "5", DateTime.Now.Month == 5),
-                            new SelectListItem("Junho", "6", DateTime.Now.Month == 6),
-                            new SelectListItem("Julho", "7", DateTime.Now.Month == 7),
-                            new SelectListItem("Agosto", "8", DateTime.Now.Month == 8),
-                            new SelectListItem("Setembro", "9", DateTime.Now.Month == 9),
-                            new SelectListItem("Outubro", "10", DateTime.Now.Month == 10),
-                            new SelectListItem("Novembro", "11", DateTime.Now.Month == 11),
-                            new SelectListItem("Dezembro", "12", DateTime.Now.Month == 12)
+                            new SelectListItem("Janeiro", "1", DateTime.Now.ConverterHorarioOficialBrasil().Month == 1),
+                            new SelectListItem("Fevereiro", "2", DateTime.Now.ConverterHorarioOficialBrasil().Month == 2),
+                            new SelectListItem("Março", "3", DateTime.Now.ConverterHorarioOficialBrasil().Month == 3),
+                            new SelectListItem("Abril", "4", DateTime.Now.ConverterHorarioOficialBrasil().Month == 4),
+                            new SelectListItem("Maio", "5", DateTime.Now.ConverterHorarioOficialBrasil().Month == 5),
+                            new SelectListItem("Junho", "6", DateTime.Now.ConverterHorarioOficialBrasil().Month == 6),
+                            new SelectListItem("Julho", "7", DateTime.Now.ConverterHorarioOficialBrasil().Month == 7),
+                            new SelectListItem("Agosto", "8", DateTime.Now.ConverterHorarioOficialBrasil().Month == 8),
+                            new SelectListItem("Setembro", "9", DateTime.Now.ConverterHorarioOficialBrasil().Month == 9),
+                            new SelectListItem("Outubro", "10", DateTime.Now.ConverterHorarioOficialBrasil().Month == 10),
+                            new SelectListItem("Novembro", "11", DateTime.Now.ConverterHorarioOficialBrasil().Month == 11),
+                            new SelectListItem("Dezembro", "12", DateTime.Now.ConverterHorarioOficialBrasil().Month == 12)
                         };
                     }
                     <select class="form-control kt-select2" id="sMesFatura" name="sMesFatura" style="width: 100%;" asp-items="@lstMes">
@@ -45,7 +46,7 @@
 
                 <div class="col-sm-6 form-group-sub">
                     <label>Ano</label> @CustomHtmlHelper.IconeCampoObrigatorio()
-                    <input type="text" class="form-control" id="iAnoFatura" name="iAnoFatura" value="@DateTime.Now.Year">
+                    <input type="text" class="form-control" id="iAnoFatura" name="iAnoFatura" value="@DateTime.Now.ConverterHorarioOficialBrasil().Year">
                 </div>
             </div>
         </div>

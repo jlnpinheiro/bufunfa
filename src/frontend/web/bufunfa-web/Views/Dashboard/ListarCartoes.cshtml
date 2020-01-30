@@ -1,4 +1,5 @@
 ﻿@using JNogueira.Bufunfa.Web.Models
+@using JNogueira.Utilzao
 
 @model IEnumerable<CartaoCredito>
 
@@ -26,7 +27,7 @@
                             </td>
                             <td class="text-nowrap text-right @((cartao.ValorLimite - valorLimiteDisponivel) == 0 ? "kt-font-success" : "kt-font-danger") kt-font-bold">@((cartao.ValorLimite - valorLimiteDisponivel).ToString("c2"))</td>
                             <td class="text-right text-nowrap kt-hidden-mobile">@valorLimiteDisponivel.ToString("c2")</td>
-                            <td><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables consultar-fatura" data-id-cartao="@cartao.Id" data-mes="@DateTime.Now.Month" data-ano="@DateTime.Now.Year" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Fatura atual"><span class="fa fa-barcode"></span></button></td>
+                            <td><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables consultar-fatura" data-id-cartao="@cartao.Id" data-mes="@DateTime.Now.ConverterHorarioOficialBrasil().Month" data-ano="@DateTime.Now.ConverterHorarioOficialBrasil().Year" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Fatura atual"><span class="fa fa-barcode"></span></button></td>
                         </tr>
                     }
                 </tbody>

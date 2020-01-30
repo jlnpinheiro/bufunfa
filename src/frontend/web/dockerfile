@@ -10,7 +10,7 @@ WORKDIR /src/bufunfa-web
 RUN dotnet publish -c Release -o publish
 
 # Define a imagem do runtime
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 
 WORKDIR /app
 
@@ -31,12 +31,6 @@ RUN rm -rf pl
 RUN rm -rf ru
 RUN rm -rf tr
 RUN rm -rf zh-*
-
-# Install cultures (same approach as Alpine SDK image)
-RUN apk add --no-cache icu-libs
-
-# Disable the invariant mode (set in base image)
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 # Define o environment
 ENV ASPNETCORE_ENVIRONMENT=Docker

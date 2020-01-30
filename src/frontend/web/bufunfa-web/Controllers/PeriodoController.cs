@@ -3,6 +3,7 @@ using JNogueira.Bufunfa.Web.Helpers;
 using JNogueira.Bufunfa.Web.Models;
 using JNogueira.Bufunfa.Web.Proxy;
 using JNogueira.Bufunfa.Web.Results;
+using JNogueira.Utilzao;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -153,7 +154,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
         [FeedbackExceptionFilter("Ocorreu um erro ao obter o período atual.", TipoAcaoAoOcultarFeedback.Ocultar)]
         public async Task<IActionResult> DetalharPeriodoAtual()
         {
-            var saida = await _proxy.ObterPeriodoPorDataReferencia(DateTime.Now);
+            var saida = await _proxy.ObterPeriodoPorDataReferencia(DateTime.Now.ConverterHorarioOficialBrasil());
 
             if (!saida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível visulizar o detalhamento do período atual.", saida.Mensagens));
