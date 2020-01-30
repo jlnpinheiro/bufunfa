@@ -108,24 +108,16 @@
                             <td style="width:1px; white-space:nowrap;@(parcela.Lancada || parcela.Descartada ? " color:#ccc;" : string.Empty)" class="text-right coluna-valor">@parcela.Valor.ToString("C2")</td>
                             @if (!Model.Concluido)
                             {
-                                <td>
+                                <td style="white-space:nowrap;">
                                     @if (!parcela.Lancada && !parcela.Descartada)
                                     {
-                                        <div class="dropdown dropdown-inline">
-                                            <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables" data-toggle="dropdown">
-                                                <i class="flaticon-more"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                @if (Model.CartaoCredito == null)
-                                                {
-                                                    <a class="dropdown-item lancar-parcela" href="#" data-id-parcela="@parcela.Id"><i class="fa fa-exchange-alt"></i> Lançar</a>
-                                                }
-                                                <a class="dropdown-item descartar-parcela" href="#" data-id-parcela="@parcela.Id"><i class="fa fa-thumbs-up"></i> Descartar</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item alterar-parcela" href="#" data-id-parcela="@parcela.Id"><i class="la la-edit"></i> Alterar</a>
-                                                <a class="dropdown-item excluir-parcela" href="#" data-id-parcela="@parcela.Id"><i class="la la-trash"></i> Excluir</a>
-                                            </div>
-                                        </div>
+                                        if (Model.CartaoCredito == null)
+                                        {
+                                            <a class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables lancar-parcela" href="#" data-id-parcela="@parcela.Id" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Lançar"><i class="fa fa-exchange-alt"></i></a>
+                                        }
+                                        <a class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables descartar-parcela" href="#" data-id-parcela="@parcela.Id" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Descartar"><i class="fa fa-thumbs-up"></i></a>
+                                        <a class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables alterar-parcela" href="#" data-id-parcela="@parcela.Id" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Alterar"><i class="la la-edit"></i></a>
+                                        <a class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables excluir-parcela" href="#" data-id-parcela="@parcela.Id" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Excluir"><i class="la la-trash"></i></a>
                                     }
                                 </td>
                             }

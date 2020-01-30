@@ -271,7 +271,9 @@
 
         $('.table-responsive').on('hide.bs.dropdown', function () {
             $('.table-responsive').css("overflow", "auto");
-        })
+        });
+
+        KTApp.initTooltips();
     };
 
     var _carregarParcelasPorAgendamento = function (idAgendamento) {

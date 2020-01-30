@@ -505,6 +505,7 @@
                 },
                 submitHandler: function () {
                     $("#tblLancamento").DataTable().ajax.reload();
+                    Bufunfa.obterSaldoAtual($("#iIdConta").val(), "#div-saldo-atual");
                     _carregarParcelasAbertasPorConta();
                 }
             });
