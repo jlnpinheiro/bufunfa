@@ -1,16 +1,13 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using JNogueira.Bufunfa.Infraestrutura;
+using Microsoft.IdentityModel.Tokens;
 
 namespace JNogueira.Bufunfa.Api
 {
     /// <summary>
     /// Classe que armazena as configurações do token JWT
     /// </summary>
-    public class JwtTokenConfig
+    public class BufunfaJwtTokenConfig
     {
-        public string Audience { get; set; }
-        public string Issuer { get; set; }
-        public int ExpiracaoEmHoras { get; set; }
-
         // A propriedade Key, à qual será vinculada uma instância da classe SecurityKey (namespace Microsoft.IdentityModel.Tokens) 
         // armazenando a chave de criptografia utilizada na criação de tokens;
         public SecurityKey Key { get; }
@@ -19,11 +16,15 @@ namespace JNogueira.Bufunfa.Api
         // Esta referência conterá a chave de criptografia e o algoritmo de segurança empregados na geração de assinaturas digitais para tokens
         public SigningCredentials SigningCredentials { get; }
 
-        public JwtTokenConfig()
+        private readonly ConfigurationHelper _configHelper;
+
+        public BufunfaJwtTokenConfig(ConfigurationHelper configHelper)
         {
             Key = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes("F7DEC0E0-4F78-4ED4-A89A-4EF3C6B82374"));
 
             SigningCredentials = new SigningCredentials(Key, SecurityAlgorithms.HmacSha256);
+
+            _configHelper = configHelper;
         }
     }
 }

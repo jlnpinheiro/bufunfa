@@ -290,7 +290,7 @@
 
         AppModal.exibirPorRota((!cadastro ? App.corrigirPathRota("/agendamentos/alterar-agendamento?id=" + id) : App.corrigirPathRota("/agendamentos/cadastrar-agendamento")), function () {
 
-            $('.datepicker').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy", placeholder: 'dd/mm/aaaa' });
+            $('.datepicker').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy", placeholder: 'dd/mm/aaaa', clearIncomplete: true });
 
             Bufunfa.criarSelectContasCartoesCredito({
                 selector: "#sAgendamentoConta", dropDownParentSelector: ".jconfirm", obrigatorio: true, callbacks: {
@@ -845,7 +845,7 @@
                 todayHighlight: true
             });
 
-            $('.datepicker').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy", placeholder: 'dd/mm/aaaa' });
+            $('.datepicker').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy", placeholder: 'dd/mm/aaaa', clearIncomplete: true });
 
             $('#iValorTotal').inputmask('decimal', {
                 radixPoint: ",",
@@ -1240,7 +1240,7 @@
                     todayHighlight: true
                 });
 
-                $('.datepicker').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy", placeholder: 'dd/mm/aaaa' });
+                $('.datepicker').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy", placeholder: 'dd/mm/aaaa', clearIncomplete: true });
 
                 Bufunfa.criarSelectContasCartoesCredito({ selector: "#sLancamentoConta", dropDownParentSelector: ".jconfirm", obrigatorio: true });
 
@@ -1335,7 +1335,7 @@
                     todayHighlight: true
                 });
 
-                $('.datepicker').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy", placeholder: 'dd/mm/aaaa' });
+                $('.datepicker').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy", placeholder: 'dd/mm/aaaa', clearIncomplete: true });
 
                 Bufunfa.criarSelectContasCartoesCredito({ selector: "#sTransferenciaContaOrigem", dropDownParentSelector: ".jconfirm", obrigatorio: true });
 
@@ -1467,7 +1467,7 @@
                     todayHighlight: true
                 });
 
-                $('.datepicker').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy", placeholder: 'dd/mm/aaaa' });
+                $('.datepicker').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy", placeholder: 'dd/mm/aaaa', clearIncomplete: true });
 
                 Bufunfa.criarSelectContasCartoesCredito({ selector: "#sPagarComCartao", dropDownParentSelector: ".jconfirm", obrigatorio: true });
 

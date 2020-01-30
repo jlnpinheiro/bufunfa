@@ -5,7 +5,6 @@ using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.Bufunfa.Infraestrutura.Integracoes.Google;
 using JNogueira.NotifiqueMe;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -23,12 +22,12 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
         /// </summary>
         private string _idPastaGoogleDrive;
 
-        public LancamentoAnexoRepositorio(EfDataContext efContext, IPeriodoRepositorio periodoRepositorio, IConfiguration configuration)
+        public LancamentoAnexoRepositorio(EfDataContext efContext, IPeriodoRepositorio periodoRepositorio, ConfigurationHelper configHelper)
         {
             _apiGoogleDriveProxy = new ApiGoogleDriveProxy();
             _efContext           = efContext;
             _periodoRepositorio  = periodoRepositorio;
-            _idPastaGoogleDrive  = configuration["GoogleDrive:IdPastaAnexos"];
+            _idPastaGoogleDrive  = configHelper.IdPastaGoogleDriveAnexos;
         }
 
         public async Task<LancamentoAnexo> ObterPorId(int idAnexo) => await _efContext.LancamentosAnexo.Include(x => x.Lancamento).FirstOrDefaultAsync(x => x.Id == idAnexo);

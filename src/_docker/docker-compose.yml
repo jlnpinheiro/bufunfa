@@ -6,7 +6,7 @@ services:
     container_name: bufunfa-mysql
     environment:
       MYSQL_ROOT_PASSWORD: "Bufunf@"
-      MYSQL_DATABASE: "db_bufunfa" #NÃO ALTERAR O NOME DO BANCO (na imagem para criação do banco, existe um script que gera o banco que faz referência a esse nome)
+      MYSQL_DATABASE: "db_bufunfa"
       MYSQL_USER: "bufunfa"
       MYSQL_PASSWORD: "bufunfa"
     restart: always
@@ -23,6 +23,11 @@ services:
       - bufunfa-db
     image: jlnpinheiro/bufunfa:1.0.0-backend
     container_name: bufunfa-backend
+    environment:
+      BUFUNFA_BANCO_DADOS_CONNECTION_STRING: "server=bufunfa-mysql;Port=3306;user id=bufunfa;password=bufunfa;database=db_bufunfa;SslMode=none;" #String de conexão para acesso ao banco
+      BUFUNFA_DISCORD_WEBHOOK_URL: "" #URL do webhook do Discord (não obrigatório)
+      BUFUNFA_GOOGLE_DRIVE_ID_PASTA_ANEXO: "" #ID da pasta no Google Drive onde os anexos serão armazenados
+      BUFUNFA_API_ALPHA_VANTAGE_KEY: "" #Key para utilizar a API da Alpha Vantage (consulta de indicadores financeiros de ativos)
     restart: always
     networks:
       - bufunfa-network
@@ -34,6 +39,9 @@ services:
       - bufunfa-backend
     image: jlnpinheiro/bufunfa:1.0.0-frontend
     container_name: bufunfa-frontend
+    environment:
+      BUFUNFA_DISCORD_WEBHOOK_URL: "" #URL do webhook do Discord (não obrigatório)
+      BUFUNFA_BACKEND_URL: "http://bufunfa-backend/api/" #URL para acesso ao backend
     restart: always
     networks:
       - bufunfa-network

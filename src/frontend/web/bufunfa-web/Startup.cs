@@ -39,6 +39,12 @@ namespace JNogueira.Bufunfa.Web
         {
             services.AddHttpContextAccessor();
 
+            // Extrai as informações do arquivo de configuração (appSettings.*.json) ou das variáveis de ambiente
+            var configHelper = new ConfigurationHelper(Configuration);
+
+            // AddSingleton: instância configurada de forma que uma única referência das mesmas seja empregada durante todo o tempo em que a aplicação permanecer em execução
+            services.AddSingleton(configHelper);
+
             services.AddTransient<HttpClientHelper, HttpClientHelper>();
             services.AddTransient<DatatablesHelper, DatatablesHelper>();
             services.AddTransient<CookieHelper, CookieHelper>();
@@ -91,13 +97,13 @@ namespace JNogueira.Bufunfa.Web
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
         }
 
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ConfigurationHelper configHelper)
         {
-            if (Convert.ToBoolean(Configuration["Discord:Ativo"]))
+            if (!string.IsNullOrEmpty(configHelper.DiscordWebhookUrl))
             {
                 loggerFactory
                     // Adiciona o logger provider para o Discord.
-                    .AddDiscord(new DiscordLoggerOptions(Configuration["Discord:Webhook"]) { ApplicationName = "Frontend", EnvironmentName = Environment.EnvironmentName, UserName = "bufunfa-bot" }, httpContextAccessor);
+                    .AddDiscord(new DiscordLoggerOptions(configHelper.DiscordWebhookUrl) { ApplicationName = "Frontend", EnvironmentName = Environment.EnvironmentName, UserName = "bufunfa-bot" }, httpContextAccessor);
             }
 
             // Definindo a cultura padrão: pt-BR

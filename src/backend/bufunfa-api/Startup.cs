@@ -4,6 +4,7 @@ using JNogueira.Bufunfa.Api.Swagger.Filters;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
 using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Servicos;
+using JNogueira.Bufunfa.Infraestrutura;
 using JNogueira.Bufunfa.Infraestrutura.Dados;
 using JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios;
 using JNogueira.Bufunfa.Infraestrutura.Integracoes.AlphaVantage;
@@ -18,7 +19,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.SwaggerUI;
@@ -47,10 +48,15 @@ namespace JNogueira.Bufunfa.Api
         {
             services.AddHttpContextAccessor();
 
-            services.AddScoped<EfDataContext, EfDataContext>(x => new EfDataContext(Configuration["BufunfaConnectionString"]));
+            // Extrai as informações do arquivo de configuração (appSettings.*.json) ou das variáveis de ambiente
+            var configHelper = new ConfigurationHelper(Configuration);
+
+            // AddSingleton: instância configurada de forma que uma única referência das mesmas seja empregada durante todo o tempo em que a aplicação permanecer em execução
+            services.AddSingleton(configHelper);
+
+            services.AddScoped<EfDataContext, EfDataContext>(x => new EfDataContext(configHelper.BancoDadosStringConnection));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            // AddTransient: determina que referências desta classe sejam geradas toda vez que uma dependência for encontrada
             services.AddScoped<IAgendamentoRepositorio, AgendamentoRepositorio>();
             services.AddScoped<IAtalhoRepositorio, AtalhoRepositorio>();
             services.AddScoped<ICartaoCreditoRepositorio, CartaoCreditoRepositorio>();
@@ -77,18 +83,6 @@ namespace JNogueira.Bufunfa.Api
 
             services.AddScoped<ApiAlphaVantageProxy, ApiAlphaVantageProxy>();
 
-            // Configuração realizada, seguindo o artigo "ASP.NET Core 2.0: autenticação em APIs utilizando JWT" 
-            // (https://medium.com/@renato.groffe/asp-net-core-2-0-autentica%C3%A7%C3%A3o-em-apis-utilizando-jwt-json-web-tokens-4b1871efd)
-
-            var tokenConfig = new JwtTokenConfig();
-
-            // Extrai as informações do arquivo appsettings.json, criando um instância da classe "JwtTokenConfig"
-            new ConfigureFromConfigurationOptions<JwtTokenConfig>(Configuration.GetSection("JwtTokenConfig"))
-                .Configure(tokenConfig);
-
-            // AddSingleton: instância configurada de forma que uma única referência das mesmas seja empregada durante todo o tempo em que a aplicação permanecer em execução
-            services.AddSingleton(tokenConfig);
-
             services
                 // AddAuthentication: especificará os schemas utilizados para a autenticação do tipo Bearer
                 .AddAuthentication(options =>
@@ -99,10 +93,10 @@ namespace JNogueira.Bufunfa.Api
                 // AddJwtBearer: definidas configurações como a chave e o algoritmo de criptografia utilizados, a necessidade de analisar se um token ainda é válido e o tempo de tolerância para expiração de um token
                 .AddJwtBearer(options =>
                 {
-                    var paramsValidation = options.TokenValidationParameters;
-                    paramsValidation.IssuerSigningKey = tokenConfig.Key;
-                    paramsValidation.ValidAudience = tokenConfig.Audience;
-                    paramsValidation.ValidIssuer = tokenConfig.Issuer;
+                    var paramsValidation              = options.TokenValidationParameters;
+                    paramsValidation.IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(configHelper.JwtTokenConfig.SecurityKey));
+                    paramsValidation.ValidAudience    = configHelper.JwtTokenConfig.Audience;
+                    paramsValidation.ValidIssuer      = configHelper.JwtTokenConfig.Issuer;
 
                     // Valida a assinatura de um token recebido
                     paramsValidation.ValidateIssuerSigningKey = true;
@@ -185,7 +179,7 @@ namespace JNogueira.Bufunfa.Api
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
         }
 
-        public void Configure(IApplicationBuilder app, IHttpContextAccessor httpContextAccessor, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHttpContextAccessor httpContextAccessor, ILoggerFactory loggerFactory, ConfigurationHelper configHelper)
         {
             app.UsePathBase("/api");
 
@@ -194,11 +188,11 @@ namespace JNogueira.Bufunfa.Api
 
             app.UseStaticFiles();
 
-            if (Convert.ToBoolean(Configuration["Discord:Ativo"]))
+            if (!string.IsNullOrEmpty(configHelper.DiscordWebhookUrl))
             {
                 loggerFactory
                     // Adiciona o logger provider para o Discord.
-                    .AddDiscord(new DiscordLoggerOptions(Configuration["Discord:Webhook"]) { ApplicationName = "Backend", EnvironmentName = Environment.EnvironmentName, UserName = "bufunfa-bot" }, httpContextAccessor);
+                    .AddDiscord(new DiscordLoggerOptions(configHelper.DiscordWebhookUrl) { ApplicationName = "Backend", EnvironmentName = Environment.EnvironmentName, UserName = "bufunfa-bot" }, httpContextAccessor);
             }
 
             // Definindo a cultura padrão: pt-BR

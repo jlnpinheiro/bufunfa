@@ -5,16 +5,14 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:5000",
-      "launchBrowser": false
+      "applicationUrl": "http://localhost:5000"
     },
     "PRD": {
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Production"
       },
-      "applicationUrl": "http://localhost:5000",
-      "launchBrowser": false
+      "applicationUrl": "http://localhost:5000"
     }
   }
 }

@@ -283,6 +283,10 @@ Dockerfile
 # .env file contains default environment variables for docker
 .env
 
+**/bundleconfig.json
+**/key-*.xml
+**/appsettings.*.json
+
 **/wwwroot/js/**/*.js
 !**/wwwroot/js/**/*.min.js
 !**/wwwroot/js/scripts.bundle.js

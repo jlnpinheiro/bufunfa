@@ -17,10 +17,9 @@ WORKDIR /app
 # Copia todos os publicáveis para o diretório app
 COPY --from=build-env /src/bufunfa-api/publish .
 
-RUN rm appsettings.Development.json
 RUN rm google_credentials.json
 
 # Define o environment
-ENV ASPNETCORE_ENVIRONMENT=Docker
+ENV ASPNETCORE_ENVIRONMENT=Production
 
 ENTRYPOINT ["dotnet", "bufunfa-api.dll"]

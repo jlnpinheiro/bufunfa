@@ -122,7 +122,7 @@ var Dashboard = function () {
                 todayHighlight: true
             });
 
-            $('.datepicker').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy", placeholder: 'dd/mm/aaaa' });
+            $('.datepicker').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy", placeholder: 'dd/mm/aaaa', clearIncomplete: true });
 
             Bufunfa.criarSelectPeriodo({
                 selector: "#sProcurarPeriodo", dropDownParentSelector: "#portlet-timeline", obrigatorio: false, callbacks: {

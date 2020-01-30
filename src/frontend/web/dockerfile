@@ -17,8 +17,6 @@ WORKDIR /app
 # Copia todos os publicáveis para o diretório app
 COPY --from=build-env /src/bufunfa-web/publish .
 
-RUN rm appsettings.Development.json
-RUN rm bundleconfig.json
 RUN rm -rf publish
 RUN rm -rf cs
 RUN rm -rf de
@@ -33,6 +31,6 @@ RUN rm -rf tr
 RUN rm -rf zh-*
 
 # Define o environment
-ENV ASPNETCORE_ENVIRONMENT=Docker
+ENV ASPNETCORE_ENVIRONMENT=Production
 
 ENTRYPOINT ["dotnet", "bufunfa-web.dll"]

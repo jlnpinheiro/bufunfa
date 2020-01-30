@@ -1,10 +1,10 @@
-﻿using JNogueira.Bufunfa.Api;
-using JNogueira.Bufunfa.Api.Swagger;
+﻿using JNogueira.Bufunfa.Api.Swagger;
 using JNogueira.Bufunfa.Api.Swagger.Exemplos;
 using JNogueira.Bufunfa.Api.ViewModels;
 using JNogueira.Bufunfa.Dominio.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Resources;
+using JNogueira.Bufunfa.Infraestrutura;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -49,7 +49,7 @@ namespace JNogueira.Bufunfa.Api.Controllers
         [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(AutenticarUsuarioResponseExemplo))]
         public async Task<IActionResult> Autenticar(
             [FromBody, SwaggerParameter("E-mail e senha do usuário.", Required = true)] AutenticarUsuarioViewModel model,
-            [FromServices] JwtTokenConfig tokenConfig /*FromServices: resolvidos via mecanismo de injeção de dependências do ASP.NET Core*/)
+            [FromServices] ConfigurationHelper configHelper /*FromServices: resolvidos via mecanismo de injeção de dependências do ASP.NET Core*/)
         {
             var autenticarComando = new AutenticarUsuarioEntrada(model.Email, model.Senha);
 
@@ -61,9 +61,9 @@ namespace JNogueira.Bufunfa.Api.Controllers
             var usuario = (UsuarioSaida)comandoSaida.Retorno;
 
             var dataCriacaoToken = DateTime.Now;
-            var dataExpiracaoToken = dataCriacaoToken + TimeSpan.FromHours(tokenConfig.ExpiracaoEmHoras);
+            var dataExpiracaoToken = dataCriacaoToken + TimeSpan.FromHours(configHelper.JwtTokenConfig.ExpiracaoEmHoras);
 
-            return CriarResponseTokenJwt(usuario, dataCriacaoToken, dataExpiracaoToken, tokenConfig);
+            return CriarResponseTokenJwt(usuario, dataCriacaoToken, dataExpiracaoToken, configHelper);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace JNogueira.Bufunfa.Api.Controllers
             return new ApiResult(await _usuarioServico.AlterarSenha(entrada));
         }
 
-        private IActionResult CriarResponseTokenJwt(UsuarioSaida usuario, DateTime dataCriacaoToken, DateTime dataExpiracaoToken, JwtTokenConfig tokenConfig)
+        private IActionResult CriarResponseTokenJwt(UsuarioSaida usuario, DateTime dataCriacaoToken, DateTime dataExpiracaoToken, ConfigurationHelper configHelper)
         {
             var identity = new ClaimsIdentity(
                     new GenericIdentity(usuario.Nome),
@@ -99,11 +99,16 @@ namespace JNogueira.Bufunfa.Api.Controllers
 
             var jwtHandler = new JwtSecurityTokenHandler();
 
+            // Configuração realizada, seguindo o artigo "ASP.NET Core 2.0: autenticação em APIs utilizando JWT" 
+            // (https://medium.com/@renato.groffe/asp-net-core-2-0-autentica%C3%A7%C3%A3o-em-apis-utilizando-jwt-json-web-tokens-4b1871efd)
+
+            var key = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(configHelper.JwtTokenConfig.SecurityKey));
+
             var securityToken = jwtHandler.CreateToken(new SecurityTokenDescriptor
             {
-                Issuer = tokenConfig.Issuer,
-                Audience = tokenConfig.Audience,
-                SigningCredentials = tokenConfig.SigningCredentials,
+                Issuer = configHelper.JwtTokenConfig.Issuer,
+                Audience = configHelper.JwtTokenConfig.Audience,
+                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256),
                 Subject = identity,
                 NotBefore = dataCriacaoToken,
                 Expires = dataExpiracaoToken

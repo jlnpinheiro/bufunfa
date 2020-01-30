@@ -1,5 +1,4 @@
 ﻿using JNogueira.Bufunfa.Infraestrutura.Integracoes.AlphaVantage.Comandos;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Net.Http;
@@ -12,28 +11,25 @@ namespace JNogueira.Bufunfa.Infraestrutura.Integracoes.AlphaVantage
     /// </summary>
     public class ApiAlphaVantageProxy
     {
-        private readonly IConfiguration _configuration;
         private readonly ILogger<ApiAlphaVantageProxy> _logger;
-        private readonly string _apiKey;
+        private readonly ConfigurationHelper _configHelper;
 
-        public ApiAlphaVantageProxy(IConfiguration configuration, ILogger<ApiAlphaVantageProxy> logger)
+        public ApiAlphaVantageProxy(ConfigurationHelper configHelper, ILogger<ApiAlphaVantageProxy> logger)
         {
-            _configuration = configuration;
-            _logger = logger;
-
-            _apiKey = configuration["ApiAlphaVantage:Key"];
+            _logger       = logger;
+            _configHelper = configHelper;
         }
 
         public async Task<GlobalQuoteSaida> ObterCotacaoPorSiglaAcao(string sigla)
         {
-            if (string.IsNullOrEmpty(sigla))
+            if (string.IsNullOrEmpty(sigla) || string.IsNullOrEmpty(_configHelper.ApiAlphaVantageConfig.UrlGlobalQuotes) || string.IsNullOrEmpty(_configHelper.ApiAlphaVantageConfig.Key))
                 return null;
 
             try
             {
                 using (var client = new HttpClient { Timeout = new TimeSpan(0, 0, 15) })
                 {
-                    var response = await client.GetAsync(string.Format(_configuration["ApiAlphaVantage:UrlGlobalQuotes"], sigla.ToUpper(), _apiKey));
+                    var response = await client.GetAsync(string.Format(_configHelper.ApiAlphaVantageConfig.UrlGlobalQuotes, sigla.ToUpper(), _configHelper.ApiAlphaVantageConfig.Key));
 
                     var globalQuote = GlobalQuote.Obter(response.Content.ReadAsStringAsync().Result);
 
@@ -44,7 +40,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Integracoes.AlphaVantage
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Erro ao utilizar a query \"GLOBAL_QUOTE\" ({string.Format(_configuration["ApiAlphaVantage:UrlGlobalQuotes"], sigla, _apiKey)}) para a sigla {sigla} da API da Alpha Vantage.");
+                _logger.LogError(ex, $"Erro ao utilizar a query \"GLOBAL_QUOTE\" ({string.Format(_configHelper.ApiAlphaVantageConfig.UrlGlobalQuotes, sigla, _configHelper.ApiAlphaVantageConfig.Key)}) para a sigla {sigla} da API da Alpha Vantage.");
 
                 return null;
             }

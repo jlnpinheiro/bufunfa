@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -11,11 +10,11 @@ namespace JNogueira.Bufunfa.Web.Helpers
         private readonly CookieHelper _cookieHelper;
         private readonly string _urlApi;
 
-        public HttpClientHelper(IConfiguration configuration, CookieHelper cookieHelper)
+        public HttpClientHelper(ConfigurationHelper configHelper, CookieHelper cookieHelper)
         {
             _cookieHelper = cookieHelper;
 
-            _urlApi = configuration["UrlApi"];
+            _urlApi = configHelper.UrlBackend;
         }
 
         public async Task<HttpResponseMessage> FazerRequest(string rota, MetodoHttp metodo, HttpContent httpContent = null, bool usarJwtToken = true)

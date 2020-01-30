@@ -1,5 +1,6 @@
 ﻿using JNogueira.Logger.Discord;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -14,7 +15,13 @@ namespace JNogueira.Bufunfa.Web
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureLogging((hostingContext, logging) =>
+            .ConfigureAppConfiguration((hostContext, config) =>
+            {
+                config.AddJsonFile("appsettings.json", optional: true);
+                config.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true);
+                config.AddEnvironmentVariables();
+            })
+            .ConfigureLogging((hostingContext, logging) =>
                 {
                     if (!hostingContext.HostingEnvironment.IsProduction())
                     {
