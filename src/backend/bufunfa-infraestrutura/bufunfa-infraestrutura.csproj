@@ -10,7 +10,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.1" />
     <PackageReference Include="NotifiqueMe" Version="3.1.0" />
-    <PackageReference Include="Utilzao" Version="3.0.0" />
+    <PackageReference Include="Utilzao" Version="3.0.2" />
   </ItemGroup>
 
 </Project>
