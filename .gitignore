@@ -355,3 +355,4 @@ MigrationBackup/
 **/_publish
 **/google_credentials.json
 /src/_mysql
+/src/_docker/_mysql

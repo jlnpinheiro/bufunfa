@@ -1,5 +1,6 @@
 ﻿using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.NotifiqueMe;
+using JNogueira.Utilzao;
 using System;
 
 namespace JNogueira.Bufunfa.Dominio.Comandos
@@ -58,7 +59,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
                 .NotificarSeMenorOuIgualA(this.IdContaOrigem, 0, ContaMensagem.Id_Conta_Origem_Transferencia_Invalido)
                 .NotificarSeMenorOuIgualA(this.IdContaDestino, 0, ContaMensagem.Id_Conta_Destino_Transferencia_Invalido)
                 .NotificarSeMenorOuIgualA(this.Valor, 0, ContaMensagem.Valor_Transferencia_Invalido)
-                .NotificarSeMaiorQue(this.Data.Date, DateTime.Now.Date, ContaMensagem.Data_Transferencia_Invalida);
+                .NotificarSeMaiorQue(this.Data.Date, DateTime.Now.ConverterHorarioOficialBrasil().Date, ContaMensagem.Data_Transferencia_Invalida);
 
             if (!string.IsNullOrEmpty(this.Observacao))
                 this.NotificarSePossuirTamanhoSuperiorA(this.Observacao, 500, ContaMensagem.Observacao_Transferencia_Tamanho_Maximo_Excedido);
