@@ -17,8 +17,6 @@ WORKDIR /app
 # Copia todos os publicáveis para o diretório app
 COPY --from=build-env /src/bufunfa-api/publish .
 
-RUN rm google_credentials.json
-
 # Define o environment
 ENV ASPNETCORE_ENVIRONMENT=Production
 

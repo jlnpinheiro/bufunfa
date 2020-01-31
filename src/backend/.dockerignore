@@ -284,4 +284,5 @@ Dockerfile
 .env
 
 **/bundleconfig.json
-**/appSettings.*.json
+**/appsettings.*.json
+**/google_credentials.json
