@@ -57,8 +57,22 @@ services:
       - "80:80"
       - "443:443"
     restart: always
+    volumes:
+      - ./nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
     networks:
       - bufunfa-network
+
+  certbot:
+    depends_on:
+      - bufunfa-reverse-proxy
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+    command: certonly --webroot --webroot-path=/var/www/html --email jlnpinheiro@gmail.com --agree-tos --no-eff-email --staging -d jnogueira.net.br -d www.jnogueira.net.br
 
 networks: 
   bufunfa-network:

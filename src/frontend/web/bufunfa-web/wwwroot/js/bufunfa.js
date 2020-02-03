@@ -37,6 +37,8 @@
                                             window.Agendamento.atualizar();
                                         } else if (window.Lancamento != null) {
                                             window.Lancamento.atualizar();
+                                        } else if (window.Dashboard != null) {
+                                            window.Dashboard.atualizar();
                                         }
 
                                         _carregarParcelasPorAgendamento($("#iIdAgendamento").val());
@@ -110,7 +112,10 @@
                                             window.Agendamento.atualizar();
                                         } else if (window.Lancamento != null) {
                                             window.Lancamento.atualizar();
+                                        } else if (window.Dashboard != null) {
+                                            window.Dashboard.atualizar();
                                         }
+
                                         _carregarParcelasPorAgendamento($("#iIdAgendamento").val());
                                     });
                                 }
@@ -183,6 +188,8 @@
                                         window.Agendamento.atualizar();
                                     } else if (window.Lancamento != null) {
                                         window.Lancamento.atualizar();
+                                    } else if (window.Dashboard != null) {
+                                        window.Dashboard.atualizar();
                                     }
 
                                     _carregarParcelasPorAgendamento($("#iIdAgendamento").val());
@@ -210,6 +217,8 @@
                     window.Agendamento.atualizar();
                 } else if (window.Lancamento != null) {
                     window.Lancamento.atualizar();
+                } else if (window.Dashboard != null) {
+                    window.Dashboard.atualizar();
                 }
 
                 _carregarParcelasPorAgendamento($("#iIdAgendamento").val());

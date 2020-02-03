@@ -201,11 +201,19 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
 
             var cartaoCredito = (CartaoCreditoSaida)cartaoSaida.Retorno;
 
-            // Obtém todas as parcelas abertas, cuja a data seja a data do vencimento da fatura
-            var parcelas = await _parcelaRepositorio.ObterPorCartaoCredito(idCartao, new DateTime(anoFatura, mesFatura, cartaoCredito.DiaVencimentoFatura));
-
             // Verifica se a fatura já foi lançada anteriormente
             var fatura = await _faturaRepositorio.ObterPorCartaoCreditoMesAno(idCartao, mesFatura, anoFatura);
+
+            var parcelas = await _parcelaRepositorio.ObterPorCartaoCredito(idCartao, new DateTime(anoFatura, mesFatura, cartaoCredito.DiaVencimentoFatura));
+
+            if (fatura == null)
+            {
+                parcelas = parcelas.Where(x => !x.Lancada && !x.Descartada);
+            }
+            else
+            {
+                parcelas = parcelas.Where(x => !x.Descartada);
+            }
 
             return (fatura != null)
                 ? new Saida(true, new[] { CartaoCreditoMensagem.Fatura_Encontrada_Com_Sucesso }, new FaturaSaida(fatura, parcelas?.OrderByDescending(x => x.Id)?.Select(x => new ParcelaSaida(x))?.ToList()))
