@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Rotativa.AspNetCore;
 using System;
 using System.Globalization;
 using System.IO;
@@ -114,6 +115,8 @@ namespace JNogueira.Bufunfa.Web
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             });
+
+            RotativaConfiguration.Setup((Microsoft.AspNetCore.Hosting.IHostingEnvironment)Environment);
 
             // Define o middleware para interceptar exceptions não tratadas
             app.UseExceptionHandler($"/feedback/{(int)HttpStatusCode.InternalServerError}");
