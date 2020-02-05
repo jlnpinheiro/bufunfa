@@ -116,7 +116,7 @@ namespace JNogueira.Bufunfa.Web
                 SupportedUICultures = supportedCultures
             });
 
-            RotativaConfiguration.Setup((Microsoft.AspNetCore.Hosting.IHostingEnvironment)Environment);
+            RotativaConfiguration.Setup(Environment.ContentRootPath, "wwwroot/Rotativa");
 
             // Define o middleware para interceptar exceptions não tratadas
             app.UseExceptionHandler($"/feedback/{(int)HttpStatusCode.InternalServerError}");
