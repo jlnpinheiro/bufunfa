@@ -1,78 +1,59 @@
 version: '3'
 services:
+    
   # Banco de dados - MySQL 5.7
   bufunfa-db:
     image: jlnpinheiro/bufunfa:1.0.0-database
     container_name: bufunfa-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "Bufunf@"
-      MYSQL_DATABASE: "db_bufunfa"
-      MYSQL_USER: "bufunfa"
-      MYSQL_PASSWORD: "bufunfa"
+        MYSQL_ROOT_PASSWORD: "p@ssw0rd"
+        MYSQL_DATABASE: "db_bufunfa"
+        MYSQL_USER: "bufunfa"
+        MYSQL_PASSWORD: "bufunfa"
     restart: always
     ports:
-      - "3306:3306"
+        - "3306:3306"
     volumes:
-      - ./_mysql:/var/lib/mysql
+        - ./_mysql:/var/lib/mysql
     networks:
-      - bufunfa-network
+        - bufunfa-network
 
   # Backend - API ASP.NET Core 3.1
   bufunfa-backend:
     depends_on:
-      - bufunfa-db
+        - bufunfa-db
     image: jlnpinheiro/bufunfa:1.0.0-backend
     container_name: bufunfa-backend
     environment:
-      BUFUNFA_BANCO_DADOS_CONNECTION_STRING: "server=bufunfa-mysql;Port=3306;user id=bufunfa;password=bufunfa;database=db_bufunfa;SslMode=none;" #String de conexão para acesso ao banco
-      BUFUNFA_DISCORD_WEBHOOK_URL: "" #URL do webhook do Discord (não obrigatório)
-      BUFUNFA_GOOGLE_DRIVE_ID_PASTA_ANEXO: "" #ID da pasta no Google Drive onde os anexos serão armazenados
-      BUFUNFA_API_ALPHA_VANTAGE_KEY: "" #Key para utilizar a API da Alpha Vantage (consulta de indicadores financeiros de ativos)
+        # String de conexão para acesso ao banco
+        BUFUNFA_BANCO_DADOS_CONNECTION_STRING: "server=bufunfa-mysql;Port=3306;user id=bufunfa;password=bufunfa;database=db_bufunfa;SslMode=none;" # OBS: o nome do server deve ser igual a "container_name" de "bufunfa-db"
+        # URL do webhook do Discord (não obrigatório)
+        BUFUNFA_DISCORD_WEBHOOK_URL: "" 
+        # ID da pasta no Google Drive onde os anexos serão armazenados (não obrigatório)
+        BUFUNFA_GOOGLE_DRIVE_ID_PASTA_ANEXO: ""  
+        # Key para utilizar a API da Alpha Vantage (consulta de indicadores financeiros de ativos)
+        BUFUNFA_API_ALPHA_VANTAGE_KEY: "" 
     restart: always
+    volumes: 
+        - ./google_credentials.json:/app/google_credentials.json # Arquivo com as credenciais de acesso para utilizar a API do Google Drive (não obrigatório)
     networks:
-      - bufunfa-network
+        - bufunfa-network
 
-  # Frontend - ASP.NET Core 3.1
+  # Frontend - ASP.NET Core MVC 3.1
   bufunfa-frontend:
     depends_on:
-      - bufunfa-db
-      - bufunfa-backend
+        - bufunfa-db
+        - bufunfa-backend
     image: jlnpinheiro/bufunfa:1.0.0-frontend
     container_name: bufunfa-frontend
     environment:
-      BUFUNFA_DISCORD_WEBHOOK_URL: "" #URL do webhook do Discord (não obrigatório)
-      BUFUNFA_BACKEND_URL: "http://bufunfa-backend/api/" #URL para acesso ao backend
+        # URL do webhook do Discord (não obrigatório)
+        BUFUNFA_DISCORD_WEBHOOK_URL: "" 
+        # URL para acesso ao backend
+        BUFUNFA_BACKEND_URL: "http://bufunfa-backend/api/"
     restart: always
     networks:
-      - bufunfa-network
-
-  # Ngnix - Proxy reverso
-  bufunfa-reverse-proxy:
-    depends_on:
-      - bufunfa-frontend
-      - bufunfa-backend
-    image: jlnpinheiro/bufunfa:1.0.0-reverse-proxy
-    container_name: bufunfa-reverse-proxy
-    ports:
-      - "80:80"
-      - "443:443"
-    restart: always
-    volumes:
-      - ./nginx-conf:/etc/nginx/conf.d
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-    networks:
-      - bufunfa-network
-
-  certbot:
-    depends_on:
-      - bufunfa-reverse-proxy
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-    command: certonly --webroot --webroot-path=/var/www/html --email jlnpinheiro@gmail.com --agree-tos --no-eff-email --staging -d jnogueira.net.br -d www.jnogueira.net.br
+        - bufunfa-network
 
 networks: 
   bufunfa-network:
