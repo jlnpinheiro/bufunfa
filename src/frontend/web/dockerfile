@@ -12,23 +12,20 @@ RUN dotnet publish -c Release -o publish
 # Define a imagem do runtime
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 
+# Biblioteca necessária para geração de PDF utilizando o componente "Rotativa"
+RUN ["apt-get", "update"]
+RUN ["apt-get", "-y", "install", "libgdiplus"]
+
 WORKDIR /app
 
 # Copia todos os publicáveis para o diretório app
 COPY --from=build-env /src/bufunfa-web/publish .
 
-RUN rm -rf publish
-RUN rm -rf cs
-RUN rm -rf de
-RUN rm -rf es
-RUN rm -rf fr
-RUN rm -rf it
-RUN rm -rf ja
-RUN rm -rf ko
-RUN rm -rf pl
-RUN rm -rf ru
-RUN rm -rf tr
-RUN rm -rf zh-*
+RUN rm -rf publish cs de es fr it ja ko pl ru tr zh-*
+
+# Comando necessário para o funcionamento do componente "Rotativa"
+RUN chmod 755 /app/wwwroot/Rotativa/wkhtmltopdf
+RUN chmod 755 /app/wwwroot/Rotativa/wkhtmltoimage
 
 # Define o environment
 ENV ASPNETCORE_ENVIRONMENT=Production
