@@ -70,9 +70,7 @@
                 <!-- begin:: Aside -->
                 <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
                     <div class="kt-aside__brand-logo">
-                        <a href="demo12/index.html">
-                            <img alt="Logo" src="~/img/topo-logo-branco.png">
-                        </a>
+                        <img alt="Logo" src="~/img/topo-logo-branco.png">
                     </div>
 
                     <div class="kt-aside__brand-tools">
@@ -107,7 +105,7 @@
                             <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("contas"))"><a href="/contas" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-price-tag"></i><span class="kt-menu__link-text">Contas, cartões e ativos</span></a></li>
                             <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("lancamentos"))"><a href="" id="lLancamentos" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-exchange-alt"></i><span class="kt-menu__link-text">Lançamentos</span></a></li>
                             <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("agendamentos"))"><a href="/agendamentos" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-calendar-alt"></i><span class="kt-menu__link-text">Agendamentos</span></a></li>
-                            <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("categorias", "periodos", "pessoas")) kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                            <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("atalhos", "categorias", "periodos", "pessoas")) kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                                 <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-settings"></i><span class="kt-menu__link-text">Cadastros</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                                 <div class="kt-menu__submenu ">
                                     <span class="kt-menu__arrow"></span>
@@ -119,7 +117,15 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("relatorios"))"><a href="/relatorios" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-file-alt"></i><span class="kt-menu__link-text">Relatórios</span></a></li>
+                            <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("relatorios")) kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                                <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon fa fa-file-alt"></i><span class="kt-menu__link-text">Relatórios</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                <div class="kt-menu__submenu ">
+                                    <span class="kt-menu__arrow"></span>
+                                    <ul class="kt-menu__subnav">
+                                        <li class="kt-menu__item" aria-haspopup="true" id="lExtratoPorPeriodo"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Extrato por período</span></a></li>
+                                    </ul>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -376,6 +382,11 @@
             $("#lLancamentos").click(function (e) {
                 e.preventDefault();
                 Bufunfa.exibirPopupSelecaoContaLancamento();
+            });
+
+            $("#lExtratoPorPeriodo").click(function (e) {
+                e.preventDefault();
+                Bufunfa.exibirPopupParametrosExtratoPorPeriodo();
             });
 
             $("#lPagar").click(function (e) {

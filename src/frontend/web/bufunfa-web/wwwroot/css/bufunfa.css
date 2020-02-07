@@ -464,3 +464,30 @@ table.dataTable.table-sm .sorting:after, table.dataTable.table-sm .sorting_asc:a
         color: #74788d;
     }
 }
+
+.kt-invoice-2 .kt-invoice__body table tbody tr:first-child td {
+    padding-top: 0.5rem;
+}
+
+.kt-invoice-2 .kt-invoice__body table tbody tr td {
+    background-color: transparent;
+    padding: 0.6rem;
+    border-top: none;
+    font-weight: normal;
+    font-size: 1.1rem;
+    color: #595d6e;
+}
+
+.kt-invoice-2 .kt-invoice__body table thead tr th {
+    text-align: left;
+    padding: 0.6rem;
+}
+
+.kt-invoice-2 .kt-invoice__body table thead tr th:not(:first-child) {
+    text-align: left;
+    padding: 0.6rem;
+}
+
+.kt-invoice-2 .kt-invoice__body table tbody tr td:not(:first-child) {
+    text-align: left;
+}

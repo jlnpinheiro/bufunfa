@@ -1,15 +1,6 @@
 ﻿@using JNogueira.Bufunfa.Web.Models
-@using JNogueira.Bufunfa.Web.Helpers
-@using JNogueira.Utilzao
-@using Microsoft.AspNetCore.Http.Extensions
-@using Microsoft.AspNetCore.Http
 
-@inject CookieHelper cookieHelper
-@inject IHttpContextAccessor httpContext
-
-@{
-    var url = UriHelper.GetDisplayUrl(httpContext.HttpContext.Request);
-}
+@model JNogueira.Bufunfa.Web.Models.RelatorioExtratoPorPeriodoSaida
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -18,7 +9,6 @@
     <!--begin::Base Path (base relative path for assets of this page) -->
     <meta charset="utf-8" />
     <title>Bufunfa! Gerenciador financeiro</title>
-    <meta name="description" content="Sistema de gestão financeira pessoal contruído para a plataforma ASP.Net Core">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--begin::Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
@@ -26,72 +16,156 @@
     <!--begin::Global Theme Styles(used by all pages) -->
     <link href="~/plugins/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="~/css/style.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="~/vendors/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/relatorio.min.css" rel="stylesheet" type="text/css" />
     <!--end::Global Theme Styles -->
     <!--begin::Global Theme Styles(used by all pages) -->
     <environment include="Development">
-        <link href="~/css/app-modal.css" rel="stylesheet" type="text/css" />
         <link href="~/css/bufunfa.css" rel="stylesheet" type="text/css" />
     </environment>
     <environment exclude="Development">
-        <link href="~/css/app-modal.min.css" rel="stylesheet" type="text/css" />
         <link href="~/css/bufunfa.min.css" rel="stylesheet" type="text/css" />
     </environment>
+    <style>
+        table {
+            page-break-inside: auto !important;
+        }
+
+        table tr {
+            page-break-inside: avoid !important;
+            page-break-after: auto !important;
+        }
+
+        tfoot {
+            display: table-footer-group !important;
+        }
+
+    </style>
     <!--end::Global Theme Styles -->
-    <link rel="shortcut icon" href="~/img/favicon.png" />
 </head>
 <!-- end::Head -->
 <!-- begin::Body -->
-<body>
+<body style="background-color: #fff;">
+    <div class="kt-portlet" style="margin-bottom: 0;">
+        <div class="kt-portlet__body kt-portlet__body--fit">
+            <div class="kt-invoice-2">
+                <div class="kt-invoice__head" style="padding: 15px 0;">
+                    <div class="kt-invoice__container">
+                        <div class="kt-invoice__brand">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td>
+                                        <h1 class="kt-invoice__title" style="margin-bottom:0;">EXTRATO POR PERÍODO</h1>
+                                        <span>@Html.Raw(Model.Periodo != null ? $"<span class=\"kt-font-bold\">{Model.Periodo.Nome}</span> <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> " : string.Empty)Período de @Model.DataInicio.ToString("dd/MM/yyyy") até @Model.DataFim.ToString("dd/MM/yyyy")</span>
+                                    </td>
+                                    <td style="width: 1px;"><img src="~/img/logo-relatorio.png"></td>
+                                </tr>
+                            </table>
+                        </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="table-active">
-                <th scope="row">1</th>
-                <td>Jhon</td>
-                <td>Stone</td>
-                <td>jhon</td>
-            </tr>
-            <tr class="table-primary">
-                <th scope="row">2</th>
-                <td>Lisa</td>
-                <td>Nilson</td>
-                <td>lisa</td>
-            </tr>
-            <tr class="table-success">
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>twitter</td>
-            </tr>
-            <tr class="table-brand">
-                <th scope="row">4</th>
-                <td>Nick</td>
-                <td>looper</td>
-                <td>king</td>
-            </tr>
-            <tr class="table-warning">
-                <th scope="row">5</th>
-                <td>Joan</td>
-                <td>thestar</td>
-                <td>joan</td>
-            </tr>
-            <tr class="table-danger">
-                <th scope="row">6</th>
-                <td>Sean</td>
-                <td>coder</td>
-                <td>coder</td>
-            </tr>
-        </tbody>
-    </table>
+                        <div class="kt-invoice__items" style="margin-top: 15px;">
+                            <div class="kt-invoice__item">
+                                <span class="kt-invoice__subtitle">Conta</span>
+                                <span class="kt-invoice__text">@Model.Conta.Nome</span>
+                            </div>
+                            <div class="kt-invoice__item">
+                                <span class="kt-invoice__subtitle">Tipo</span>
+                                <span class="kt-invoice__text"><i class="fa fa-university" style="color: @(Model.Conta.ObterCorPorTipoConta());"></i> @Model.Conta.DescricaoTipo</span>
+                            </div>
+                            <div class="kt-invoice__item">
+                                <span class="kt-invoice__subtitle">Instituição</span>
+                                <span class="kt-invoice__text">@Model.Conta.NomeInstituicao</span>
+                            </div>
+                            <div class="kt-invoice__item">
+                                <span class="kt-invoice__subtitle">Número</span>
+                                <span class="kt-invoice__text">@Model.Conta.Numero</span>
+                            </div>
+                            <div class="kt-invoice__item">
+                                <span class="kt-invoice__subtitle">Agência</span>
+                                <span class="kt-invoice__text">@Model.Conta.NumeroAgencia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kt-invoice__footer" style="padding: 1rem 0;">
+                    <div class="kt-invoice__container">
+                        <div class="table-responsive">
+                            <table class="table" style="margin-bottom: 0px;">
+                                <thead>
+                                    <tr>
+                                        <th style="text-transform:uppercase" class="text-center">Saldo atual da conta</th>
+                                        <th style="text-transform: uppercase" class="text-center">Créditos <span class="kt-badge kt-badge--success kt-badge--dot kt-badge--sm"></span> Total</th>
+                                        <th style="text-transform:uppercase" class="text-center">Débitos <span class="kt-badge kt-badge--danger kt-badge--dot kt-badge--sm"></span> Total</th>
+                                        <th style="text-transform: uppercase" class="text-center">Saldo no período</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="@(Model.Conta.ValorSaldoAtual >= 0 ? "kt-font-success" : "kt-font-danger") kt-font-xl kt-font-bold text-center">@Model.Conta.ObterSaldoAtualEmReais()</td>
+                                        <td class="kt-font-success kt-font-lg kt-font-bold text-center">@Model.ObterTotalCreditoEmReais()</td>
+                                        <td class="kt-font-danger kt-font-lg kt-font-bold text-center">@Model.ObterTotalDebitoEmReais()</td>
+                                        <td class="@(Model.ValorSaldoPeriodo >= 0 ? "kt-font-success" : "kt-font-danger") kt-font-xl kt-font-bolder text-center">@Model.ObterSaldoPeriodoEmReais()</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                       </div>
+                    </div>
+                </div>
+
+                <div class="kt-invoice__body" style="padding: 20px 0;">
+                    <div class="kt-invoice__container">
+                        <table class="table table-striped table-borderless">
+                            <thead>
+                                <tr>
+                                    <th style="width:1px; white-space:nowrap;">DATA</th>
+                                    <th>CATEGORIA</th>
+                                    <th>PESSOA</th>
+                                    <th>OBSERVAÇÃO</th>
+                                    <th></th>
+                                    <th class="text-center">VALOR</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var lancamento in Model.Lancamentos.OrderBy(x => x.Data))
+                                {
+                                    <tr>
+                                        <td style="white-space: nowrap;">@lancamento.Data.ToString("dd/MM/yyyy") <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <small class="kt-font-bolder kt-font-primary">@lancamento.Data.ToString("ddd").ToUpper()</small></td>
+                                        <td>
+                                            <i class="fa fa-tag kt-font-@(lancamento.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") kt-font-sm"></i> @lancamento.Categoria.Caminho
+                                        </td>
+                                        <td>@lancamento.Pessoa?.Nome</td>
+                                        <td>@lancamento.Observacao</td>
+                                        <td style="text-align:center; padding:0.3rem;">
+                                            @if (lancamento.IdParcela.HasValue)
+                                            {
+                                                <i class="fa fa-calendar-alt kt-font-primary"></i>
+                                            }
+                                            else if (!string.IsNullOrEmpty(lancamento.IdTransferencia))
+                                            {
+                                                <i class="fa fa-share-square kt-font-primary"></i>
+                                            }
+                                            else if (lancamento.Categoria.Id == 3) // Pagamento de fatura
+                                            {
+                                                <i class="fa fa-credit-card kt-font-primary"></i>
+                                            }
+                                        </td>
+                                        <td class="kt-font-@(lancamento.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") kt-font-lg text-right coluna-valor" style="width:1px; white-space: nowrap;">@lancamento.ObterValorEmReais()</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr style="border-top: 3px solid #ccc;">
+                                    <td colspan="5" class="text-right kt-font-lg kt-font-bolder">TOTAL</td>
+                                    <td class="@(Model.ValorSaldoPeriodo >= 0 ? "kt-font-success" : "kt-font-danger") kt-font-xl kt-font-bolder text-right" style="white-space: nowrap;">@Model.ObterSaldoPeriodoEmReais()</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <!-- begin::Global Config(global config for global JS sciprts) -->
     <script>
@@ -102,40 +176,6 @@
     <script src="~/plugins/plugins.bundle.js" type="text/javascript"></script>
     <script src="~/js/scripts.bundle.js" type="text/javascript"></script>
     <!--end::Global Theme Bundle -->
-    <!--begin:: Global Mandatory Vendors -->
-    <script src="~/vendors/select2/i18n/pt-BR.js" type="text/javascript"></script>
-    <script src="~/vendors/bootstrap-datepicker/bootstrap-datepicker.pt-BR.min.js" type="text/javascript"></script>
-    <script src="~/vendors/moment/pt-br.js" type="text/javascript"></script>
-    <script src="~/vendors/jquery-confirm/jquery-confirm.min.js" type="text/javascript"></script>
-    <script src="~/vendors/numerals/numeral.min.js"></script>
-    <script src="~/vendors/countUp/countup.min.js"></script>
-    <script src="~/vendors/snap-svg/snap.svg.min.js"></script>
-    <script src="~/vendors/liquid-meter/liquid.meter.min.js"></script>
-    <!--end:: Global Mandatory Vendors -->
-    <environment include="Development">
-        <script src="~/js/app.js" type="text/javascript"></script>
-        <script src="~/js/app-modal.js" type="text/javascript"></script>
-        <script src="~/js/app-feedback.js" type="text/javascript"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/js/app.min.js" type="text/javascript"></script>
-        <script src="~/js/app-modal.min.js" type="text/javascript"></script>
-        <script src="~/js/app-feedback.min.js" type="text/javascript"></script>
-    </environment>
-    <!--end::Global Theme Bundle -->
-    <!--begin::Page Scripts(used by this page) -->
-    <environment include="Development">
-        <script src="~/js/bufunfa.js" type="text/javascript"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/js/bufunfa.min.js" type="text/javascript"></script>
-    </environment>
-    <script type="text/javascript">
-        $(document).ajaxStart(function () { App.bloquear(); });
-        $(document).ajaxStop(function () { App.desbloquear(); });
-        $(document).ajaxError(function () { App.desbloquear(); });
-    </script>
-    <!--end::Page Scripts -->
     <script type="text/javascript">
         // Adiciona a toda requisição AJAX o token AntiforgeryToken
         $(document).ajaxSend(function (e, xhr, options) {

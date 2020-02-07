@@ -314,7 +314,7 @@
                             $('#sAgendamentoPeriodicidade').val('1'); // Mensal
                             $('#sAgendamentoPeriodicidade').trigger('change');
                             $('#sAgendamentoPeriodicidade').attr("disabled", true);
-                            
+
                             $('#iAgendamentoDataPrimeiraParcela').datepicker("destroy");
 
                             let diaVencimentoFatura = $($("#sAgendamentoConta").select2('data')[0].element).data('dia-vencimento-fatura');
@@ -896,6 +896,26 @@
             });
     };
 
+    var _gerarExtratoPorPeriodo = function (idConta, idPeriodo, dataInicio, dataFim, gerarPdf) {
+
+        let entrada = {
+            IdConta: idConta,
+            IdPeriodo: idPeriodo,
+            DataInicio: dataInicio,
+            DataFim: dataFim,
+            GerarPdf: gerarPdf
+        };
+
+        $.post(App.corrigirPathRota("/relatorios/gerar-extrato-por-periodo"), { entrada: entrada }, function (html) {
+            AppModal.exibirPorHtml(html);
+        }).done(function () {
+            KTApp.initTooltips();
+        }).fail(function (jqXhr) {
+            let feedback = Feedback.converter(jqXhr.responseJSON);
+            feedback.exibir();
+        });
+    };
+
     return {
         // Permite a alteração da senha de acesso
         alterarSenhaUsuario: function () {
@@ -1327,7 +1347,7 @@
                                     if (window.Conta != null) {
                                         window.Conta.atualizar();
                                     }
-                                    else if (window.Lancamento!= null) {
+                                    else if (window.Lancamento != null) {
                                         window.Lancamento.atualizar();
                                     }
                                 });
@@ -1457,7 +1477,7 @@
                                         window.Dashboard.atualizar();
                                     } else if (window.Conta != null) {
                                         window.Conta.atualizar();
-                                    } 
+                                    }
 
                                     if (opcoes != null && opcoes.callbacks.salvar != null) {
                                         opcoes.callbacks.salvar();
@@ -1496,5 +1516,80 @@
                 });
             });
         },
+
+        // Exibe o popup para emissão do extrato por período
+        exibirPopupParametrosExtratoPorPeriodo: function () {
+            AppModal.exibirPorRota(App.corrigirPathRota("/relatorios/exibir-parametros-extrato-por-periodo"), function () {
+                $.validator.addMethod("periodo_valido", function () {
+                    let inicio = moment($("#iExtratoPorPeriodoDataInicio").val(), "DD/MM/YYYY").toDate();
+                    let fim = moment($("#iExtratoPorPeriodoDataFim").val(), "DD/MM/YYYY").toDate();
+                    return (inicio <= fim);
+                }, "Período inválido.");
+
+                $("#form-parametros-extrato-por-periodo").validate({
+                    rules: {
+                        sExtratoPorPeriodoConta: {
+                            required: true
+                        },
+                        iExtratoPorPeriodoDataInicio: {
+                            required: true,
+                            periodo_valido: true
+                        },
+                        iExtratoPorPeriodoDataFim: {
+                            required: true,
+                            periodo_valido: true
+                        }
+                    },
+                    submitHandler: function () {
+                        _gerarExtratoPorPeriodo($("#sExtratoPorPeriodoConta").val(), $("#sExtratoPorPeriodoPeriodo").val(), $("#iExtratoPorPeriodoDataInicio").val(), $("#iExtratoPorPeriodoDataFim").val(), false);
+                    }
+                });
+
+                $('.datepicker').datepicker({
+                    autoclose: true,
+                    language: 'pt-BR',
+                    todayBtn: 'linked',
+                    todayHighlight: true
+                });
+
+                Bufunfa.criarSelectContasCartoesCredito({ selector: "#sExtratoPorPeriodoConta", dropDownParentSelector: ".jconfirm", obrigatorio: true });
+
+                $('.datepicker').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy", placeholder: 'dd/mm/aaaa', clearIncomplete: true });
+
+                Bufunfa.criarSelectPeriodo({
+                    selector: "#sExtratoPorPeriodoPeriodo", dropDownParentSelector: ".jconfirm", obrigatorio: false, callbacks: {
+                        selecionar: function () {
+                            if ($("#sExtratoPorPeriodoPeriodo").select2('data').length) {
+                                let dataInicio, dataFim = null;
+
+                                if ($("#sExtratoPorPeriodoPeriodo").select2('data')[0].dataInicio != null && $("#sExtratoPorPeriodoPeriodo").select2('data')[0].dataFim != null) {
+                                    dataInicio = moment($("#sExtratoPorPeriodoPeriodo").select2('data')[0].dataInicio, "DD/MM/YYYY");
+                                    dataFim = moment($("#sExtratoPorPeriodoPeriodo").select2('data')[0].dataFim, "DD/MM/YYYY");
+                                }
+                                else {
+                                    dataInicio = moment($('#sExtratoPorPeriodoPeriodo').find(':selected').attr('data-dataInicio'), "DD/MM/YYYY");
+                                    dataFim = moment($('#sExtratoPorPeriodoPeriodo').find(':selected').attr('data-dataFim'), "DD/MM/YYYY");
+                                }
+
+                                $("#iExtratoPorPeriodoDataInicio").datepicker('update', dataInicio.format("DD-MM-YYYY"));
+                                $("#iExtratoPorPeriodoDataFim").datepicker('update', dataFim.format("DD-MM-YYYY"));
+
+                                $('#iExtratoPorPeriodoDataInicio').attr('disabled', true);
+                                $('#iExtratoPorPeriodoDataFim').attr('disabled', true);
+
+                                $('#iExtratoPorPeriodoDataInicio').valid();
+                                $('#iExtratoPorPeriodoDataFim').valid();
+                            } else {
+                                $("#iExtratoPorPeriodoDataInicio").datepicker('clearDates');
+                                $("#iExtratoPorPeriodoDataFim").datepicker('clearDates');
+
+                                $('#iExtratoPorPeriodoDataInicio').attr('disabled', false);
+                                $('#iExtratoPorPeriodoDataFim').attr('disabled', false);
+                            }
+                        }
+                    }
+                });
+            });
+        }
     };
 }();
