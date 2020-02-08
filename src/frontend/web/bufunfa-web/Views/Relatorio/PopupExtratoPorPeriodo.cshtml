@@ -1,0 +1,30 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+
+@model RelatorioExtratoPorPeriodoSaida
+
+@if (Model.GerarPdf)
+{
+    Layout = "_Relatorio";
+
+    @await Html.PartialAsync("~/Views/Relatorio/ExtratoPorPeriodo.cshtml", Model)
+}
+else
+{
+    <div class="kt-portlet" style="margin-bottom: 0;">
+        <div class="kt-portlet__head popup">
+            <div class="kt-portlet__head-label">
+               
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-actions">
+                    <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Cancelar</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="btnGerarPdf"><i class="la la-file-pdf-o"></i> Gerar PDF</button>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__body kt-portlet__body--fit">
+            @await Html.PartialAsync("~/Views/Relatorio/ExtratoPorPeriodo.cshtml", Model)
+        </div>
+        
+    </div>
+}

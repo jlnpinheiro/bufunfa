@@ -1,4 +1,5 @@
-﻿using JNogueira.Bufunfa.Web.Filters;
+﻿using JNogueira.Bufunfa.Web.Binders;
+using JNogueira.Bufunfa.Web.Filters;
 using JNogueira.Bufunfa.Web.Models;
 using JNogueira.Bufunfa.Web.Proxy;
 using JNogueira.Bufunfa.Web.Results;
@@ -28,28 +29,33 @@ namespace JNogueira.Bufunfa.Web.Controllers
             return PartialView("PopUpParametrosExtratoPorPeriodo");
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("gerar-extrato-por-periodo")]
-        public async Task<IActionResult> GerarExtratoPorPeriodo(RelatorioExtratoPorPeriodoEntrada entrada)
+        public async Task<IActionResult> GerarExtratoPorPeriodo(
+            [DateTimeModelBinder(DateFormat = "dd/MM/yyyy")] DateTime? dataInicio,
+            [DateTimeModelBinder(DateFormat = "dd/MM/yyyy")] DateTime? dataFim,
+            int idConta,
+            int? idPeriodo = null,
+            bool gerarPdf = false)
         {
-            var contaSaida = await _proxy.ObterContaPorId(entrada.IdConta);
+            var contaSaida = await _proxy.ObterContaPorId(idConta);
 
             if (!contaSaida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível exibir as informações da conta.", contaSaida.Mensagens));
 
             Periodo periodo = null;
 
-            if (entrada.IdPeriodo.HasValue)
+            if (idPeriodo.HasValue)
             {
-                var periodoSaida = await _proxy.ObterPeriodoPorId(entrada.IdPeriodo.Value);
+                var periodoSaida = await _proxy.ObterPeriodoPorId(idPeriodo.Value);
 
                 if (!periodoSaida.Sucesso)
                     return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as informações do período.", periodoSaida.Mensagens));
 
                 periodo = periodoSaida.Retorno;
 
-                entrada.DataInicio = periodo.DataInicio;
-                entrada.DataFim = periodo.DataFim;
+                dataInicio = periodo.DataInicio;
+                dataFim = periodo.DataFim;
             }
 
             var saida = new RelatorioExtratoPorPeriodoSaida { Conta = contaSaida.Retorno };
@@ -62,31 +68,32 @@ namespace JNogueira.Bufunfa.Web.Controllers
             }
             else
             {
-                saida.DataInicio = entrada.DataInicio;
-                saida.DataFim    = entrada.DataFim;
+                saida.DataInicio = dataInicio.Value;
+                saida.DataFim    = dataFim.Value;
             }
 
-            var lancamentosSaida = await _proxy.ProcurarLancamentos(new ProcurarLancamento { IdConta = entrada.IdConta, DataInicio = entrada.DataInicio, DataFim = entrada.DataFim });
+            var lancamentosSaida = await _proxy.ProcurarLancamentos(new ProcurarLancamento { IdConta = idConta, DataInicio = dataInicio.Value, DataFim = dataFim.Value });
 
             if (!lancamentosSaida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter os lançamento do período informado para a conta.", lancamentosSaida.Mensagens));
 
             saida.Lancamentos = lancamentosSaida.Retorno.Registros;
+            saida.GerarPdf = gerarPdf;
 
-            if (entrada.GerarPdf)
+            if (gerarPdf)
             {
                 var footer = "--footer-right \"Emitido em: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "\" --footer-left \"Página: [page] de [toPage]\" --footer-line --footer-font-size \"7\" --footer-spacing 1 --footer-font-name \"Poppins\"";
 
-                return new ViewAsPdf("RelatorioTeste", saida)
+                return new ViewAsPdf("PopupExtratoPorPeriodo", saida)
                 {
                     CustomSwitches = footer,
                     PageOrientation = Orientation.Portrait,
-                    FileName = "relatorio_teste.pdf",
+                    FileName = $"extrato_por_periodo_{dataInicio.Value.ToString("ddMMyyyy")}_{dataFim.Value.ToString("ddMMyyyy")}.pdf",
                     PageMargins = new Margins(5, 3, 5, 3)
                 };
             }
 
-            return PartialView("RelatorioTeste", saida);
+            return PartialView("PopupExtratoPorPeriodo", saida);
         }
     }
 }

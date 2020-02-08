@@ -16,6 +16,8 @@ namespace JNogueira.Bufunfa.Web.Models
 
         public DateTime DataFim { get; set; }
 
+        public bool GerarPdf { get; set; }
+
         public decimal ValorTotalCredito => this.Lancamentos?.Where(x => x.Categoria.ObterTipo() == TipoCategoria.Credito)?.Sum(x => x.Valor) ?? 0;
 
         public decimal ValorTotalDebito => this.Lancamentos?.Where(x => x.Categoria.ObterTipo() == TipoCategoria.Debito)?.Sum(x => x.Valor) * -1 ?? 0;
@@ -27,5 +29,10 @@ namespace JNogueira.Bufunfa.Web.Models
         public string ObterTotalDebitoEmReais() => this.ValorTotalDebito.ToString("c2");
 
         public string ObterSaldoPeriodoEmReais() => this.ValorSaldoPeriodo.ToString("c2");
+
+        public RelatorioExtratoPorPeriodoSaida()
+        {
+            this.GerarPdf = false;
+        }
     }
 }

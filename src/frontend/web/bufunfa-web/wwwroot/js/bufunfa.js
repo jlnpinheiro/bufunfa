@@ -898,22 +898,15 @@
 
     var _gerarExtratoPorPeriodo = function (idConta, idPeriodo, dataInicio, dataFim, gerarPdf) {
 
-        let entrada = {
-            IdConta: idConta,
-            IdPeriodo: idPeriodo,
-            DataInicio: dataInicio,
-            DataFim: dataFim,
-            GerarPdf: gerarPdf
-        };
-
-        $.post(App.corrigirPathRota("/relatorios/gerar-extrato-por-periodo"), { entrada: entrada }, function (html) {
-            AppModal.exibirPorHtml(html);
-        }).done(function () {
-            KTApp.initTooltips();
-        }).fail(function (jqXhr) {
-            let feedback = Feedback.converter(jqXhr.responseJSON);
-            feedback.exibir();
-        });
+        if (gerarPdf) {
+            location.href = App.corrigirPathRota("/relatorios/gerar-extrato-por-periodo?dataInicio=" + dataInicio + "&dataFim=" + dataFim + "&idConta=" + idConta + "&idPeriodo=" + idPeriodo + "&gerarPdf=true");
+        } else {
+            AppModal.exibirPorRota(App.corrigirPathRota("/relatorios/gerar-extrato-por-periodo?dataInicio=" + dataInicio + "&dataFim=" + dataFim + "&idConta=" + idConta + "&idPeriodo=" + idPeriodo + "&gerarPdf=false"), function () {
+                $("#btnGerarPdf").click(function () {
+                    location.href = App.corrigirPathRota("/relatorios/gerar-extrato-por-periodo?dataInicio=" + dataInicio + "&dataFim=" + dataFim + "&idConta=" + idConta + "&idPeriodo=" + idPeriodo + "&gerarPdf=true")
+                });
+            });
+        }
     };
 
     return {
