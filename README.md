@@ -18,13 +18,15 @@ Em "produção" atualmente, existe uma versão em http://bufunfa.jnogueira.net.b
 
 # Colocando pra funcionar...
 É possível colocar o Bufunfa para funcionar de duas maneiras: 
-* Rodando em containers, utilizando [Docker](https://www.docker.com)
+* Utilizando containers
 * Publicando individualmente os projetos
 
 ## Configurações necessárias (ou não...)
-Descrever as variáveis de ambiente...
+Para o correto funcionamento do sistema, é necessário configurar algumas variáveis de ambientes:
 
-## Utilizando Docker
+* *BUFUNFA_BANCO_DADOS_CONNECTION_STRING*: descrever aqui...
+
+## Utilizando containers
 O Bufunfa, em sua arquitetura, foi divido em 3 containers: 
 * *Backend* (API)
 * *Frontend* (MVC)
@@ -45,4 +47,6 @@ Nas pastas onde estão os fontes do *backend* e do *frontend* existem os arquivo
 ```
 **Observação:** se no comando *docker build* você der outro nome para a imagem e for subir o ambiente utilizando o arquivo *docker-compose.yml*, lembre-se de alterar o nome das imagens lá referenciadas.
 
-## Publicando os projetos
+A imagem **jlnpinheiro/bufunfa:1.0.0-database** já está configurada para quando o container subir, executar um script de geração do banco de dados utilizado pelo sistema. Esse script pode ser visualizado [aqui](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/src/_docker/docker-image-bufunfa-mysql/_script/create-database.sql).
+
+## Publicando individualmente os projetos
