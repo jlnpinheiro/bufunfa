@@ -16,13 +16,13 @@ Em "produção" atualmente, existe uma versão em http://bufunfa.jnogueira.net.b
 * Utilização do [Discord](https://discordapp.com/) como repositório do log (utilizando o componente [Discord .NET Logger Provider](https://github.com/jlnpinheiro/logger-discord-provider)).
 * Geração de PDF utilizando o componente [Rotativa](https://github.com/webgio/Rotativa.AspNetCore).
 
-# Configurações necessárias (ou não...)
-Descrever as variáveis de ambiente...
-
 # Colocando pra funcionar...
 É possível colocar o Bufunfa para funcionar de duas maneiras: 
 * Rodando em containers, utilizando [Docker](https://www.docker.com)
 * Publicando individualmente os projetos
+
+## Configurações necessárias (ou não...)
+Descrever as variáveis de ambiente...
 
 ## Utilizando Docker
 O Bufunfa, em sua arquitetura, foi divido em 3 containers: 
