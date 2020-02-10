@@ -19,7 +19,6 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             return await _efContext.LancamentosDetalhe
                 .Include(x => x.Lancamento)
                 .Include(x => x.Categoria.CategoriaPai)
-                //.ThenInclude(x => x.CategoriaPai.CategoriasFilha)
                 .FirstOrDefaultAsync(x => x.Id == idDetalhe);
         }
 

@@ -44,6 +44,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
         {
             var query = _efContext.Periodos
                 .AsNoTracking()
+                .Where(x => x.IdUsuario == procurarEntrada.IdUsuario)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(procurarEntrada.Nome))

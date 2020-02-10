@@ -45,6 +45,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
                 .Include(x => x.Detalhes)
                     .ThenInclude(x => x.Categoria.CategoriaPai)
                 .AsNoTracking()
+                .Where(x => x.IdUsuario == procurarEntrada.IdUsuario)
                 .AsQueryable();
 
             if (procurarEntrada.IdConta.HasValue)
