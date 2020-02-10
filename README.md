@@ -13,8 +13,11 @@ Em "produção" atualmente, existe uma versão em http://bufunfa.jnogueira.net.b
 * Backend com documentação utilizando [Swashbuckle (Swagger)](https://docs.microsoft.com/pt-br/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio) (exemplo em http://bufunfa.jnogueira.net.br/api)
 * Integração com o [Google Drive API](https://developers.google.com/drive), para armazenamento de arquivos.
 * Integração com a API [Alpha Vantage](https://www.alphavantage.co/), para obtenção de indicadores financeiros.
-* Utilização do [Discord](https://discordapp.com/) como repositório do log.
+* Utilização do [Discord](https://discordapp.com/) como repositório do log (utilizando o componente [Discord .NET Logger Provider](https://github.com/jlnpinheiro/logger-discord-provider)).
 * Geração de PDF utilizando o componente [Rotativa](https://github.com/webgio/Rotativa.AspNetCore).
+
+# Configurações necessárias (ou não...)
+Descrever as variáveis de ambiente...
 
 # Colocando pra funcionar...
 É possível colocar o Bufunfa para funcionar de duas maneiras: 
@@ -22,8 +25,24 @@ Em "produção" atualmente, existe uma versão em http://bufunfa.jnogueira.net.b
 * Publicando individualmente os projetos
 
 ## Utilizando Docker
-O Bufunfa, em sua arquitetura, foi divido em 3 containers: 1 para o *backend*, 1 para o *frontend* e 1 para o banco de dados *MySQL*. 
+O Bufunfa, em sua arquitetura, foi divido em 3 containers: 
+* *Backend* (API)
+* *Frontend* (MVC)
+* Banco de dados *MySQL* 
 
 As imagens para geração desses containers podem ser encontradas no [meu perfil](https://hub.docker.com/repository/docker/jlnpinheiro/bufunfa) do Docker Hub!
 
-No arquivo [docker-compose.yml](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/src/_docker/docker-compose.yml) é possível visualizar as parametrizações necessárias para o funcionamento do sistema.
+No arquivo [docker-compose.yml](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/src/_docker/docker-compose.yml) é possível visualizar as parametrizações necessárias para o funcionamento do sistema. Para subir o ambiente com todos os containers, basta executar o comando:
+
+```
+docker-compose -f docker-compose-bufunfa.yml -p bufunfa up -d
+```
+
+Nas pastas onde estão os fontes do *backend* e do *frontend* existem os arquivos **dockerfile** para geração dessas mesmas imagens disponibilizadas no Docker Hub. Para criar as imagens, basta executar o comando:
+
+```
+ docker build -t <nome da imagem> . --no-cache
+```
+**Observação:** se no comando *docker build* você der outro nome para a imagem e for subir o ambiente utilizando o arquivo *docker-compose.yml*, lembre-se de alterar o nome das imagens lá referenciadas.
+
+## Publicando os projetos
