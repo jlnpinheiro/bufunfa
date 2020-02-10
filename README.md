@@ -5,3 +5,11 @@ Em 2009, com a necessidade de aprender e praticar a utilização dos componentes
 Desde então, esse projeto já foi contruído em ASP.NET 2.0 - webforms com EXT.NET, passou para ASP.NET MVC + Bootstrap, utilizou banco de dados SQL Server, architetura *BOLOVO* (sim, porque não!?), persistência utilizando *POCOs*, Entity Framework (nos primórdios...), integração com webservices, passou por algumas arquiteturas, repositórios, etc...até chegarmos na arquitetura atual: *Frontend* ([Metronic](https://keenthemes.com/metronic/) + ASP.NET MVC Core 3.1 com C#) e *Backend* (API ASP.NET Core + MySQL).
 
 Em "produção" atualmente, existe uma versão em http://bufunfa.jnogueira.net.br, rodando em uma máquina com 1 GB de memória, 25 GB de disco com Ubuntu 18.04 na [Digital Ocean](https://www.digitalocean.com/), com [Docker](https://www.docker.com)!
+
+![](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/docs/tela-01.png)
+
+## Algumas características...
+* Backend com documentação utilizando [Swashbuckle (Swagger)](https://docs.microsoft.com/pt-br/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio) (exemplo em http://bufunfa.jnogueira.net.br/api)
+* Integração com o [Google Drive API](https://developers.google.com/drive), para armazenamento de arquivos.
+* Integração com a API [Alpha Vantage](https://www.alphavantage.co/), para obtenção de indicadores financeiros.
+* Integração com o [Discord](https://discordapp.com/), como repositório do log.
