@@ -14,3 +14,4 @@ Em "produção" atualmente, existe uma versão em http://bufunfa.jnogueira.net.b
 * Integração com o [Google Drive API](https://developers.google.com/drive), para armazenamento de arquivos.
 * Integração com a API [Alpha Vantage](https://www.alphavantage.co/), para obtenção de indicadores financeiros.
 * Integração com o [Discord](https://discordapp.com/), como repositório do log.
+* Geração de PDF utilizando o componente [Rotativa](https://github.com/webgio/Rotativa.AspNetCore).
