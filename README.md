@@ -35,7 +35,7 @@ As imagens para geração desses containers podem ser encontradas no [meu perfil
 No arquivo [docker-compose.yml](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/src/_docker/docker-compose.yml) é possível visualizar as parametrizações necessárias para o funcionamento do sistema. Para subir o ambiente com todos os containers, basta executar o comando:
 
 ```
-docker-compose -f docker-compose-bufunfa.yml -p bufunfa up -d
+docker-compose -f docker-compose.yml -p bufunfa up -d
 ```
 
 Nas pastas onde estão os fontes do *backend* e do *frontend* existem os arquivos **dockerfile** para geração dessas mesmas imagens disponibilizadas no Docker Hub. Para criar as imagens, basta executar o comando:
