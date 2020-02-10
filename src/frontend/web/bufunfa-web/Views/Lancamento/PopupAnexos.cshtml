@@ -1,4 +1,8 @@
-﻿@model JNogueira.Bufunfa.Web.Models.Lancamento
+﻿@using JNogueira.Bufunfa.Web.Helpers
+
+@model JNogueira.Bufunfa.Web.Models.Lancamento
+
+@inject CookieHelper cookieHelper
 
 <div class="kt-portlet app-modal-md" style="margin-bottom:0;">
     <div class="kt-portlet__head popup">
@@ -11,7 +15,7 @@
     <div class="kt-portlet__body">
         <input type="hidden" id="iIdLancamento" name="iIdLancamento" value="@Model.Id">
         @await Html.PartialAsync("~/Views/Lancamento/LancamentoInformacoes.cshtml", Model)
-        
+
         <div class="alert alert-secondary  fade show" role="alert">
             <div class="alert-icon"><i class="fab fa-google-drive"></i></div>
             <div class="alert-text">O arquivos são armazenados no <span class="kt-font-bold">Google Drive</span> na pasta configurada, organizados em pastas de acordo com o nome do período onde o lançamento foi cadastrado.</div>
@@ -28,7 +32,7 @@
                     <h3 class="kt-portlet__head-title" style="font-size: 1.0rem;">Anexos do lançamento</h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">
-                    <button class="btn btn-sm btn-outline-hover-primary btn-square" id="btn-cadastrar-anexo">
+                    <button class="btn btn-sm btn-outline-hover-primary btn-square" id="btn-cadastrar-anexo" @(cookieHelper.ObterIdUsuario() != 1 ? "disabled" : string.Empty) style="@(cookieHelper.ObterIdUsuario() != 1 ? "cursor:not-allowed;" : string.Empty)">
                         <i class="la la-plus"></i>Adicionar
                     </button>
                 </div>

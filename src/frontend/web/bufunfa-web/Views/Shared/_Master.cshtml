@@ -175,27 +175,52 @@
                                 <div class="kt-header__topbar-user">
                                     <span class="kt-header__topbar-welcome kt-hidden-mobile">Olá,</span>
                                     <span class="kt-header__topbar-username kt-hidden-mobile">@cookieHelper.ObterPrimeiroNomeUsuario()</span>
-                                    <img alt="Pic" class="kt-radius-100" src="~/img/img-usuario.jpg" />
-                                    <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
+                                    @if (cookieHelper.ObterIdUsuario() == 1)
+                                    {
+                                        <img alt="Pic" class="kt-radius-100" src="~/img/img-usuario.jpg" />
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-user-circle fa-2x kt-font-light"></i>
+                                    }
                                 </div>
                             </div>
 
                             <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
                                 <!--begin: Navigation -->
                                 <div class="kt-notification">
-                                    <a href="#" id="lAlterarSenha" class="kt-notification__item">
-                                        <div class="kt-notification__item-icon">
-                                            <i class="flaticon2-lock kt-font-primary"></i>
-                                        </div>
-                                        <div class="kt-notification__item-details">
-                                            <div class="kt-notification__item-title kt-font-bold">
-                                                Alterar senha
+                                    @if (cookieHelper.ObterIdUsuario() == 1)
+                                    {
+                                        <a href="#" id="lAlterarSenha" class="kt-notification__item">
+                                            <div class="kt-notification__item-icon">
+                                                <i class="flaticon2-lock kt-font-primary"></i>
                                             </div>
-                                            <div class="kt-notification__item-time">
-                                                Alterar senha de acesso
+                                            <div class="kt-notification__item-details">
+                                                <div class="kt-notification__item-title kt-font-bold">
+                                                    Alterar senha
+                                                </div>
+                                                <div class="kt-notification__item-time">
+                                                    Alterar senha de acesso
+                                                </div>
+                                            </div>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <div class="kt-notification__item" style="cursor:not-allowed;">
+                                            <div class="kt-notification__item-icon">
+                                                <i class="flaticon2-lock kt-font-primary"></i>
+                                            </div>
+                                            <div class="kt-notification__item-details">
+                                                <div class="kt-notification__item-title kt-font-bold">
+                                                    Alterar senha
+                                                </div>
+                                                <div class="kt-notification__item-time">
+                                                    Alterar senha de acesso
+                                                </div>
                                             </div>
                                         </div>
-                                    </a>
+                                    }
                                     <div class="kt-notification__custom kt-space-between">
                                         <button class="btn btn-sm btn-secondary btn-hover-primary" id="btn-sair">Sair</button>
                                     </div>
