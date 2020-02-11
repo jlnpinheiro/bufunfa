@@ -1,10 +1,10 @@
 ![](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/docs/banner-readme.png)
 # O que é?
-Em 2009, com a necessidade de aprender e praticar a utilização dos componentes da [EXT.NET](https://ext.net/) (pois a empresa onde eu trabalhava iria adquirir esse componentes para utilizar em seus produtos), pensei em criar um *"sisteminha"* (simples e de escopo pequeno), que me permitisse aprender e também me auxiliasse em alguma tarefa cotidiana (para não ter que criar mais um sistema de locador, padaria ou algo do tipo...). Então pensei: "Por que não, criar um sistema Web, que me auxilie na minha gestão financeira (controle das minhas receitas e despesas), na gestão da minha **bufunfa**?".
+Em 2009, com a necessidade de aprender e praticar a utilização dos componentes da [EXT.NET](https://ext.net/) (pois a empresa onde eu trabalhava iria adquirir esse componentes para utilizar em seus produtos), pensei em criar um *"sisteminha"* (simples e de escopo pequeno), que me permitisse aprender e também me auxiliasse em alguma tarefa cotidiana (para não ter que criar mais um sistema de locador, padaria ou algo do tipo...). Então pensei: "Por que não, criar um sistema Web, que me auxilie na minha gestão financeira (controle das minhas receitas e despesas), na gestão da minha **bufunfa**?". :moneybag: :dollar: :credit_card: :money_with_wings:
 
 Pronto...assim nasceu esse projeto!
 
-Desde então, esse projeto já foi contruído em ASP.NET 2.0 - webforms com EXT.NET, passou para ASP.NET MVC + Bootstrap, utilizou banco de dados SQL Server, architetura *BOLOVO* (sim, porque não!?), persistência utilizando *POCOs*, Entity Framework (nos primórdios...), integração com webservices, passou por algumas arquiteturas, repositórios, etc...até chegarmos na arquitetura atual: 
+Desde então, esse projeto já foi contruído em ASP.NET 2.0 - webforms com EXT.NET, passou para ASP.NET MVC + Bootstrap, utilizou banco de dados SQL Server, architetura *BOLOVO* (sim, porque não!? :sob:), persistência utilizando *POCOs*, Entity Framework (nos primórdios...), integração com webservices, passou por algumas arquiteturas, repositórios, etc...até chegarmos na arquitetura atual: 
 
 **Frontend** ([Metronic](https://keenthemes.com/metronic/) + ASP.NET MVC Core 3.1)
 ![Frontend](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/docs/tela-01.png)
@@ -165,4 +165,4 @@ Se tudo estiver ok...bem-vindo e faça bom uso do Bufunfa!
 
  Como já falei anteriormente, criei esse sistema com o objetivo de aprender e praticar meu conhecimento! A maioria dos conceitos aqui utilizados, utilizo bastante também em projetos profissionais.
 
- Por isso, toda e qualquer sugestão, crítica, dúvida, um PR (por que não!?) é sempre muito bem-vindo!
+ Por isso, toda e qualquer sugestão, crítica, dúvida, um PR (por que não!?) é sempre muito bem-vindo! :+1: :facepunch: :pray:
