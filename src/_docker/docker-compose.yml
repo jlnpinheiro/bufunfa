@@ -34,6 +34,8 @@ services:
         # Key para utilizar a API da Alpha Vantage (consulta de indicadores financeiros de ativos)
         BUFUNFA_API_ALPHA_VANTAGE_KEY: "" 
     restart: always
+    ports:
+        - "5000:80"
     volumes: 
         - ./google_credentials.json:/app/google_credentials.json # Arquivo com as credenciais de acesso para utilizar a API do Google Drive (não obrigatório)
     networks:
@@ -52,6 +54,8 @@ services:
         # URL para acesso ao backend
         BUFUNFA_BACKEND_URL: "http://bufunfa-backend/api/"
     restart: always
+    ports:
+        - "5001:80"
     networks:
         - bufunfa-network
 
