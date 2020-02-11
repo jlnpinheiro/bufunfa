@@ -48,13 +48,9 @@ Para o correto funcionamento do sistema, é necessário configurar algumas vari�
 Exemplo de arquivo *appSettings.json*:
 ```json
 {
-    // String de conexãoo com o banco de dados
     "BUFUNFA_BANCO_DADOS_CONNECTION_STRING": "server=localhost;Port=3306;user id=bufunfa;password=p@ssw0rd;database=db_bufunfa;SslMode=none;",
-    // URL para utilização do Discord (não obrigatório)
     "BUFUNFA_DISCORD_WEBHOOK_URL": "https://discordapp.com/api/webhooks/xpto",
-    // ID da pasta responsável por armazenar os anexos no Google Drive (não obrigatório)
     "BUFUNFA_GOOGLE_DRIVE_ID_PASTA_ANEXO": "23651283768687s6sa",
-    // Configuraões para utilização da API Alpha Vantage (consulta de cotação de ativos) (não obrigatório)
     "BUFUNFA_API_ALPHA_VANTAGE_KEY": "abcd"
 }
 ```
