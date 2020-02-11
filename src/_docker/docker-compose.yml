@@ -36,8 +36,6 @@ services:
     restart: always
     ports:
         - "5000:80"
-    volumes: 
-        - ./google_credentials.json:/app/google_credentials.json # Arquivo com as credenciais de acesso para utilizar a API do Google Drive (não obrigatório)
     networks:
         - bufunfa-network
 
