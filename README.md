@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/jlnpinheiro/bufunfa/master/docs/banner-readme.png)
+![](https://raw.githubusercontent.com/jlnpinheiro/bufunfa/master/docs/github-social-preview.png)
 # O que é?
 Em 2009, com a necessidade de aprender e praticar a utilização dos componentes da [EXT.NET](https://ext.net/) (pois a empresa onde eu trabalhava iria adquirir esse componentes para utilizar em seus produtos), pensei em criar um *"sisteminha"* (simples e de escopo pequeno), que me permitisse aprender e também me auxiliasse em alguma tarefa cotidiana (para não ter que criar mais um sistema de locador, padaria ou algo do tipo...). Então pensei: "Por que não, criar um sistema Web, que me auxilie na minha gestão financeira (controle das minhas receitas e despesas), na gestão da minha **bufunfa**?". :moneybag: :dollar: :credit_card: :money_with_wings:
 
