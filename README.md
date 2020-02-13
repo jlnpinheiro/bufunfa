@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/docs/banner-readme.png)
+![](https://raw.githubusercontent.com/jlnpinheiro/bufunfa/master/docs/banner-readme.png)
 # O que é?
 Em 2009, com a necessidade de aprender e praticar a utilização dos componentes da [EXT.NET](https://ext.net/) (pois a empresa onde eu trabalhava iria adquirir esse componentes para utilizar em seus produtos), pensei em criar um *"sisteminha"* (simples e de escopo pequeno), que me permitisse aprender e também me auxiliasse em alguma tarefa cotidiana (para não ter que criar mais um sistema de locador, padaria ou algo do tipo...). Então pensei: "Por que não, criar um sistema Web, que me auxilie na minha gestão financeira (controle das minhas receitas e despesas), na gestão da minha **bufunfa**?". :moneybag: :dollar: :credit_card: :money_with_wings:
 
@@ -8,13 +8,13 @@ Desde então, esse projeto já foi contruído em ASP.NET 2.0 - webforms com EXT.
 
 **Frontend** ([Metronic](https://keenthemes.com/metronic/) + ASP.NET MVC Core 3.1)
 <p align="center">
-  <img src="https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/docs/cena-1.gif">
-  <img src="https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/docs/cena-2.gif">
-  <img src="https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/docs/cena-3.gif">
+  <img src="https://raw.githubusercontent.com/jlnpinheiro/bufunfa/master/docs/cena-1.gif">
+  <img src="https://raw.githubusercontent.com/jlnpinheiro/bufunfa/master/docs/cena-2.gif">
+  <img src="https://raw.githubusercontent.com/jlnpinheiro/bufunfa/master/docs/cena-3.gif">
 </p>
 
 **Backend** (API ASP.NET Core + MySQL)
-![Backend](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/docs/tela-backend-01.png)
+![Backend](https://raw.githubusercontent.com/jlnpinheiro/bufunfa/master/docs/tela-backend-01.png)
 
 Em "produção" atualmente, existe uma versão em http://bufunfa.jnogueira.net.br, rodando em uma máquina com 1 GB de memória, 25 GB de disco com Ubuntu 18.04 na [Digital Ocean](https://www.digitalocean.com/), com [Docker](https://www.docker.com)! :heart_eyes:
 
@@ -127,7 +127,7 @@ O Bufunfa, em sua arquitetura, foi divido em 3 containers:
 
 As imagens para geração desses containers podem ser encontradas no [meu perfil](https://hub.docker.com/repository/docker/jlnpinheiro/bufunfa) do Docker Hub!
 
-No arquivo [docker-compose.yml](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/src/_docker/docker-compose.yml) está as parametrizações necessárias para subir o ambiente. Para subir o ambiente com todos os containers, basta executar o comando:
+No arquivo [docker-compose.yml](https://raw.githubusercontent.com/jlnpinheiro/bufunfa/master/src/_docker/docker-compose.yml) está as parametrizações necessárias para subir o ambiente. Para subir o ambiente com todos os containers, basta executar o comando:
 
 ```
 docker-compose -f docker-compose.yml -p bufunfa up -d
@@ -140,7 +140,7 @@ Nas pastas onde estão os fontes do *backend* e do *frontend* existem os arquivo
 ```
 **Observação:** se no comando *docker build* você der outro nome para a imagem e for subir o ambiente utilizando o arquivo *docker-compose.yml*, lembre-se de alterar o nome das imagens lá referenciadas.
 
-A imagem **jlnpinheiro/bufunfa:1.0.0-database** já está configurada para quando o container subir, executar um script de geração do banco de dados utilizado pelo sistema. Esse script pode ser visualizado [aqui](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/src/_docker/docker-image-bufunfa-mysql/_script/create-database.sql).
+A imagem **jlnpinheiro/bufunfa:1.0.0-database** já está configurada para quando o container subir, executar um script de geração do banco de dados utilizado pelo sistema. Esse script pode ser visualizado [aqui](https://raw.githubusercontent.com/jlnpinheiro/bufunfa/master/src/_docker/docker-image-bufunfa-mysql/_script/create-database.sql).
 
 Ao executar o comando *docker-compose*, você pode acessar os container pelas seguintes URLs:
 
@@ -151,7 +151,7 @@ Ao executar o comando *docker-compose*, você pode acessar os container pelas se
 
 Individualmente, você pode publicar os fontes do *backend* e do *frontend* e executá-los. Levantando o ambiente nesse modelo, não esqueça de definir corretamente as variáveis de ambiente no arquivo **appSettings.json**.
 
-Para criar o banco de dados MySQL utilizado pelo sistema, você deve utilizar o seguinte [script](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/src/_docker/docker-image-bufunfa-mysql/_script/create-database.sql).
+Para criar o banco de dados MySQL utilizado pelo sistema, você deve utilizar o seguinte [script](https://raw.githubusercontent.com/jlnpinheiro/bufunfa/master/src/_docker/docker-image-bufunfa-mysql/_script/create-database.sql).
 
 ## Acessando o sistema
 
