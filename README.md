@@ -7,7 +7,9 @@ Pronto...assim nasceu esse projeto!
 Desde então, esse projeto já foi contruído em ASP.NET 2.0 - webforms com EXT.NET, passou para ASP.NET MVC + Bootstrap, utilizou banco de dados SQL Server, architetura *BOLOVO* (sim, porque não!? :sob:), persistência utilizando *POCOs*, Entity Framework (nos primórdios...), integração com webservices, passou por algumas arquiteturas, repositórios, etc...até chegarmos na arquitetura atual: 
 
 **Frontend** ([Metronic](https://keenthemes.com/metronic/) + ASP.NET MVC Core 3.1)
-![Frontend](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/docs/tela-01.png)
+![Frontend](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/docs/cena-1.gif)
+![Frontend](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/docs/cena-2.gif)
+![Frontend](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/docs/cena-3.gif)
 
 **Backend** (API ASP.NET Core + MySQL)
 ![Backend](https://raw.githubusercontent.com/jlnpinheiro/bufunfa-net-core-3.1/master/docs/tela-backend-01.png)
