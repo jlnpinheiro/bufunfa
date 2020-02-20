@@ -1,5 +1,17 @@
 ﻿var Bufunfa = function () {
 
+    var _atualizarTela = function () {
+        if (window.Lancamento != null) {
+            window.Lancamento.atualizar();
+        } else if (window.Agendamento != null) {
+            window.Agendamento.atualizar();
+        } else if (window.Dashboard != null) {
+            window.Dashboard.atualizar();
+        } else if (window.Conta != null) {
+            window.Conta.atualizar();
+        }
+    };
+
     var _aplicarEfeitoContagem = function (htmlId, valor) {
         valor = numeral(valor).value();
         let countUp = new CountUp(htmlId, valor, {
@@ -33,14 +45,7 @@
                                     AppModal.ocultar();
 
                                     feedback.exibir(function () {
-                                        if (window.Agendamento != null) {
-                                            window.Agendamento.atualizar();
-                                        } else if (window.Lancamento != null) {
-                                            window.Lancamento.atualizar();
-                                        } else if (window.Dashboard != null) {
-                                            window.Dashboard.atualizar();
-                                        }
-
+                                        _atualizarTela();
                                         _carregarParcelasPorAgendamento($("#iIdAgendamento").val());
                                     });
                                 }
@@ -108,14 +113,7 @@
                                     AppModal.ocultar();
 
                                     feedback.exibir(function () {
-                                        if (window.Agendamento != null) {
-                                            window.Agendamento.atualizar();
-                                        } else if (window.Lancamento != null) {
-                                            window.Lancamento.atualizar();
-                                        } else if (window.Dashboard != null) {
-                                            window.Dashboard.atualizar();
-                                        }
-
+                                        _atualizarTela();
                                         _carregarParcelasPorAgendamento($("#iIdAgendamento").val());
                                     });
                                 }
@@ -184,14 +182,7 @@
                                 AppModal.ocultar();
 
                                 feedback.exibir(function () {
-                                    if (window.Agendamento != null) {
-                                        window.Agendamento.atualizar();
-                                    } else if (window.Lancamento != null) {
-                                        window.Lancamento.atualizar();
-                                    } else if (window.Dashboard != null) {
-                                        window.Dashboard.atualizar();
-                                    }
-
+                                    _atualizarTela();
                                     _carregarParcelasPorAgendamento($("#iIdAgendamento").val());
                                 });
                             }
@@ -213,14 +204,7 @@
             let feedback = Feedback.converter(feedbackResult);
 
             if (feedback.tipo == "SUCESSO") {
-                if (window.Agendamento != null) {
-                    window.Agendamento.atualizar();
-                } else if (window.Lancamento != null) {
-                    window.Lancamento.atualizar();
-                } else if (window.Dashboard != null) {
-                    window.Dashboard.atualizar();
-                }
-
+                _atualizarTela();
                 _carregarParcelasPorAgendamento($("#iIdAgendamento").val());
             }
 
@@ -428,9 +412,7 @@
                                 }
 
                                 feedback.exibir(function () {
-                                    if (window.Agendamento != null) {
-                                        window.Agendamento.atualizar();
-                                    }
+                                    _atualizarTela();
                                 });
                             }
                             else
@@ -663,11 +645,7 @@
                                     AppModal.ocultar(true);
 
                                     feedback.exibir(function () {
-                                        if (window.Agendamento != null) {
-                                            window.Agendamento.atualizar();
-                                        } else if (window.Lancamento != null) {
-                                            window.Lancamento.atualizar();
-                                        }
+                                        _atualizarTela();
                                     });
                                 }
                                 else
@@ -800,10 +778,7 @@
                             if (feedback.tipo == "SUCESSO") {
                                 feedback.exibir(function () {
                                     _detalharAcao($("#iIdConta").val());
-
-                                    if (window.Conta != null) {
-                                        window.Conta.atualizar();
-                                    }
+                                    _atualizarTela();
                                 });
                             }
                             else
@@ -1241,9 +1216,7 @@
                                 }
 
                                 feedback.exibir(function () {
-                                    if (window.Lancamento != null) {
-                                        window.Lancamento.atualizar();
-                                    }
+                                    _atualizarTela();
 
                                     if (opcoes != null && opcoes.callbacks.salvar != null) {
                                         opcoes.callbacks.salvar();
@@ -1337,12 +1310,7 @@
                                 }
 
                                 feedback.exibir(function () {
-                                    if (window.Conta != null) {
-                                        window.Conta.atualizar();
-                                    }
-                                    else if (window.Lancamento != null) {
-                                        window.Lancamento.atualizar();
-                                    }
+                                    _atualizarTela();
                                 });
                             })
                             .fail(function (jqXhr) {
@@ -1462,15 +1430,7 @@
                                 }
 
                                 feedback.exibir(function () {
-                                    if (window.Lancamento != null) {
-                                        window.Lancamento.atualizar();
-                                    } else if (window.Agendamento != null) {
-                                        window.Agendamento.atualizar();
-                                    } else if (window.Dashboard != null) {
-                                        window.Dashboard.atualizar();
-                                    } else if (window.Conta != null) {
-                                        window.Conta.atualizar();
-                                    }
+                                    _atualizarTela();
 
                                     if (opcoes != null && opcoes.callbacks.salvar != null) {
                                         opcoes.callbacks.salvar();
