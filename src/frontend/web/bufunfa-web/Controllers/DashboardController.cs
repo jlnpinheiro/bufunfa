@@ -1,6 +1,5 @@
 ﻿using JNogueira.Bufunfa.Web.Binders;
 using JNogueira.Bufunfa.Web.Filters;
-using JNogueira.Bufunfa.Web.Models;
 using JNogueira.Bufunfa.Web.Proxy;
 using JNogueira.Bufunfa.Web.Results;
 using Microsoft.AspNetCore.Authorization;

@@ -1393,7 +1393,7 @@
         },
 
         // Realiza um pagamento
-        pagarComPicpay: function () {
+        pagarCom: function () {
             AppModal.exibirPorRota(App.corrigirPathRota("/agendamentos/pagar-com"), function () {
                 $("#form-pagar-com").validate({
                     rules: {

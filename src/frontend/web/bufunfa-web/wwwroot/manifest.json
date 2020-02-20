@@ -43,7 +43,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/login",
+  "start_url": "/dashboard",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "orientation": "portrait",

@@ -1,5 +1,4 @@
 ﻿using JNogueira.Bufunfa.Web.Filters;
-using JNogueira.Bufunfa.Web.Helpers;
 using JNogueira.Bufunfa.Web.Proxy;
 using JNogueira.Bufunfa.Web.Results;
 using Microsoft.AspNetCore.Authentication;
@@ -17,12 +16,10 @@ namespace JNogueira.Bufunfa.Web.Controllers
     [Authorize]
     public class UsuarioController : BaseController
     {
-        private readonly CookieHelper _cookieHelper;
-
-        public UsuarioController(BackendProxy proxy, CookieHelper cookieHelper)
+        public UsuarioController(BackendProxy proxy)
             : base(proxy)
         {
-            _cookieHelper = cookieHelper;
+
         }
 
         [AllowAnonymous]

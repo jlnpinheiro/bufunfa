@@ -27,22 +27,25 @@
     @RenderSection("VendorsCss", required: false)
     <!--end::Page Vendors Styles -->
     <!--begin::Global Theme Styles(used by all pages) -->
-    <link href="~/plugins/plugins.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="~/css/style.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="~/css/relatorio.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/vendors/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/plugins/plugins.bundle.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/style.bundle.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/relatorio.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/vendors/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" type="text/css" media="all" />
     <!--end::Global Theme Styles -->
     <!--begin::Global Theme Styles(used by all pages) -->
     <environment include="Development">
-        <link href="~/css/app-modal.css" rel="stylesheet" type="text/css" />
-        <link href="~/css/bufunfa.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/app-modal.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="~/css/bufunfa.css" rel="stylesheet" type="text/css" media="all" />
     </environment>
     <environment exclude="Development">
-        <link href="~/css/app-modal.min.css" rel="stylesheet" type="text/css" />
-        <link href="~/css/bufunfa.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/app-modal.min.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="~/css/bufunfa.min.css" rel="stylesheet" type="text/css" media="all" />
     </environment>
     <!--end::Global Theme Styles -->
+    <link rel="apple-touch-icon" href="~/img/icon-192x192.png">
     <link rel="shortcut icon" href="~/img/favicon.png" />
+    <link rel="manifest" href="~/manifest.json">
+    <meta name="#333">
 </head>
 <!-- end::Head -->
 <!-- begin::Body -->
@@ -146,7 +149,7 @@
                                 {
                                     foreach (var atalho in (IEnumerable<Atalho>)ViewBag.Atalhos)
                                     {
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="@(atalho.Url)" target="_blank" class="kt-menu__link "><span class="kt-menu__link-text">@(atalho.Titulo)</span></a></li>
+                                        <li class="kt-menu__item " aria-haspopup="true"><a href="@(atalho.Url)" target="_blank" class="kt-menu__link " rel="noopener"><span class="kt-menu__link-text">@(atalho.Titulo)</span></a></li>
                                     }
                                 }
                                 else
@@ -324,9 +327,9 @@
     @RenderSection("VendorsJs", required: false)
     <!--end:: PAge Optional Vendors -->
     <environment include="Development">
-        <script src="~/js/app.js" type="text/javascript"></script>
-        <script src="~/js/app-modal.js" type="text/javascript"></script>
-        <script src="~/js/app-feedback.js" type="text/javascript"></script>
+        <script defer src="~/js/app.js" type="text/javascript"></script>
+        <script defer src="~/js/app-modal.js" type="text/javascript"></script>
+        <script defer src="~/js/app-feedback.js" type="text/javascript"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/js/app.min.js" type="text/javascript"></script>
@@ -341,6 +344,61 @@
     <environment exclude="Development">
         <script src="~/js/bufunfa.min.js" type="text/javascript"></script>
     </environment>
+    <environment exclude="Development">
+        <script src="~/js/bufunfa.min.js" type="text/javascript"></script>
+    </environment>
+    @*<environment include="Development">
+            <script type="text/javascript">
+                // Registro do service worker
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register('/service-worker-dev.js').then(function (registration) {
+                        console.log('ServiceWorker registrado com sucesso com o scope: ', registration.scope);
+                    }).catch(function (err) {
+                        console.log('ServiceWorker registrado com falha: ', err);
+                    });
+                }
+            </script>
+        </environment>
+        <environment exclude="Development">
+            <script type="text/javascript">
+                // Registro do service worker
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+                        console.log('ServiceWorker registrado com sucesso com o scope: ', registration.scope);
+                    }).catch(function (err) {
+                        console.log('ServiceWorker registrado com falha: ', err);
+                    });
+                }
+            </script>
+        </environment>*@
+    <script src="~/upup.min.js"></script>
+    <script>
+        UpUp.start({
+            'content-url': 'offline.html',
+            'assets': [
+                '/plugins/plugins.bundle.css',
+                '/css/style.bundle.css',
+                '/vendors/jquery-confirm/jquery-confirm.min.css',
+                '/css/app-modal.css',
+                '/css/bufunfa.css',
+                '/plugins/plugins.bundle.js',
+                '/js/scripts.bundle.js',
+                '/vendors/select2/i18n/pt-BR.js',
+                '/vendors/bootstrap-datepicker/bootstrap-datepicker.pt-BR.min.js',
+                '/vendors/moment/pt-br.js',
+                '/vendors/jquery-confirm/jquery-confirm.min.js',
+                '/vendors/numerals/numeral.min.js',
+                '/vendors/countUp/countup.min.js',
+                '/vendors/snap-svg/snap.svg.min.js',
+                '/vendors/liquid-meter/liquid.meter.min.js',
+                '/js/app.js',
+                '/js/app-modal.js',
+                '/js/app-feedback.js',
+                '/js/bufunfa.js',
+                'offline.html',
+                '/img/offline.gif']
+        });
+    </script>
     <script type="text/javascript">
         $(document).ajaxStart(function () { App.bloquear(); });
         $(document).ajaxStop(function () { App.desbloquear(); });
@@ -417,7 +475,7 @@
 
             $("#lPagar").click(function (e) {
                 e.preventDefault();
-                Bufunfa.pagarComPicpay();
+                Bufunfa.pagarCom();
             });
 
             $("#btn-sair").click(function () {

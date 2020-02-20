@@ -21,6 +21,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+///using WebEssentials.AspNetCore.Pwa;
 
 namespace JNogueira.Bufunfa.Web
 {
@@ -82,15 +83,20 @@ namespace JNogueira.Bufunfa.Web
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
             
-            services.AddProgressiveWebApp();
+            //services.AddProgressiveWebApp(new PwaOptions
+            //{
+                
+            //    RoutesToPreCache = "/, /contact.html, data.json",
+            //    Strategy = ServiceWorkerStrategy.CacheFirst
+            //});
+
+
 
             if (Environment.IsDevelopment())
             {
                 // Posibilita que ao atualizar um arquivo *.cshtml, a alteração seja refletida sem que seja necessário recompilar o projeto (https://docs.microsoft.com/en-us/aspnet/core/mvc/views/view-compilation?view=aspnetcore-3.1)
                 builder.AddRazorRuntimeCompilation();
-            }
-
-            
+            }                    
 
             // Habilita a compressão do response
             services.AddResponseCompression(options =>
