@@ -10,7 +10,6 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.1" />
     <PackageReference Include="Rotativa.AspNetCore" Version="1.2.0-beta" />
-    <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0-dev-00039" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
     <PackageReference Include="Utilzao" Version="3.0.2" />
   </ItemGroup>

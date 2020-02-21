@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
     <!--end::Fonts -->
     <!--begin::Global Theme Styles(used by all pages) -->
-    <link href="@Url.AbsoluteContent("~/plugins/plugins.bundle.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.AbsoluteContent("~/css/style.bundle.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.AbsoluteContent("~/css/relatorio.min.css")" rel="stylesheet" type="text/css" />
+    <link href="~/plugins/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/relatorio.min.css" rel="stylesheet" type="text/css" />
     <!--end::Global Theme Styles -->
     <!--begin::Global Theme Styles(used by all pages) -->
     <environment include="Development">
@@ -44,7 +44,6 @@
 <body style="background-color: #fff;">
     <div class="kt-portlet" style="margin-bottom: 0;">
         <div class="kt-portlet__body kt-portlet__body--fit">
-            @Html.AntiForgeryToken()
             @RenderBody()
         </div>
     </div>
