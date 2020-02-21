@@ -14,7 +14,7 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 
 # Biblioteca necessária para geração de PDF utilizando o componente "Rotativa"
 RUN ["apt-get", "update"]
-RUN ["apt-get", "-y", "install", "libgdiplus", "libx11-dev", "libfontconfig", "libxrender1", "libxext"]
+RUN ["apt-get", "-y", "install", "libgdiplus", "libx11-dev", "libfontconfig", "libxrender1"]
 
 WORKDIR /app
 
