@@ -24,9 +24,9 @@
                     conta.ValorSaldoAtual = !conta.ValorSaldoAtual.HasValue ? 0 : conta.ValorSaldoAtual.Value;
 
                     <tr>
-                        <td>@conta.Nome</td>
+                        <td class="text-nowrap">@conta.Nome</td>
                         <td class="text-nowrap"><i class="fa fa-university" style="color: @(conta.ObterCorPorTipoConta());"></i> @conta.DescricaoTipo</td>
-                        <td>@conta.NomeInstituicao</td>
+                        <td class="text-nowrap">@conta.NomeInstituicao</td>
                         <td class="text-nowrap">@conta.NumeroAgencia</td>
                         <td class="text-nowrap">@conta.Numero</td>
                         <td class="text-right text-nowrap @(conta.ValorSaldoAtual >= 0 ? "kt-font-success" : "kt-font-danger") coluna-valor kt-font-bold">@conta.ObterSaldoAtualEmReais()</td>

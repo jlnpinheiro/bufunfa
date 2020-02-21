@@ -103,7 +103,7 @@ namespace JNogueira.Bufunfa.Web
         RedirecionarTelaLogin = 6
     }
 
-    public static class ExtensionMethods
+    public static partial class ExtensionMethods
     {
         public static string ObterDescricao(this Enum member)
         {

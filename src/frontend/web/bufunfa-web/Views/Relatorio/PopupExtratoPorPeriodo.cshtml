@@ -10,10 +10,10 @@
 }
 else
 {
-    <div class="kt-portlet" style="margin-bottom: 0;">
+    <div class="kt-portlet app-modal-lg" style="margin-bottom: 0;">
         <div class="kt-portlet__head popup">
             <div class="kt-portlet__head-label">
-               
+
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-actions">
@@ -23,8 +23,9 @@ else
             </div>
         </div>
         <div class="kt-portlet__body kt-portlet__body--fit">
-            @await Html.PartialAsync("~/Views/Relatorio/ExtratoPorPeriodo.cshtml", Model)
+            <div class="table-responsive no-padding">
+                @await Html.PartialAsync("~/Views/Relatorio/ExtratoPorPeriodo.cshtml", Model)
+            </div>
         </div>
-        
     </div>
 }

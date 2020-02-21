@@ -127,8 +127,6 @@ namespace JNogueira.Bufunfa.Web
             // Utiliza a compressão do response
             app.UseResponseCompression();
 
-            app.UseAuthentication();
-
             app.UseRouting();
 
             app.UseAuthentication();
@@ -137,12 +135,13 @@ namespace JNogueira.Bufunfa.Web
 
             app.UseDefaultFiles();
 
-            app.UseStaticFiles();
-
-            app.UseEndpoints(endpoints =>
+            // Configuração que torna os arquivos estáticos armazenáveis em cache (tempo em segundos) => 604800 segundos = 7 dias
+            app.UseStaticFiles(new StaticFileOptions
             {
-                endpoints.MapControllers();
+                OnPrepareResponse = ctx => ctx.Context.Response.Headers.Append("Cache-Control", "public, max-age=604800")
             });
+
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }
