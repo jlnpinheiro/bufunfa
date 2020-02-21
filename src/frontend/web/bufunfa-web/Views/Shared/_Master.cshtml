@@ -31,6 +31,7 @@
     <link href="~/css/style.bundle.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/css/relatorio.min.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/vendors/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/vendors/offline/offline-js.min.css" rel="stylesheet" type="text/css" media="all" />
     <!--end::Global Theme Styles -->
     <!--begin::Global Theme Styles(used by all pages) -->
     <environment include="Development">
@@ -322,6 +323,7 @@
     <script src="~/vendors/countUp/countup.min.js"></script>
     <script src="~/vendors/snap-svg/snap.svg.min.js"></script>
     <script src="~/vendors/liquid-meter/liquid.meter.min.js"></script>
+    <script src="~/vendors/offline/offline.min.js"></script>
     <!--end:: Global Mandatory Vendors -->
     <!--begin:: Page Optional Vendors -->
     @RenderSection("VendorsJs", required: false)
@@ -344,46 +346,6 @@
     <environment exclude="Development">
         <script src="~/js/bufunfa.min.js" type="text/javascript"></script>
     </environment>
-    <script src="~/upup.min.js"></script>
-    <script>
-        var cacheGeral = ['/plugins/plugins.bundle.css',
-            '/css/style.bundle.css',
-            '/vendors/jquery-confirm/jquery-confirm.min.css',
-            '/plugins/plugins.bundle.js',
-            '/js/scripts.bundle.js',
-            '/vendors/select2/i18n/pt-BR.js',
-            '/vendors/bootstrap-datepicker/bootstrap-datepicker.pt-BR.min.js',
-            '/vendors/moment/pt-br.js',
-            '/vendors/jquery-confirm/jquery-confirm.min.js',
-            '/vendors/numerals/numeral.min.js',
-            '/vendors/countUp/countup.min.js',
-            '/vendors/snap-svg/snap.svg.min.js',
-            '/vendors/liquid-meter/liquid.meter.min.js',
-            'offline.html',
-            '/img/offline.gif'];
-    </script>
-    <environment include="Development">
-        <script>
-            var cacheEnvironment = ['/css/app-modal.css',
-                '/css/bufunfa.css',
-                '/js/bufunfa.js'];
-        </script>
-    </environment>
-    <environment exclude="Development">
-        <script>
-            var cacheEnvironment = ['/css/app-modal.min.css',
-                '/css/bufunfa.min.css',
-                '/js/bufunfa.min.js'];
-        </script>
-    </environment>
-    <script>
-        var cache = cacheGeral.concat(cacheEnvironment);
-
-        UpUp.start({
-            'content-url': 'offline.html',
-            'assets': cache
-        });
-    </script>
     <script type="text/javascript">
         $(document).ajaxStart(function () { App.bloquear(); });
         $(document).ajaxStop(function () { App.desbloquear(); });
@@ -470,6 +432,42 @@
                     });
                 });
             });
+
+            Offline.options = {
+                reconnect: {
+                    initialDelay: 20 // em segundos
+                }
+            };
+
+            Offline.on("confirmed-down", function () {
+                $.blockUI({
+                    overlayCSS: {
+                        backgroundColor: '#000000',
+                        opacity: 0.5
+                    },
+                    css: {
+                        top: '45%',
+                        left: '35%',
+                        border: '0',
+                        padding: '0',
+                        backgroundColor: 'none'
+                    },
+                    centerX: true,
+                    centerY: true,
+                    message: '',
+                    baseZ: 7000
+                });
+            });
+
+            Offline.on("confirmed-up", function () {
+                App.desbloquear();
+            });
+
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker
+                    .register('/service-worker.js')
+                    .then(function () { console.log('Service Worker Registered'); });
+            }
         })
     </script>
 </body>
