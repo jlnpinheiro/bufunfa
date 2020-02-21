@@ -84,15 +84,13 @@ namespace JNogueira.Bufunfa.Web.Controllers
             {
                 var footer = "--footer-right \"Emitido em: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "\" --footer-left \"Pagina: [page] de [toPage]\" --footer-line --footer-font-size \"7\" --footer-spacing 10 --footer-font-name \"Poppins\"";
 
-                //return new ViewAsPdf("PopupExtratoPorPeriodo", saida)
-                //{
-                //    CustomSwitches = footer,
-                //    PageOrientation = Orientation.Portrait,
-                //    FileName = $"extrato_por_periodo_{dataInicio.Value.ToString("ddMMyyyy")}_{dataFim.Value.ToString("ddMMyyyy")}.pdf",
-                //    PageMargins = new Margins(5, 3, 5, 3)
-                //};
-
-                return PartialView("PopupExtratoPorPeriodo", saida);
+                return new ViewAsPdf("PopupExtratoPorPeriodo", saida)
+                {
+                    CustomSwitches = footer,
+                    PageOrientation = Orientation.Portrait,
+                    FileName = $"extrato_por_periodo_{dataInicio.Value.ToString("ddMMyyyy")}_{dataFim.Value.ToString("ddMMyyyy")}.pdf",
+                    PageMargins = new Margins(5, 3, 5, 3)
+                };
             }
 
             return PartialView("PopupExtratoPorPeriodo", saida);
