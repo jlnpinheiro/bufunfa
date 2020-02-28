@@ -30,7 +30,6 @@ namespace JNogueira.Bufunfa.Web.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         [Route("gerar-extrato-por-periodo")]
         public async Task<IActionResult> GerarExtratoPorPeriodo(
             [DateTimeModelBinder(DateFormat = "dd/MM/yyyy")] DateTime? dataInicio,
