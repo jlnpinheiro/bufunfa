@@ -1,8 +1,10 @@
 ﻿using JNogueira.Bufunfa.Web.Models;
 using JNogueira.Bufunfa.Web.Proxy;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Html;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace JNogueira.Bufunfa.Web.Helpers
@@ -12,13 +14,23 @@ namespace JNogueira.Bufunfa.Web.Helpers
     /// </summary>
     public class CustomHtmlHelper
     {
-        private readonly CookieHelper _cookieHelper;
         private readonly BackendProxy _proxy;
+        private readonly IWebHostEnvironment _environment;
 
-        public CustomHtmlHelper(BackendProxy proxy, CookieHelper cookieHelper)
+        public CustomHtmlHelper(BackendProxy proxy, IWebHostEnvironment environment)
         {
-            _cookieHelper = cookieHelper;
             _proxy = proxy;
+            _environment = environment;
+        }
+
+        public HtmlString CriarTagLinkCssPorOS(string path)
+        {
+            return new HtmlString($"<link href=\"{(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? path : $"file://{_environment.ContentRootPath}/wwwroot/{path}")}\" rel=\"stylesheet\" type=\"text/css\" />");
+        }
+
+        public HtmlString CriarTagImgPorOS(string path)
+        {
+            return new HtmlString($"<img src=\"{(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? path : $"file://{_environment.ContentRootPath}/wwwroot/{path}")}\" />");
         }
 
         public static HtmlString IconeCampoObrigatorio()

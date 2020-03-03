@@ -23,10 +23,6 @@ COPY --from=build-env /src/bufunfa-web/publish .
 
 RUN rm -rf publish cs de es fr it ja ko pl ru tr zh-* web.config bufunfa-web
 
-# Comando necessário para o funcionamento do componente "Rotativa"
-RUN chmod 755 /app/wwwroot/Rotativa/wkhtmltopdf
-RUN chmod 755 /app/wwwroot/Rotativa/wkhtmltoimage
-
 # Define o environment
 ENV ASPNETCORE_ENVIRONMENT=Production
 
