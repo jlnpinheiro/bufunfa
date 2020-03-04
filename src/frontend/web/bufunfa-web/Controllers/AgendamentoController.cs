@@ -313,12 +313,22 @@ namespace JNogueira.Bufunfa.Web.Controllers
 
             var dataVencimentoFatura = new DateTime(entrada.DataCompra.Year, entrada.DataCompra.Month, cartao.DiaVencimentoFatura);
 
-            var dataProximoVencimentoFatura = dataVencimentoFatura.AddMonths(1);
+            var dataParcela = DateTime.Now;
 
-            DateTime dataParcela = entrada.DataCompra >= dataVencimentoFatura && entrada.DataCompra <= dataProximoVencimentoFatura.AddDays(-3)
-                ? dataProximoVencimentoFatura
-                : dataProximoVencimentoFatura.AddMonths(1);
+            var faturaSaida = await _proxy.ObterFaturaPorCartaoCredito(entrada.IdCartaoCredito, entrada.DataCompra.Month, entrada.DataCompra.Year);
 
+            // Verifica se a fatura já está paga, jogando a parcela do pagamento para a próxima fatura.
+            if (faturaSaida.Sucesso && faturaSaida.Retorno?.Lancamento != null)
+            {
+                dataParcela = dataVencimentoFatura.AddMonths(1);
+            }
+            else
+            {
+                dataParcela = entrada.DataCompra <= dataVencimentoFatura.AddDays(-3)
+                    ? dataVencimentoFatura
+                    : dataVencimentoFatura.AddMonths(1);
+            }
+ 
             var agendamentoEntrada = new ManterAgendamento
             {
                 IdCartaoCredito       = entrada.IdCartaoCredito,
