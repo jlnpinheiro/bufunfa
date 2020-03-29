@@ -19,7 +19,10 @@ var AppModal = function () {
                 offsetBottom: 10,
                 containerFluid: true,
                 onOpen: function () {
+                    $("body").css("overflow", "hidden");
+
                     this.$content.find(".btn-fechar").click(function () {
+                        $("body").css("overflow", "auto");
                         jc.close();
                     });
 

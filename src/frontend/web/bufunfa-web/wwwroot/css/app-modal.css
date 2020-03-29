@@ -16,6 +16,15 @@
     border-radius: 0;
 }
 
+.jconfirm .jconfirm-box div.jconfirm-content-pane::-webkit-scrollbar {
+    background: #efefef;
+    width: 10px !important;
+}
+
+.jconfirm .jconfirm-box div.jconfirm-content-pane::-webkit-scrollbar-thumb {
+    border-radius: 0;
+}
+
 .jconfirm .jconfirm-box div.jconfirm-title-c {
     display: none;
     visibility: hidden;
