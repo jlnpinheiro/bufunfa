@@ -79,6 +79,8 @@ var AppModal = function () {
 
         // Oculta todos os modais exibidos
         ocultar: function (fecharTudo) {
+            $("body").css("overflow", "auto");
+
             $.each(arrModal, function (i, modal) {
                 modal.close();
             });
@@ -92,6 +94,8 @@ var AppModal = function () {
 
         // Oculta um model a partir do seu título
         ocultarPorTitulo: function (titulo) {
+            $("body").css("overflow", "auto");
+
             $.each(arrModal, function (i, modal) {
                 if (modal.title === titulo) {
                     modal.close();
