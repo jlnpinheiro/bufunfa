@@ -737,6 +737,7 @@
             });
 
             $(".btn-fechar-widget").click(function () {
+                $("body").css("overflow", "auto");
                 AppModal.ocultar(true);
             });
         }, true, "popup-acao");
