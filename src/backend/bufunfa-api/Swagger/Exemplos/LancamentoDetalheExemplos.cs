@@ -9,7 +9,7 @@ namespace JNogueira.Bufunfa.Api.Swagger.Exemplos
     public class LancamentoDetalheSaidaExemplo : LancamentoDetalheSaida
     {
         public LancamentoDetalheSaidaExemplo()
-            : base(1, 1, (decimal)115.32, new CategoriaSaida(4, "Internet", TipoCategoria.Debito, "DÉBITO » Internet"), "Observação do detalhe")
+            : base(1, 1, (decimal)115.32, new CategoriaSaida(4, "Internet", TipoCategoria.Debito, "DÉBITO » Internet"), new LancamentoSaidaExemplo(), "Observação do detalhe")
         {
 
         }

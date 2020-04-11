@@ -1,0 +1,218 @@
+﻿@model JNogueira.Bufunfa.Web.Models.PeriodoGraficoRelacaoValorCategoriaPorAno
+
+<div class="kt-portlet app-modal-md" style="margin-bottom:0;" id="portlet-manter">
+    <div class="kt-portlet__head popup">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Detalhes do período <small>@Model.Periodo.Nome</small>
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <table class="table" style="margin-bottom: 0;">
+            <tbody>
+                <tr>
+                    @{
+                        var dataInicio = Model.Periodo.DataInicioGrafico.HasValue ? Model.Periodo.DataInicioGrafico.Value : Model.Periodo.DataInicio;
+                        var dataFim = Model.Periodo.DataFimGrafico.HasValue ? Model.Periodo.DataFimGrafico.Value : Model.Periodo.DataFim;
+                    }
+                    <td style="border-top: none;">
+                        <span class="kt-font-bold">Data início apurada</span><br />
+                        <span>@dataInicio.ToString("dd/MM/yyyy")</span> <del>@(Model.Periodo.DataInicioGrafico.HasValue ? Model.Periodo.DataInicio.ToString("dd/MM/yyyy") : string.Empty)</del>
+                    </td>
+                    <td style="border-top: none;">
+                        <span class="kt-font-bold">Data fim apurada</span><br />
+                        <span>@dataFim.ToString("dd/MM/yyyy")</span> <del>@(Model.Periodo.DataFimGrafico.HasValue ? Model.Periodo.DataFim.ToString("dd/MM/yyyy") : string.Empty)</del>
+                    </td>
+                    <td style="border-top: none;">
+                        <span class="kt-font-bold">Valor total</span><br />
+                        <span class="kt-font-primary kt-font-bold">@Model.ValorTotal.ToString("C2")</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="kt-portlet kt-portlet--bordered kt-portlet--collapsed mt-3" style="margin-bottom: 0;" data-ktportlet="true">
+            <div class="kt-portlet__head" style="min-height:50px; padding: 0 15px;">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title" style="font-size: 1.0rem;">Lançamentos <small>@Model.Lancamentos?.Sum(x => x.Valor).ToString("C2")</small></h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-actions">
+                        <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body" style="padding: 15px;">
+                @if (Model.Lancamentos?.Any() == true)
+                {
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <td style="width:1px;" class="nowrap">Data</td>
+                                <td>Conta / Pessoa</td>
+                                <td style="width: 1px;">Valor</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var lancamento in Model.Lancamentos)
+                            {
+                                <tr>
+                                    <td class="kt-font-sm" style="white-space: nowrap;">@lancamento.Data.ToString("dd/MM/yyyy") <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <small class="kt-font-bolder kt-font-primary">@lancamento.Data.ToString("ddd").ToUpper()</small></td>
+                                    <td class="kt-font-sm" style="line-height: 13px;">
+                                        <span class="kt-font-bold">@lancamento.NomeConta</span>
+                                        @if (!string.IsNullOrEmpty(lancamento.NomePessoa))
+                                        {
+                                            <br />@lancamento.NomePessoa
+                                        }
+                                        @if (!string.IsNullOrEmpty(lancamento.Observacao))
+                                        {
+                                            <br /><i>@lancamento.Observacao</i>
+                                        }
+                                    </td>
+                                    <td style="white-space: nowrap; line-height: 12px; text-align: right;">
+                                        @lancamento.Valor.ToString("C2")
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" class="text-right">TOTAL:</td>
+                                <td class="kt-font-bolder" style="white-space:nowrap;">@Model.Lancamentos.Sum(x => x.Valor).ToString("C2")</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                }
+                else 
+                {
+                    <div class="text-center">Nenhum lançamento encontrado.</div>
+                }
+            </div>
+        </div>
+
+        <div class="kt-portlet kt-portlet--bordered kt-portlet--collapsed mt-3" style="margin-bottom: 0;" data-ktportlet="true">
+            <div class="kt-portlet__head" style="min-height:50px; padding: 0 15px;">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title" style="font-size: 1.0rem;">Detalhes de lançamentos <small>@Model.LancamentoDetalhes?.Sum(x => x.Valor).ToString("C2")</small></h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-actions">
+                        <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body" style="padding: 15px;">
+                @if (Model.LancamentoDetalhes?.Any() == true)
+                {
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <td style="width:1px;" class="nowrap">Data do lançamento</td>
+                                <td>Conta / Pessoa</td>
+                                <td style="width: 1px;">Valor</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var detalhe in Model.LancamentoDetalhes)
+                            {
+                                <tr>
+                                    <td class="kt-font-sm" style="white-space: nowrap;">@detalhe.DataLancamento.ToString("dd/MM/yyyy") <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <small class="kt-font-bolder kt-font-primary">@detalhe.DataLancamento.ToString("ddd").ToUpper()</small></td>
+                                    <td class="kt-font-sm" style="line-height: 13px;">
+                                        <span class="kt-font-bold">@detalhe.NomeContaLancamento</span>
+                                        @if (!string.IsNullOrEmpty(detalhe.NomePessoaLancamento))
+                                        {
+                                            <br />@detalhe.NomePessoaLancamento
+                                        }
+                                        @if (!string.IsNullOrEmpty(detalhe.Observacao))
+                                        {
+                                            <br /><i>@detalhe.Observacao</i>
+                                        }
+                                    </td>
+                                    <td style="white-space: nowrap; line-height: 12px; text-align: right;">
+                                        @detalhe.Valor.ToString("C2")
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" class="text-right">TOTAL:</td>
+                                <td class="kt-font-bolder" style="white-space:nowrap;">@Model.LancamentoDetalhes.Sum(x => x.Valor).ToString("C2")</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                }
+                else
+                {
+                    <div class="text-center">Nenhum detalhe encontrado.</div>
+                }
+            </div>
+        </div>
+
+        <div class="kt-portlet kt-portlet--bordered kt-portlet--collapsed mt-3" style="margin-bottom: 0;" data-ktportlet="true">
+            <div class="kt-portlet__head" style="min-height:50px; padding: 0 15px;">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title" style="font-size: 1.0rem;">Parcelas <small>@Model.Parcelas?.Sum(x => x.Valor).ToString("C2")</small></h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-actions">
+                        <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body" style="padding: 15px;">
+                @if (Model.Parcelas?.Any() == true)
+                {
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <td style="width:1px;" class="nowrap">Data do lançamento</td>
+                                <td>Agendamento</td>
+                                <td style="width: 1px;">Valor</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var parcela in Model.Parcelas)
+                            {
+                                <tr>
+                                    <td class="kt-font-sm" style="white-space: nowrap;">@parcela.DataLancamento?.ToString("dd/MM/yyyy") <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <small class="kt-font-bolder kt-font-primary">@parcela.DataLancamento?.ToString("ddd").ToUpper()</small></td>
+                                    <td class="kt-font-sm" style="line-height: 13px;">
+                                        <span class="kt-font-bold">@(parcela.Agendamento.Conta ?? parcela.Agendamento.CartaoCredito)</span>
+                                        @if (!string.IsNullOrEmpty(parcela.Agendamento.Pessoa))
+                                        {
+                                            <br />@parcela.Agendamento.Pessoa
+                                        }
+                                        <br /><i>@($"{parcela.Numero} de {parcela.Agendamento.QuantidadeParcelas}")</i>
+                                    </td>
+                                    <td style="white-space: nowrap; line-height: 12px; text-align: right;">
+                                        @parcela.Valor.ToString("C2")
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" class="text-right">TOTAL:</td>
+                                <td class="kt-font-bolder" style="white-space:nowrap;">@Model.Parcelas.Sum(x => x.Valor).ToString("C2")</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                }
+                else
+                {
+                    <div class="text-center">Nenhuma parcela encontrado.</div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__foot popup">
+        <div class="kt-form__actions">
+            <div class="row">
+                <div class="col-lg-12 kt-align-right">
+                    <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

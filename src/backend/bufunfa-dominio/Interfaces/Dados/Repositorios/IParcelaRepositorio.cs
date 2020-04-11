@@ -31,6 +31,11 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         Task<IEnumerable<Parcela>> ObterPorPeriodo(DateTime dataInicio, DateTime dataFim, int idUsuario, bool somenteParcelasAbertas = true);
 
         /// <summary>
+        /// Obtém as parcelas a partir da data de lançamento
+        /// </summary>
+        Task<IEnumerable<Parcela>> ObterPorDataLancamento(DateTime dataInicio, DateTime dataFim, int idUsuario);
+
+        /// <summary>
         /// Insere uma nova parcela
         /// </summary>
         Task Inserir(Parcela parcela);

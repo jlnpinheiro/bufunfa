@@ -117,24 +117,6 @@ namespace JNogueira.Bufunfa.Web.Helpers
 
             if (permitirSelecaoPai)
             {
-                lst.Add(new Categoria
-                {
-                    Id = -1,
-                    Tipo = "C",
-                    Nome = "CRÉDITO",
-                    Caminho = "CRÉDITO",
-                    CategoriasFilha = lst?.Where(x => x.Tipo == "C").ToArray()
-                });
-
-                lst.Add(new Categoria
-                {
-                    Id = -2,
-                    Tipo = "D",
-                    Nome = "DÉBITO",
-                    Caminho = "DÉBITO",
-                    CategoriasFilha = lst?.Where(x => x.Tipo == "D").ToArray()
-                });
-
                 foreach (var categoria in lst.OrderBy(x => x.Tipo).ThenBy(x => x.Caminho))
                 {
                     html.AppendLine($"<option value=\"{categoria.Id}\" " +
@@ -142,7 +124,7 @@ namespace JNogueira.Bufunfa.Web.Helpers
                         $"data-caminho=\"{categoria.Caminho}\" " +
                         $"data-possui-filhas=\"{(categoria.CategoriasFilha != null && categoria.CategoriasFilha.Any() ? "1" : "0")}\" " +
                         $"{(valorSelecionado == categoria.Id.ToString() ? " selected" : string.Empty)} " +
-                        $"{(categoria.CategoriasFilha != null && categoria.CategoriasFilha.Any() && !permitirSelecaoPai ? "disabled" : string.Empty)}>" +
+                        $"{(categoria.CategoriasFilha?.Any() == true && !permitirSelecaoPai ? "disabled" : string.Empty)}>" +
                         $"{categoria.Caminho}</option>");
                 }
             }

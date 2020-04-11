@@ -885,6 +885,54 @@
         }
     };
 
+    var _exibirPopupGraficoValorPorCategoria = function (idCategoria, ano) {
+
+        $.get(App.corrigirPathRota("/graficos/ober-dados-grafico-valor-por-categoria?idCategoria=" + idCategoria + "&ano=" + ano), function (json) {
+            AppModal.exibirPorRota(App.corrigirPathRota("/graficos/exibir-popup-grafico-valor-por-categoria?idCategoria=" + idCategoria + "&ano=" + ano), function () {
+                let data = [];
+
+                $.each(json.periodos, function (k, item) {
+                    data.push({ id: item.periodo.id, periodo: item.periodo.nome, total: item.valorTotal });
+                });
+
+                new Morris.Line({
+                    element: 'div-grafico-valor-por-categoria',
+                    data: data,
+                    resize: true,
+                    gridTextFamily: 'Poppins',
+                    lineColors: ['#367FA9'],
+                    pointFillColors: ['#3C8DBC'],
+                    xLabelAngle: 10,
+                    preUnits: 'R$ ',
+                    parseTime: false,
+                    xkey: 'periodo',
+                    ykeys: ['total'],
+                    labels: ['Total: R$ '],
+                    goals: [json.valorMedio],
+                    goalLineColors: ['#333'],
+                    hoverCallback: function (index, options, default_content, row) {
+                        return '<span class="kt-font-bolder">' + row.periodo + '</span><br/><span class="kt-font-bold kt-font-primary">Total: ' + numeral(row.total).format('$0,0.00') + '</span>';
+                    },
+                }).on('click', function (i, row) {
+                    AppModal.exibirPorRota(App.corrigirPathRota("/graficos/exibir-popup-periodo-grafico-valor-por-categoria?idPeriodo=" + row.id + "&idCategoria=" + idCategoria + "&ano=" + ano), function () {
+                        KTApp.initPortlets();
+                    });
+                });
+
+                $("#span-grafico-valor-por-categoria-ano").html(ano);
+                $("#span-grafico-valor-por-categoria-caminho").html('<i class="fa fa-tag kt-font-' + (json.categoria.tipo == 'C' ? 'success' : 'danger') + '"></i> ' + json.categoria.caminho);
+                $("#span-grafico-valor-por-categoria-valor-medio").html(numeral(json.valorMedio).format('$0,0.00'));
+            });
+        }).done(function () {
+            //KTApp.initTooltips();
+        }).fail(function (jqXhr) {
+            let feedback = Feedback.converter(jqXhr.responseJSON);
+            feedback.exibir();
+        });
+
+       
+    };
+
     return {
         // Permite a alteração da senha de acesso
         alterarSenhaUsuario: function () {
@@ -1542,6 +1590,32 @@
                             }
                         }
                     }
+                });
+            });
+        },
+
+        // Exibe o popup para geração do gráfico valor por categoria
+        exibirPopupParametrosGraficoValorPorCategoria: function () {
+            AppModal.exibirPorRota(App.corrigirPathRota("/graficos/exibir-parametros-valor-por-categoria"), function () {
+                $("#form-parametros-valor-por-categoria").validate({
+                    rules: {
+                        sGraficoValorPorCategoriaCategoria: {
+                            required: true
+                        },
+                        iGraficoValorPorCategoriaAno: {
+                            required: true,
+                        }
+                    },
+                    submitHandler: function () {
+                        _exibirPopupGraficoValorPorCategoria($("#sGraficoValorPorCategoriaCategoria").val(), $("#iGraficoValorPorCategoriaAno").val());
+                    }
+                });
+
+                Bufunfa.criarSelectCategorias({ selector: "#sGraficoValorPorCategoriaCategoria", dropDownParentSelector: ".jconfirm", obrigatorio: true });
+
+                $('#iGraficoValorPorCategoriaAno').inputmask({
+                    mask: "9999",
+                    greedy: false
                 });
             });
         }

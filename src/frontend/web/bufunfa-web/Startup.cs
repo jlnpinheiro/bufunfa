@@ -82,6 +82,8 @@ namespace JNogueira.Bufunfa.Web
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
+            builder.AddNewtonsoftJson();
+
             if (Environment.IsDevelopment())
             {
                 // Posibilita que ao atualizar um arquivo *.cshtml, a alteração seja refletida sem que seja necessário recompilar o projeto (https://docs.microsoft.com/en-us/aspnet/core/mvc/views/view-compilation?view=aspnetcore-3.1)

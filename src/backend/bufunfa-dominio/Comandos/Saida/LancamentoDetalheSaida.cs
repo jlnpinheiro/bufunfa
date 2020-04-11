@@ -1,4 +1,7 @@
 ﻿using JNogueira.Bufunfa.Dominio.Entidades;
+using Newtonsoft.Json;
+using System;
+
 
 namespace JNogueira.Bufunfa.Dominio.Comandos
 {
@@ -32,17 +35,25 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         /// </summary>
         public CategoriaSaida Categoria { get; }
 
+        /// <summary>
+        /// Lancamento do detalhe
+        /// </summary>
+        public LancamentoDetalheLancamentoSaida Lancamento { get; set; }
+
         public LancamentoDetalheSaida(LancamentoDetalhe detalhe)
         {
             if (detalhe == null)
                 return;
 
-            this.Id           = detalhe.Id;
+            this.Id = detalhe.Id;
             this.IdLancamento = detalhe.IdLancamento;
-            this.Valor        = detalhe.Valor;
-            this.Observacao   = detalhe.Observacao;
-            this.Categoria    = detalhe.Categoria != null
+            this.Valor = detalhe.Valor;
+            this.Observacao = detalhe.Observacao;
+            this.Categoria = detalhe.Categoria != null
                 ? new CategoriaSaida(detalhe.Categoria)
+                : null;
+            this.Lancamento = detalhe.Lancamento != null
+                ? new LancamentoDetalheLancamentoSaida(detalhe.Lancamento)
                 : null;
         }
 
@@ -51,13 +62,32 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             int idLancamento,
             decimal valor,
             CategoriaSaida categoria,
+            LancamentoSaida lancamento,
             string observacao = null)
         {
-            Id           = id;
+            Id = id;
             IdLancamento = idLancamento;
-            Valor        = valor;
-            Observacao   = observacao;
-            Categoria    = categoria;
+            Valor = valor;
+            Observacao = observacao;
+            Categoria = categoria;
+            Lancamento = null;
+        }
+    }
+
+    public class LancamentoDetalheLancamentoSaida
+    {
+        [JsonConverter(typeof(JsonDateFormatConverter), "dd/MM/yyyy")]
+        public DateTime Data { get; }
+
+        public ContaSaida Conta { get; }
+
+        public PessoaSaida Pessoa { get; }
+
+        public LancamentoDetalheLancamentoSaida(Lancamento lancamento)
+        {
+            this.Data = lancamento.Data;
+            this.Conta = new ContaSaida(lancamento.Conta);
+            this.Pessoa = new PessoaSaida(lancamento.Pessoa);
         }
     }
 }

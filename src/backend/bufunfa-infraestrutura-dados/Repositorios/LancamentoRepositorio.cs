@@ -52,7 +52,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
                 query = query.Where(x => x.IdConta == procurarEntrada.IdConta.Value);
 
             if (procurarEntrada.IdCategoria.HasValue)
-                query = query.Where(x => x.IdCategoria == procurarEntrada.IdCategoria.Value);
+                query = query.Where(x => x.IdCategoria == procurarEntrada.IdCategoria.Value || x.Categoria.IdCategoriaPai == procurarEntrada.IdCategoria.Value);
 
             if (procurarEntrada.IdPessoa.HasValue)
                 query = query.Where(x => x.IdPessoa == procurarEntrada.IdPessoa.Value);
@@ -104,6 +104,22 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
                    .Include(x => x.Parcela)
                    .AsNoTracking()
                    .Where(x => x.IdConta == idConta && x.Data >= dataInicio && x.Data <= dataFim)
+                   .OrderBy(x => x.Data)
+                   .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Lancamento>> ObterPorPeriodo(DateTime dataInicio, DateTime dataFim, int idUsuario)
+        {
+            return await _efContext
+                   .Lancamentos
+                   .Include(x => x.Conta)
+                   .Include(x => x.Categoria.CategoriaPai)
+                   .Include(x => x.Pessoa)
+                   .Include(x => x.Parcela)
+                   .Include(x => x.Detalhes)
+                    .ThenInclude(x => x.Categoria)
+                   .AsNoTracking()
+                   .Where(x => x.IdUsuario == idUsuario && x.Data >= dataInicio && x.Data <= dataFim)
                    .OrderBy(x => x.Data)
                    .ToListAsync();
         }

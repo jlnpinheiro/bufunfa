@@ -40,6 +40,15 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
                    .ToListAsync();
         }
 
+        public async Task<IEnumerable<Periodo>> ObterPorAno(int ano, int idUsuario)
+        {
+            return await _efContext
+                   .Periodos
+                   .AsNoTracking()
+                   .Where(x => x.IdUsuario == idUsuario && (x.DataInicio.Year == ano || x.DataFim.Year == ano))
+                   .ToListAsync();
+        }
+
         public async Task<ProcurarSaida> Procurar(ProcurarPeriodoEntrada procurarEntrada)
         {
             var query = _efContext.Periodos

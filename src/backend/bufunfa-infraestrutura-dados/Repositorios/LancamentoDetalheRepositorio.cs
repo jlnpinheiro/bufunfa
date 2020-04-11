@@ -17,7 +17,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
         public async Task<LancamentoDetalhe> ObterPorId(int idDetalhe)
         {
             return await _efContext.LancamentosDetalhe
-                .Include(x => x.Lancamento)
+                .Include(x => x.Lancamento.Conta)
                 .Include(x => x.Categoria.CategoriaPai)
                 .FirstOrDefaultAsync(x => x.Id == idDetalhe);
         }

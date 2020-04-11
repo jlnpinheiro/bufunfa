@@ -35,7 +35,7 @@ namespace JNogueira.Bufunfa.Api.Swagger.Exemplos
                 new PessoaSaida(1, "Meu patrão"),
                 new ParcelaSaida(2, 2, null, DateTime.Now, (decimal)12.12, 1, false, false, null, null),
                 new LancamentoAnexoSaida(1, 1, "1gF8wE6OVfCnghANI70A-gh9rXc-jNGob", "Comprovante", "comprovante.pdf"),
-                new LancamentoDetalheSaida(1, 1, 100, new CategoriaSaida(4, "Salário", TipoCategoria.Credito, "CRÉDITO » Salário"), "Observação do detalhe"),
+                new LancamentoDetalheSaida(1, 1, 100, new CategoriaSaida(4, "Salário", TipoCategoria.Credito, "CRÉDITO » Salário"), new LancamentoSaidaExemplo(), "Observação do detalhe"),
                 "Observação qualquer")
         {
 

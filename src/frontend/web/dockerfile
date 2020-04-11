@@ -26,4 +26,6 @@ RUN rm -rf publish cs de es fr it ja ko pl ru tr zh-* web.config bufunfa-web
 # Define o environment
 ENV ASPNETCORE_ENVIRONMENT=Production
 
+ENV ASPNETCORE_URLS=http://+:5001
+
 ENTRYPOINT ["dotnet", "bufunfa-web.dll"]

@@ -76,6 +76,7 @@ namespace JNogueira.Bufunfa.Api
             services.AddScoped<ICartaoCreditoServico, CartaoCreditoServico>();
             services.AddScoped<ICategoriaServico, CategoriaServico>();
             services.AddScoped<IContaServico, ContaServico>();
+            services.AddScoped<IGraficoServico, GraficoServico>();
             services.AddScoped<ILancamentoServico, LancamentoServico>();
             services.AddScoped<IPeriodoServico, PeriodoServico>();
             services.AddScoped<IPessoaServico, PessoaServico>();
@@ -118,7 +119,9 @@ namespace JNogueira.Bufunfa.Api
                     .RequireAuthenticatedUser().Build());
             });
 
-            services.AddControllers(options => options.Filters.Add(typeof(CustomModelStateValidationFilterAttribute)));
+            services
+                .AddControllers(options => options.Filters.Add(typeof(CustomModelStateValidationFilterAttribute)))
+                .AddNewtonsoftJson();
 
             var swaggerDescricao = "API que disponibiliza o acesso as informações geridas pelo sistema \"Bufunfa!\".<br>" +
                                     "<ul>" +

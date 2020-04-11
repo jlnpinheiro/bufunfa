@@ -7,7 +7,7 @@
 
 <div class="kt-invoice-2">
     <div class="kt-invoice__head" style="padding: 15px 0;">
-        <div class="kt-invoice__container">
+        <div class="kt-invoice__container" style="width:100%;">
             <div class="kt-invoice__brand">
                 <table style="width:100%;">
                     <tr>
@@ -16,14 +16,15 @@
                             <span>@Html.Raw(Model.Periodo != null ? $"<span class=\"kt-font-bold\">{Model.Periodo.Nome}</span> <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> " : string.Empty)Período de @Model.DataInicio.ToString("dd/MM/yyyy") até @Model.DataFim.ToString("dd/MM/yyyy")</span>
                         </td>
                         <td style="width: 1px;">
-                            @if (Model.GerarPdf)
+                            @*@if (Model.GerarPdf)
                             {
                                 @customHtmlHelper.CriarTagImgPorOS("/img/logo-relatorio.png")
                             }
                             else
                             {
                                 <img src="~/img/logo-relatorio.png" style="max-width: none;">
-                            }
+                            }*@
+                            <img src="~/img/logo-relatorio.png" style="max-width: none;">
                         </td>
                     </tr>
                 </table>
@@ -55,7 +56,7 @@
     </div>
 
     <div class="kt-invoice__footer" style="padding: 1rem 0;">
-        <div class="kt-invoice__container">
+        <div class="kt-invoice__container" style="width:100%;">
             <div class="table-responsive">
                 <table class="table" style="margin-bottom: 0px;">
                     <thead>
@@ -80,7 +81,7 @@
     </div>
 
     <div class="kt-invoice__body" style="padding: 20px 0;">
-        <div class="kt-invoice__container">
+        <div class="kt-invoice__container" style="width:100%;">
             <table class="table table-striped table-borderless">
                 <thead>
                     <tr>

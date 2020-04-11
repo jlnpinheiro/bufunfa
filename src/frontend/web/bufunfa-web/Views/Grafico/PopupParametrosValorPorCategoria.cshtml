@@ -1,0 +1,50 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+@using JNogueira.Bufunfa.Web.Helpers
+@using JNogueira.Utilzao
+
+@inject CustomHtmlHelper customHtmlHelper
+
+@model JNogueira.Bufunfa.Web.Models.Conta
+
+@{
+    var periodoAtual = ViewBag.PeriodoAtual != null ? (Periodo)ViewBag.PeriodoAtual : null;
+}
+
+<div class="kt-portlet app-modal-md" style="margin-bottom:0;">
+    <div class="kt-portlet__head popup">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Gráfico de valor por categoria <small class="kt-hidden-mobile">Parâmetros</small>
+            </h3>
+        </div>
+    </div>
+    <form class="kt-form kt-form--label-right" id="form-parametros-valor-por-categoria">
+        <div class="kt-portlet__body">
+            <div class="form-group row">
+                <div class="col-lg-12 form-group-sub">
+                    <label>Categoria</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                    @customHtmlHelper.SelectCategorias("sGraficoValorPorCategoriaCategoria", "form-control", null, true)
+                    <span class="form-text text-muted"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6 form-group-sub">
+                    <div class="form-group">
+                        <label>Ano</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                        <input type="text" class="form-control" id="iGraficoValorPorCategoriaAno" name="iGraficoValorPorCategoriaAno" value="@(DateTime.Now.ToString("yyyy"))" maxlength="4">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__foot popup">
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-12 kt-align-right">
+                        <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Cancelar</button>
+                        <button type="submit" class="btn btn-sm btn-primary" id="bGerar"><i class="la la-cog"></i> Gerar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

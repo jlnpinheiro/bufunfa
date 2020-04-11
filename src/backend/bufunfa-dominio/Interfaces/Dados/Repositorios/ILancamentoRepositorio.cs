@@ -22,9 +22,14 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         Task<IEnumerable<Lancamento>> ObterPorIdTransferencia(string idTransferencia);
 
         /// <summary>
-        /// Obtém os lançamentos de um usuário.
+        /// Obtém os lançamentos de um usuário por período para uma determinada conta.
         /// </summary>
         Task<IEnumerable<Lancamento>> ObterPorPeriodo(int idConta, DateTime dataInicio, DateTime dataFim);
+
+        /// <summary>
+        /// Obtém os lançamentos de um usuário por período .
+        /// </summary>
+        Task<IEnumerable<Lancamento>> ObterPorPeriodo(DateTime dataInicio, DateTime dataFim, int idUsuario);
 
         /// <summary>
         /// Obtém os lançamentos baseados nos parâmetros de procura

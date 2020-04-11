@@ -1,0 +1,50 @@
+﻿<div class="kt-portlet app-modal-lg" style="margin-bottom:0;">
+    <div class="kt-portlet__head popup">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Gráfico de valor por categoria
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <table class="table" style="margin-bottom: 0;">
+            <tbody>
+                <tr>
+                    <td style="border-top: none; border-bottom: 1px dashed #ebedf2; width:25%;">
+                        <span class="kt-font-bold">Ano</span><br>
+                        <span id="span-grafico-valor-por-categoria-ano"></span>
+                    </td>
+                    <td style="border-top: none; border-bottom: 1px dashed #ebedf2;">
+                        <span class="kt-font-bold">Categoria</span><br>
+                        <span id="span-grafico-valor-por-categoria-caminho"><i class="fa fa-tag kt-font-danger"></i>  DÉBITO » Apartamento » Condomínio</span>
+                    </td>
+                    <td style="border-top: none; border-bottom: 1px dashed #ebedf2; width:25%;">
+                        <span class="kt-font-bold">Valor médio</span><br>
+                        <span class="kt-font-primary kt-font-bold" id="span-grafico-valor-por-categoria-valor-medio"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="alert alert-secondary fade show mt-3 mb-2" role="alert">
+            <div class="alert-icon"><i class="fa fa-info"></i></div>
+            <div class="alert-text">Clique sobre um ponto no gráfico para detalhar os valores que compõem o valor total do período.</div>
+            <div class="alert-close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="la la-close"></i></span>
+                </button>
+            </div>
+        </div>
+
+        <div id="div-grafico-valor-por-categoria" class="mt-2 table-responsive"></div>
+    </div>
+    <div class="kt-portlet__foot popup">
+        <div class="kt-form__actions">
+            <div class="row">
+                <div class="col-lg-12 kt-align-right">
+                    <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

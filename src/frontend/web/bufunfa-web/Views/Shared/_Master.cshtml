@@ -131,6 +131,15 @@
                                     </ul>
                                 </div>
                             </li>
+                            <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("graficos")) kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                                <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon fa fa-chart-bar"></i><span class="kt-menu__link-text">Gráficos</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                <div class="kt-menu__submenu ">
+                                    <span class="kt-menu__arrow"></span>
+                                    <ul class="kt-menu__subnav">
+                                        <li class="kt-menu__item" aria-haspopup="true" id="lValorPorCategoria"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Valor por categoria</span></a></li>
+                                    </ul>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -246,7 +255,7 @@
                         <div class="kt-container  kt-container--fluid">
                             <div class="kt-subheader__main">
                                 <h3 class="kt-subheader__title">
-                                    @ViewData["Titulo"]
+                                    @Html.Raw(ViewData["Titulo"])
                                 </h3>
                                 <div class="kt-subheader__breadcrumbs">
                                     <span class="kt-subheader__breadcrumbs-home"><i class="flaticon2-calendar-2"></i></span>
@@ -418,6 +427,11 @@
             $("#lExtratoPorPeriodo").click(function (e) {
                 e.preventDefault();
                 Bufunfa.exibirPopupParametrosExtratoPorPeriodo();
+            });
+
+            $("#lValorPorCategoria").click(function (e) {
+                e.preventDefault();
+                Bufunfa.exibirPopupParametrosGraficoValorPorCategoria();
             });
 
             $("#lPagar").click(function (e) {

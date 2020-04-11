@@ -22,11 +22,10 @@ namespace JNogueira.Bufunfa.Web.Controllers
         }
 
         [HttpGet]
-        [ExibirPeriodoAtualFilter]
         [Route("exibir-parametros-extrato-por-periodo")]
-        public IActionResult ObterPopupExtratoPorPeriodo()
+        public IActionResult ExibirPopupParametrosExtratoPorPeriodo()
         {
-            return PartialView("PopUpParametrosExtratoPorPeriodo");
+            return PartialView("PopupParametrosExtratoPorPeriodo");
         }
 
         [HttpGet]

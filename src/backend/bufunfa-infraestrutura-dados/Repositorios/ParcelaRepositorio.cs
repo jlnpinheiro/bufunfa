@@ -78,6 +78,18 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             return await query.ToListAsync();
         }
 
+        public async Task<IEnumerable<Parcela>> ObterPorDataLancamento(DateTime dataInicio, DateTime dataFim, int idUsuario)
+        {
+            return await _efContext.Parcelas
+                .Include(x => x.Agendamento.Categoria)
+                .Include(x => x.Agendamento.Parcelas)
+                .Include(x => x.Agendamento.Conta)
+                .Include(x => x.Agendamento.CartaoCredito)
+                .Include(x => x.Agendamento.Pessoa)
+                .Where(x => x.IdFatura.HasValue && x.Lancada && x.DataLancamento >= dataInicio && x.DataLancamento <= dataFim && x.Agendamento.IdUsuario == idUsuario)
+                .ToListAsync();
+        }
+
         public async Task Inserir(Parcela parcela)
         {
             await _efContext.AddAsync(parcela);

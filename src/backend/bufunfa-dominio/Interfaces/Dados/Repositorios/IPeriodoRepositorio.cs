@@ -23,6 +23,11 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         Task<Periodo> ObterPorData(DateTime data, int idUsuario);
 
         /// <summary>
+        /// Obtém os períodos pertencentes a um determinado ano
+        /// </summary>
+        Task<IEnumerable<Periodo>> ObterPorAno(int ano, int idUsuario);
+
+        /// <summary>
         /// Obtém os períodos de um usuário.
         /// </summary>
         Task<IEnumerable<Periodo>> ObterPorUsuario(int idUsuario);
