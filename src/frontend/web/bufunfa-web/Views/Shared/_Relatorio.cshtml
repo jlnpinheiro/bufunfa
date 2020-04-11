@@ -14,21 +14,16 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
     <!--end::Fonts -->
     <!--begin::Global Theme Styles(used by all pages) -->
-    <link rel="stylesheet" href="~/plugins/plugins.bundle.css" />
-    <link rel="stylesheet" href="~/css/style.bundle.css" />
-    <link rel="stylesheet" href="~/css/relatorio.min.css" />
-    @*@customHtmlHelper.CriarTagLinkCssPorOS("/plugins/plugins.bundle.css")
-        @customHtmlHelper.CriarTagLinkCssPorOS("/css/style.bundle.css")
-        @customHtmlHelper.CriarTagLinkCssPorOS("/css/relatorio.min.css")*@
+    @customHtmlHelper.CriarTagLinkCssPorOS("/plugins/plugins.bundle.css")
+    @customHtmlHelper.CriarTagLinkCssPorOS("/css/style.bundle.css")
+    @customHtmlHelper.CriarTagLinkCssPorOS("/css/relatorio.min.css")
     <!--end::Global Theme Styles -->
     <!--begin::Global Theme Styles(used by all pages) -->
     <environment include="Development">
-        @*@customHtmlHelper.CriarTagLinkCssPorOS("/css/bufunfa.css")*@
-        <link rel="stylesheet" href="~/css/bufunfa.css" />
+        @customHtmlHelper.CriarTagLinkCssPorOS("/css/bufunfa.css")
     </environment>
     <environment exclude="Development">
-        @*@customHtmlHelper.CriarTagLinkCssPorOS("/css/bufunfa.min.css")*@
-        <link rel="stylesheet" href="~/css/bufunfa.min.css" />
+        @customHtmlHelper.CriarTagLinkCssPorOS("/css/bufunfa.min.css")
     </environment>
     <style>
         table {
