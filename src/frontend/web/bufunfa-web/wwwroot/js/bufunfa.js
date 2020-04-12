@@ -700,6 +700,7 @@
 
         AppModal.exibirPorRota(App.corrigirPathRota("/contas/obter-analise-por-acao?id=" + id + "&valorCotacao=" + valorCotacao.toString().replace(",", ".")), function () {
             KTApp.initTooltips();
+            KTApp.initPortlets();
 
             $(".obter-cotacao").click(function () {
                 let idConta = $(this).data("id");

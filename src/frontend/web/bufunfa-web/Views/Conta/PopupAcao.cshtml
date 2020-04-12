@@ -63,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
             <div class="tab-pane" id="aba-operacoes-acao">
                 <div class="row">
@@ -126,137 +126,161 @@
             </div>
             <div class="tab-pane" id="aba-analise-acao">
                 <div class="table-responsive">
-                    <div class="kt-widget4">
-                        <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #ebedf2;">
-                            <div class="kt-widget4__info text-center">
-                                <span class="kt-widget4__title kt-font-primary kt-font-bolder kt-font-lg">Débitos</span>
-                            </div>
-                        </div>
 
-                        <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                            <div class="kt-widget4__info">
-                                <span class="kt-widget4__title">Valor total de compra <span class="kt-font-boldest"> (D1)</span></span>
-                                <p class="kt-widget4__text">
-                                    <span class="kt-font-md">Valor total gasto na compra das ações.</span>
-                                    <span class="pull-right kt-font-bold kt-font-danger">@(Model.ObterValorTotalCompraEmReais())</span>
-                                </p>
+                    <div class="kt-portlet kt-portlet--bordered kt-portlet--collapsed" style="margin-bottom: 0;" data-ktportlet="true">
+                        <div class="kt-portlet__head" style="min-height:30px; padding: 0 15px;">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title" style="font-size: 1.0rem;">Débitos</h3>
                             </div>
-                        </div>
-
-                        <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                            <div class="kt-widget4__info">
-                                <span class="kt-widget4__title">Ações compradas</span>
-                                <p class="kt-widget4__text">
-                                    <span class="kt-font-md">Quantidade total de ações compradas.</span>
-                                    <span class="pull-right kt-font-bold">@(Model.QuantidadeComprada)</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                            <div class="kt-widget4__info">
-                                <span class="kt-widget4__title">Valor médio de compra</span>
-                                <p class="kt-widget4__text">
-                                    <span class="kt-font-md">Valor total gasto na compra, dividido pela quantidade de ações compradas.</span>
-                                    <span class="pull-right kt-font-bold">@(Model.ObterValorMedioCompraEmReais())</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                            <div class="kt-widget4__info">
-                                <span class="kt-widget4__title">Valor total - Impostos ou taxas <span class="kt-font-boldest"> (D2)</span></span>
-                                <p class="kt-widget4__text">
-                                    <span class="kt-font-md">Valor total gasto com impostos ou taxas administrativas.</span>
-                                    <span class="pull-right kt-font-bold kt-font-danger">@(Model.ObterValorTotalImpostosEmReais())</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #ebedf2;">
-                            <div class="kt-widget4__info text-center">
-                                <span class="kt-widget4__title kt-font-primary kt-font-bolder kt-font-lg">Créditos</span>
-                            </div>
-                        </div>
-
-                        <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                            <div class="kt-widget4__info">
-                                <span class="kt-widget4__title">Valor total de venda <span class="kt-font-boldest"> (C1)</span></span>
-                                <p class="kt-widget4__text">
-                                    <span class="kt-font-md">Valor total ganho na venda das ações.</span>
-                                    <span class="pull-right kt-font-bold kt-font-success">@(Model.ObterValorTotalVendaEmReais())</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                            <div class="kt-widget4__info">
-                                <span class="kt-widget4__title">Ações vendidas</span>
-                                <p class="kt-widget4__text">
-                                    <span class="kt-font-md">Quantidade total de ações vendidas.</span>
-                                    <span class="pull-right kt-font-bold">@(Model.QuantidadeVendida)</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                            <div class="kt-widget4__info">
-                                <span class="kt-widget4__title">Valor médio de venda</span>
-                                <p class="kt-widget4__text">
-                                    <span class="kt-font-md">Valor total ganho na venda, dividido pela quantidade de ações vendidas.</span>
-                                    <span class="pull-right kt-font-bold">@(Model.ObterValorMedioVendaEmReais())</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                            <div class="kt-widget4__info">
-                                <span class="kt-widget4__title">Valor total  - Juros ou dividendos <span class="kt-font-boldest"> (C2)</span></span>
-                                <p class="kt-widget4__text">
-                                    <span class="kt-font-md">Valor total ganho com juros ou dividendos.</span>
-                                    <span class="pull-right kt-font-bold kt-font-success">@(Model.ObterValorTotalJurosDividendosEmReais())</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #ebedf2;">
-                            <div class="kt-widget4__info text-center">
-                                <span class="kt-widget4__title kt-font-primary kt-font-bolder kt-font-lg">Análise</span>
-                            </div>
-                        </div>
-
-                        <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                            <div class="kt-widget4__info">
-                                <span class="kt-widget4__title">Valor do ganho ou prejuízo</span>
-                                <p class="kt-widget4__text">
-                                    <span class="kt-font-md">C1 + C2 - (D1 + D2)</span>
-                                    <span class="pull-right kt-font-bold kt-font-@(Model.ValorGanhoPrejuizo >= 0 ? "success" : "danger")">@(Model.ObterValorGanhoPrejuizoEmReais())</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        @if (Model.QuantidadeEmCarteira > 0)
-                        {
-                            <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                                <div class="kt-widget4__info">
-                                    <span class="kt-widget4__title">Valor de mercado</span>
-                                    <p class="kt-widget4__text">
-                                        <span class="kt-font-md">Valor da ação cotado * quantidade de ações em carteira.</span>
-                                        <span class="pull-right kt-font-bold">@(Model.ObterValorMercadoEmReais())</span>
-                                    </p>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="kt-portlet__head-actions">
+                                    <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
                                 </div>
                             </div>
+                        </div>
+                        <div class="kt-portlet__body" style="padding: 10px;">
+                            <div class="kt-widget4">
+                                <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                                    <div class="kt-widget4__info">
+                                        <span class="kt-widget4__title">Valor total de compra <span class="kt-font-boldest"> (D1)</span></span>
+                                        <p class="kt-widget4__text">
+                                            <span class="kt-font-md">Valor total gasto na compra das ações.</span>
+                                            <span class="pull-right kt-font-bold kt-font-danger">@(Model.ObterValorTotalCompraEmReais())</span>
+                                        </p>
+                                    </div>
+                                </div>
 
-                            <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                                <div class="kt-widget4__info">
-                                    <span class="kt-widget4__title">Valor da possibilidade de ganho</span>
-                                    <p class="kt-widget4__text">
-                                        <span class="kt-font-md">Valor do ganho ou prejuízo + Valor de mercado total</span>
-                                        <span class="pull-right kt-font-bold kt-font-@(Model.ValorPossibilidadeGanho >= 0 ? "success" : "danger")">@(Model.ObterValorPossibilidadeGanhoEmReais()) <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <span class="kt-font-sm">@(Math.Abs(Model.PercentualPossibilidadeGanho).ToString("N2"))% <i class="@(Model.PercentualPossibilidadeGanho >= 0 ? "kt-font-success fa fa-arrow-up" : "kt-font-danger fa fa-arrow-down")"></i></span></span>
-                                    </p>
+                                <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                                    <div class="kt-widget4__info">
+                                        <span class="kt-widget4__title">Ações compradas</span>
+                                        <p class="kt-widget4__text">
+                                            <span class="kt-font-md">Quantidade total de ações compradas.</span>
+                                            <span class="pull-right kt-font-bold">@(Model.QuantidadeComprada)</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                                    <div class="kt-widget4__info">
+                                        <span class="kt-widget4__title">Valor médio de compra</span>
+                                        <p class="kt-widget4__text">
+                                            <span class="kt-font-md">Valor total gasto na compra, dividido pela quantidade de ações compradas.</span>
+                                            <span class="pull-right kt-font-bold">@(Model.ObterValorMedioCompraEmReais())</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                                    <div class="kt-widget4__info">
+                                        <span class="kt-widget4__title">Valor total - Impostos ou taxas <span class="kt-font-boldest"> (D2)</span></span>
+                                        <p class="kt-widget4__text">
+                                            <span class="kt-font-md">Valor total gasto com impostos ou taxas administrativas.</span>
+                                            <span class="pull-right kt-font-bold kt-font-danger">@(Model.ObterValorTotalImpostosEmReais())</span>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        }
+                        </div>
+                    </div>
+
+                    <div class="kt-portlet kt-portlet--bordered kt-portlet--collapsed mt-3" style="margin-bottom: 0;" data-ktportlet="true">
+                        <div class="kt-portlet__head" style="min-height:30px; padding: 0 15px;">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title" style="font-size: 1.0rem;">Créditos</h3>
+                            </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="kt-portlet__head-actions">
+                                    <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body" style="padding: 10px;">
+                            <div class="kt-widget4">
+                                <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                                    <div class="kt-widget4__info">
+                                        <span class="kt-widget4__title">Valor total de venda <span class="kt-font-boldest"> (C1)</span></span>
+                                        <p class="kt-widget4__text">
+                                            <span class="kt-font-md">Valor total ganho na venda das ações.</span>
+                                            <span class="pull-right kt-font-bold kt-font-success">@(Model.ObterValorTotalVendaEmReais())</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                                    <div class="kt-widget4__info">
+                                        <span class="kt-widget4__title">Ações vendidas</span>
+                                        <p class="kt-widget4__text">
+                                            <span class="kt-font-md">Quantidade total de ações vendidas.</span>
+                                            <span class="pull-right kt-font-bold">@(Model.QuantidadeVendida)</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                                    <div class="kt-widget4__info">
+                                        <span class="kt-widget4__title">Valor médio de venda</span>
+                                        <p class="kt-widget4__text">
+                                            <span class="kt-font-md">Valor total ganho na venda, dividido pela quantidade de ações vendidas.</span>
+                                            <span class="pull-right kt-font-bold">@(Model.ObterValorMedioVendaEmReais())</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                                    <div class="kt-widget4__info">
+                                        <span class="kt-widget4__title">Valor total  - Juros ou dividendos <span class="kt-font-boldest"> (C2)</span></span>
+                                        <p class="kt-widget4__text">
+                                            <span class="kt-font-md">Valor total ganho com juros ou dividendos.</span>
+                                            <span class="pull-right kt-font-bold kt-font-success">@(Model.ObterValorTotalJurosDividendosEmReais())</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kt-portlet kt-portlet--bordered mt-3" style="margin-bottom: 0;">
+                        <div class="kt-portlet__head" style="min-height:40px; padding: 0 15px;">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title kt-font-bolder kt-font-primary" style="font-size: 1.0rem;">Análise</h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body" style="padding: 10px;">
+                            <div class="kt-widget4">
+                                <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                                    <div class="kt-widget4__info">
+                                        <span class="kt-widget4__title">Valor do ganho ou prejuízo</span>
+                                        <p class="kt-widget4__text">
+                                            <span class="kt-font-md">C1 + C2 - (D1 + D2)</span>
+                                            <span class="pull-right kt-font-bold kt-font-@(Model.ValorGanhoPrejuizo >= 0 ? "success" : "danger")">@(Model.ObterValorGanhoPrejuizoEmReais())</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                @if (Model.QuantidadeEmCarteira > 0)
+                                {
+                                    <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                                        <div class="kt-widget4__info">
+                                            <span class="kt-widget4__title">Valor de mercado</span>
+                                            <p class="kt-widget4__text">
+                                                <span class="kt-font-md">Valor da ação cotado * quantidade de ações em carteira.</span>
+                                                <span class="pull-right kt-font-bold">@(Model.ObterValorMercadoEmReais())</span>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                                        <div class="kt-widget4__info">
+                                            <span class="kt-widget4__title">Valor da possibilidade de ganho</span>
+                                            <p class="kt-widget4__text">
+                                                <span class="kt-font-md">Valor do ganho ou prejuízo + Valor de mercado total</span>
+                                                <span class="pull-right kt-font-bold kt-font-@(Model.ValorPossibilidadeGanho >= 0 ? "success" : "danger")">@(Model.ObterValorPossibilidadeGanhoEmReais()) <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <span class="kt-font-sm">@(Math.Abs(Model.PercentualPossibilidadeGanho).ToString("N2"))% <i class="@(Model.PercentualPossibilidadeGanho >= 0 ? "kt-font-success fa fa-arrow-up" : "kt-font-danger fa fa-arrow-down")"></i></span></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
