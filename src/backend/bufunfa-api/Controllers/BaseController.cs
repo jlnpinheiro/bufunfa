@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 
 namespace JNogueira.Bufunfa.Api.Controllers

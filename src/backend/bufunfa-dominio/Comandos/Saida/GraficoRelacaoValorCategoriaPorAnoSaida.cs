@@ -184,7 +184,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             this.Id                   = lancamentoDetalhe.Id;
             this.IdLancamento         = lancamentoDetalhe.IdLancamento;
             this.DataLancamento       = lancamentoDetalhe.Lancamento.Data;
-            this.NomeContaLancamento = lancamentoDetalhe.Lancamento.Conta?.Nome;
+            this.NomeContaLancamento  = lancamentoDetalhe.Lancamento.Conta?.Nome;
             this.NomePessoaLancamento = lancamentoDetalhe.Lancamento.Pessoa?.Nome;
             this.Valor                = lancamentoDetalhe.Valor;
             this.IdCategoria          = lancamentoDetalhe.Categoria.Id;

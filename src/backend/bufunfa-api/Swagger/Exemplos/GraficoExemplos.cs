@@ -10,7 +10,7 @@ namespace JNogueira.Bufunfa.Api.Swagger.Exemplos
             : base(
                 new PeriodoSaidaExemplo(),
                 new[] { new LancamentoSaidaExemplo() },
-                new[] { new LancamentoDetalheSaidaExemplo() },
+                null,
                 new[] { new ParcelaSaidaExemplo() })
         {
 
