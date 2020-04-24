@@ -29,6 +29,7 @@ Existe uma versão em https://bufunfa.jnogueira.net.br, rodando em containers do
 * Cadastro de pessoas (pessoas físicas ou jurídicas para onde os lançamentos são realizados)
 * Gestão de faturas de cartão de crédito
 * Emissão de extrato de uma conta (geração de PDF)
+* Geração de gráficos
 
 ## Algumas características...
 * Backend com documentação utilizando [Swashbuckle (Swagger)](https://docs.microsoft.com/pt-br/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio)
@@ -42,7 +43,7 @@ Existe uma versão em https://bufunfa.jnogueira.net.br, rodando em containers do
 * "Unit of Work" pattern
 * Injeção de dependência
 * Domains notifications (utilizando o componente [Notifique me!](https://github.com/jlnpinheiro/notifique-me-csharp))
-* Persistência utilizando Entity Framework
+* Persistência utilizando Entity Framework com MySQL
 
 # Colocando pra funcionar...
 É possível subir um ambiente necessário para o funcionamento do Bufunfa de duas maneiras: 
