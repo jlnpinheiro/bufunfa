@@ -24,7 +24,7 @@
                     data: "data",
                     title: "Data",
                     orderable: true,
-                    className: "all text-nowrap",
+                    className: "all text-nowrap kt-padding-l-15 kt-padding-r-15",
                     render: function (data, type, row) {
                         return moment(data).format("DD/MM/YYYY") + ' <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> <small class="kt-font-bolder kt-font-primary">' + moment(data).format("ddd").toUpperCase() + '</small>';
                     }
@@ -44,8 +44,7 @@
                     data: "valor",
                     title: "Valor",
                     orderable: true,
-                    width: '140px',
-                    className: "all text-right text-nowrap coluna-valor",
+                    className: "all text-right text-nowrap coluna-valor kt-padding-l-15 kt-padding-r-15",
                     render: function (data, type, row) {
                         return '<span class="kt-font-' + (row.tipoCategoria == 'C' ? 'success' : 'danger') + '">' + numeral(data).format('$0,0.00') + '</span>';
                     }
@@ -54,14 +53,13 @@
                     data: null,
                     className: "text-center",
                     orderable: false,
-                    width: "1px",
                     render: function (data, type, row) {
                         if (row.idParcela != null)
-                            return '<i class="fa fa-calendar-alt kt-font-primary visualizar-agendamento" style="cursor: pointer;" data-id-agendamento="' + row.idAgendamento + '" data-toggle="kt-popover" data-boundary="window" title="" data-content="Lançamento criado a partir do lançamento de uma parcela." data-original-title="Lançamento de parcela"></i>';
+                            return '<i class="fa fa-calendar-alt kt-font-primary kt-padding-l-5 kt-padding-r-5 visualizar-agendamento" style="cursor: pointer;" data-id-agendamento="' + row.idAgendamento + '" data-toggle="kt-popover" data-boundary="window" title="" data-content="Lançamento criado a partir do lançamento de uma parcela." data-original-title="Lançamento de parcela"></i>';
                         else if (row.idTransferencia != null)
-                            return '<i class="fa fa-share-square kt-font-primary" style="cursor: help;" data-toggle="kt-popover" data-boundary="window" title="" data-content="Lançamento criado a partir de um transferência entre contas." data-original-title="Transferência"></i>';
+                            return '<i class="fa fa-share-square kt-font-primary kt-padding-l-5 kt-padding-r-5" style="cursor: help;" data-toggle="kt-popover" data-boundary="window" title="" data-content="Lançamento criado a partir de um transferência entre contas." data-original-title="Transferência"></i>';
                         else if (row.pagamentoFatura)
-                            return '<i class="fa fa-credit-card kt-font-primary visualizar-fatura" style="cursor: pointer;" data-id-lancamento="' + row.id + '" data-toggle="kt-popover" data-boundary="window" title="" data-content="Lançamento criado para o pagamento de uma fatura de cartão de crédito." data-original-title="Pagamento de fatura"></i>';
+                            return '<i class="fa fa-credit-card kt-font-primary kt-padding-l-5 kt-padding-r-5 visualizar-fatura" style="cursor: pointer;" data-id-lancamento="' + row.id + '" data-toggle="kt-popover" data-boundary="window" title="" data-content="Lançamento criado para o pagamento de uma fatura de cartão de crédito." data-original-title="Pagamento de fatura"></i>';
 
                         return '';
                     }
@@ -70,7 +68,6 @@
                     data: null,
                     className: "text-center",
                     orderable: false,
-                    width: "1px",
                     render: function (data, type, row) {
                         if (row.pagamentoFatura)
                             return '<button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables btn-badge" disabled style="cursor:not-allowed;"><i class="la la-list"></i></button>';
@@ -82,7 +79,6 @@
                     data: null,
                     className: "text-center",
                     orderable: false,
-                    width: "1px",
                     render: function (data, type, row) {
                         return '<button data-id="' + row.id + '" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables btn-badge exibir-anexos" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Anexos"><i class="la la-paperclip"></i>' + (row.anexos > 0 ? '<span class="badge kt-badge kt-badge--dark">' + row.anexos + '</span>' : '') + '</button>';
                     }
@@ -91,7 +87,6 @@
                     data: null,
                     className: "text-center",
                     orderable: false,
-                    width: "1px",
                     render: function (data, type, row) {
                         if (row.idTransferencia != null || row.pagamentoFatura)
                             return '<button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables" disabled style="cursor:not-allowed;"><span class="la la-edit"></span></button>';
@@ -103,7 +98,6 @@
                     data: null,
                     className: "text-center",
                     orderable: false,
-                    width: "1px",
                     render: function (data, type, row) {
                         return '<button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables excluir-lancamento" data-id="' + row.id + '" data-id-transferencia="' + row.idTransferencia + '" data-pagamento-fatura="' + (row.pagamentoFatura ? 1 : 0) + '" data-id-parcela="' + row.idParcela + '" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Excluir"><span class="la la-trash"></span></button>';
                     }
@@ -113,6 +107,7 @@
                 style: 'single',
                 info: false
             },
+            autoWidth: false,
             serverSide: true,
             responsive: false,
             order: [0, "asc"],
