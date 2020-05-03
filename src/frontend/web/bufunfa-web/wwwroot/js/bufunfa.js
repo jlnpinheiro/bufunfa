@@ -217,6 +217,9 @@
     };
 
     var _definirAcoesParcela = function () {
+
+        App.aplicarTabelaSelecionavel("#table-parcelas");
+
         $("#btn-cadastrar-parcela").click(function () {
             _manterParcela(null);
         });
@@ -573,6 +576,7 @@
 
         AppModal.exibirPorRota(App.corrigirPathRota("/cartoes/exibir-fatura?idCartao=" + idCartao + "&mes=" + mes + "&ano=" + ano), function () {
             _definirAcoesFatura(idCartao);
+            App.aplicarTabelaSelecionavel("#table-parcelas");
         }, true, "exibir-fatura");
     };
 
@@ -879,6 +883,9 @@
             location.href = App.corrigirPathRota("/relatorios/gerar-extrato-por-periodo?dataInicio=" + dataInicio + "&dataFim=" + dataFim + "&idConta=" + idConta + "&idPeriodo=" + idPeriodo + "&gerarPdf=true");
         } else {
             AppModal.exibirPorRota(App.corrigirPathRota("/relatorios/gerar-extrato-por-periodo?dataInicio=" + dataInicio + "&dataFim=" + dataFim + "&idConta=" + idConta + "&idPeriodo=" + idPeriodo + "&gerarPdf=false"), function () {
+
+                App.aplicarTabelaSelecionavel("#table-relatorio");
+
                 $("#btnGerarPdf").click(function () {
                     location.href = App.corrigirPathRota("/relatorios/gerar-extrato-por-periodo?dataInicio=" + dataInicio + "&dataFim=" + dataFim + "&idConta=" + idConta + "&idPeriodo=" + idPeriodo + "&gerarPdf=true")
                 });

@@ -10,6 +10,8 @@
                 $("#divRendaVariavel").html(html);
             }
 
+            App.aplicarTabelaSelecionavel("#table-renda-fixa");
+
             if (tipo == "RV") {
                 $("button[class*='detalhar-conta-" + tipo.toLowerCase() + "']").each(function () {
                     let idConta = $(this).data("id-conta");

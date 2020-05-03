@@ -58,6 +58,26 @@ var App = function () {
                 $.unblockUI();
             }
         },
+
+        // Aplica um efeito em um table, quando uma tr é selecionada
+        aplicarTabelaSelecionavel: function (selector) {
+            $(selector + " tbody tr").each(function () {
+                $(this).click(function () {
+                    if ($(this).hasClass('selected')) {
+                        $(selector + " tbody tr").each(function () {
+                            $(this).removeClass('selected');
+                        });
+                    }
+                    else {
+                        $(selector + " tbody tr").each(function () {
+                            $(this).removeClass('selected');
+                        });
+
+                        $(this).addClass('selected');
+                    }
+                });
+            });
+        }
     };
 }();
 

@@ -81,7 +81,7 @@
 
     <div class="kt-invoice__body" style="padding: 20px 0;">
         <div class="kt-invoice__container" style="width:100%;">
-            <table class="table table-striped table-borderless">
+            <table class="table table-striped table-borderless" id="table-relatorio">
                 <thead>
                     <tr>
                         <th style="width:1px; white-space:nowrap;">DATA</th>
@@ -116,7 +116,7 @@
                                     <i class="fa fa-credit-card kt-font-primary"></i>
                                 }
                             </td>
-                            <td class="kt-font-@(lancamento.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") kt-font-lg text-right coluna-valor" style="width:1px; white-space: nowrap;">@lancamento.ObterValorEmReais()</td>
+                            <td class="kt-font-@(lancamento.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") kt-font-lg coluna-valor" style="width:1px; white-space: nowrap;">@lancamento.ObterValorEmReais()</td>
                         </tr>
                     }
                 </tbody>

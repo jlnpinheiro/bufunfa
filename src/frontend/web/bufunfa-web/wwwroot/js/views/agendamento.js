@@ -41,6 +41,8 @@
                 });
             });
 
+            App.aplicarTabelaSelecionavel(".table");
+
         }).done(function () {
             KTApp.initTooltips();
             KTApp.initPortlets();

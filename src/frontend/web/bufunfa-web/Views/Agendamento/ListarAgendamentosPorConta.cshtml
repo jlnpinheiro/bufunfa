@@ -37,7 +37,7 @@
                         </div>
                     </td>
                     <td style="white-space: nowrap;" class="text-center kt-padding-l-10 kt-padding-r-10">@agendamento.DataUltimaParcelaAberta?.ToString("dd/MM/yyyy")</td>
-                    <td style="white-space: nowrap;" class="kt-font-@(agendamento.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") kt-font-bold text-right coluna-valor kt-padding-l-10 kt-padding-r-10">@agendamento.ObterValorTotalEmReais()</td>
+                    <td style="white-space: nowrap;" class="kt-font-@(agendamento.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") coluna-valor">@agendamento.ObterValorTotalEmReais()</td>
                     <td>
                         <button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables alterar-agendamento" data-id="@agendamento.Id" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Alterar"><span class="la la-edit"></span></button>
                     </td>

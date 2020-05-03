@@ -118,7 +118,7 @@
             </div>
             <div class="kt-portlet__body" style="padding: 15px;">
                 <div class="table-responsive no-padding">
-                    <table class="table table-striped table-sm">
+                    <table class="table table-striped table-sm" id="table-parcelas">
                         <thead>
                             <tr>
                                 <th class="text-center">Parcela</th>
@@ -137,7 +137,7 @@
                                     <td style="white-space: nowrap;">@parcela.Observacao</td>
                                     <td style="white-space: nowrap;">@parcela.Agendamento.Pessoa</td>
                                     <td style="white-space: nowrap;"><i class="fa fa-tag kt-font-@(parcela.Agendamento.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") kt-font-sm"></i> @parcela.Agendamento.CategoriaCaminho</td>
-                                    <td style="white-space: nowrap;" class="coluna-valor text-right kt-font-@(parcela.Agendamento.ObterTipo() == TipoCategoria.Credito ? "success" : "danger")">@parcela.ObterValorEmReais()</td>
+                                    <td style="white-space: nowrap;" class="coluna-valor kt-font-@(parcela.Agendamento.ObterTipo() == TipoCategoria.Credito ? "success" : "danger")">@parcela.ObterValorEmReais()</td>
                                     <td>
                                         <button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables visualizar-agendamento" data-id="@parcela.IdAgendamento" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Visualizar agendamento"><span class="fa fa-calendar-alt"></span></button>
                                     </td>

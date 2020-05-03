@@ -44,7 +44,7 @@
                     data: "valor",
                     title: "Valor",
                     orderable: true,
-                    className: "all text-right text-nowrap coluna-valor kt-padding-l-15 kt-padding-r-15",
+                    className: "all coluna-valor",
                     render: function (data, type, row) {
                         return '<span class="kt-font-' + (row.tipoCategoria == 'C' ? 'success' : 'danger') + '">' + numeral(data).format('$0,0.00') + '</span>';
                     }
@@ -478,6 +478,8 @@
             });
 
             _initDataTable();
+
+            App.aplicarTabelaSelecionavel("#tblLancamento");
 
             Bufunfa.aplicarEfeitoContagem("span-saldo-atual", $("#span-saldo-atual").data("valor"));
 
