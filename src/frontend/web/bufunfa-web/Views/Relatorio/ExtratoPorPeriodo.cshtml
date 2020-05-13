@@ -13,7 +13,7 @@
                     <tr>
                         <td>
                             <h1 class="kt-invoice__title" style="margin-bottom:0;">EXTRATO POR PERÍODO</h1>
-                            <span>@Html.Raw(Model.Periodo != null ? $"<span class=\"kt-font-bold\">{Model.Periodo.Nome}</span> <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> " : string.Empty)Período de @Model.DataInicio.ToString("dd/MM/yyyy") até @Model.DataFim.ToString("dd/MM/yyyy")</span>
+                            <span>@Html.Raw(Model.Periodo != null ? $"<span class=\"kt-font-bold\">{Model.Periodo.Nome}</span>  <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span>  " : string.Empty) Período de @Model.DataInicio.ToString("dd/MM/yyyy") até @Model.DataFim.ToString("dd/MM/yyyy")</span>
                         </td>
                         <td style="width: 1px;">
                             @if (Model.GerarPdf)
@@ -81,7 +81,7 @@
 
     <div class="kt-invoice__body" style="padding: 20px 0;">
         <div class="kt-invoice__container" style="width:100%;">
-            <table class="table table-striped table-borderless" id="table-relatorio">
+            <table class="table table-striped table-bordered" id="table-relatorio">
                 <thead>
                     <tr>
                         <th style="width:1px; white-space:nowrap;">DATA</th>
@@ -102,7 +102,7 @@
                             </td>
                             <td>@lancamento.Pessoa?.Nome</td>
                             <td>@lancamento.Observacao</td>
-                            <td style="text-align:center; padding:0.3rem;">
+                            <td style="text-align:center;">
                                 @if (lancamento.IdParcela.HasValue)
                                 {
                                     <i class="fa fa-calendar-alt kt-font-primary"></i>
@@ -116,14 +116,14 @@
                                     <i class="fa fa-credit-card kt-font-primary"></i>
                                 }
                             </td>
-                            <td class="kt-font-@(lancamento.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") kt-font-lg coluna-valor" style="width:1px; white-space: nowrap;">@lancamento.ObterValorEmReais()</td>
+                            <td class="kt-font-@(lancamento.Categoria.ObterTipo() == TipoCategoria.Credito ? "success" : "danger") coluna-valor" style="width:1px; white-space: nowrap; font-size: 1rem">@lancamento.ObterValorEmReais()</td>
                         </tr>
                     }
                 </tbody>
                 <tfoot>
                     <tr style="border-top: 3px solid #ccc;">
-                        <td colspan="5" class="text-right kt-font-lg kt-font-bolder">TOTAL</td>
-                        <td class="@(Model.ValorSaldoPeriodo >= 0 ? "kt-font-success" : "kt-font-danger") kt-font-xl kt-font-bolder text-right" style="white-space: nowrap;">@Model.ObterSaldoPeriodoEmReais()</td>
+                        <td colspan="5" class="text-right kt-font-lg kt-font-bolder" style="border-left:none; border-bottom:none;">TOTAL</td>
+                        <td class="@(Model.ValorSaldoPeriodo >= 0 ? "kt-font-success" : "kt-font-danger") kt-font-lg kt-font-bolder text-right" style="white-space: nowrap;">@Model.ObterSaldoPeriodoEmReais()</td>
                     </tr>
                 </tfoot>
             </table>

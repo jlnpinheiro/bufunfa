@@ -469,7 +469,7 @@ table.dataTable.table-sm .sorting:after, table.dataTable.table-sm .sorting_asc:a
     padding: 0.6rem;
     border-top: none;
     font-weight: normal;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #595d6e;
 }
 
@@ -504,11 +504,11 @@ table.dataTable.table-sm .sorting:after, table.dataTable.table-sm .sorting_asc:a
 
 .table td.coluna-valor {
     background-color: #F1F2F4 !important;
-    padding-left: 15px;
-    padding-right: 15px;
-    text-align: right;
-    font-weight: 400;
-    white-space: nowrap;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    text-align: right !important;
+    font-weight: 400 !important;
+    white-space: nowrap !important;
 }
 
 .table .selected td {
