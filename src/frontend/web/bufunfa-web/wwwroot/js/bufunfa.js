@@ -1488,10 +1488,6 @@
 
                                 feedback.exibir(function () {
                                     _atualizarTela();
-
-                                    if (opcoes != null && opcoes.callbacks.salvar != null) {
-                                        opcoes.callbacks.salvar();
-                                    }
                                 });
                             })
                             .fail(function (jqXhr) {

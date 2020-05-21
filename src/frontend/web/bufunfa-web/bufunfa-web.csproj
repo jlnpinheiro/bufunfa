@@ -3,7 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>JNogueira.Bufunfa.Web</RootNamespace>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="git-info.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="git-info.txt" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="logger-discord-provider" Version="2.1.1" />
@@ -15,6 +24,14 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.1" />
     <PackageReference Include="Utilzao" Version="3.0.2" />
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="&quot;$(ProjectDir)pre-build.bat&quot;" />
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="&quot;$(ProjectDir)pos-build.bat&quot;" />
+  </Target>
 
 
 </Project>

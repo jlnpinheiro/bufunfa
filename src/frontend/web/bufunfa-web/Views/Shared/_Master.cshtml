@@ -1,14 +1,29 @@
-﻿@using JNogueira.Bufunfa.Web.Models
-@using JNogueira.Bufunfa.Web.Helpers
+﻿@using JNogueira.Bufunfa.Web.Helpers
+@using JNogueira.Bufunfa.Web.Models
 @using JNogueira.Utilzao
-@using Microsoft.AspNetCore.Http.Extensions
 @using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Extensions
+@using System.IO
 
 @inject CookieHelper cookieHelper
 @inject IHttpContextAccessor httpContext
 
 @{
     var url = UriHelper.GetDisplayUrl(httpContext.HttpContext.Request);
+
+    IEnumerable<string> gitInfo;
+
+    using (var stream = typeof(JNogueira.Bufunfa.Web.Feedback).Assembly.GetManifestResourceStream("JNogueira.Bufunfa.Web.git-info.txt"))
+    {
+        using (var reader = new StreamReader(stream))
+        {
+            gitInfo = reader.ReadToEnd().Split('\n');
+        }
+    }
+
+    var versao = gitInfo.ElementAt(1).Substring(0, 7);
+    var commit = gitInfo.ElementAt(1);
+    var dataCommit = gitInfo.ElementAt(3);
 }
 
 <!DOCTYPE html>
@@ -287,8 +302,8 @@
                 <!-- begin:: Footer -->
                 <div class="kt-footer  kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop" id="kt_footer">
                     <div class="kt-container  kt-container--fluid ">
-                        <div class="kt-footer__copyright">
-                            2019&nbsp;&copy;&nbsp;<a href="http://jnogueira.net.br/" target="_blank" class="kt-link">Jorge Nogueira</a>
+                        <div class="kt-footer__copyright" style="display: -webkit-box;">
+                            <small>v. <a href="https://github.com/jlnpinheiro/bufunfa/commit/@(commit)" class="kt-link" target="_blank">@(versao)</a></small>&nbsp;<span class="kt-badge kt-badge--primary kt-badge--dot kt-badge--sm"></span>&nbsp;2019&nbsp;&copy;&nbsp;<a href="https://jnogueira.net.br/" target="_blank" class="kt-link">Jorge Nogueira</a>
                         </div>
                         <div class="kt-footer__menu">
                             <a href="https://github.com/jlnpinheiro/bufunfa" target="_blank" class="kt-footer__menu-link kt-link" data-toggle="kt-tooltip" data-boundary="window" data-placement="left" data-original-title="Repositório no Github"><i class="fab fa-github"></i></a>
