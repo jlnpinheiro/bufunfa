@@ -21,7 +21,7 @@ WORKDIR /app
 # Copia todos os publicáveis para o diretório app
 COPY --from=build-env /src/bufunfa-web/publish .
 
-RUN rm -rf publish cs de es fr it ja ko pl ru tr zh-* web.config bufunfa-web
+RUN rm -rf publish cs de es fr it ja ko pl ru tr zh-* web.config bufunfa-web *.bat
 
 # Define o environment
 ENV ASPNETCORE_ENVIRONMENT=Production

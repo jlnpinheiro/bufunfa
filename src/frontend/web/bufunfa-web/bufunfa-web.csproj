@@ -26,11 +26,11 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="&quot;$(ProjectDir)pre-build.bat&quot;" />
+    <Exec Command="if &quot;$(ConfigurationName)&quot; == &quot;Release&quot; goto skip&#xD;&#xA;call &quot;$(ProjectDir)pre-build.bat&quot;&#xD;&#xA;:skip" />
   </Target>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="&quot;$(ProjectDir)pos-build.bat&quot;" />
+    <Exec Command="if &quot;$(ConfigurationName)&quot; == &quot;Release&quot; goto skip&#xD;&#xA;call &quot;$(ProjectDir)pos-build.bat&quot;&#xD;&#xA;:skip" />
   </Target>
 
 

@@ -286,6 +286,7 @@ Dockerfile
 **/bundleconfig.json
 **/key-*.xml
 **/appsettings*.json
+**/*.bat
 
 **/wwwroot/js/**/*.js
 !**/wwwroot/js/**/*.min.js

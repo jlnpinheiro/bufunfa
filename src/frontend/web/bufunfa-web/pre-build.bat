@@ -1,4 +1,3 @@
-@echo off
 echo Executando pre-build...
 type nul > app_offline.htm
 git rev-parse --abbrev-ref HEAD > "git-info.txt"
