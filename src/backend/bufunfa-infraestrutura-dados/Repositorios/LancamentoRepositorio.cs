@@ -60,13 +60,25 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             if (procurarEntrada.DataInicio.HasValue && procurarEntrada.DataFim.HasValue)
                 query = query.Where(x => x.Data.Date >= procurarEntrada.DataInicio.Value.Date && x.Data.Date <= procurarEntrada.DataFim.Value.Date);
 
-            switch(procurarEntrada.OrdenarPor)
+            switch (procurarEntrada.OrdenarPor)
             {
-                case "pessoa":
-                    query = string.Equals(procurarEntrada.OrdenarSentido, "ASC", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(x => x.Pessoa.Nome) : query.OrderByDescending(x => x.Pessoa.Nome);
+                case LancamentoOrdenarPor.CategoriaCaminho:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.AsEnumerable().OrderBy(x => x.Categoria.ObterCaminho()).AsQueryable() : query.AsEnumerable().OrderByDescending(x => x.Categoria.ObterCaminho()).AsQueryable();
+                    break;
+                case LancamentoOrdenarPor.Data:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => x.Data) : query.OrderByDescending(x => x.Data);
+                    break;
+                case LancamentoOrdenarPor.NomePessoa:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => (x.Pessoa != null) ? x.Pessoa.Nome : string.Empty) : query.OrderByDescending(x => (x.Pessoa != null) ? x.Pessoa.Nome : string.Empty);
+                    break;
+                case LancamentoOrdenarPor.NomeConta:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => (x.Conta != null) ? x.Conta.Nome : string.Empty) : query.OrderByDescending(x => (x.Conta != null) ? x.Conta.Nome : string.Empty);
+                    break;
+                case LancamentoOrdenarPor.Valor:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => x.Valor) : query.OrderByDescending(x => x.Valor);
                     break;
                 default:
-                    query = query.OrderByProperty(procurarEntrada.OrdenarPor, procurarEntrada.OrdenarSentido);
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => x.Id) : query.OrderByDescending(x => x.Id);
                     break;
             }
 
@@ -76,7 +88,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
 
                 return new ProcurarSaida(
                     pagedList.ToList().Select(x => new LancamentoSaida(x)),
-                    procurarEntrada.OrdenarPor,
+                    procurarEntrada.OrdenarPor.ToString(),
                     procurarEntrada.OrdenarSentido,
                     pagedList.TotalItemCount,
                     pagedList.PageCount,
@@ -89,7 +101,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
 
                 return new ProcurarSaida(
                     query.ToList().Select(x => new LancamentoSaida(x)),
-                    procurarEntrada.OrdenarPor,
+                    procurarEntrada.OrdenarPor.ToString(),
                     procurarEntrada.OrdenarSentido,
                     totalRegistros);
             }

@@ -8,19 +8,23 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
     /// </summary>
     public class ProcurarCategoriaEntrada : Notificavel
     {
-        public int IdUsuario { get; private set; }
+        public int IdUsuario { get; }
 
-        public string Nome { get; set; }
+        public string Nome { get; }
 
-        public int? IdCategoriaPai { get; set; }
+        public int? IdCategoriaPai { get; }
 
-        public string Tipo { get; set; }
+        public string Tipo { get; }
 
-        public string Caminho { get; set; }
+        public string Caminho { get; }
 
-        public ProcurarCategoriaEntrada(int idUsuario)
+        public ProcurarCategoriaEntrada(int idUsuario, string nome = null, int? idCategoriaPai = null, string tipo = null, string caminho = null)
         {
-            this.IdUsuario = idUsuario;
+            IdUsuario      = idUsuario;
+            Nome           = nome;
+            IdCategoriaPai = idCategoriaPai;
+            Tipo           = tipo;
+            Caminho        = caminho;
 
             this.Validar();
         }

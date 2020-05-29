@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace JNogueira.Bufunfa.Web.Models
 {
@@ -30,11 +31,13 @@ namespace JNogueira.Bufunfa.Web.Models
         /// <summary>
         /// Data ínicio da parcela do agendamento
         /// </summary>
+        [JsonConverter(typeof(JsonDateFormatConverter), "dd/MM/yyyy")]
         public DateTime? DataInicioParcela { get; set; }
 
         /// <summary>
         /// Data fim da parcela do agendamento
         /// </summary>
+        [JsonConverter(typeof(JsonDateFormatConverter), "dd/MM/yyyy")]
         public DateTime? DataFimParcela { get; set; }
 
         /// <summary>

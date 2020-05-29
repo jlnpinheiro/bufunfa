@@ -40,8 +40,23 @@ namespace JNogueira.Bufunfa.Web.Controllers
             if (filtro == null)
                 return new FeedbackResult(new Feedback(TipoFeedback.Atencao, "As informações para a procura não foram preenchidas.", tipoAcao: TipoAcaoAoOcultarFeedback.Ocultar));
 
+            PeriodoOrdenarPor ordenarPor;
+
+            switch (_datatablesHelper.OrdenarPor)
+            {
+                case "nome":
+                    ordenarPor = PeriodoOrdenarPor.Nome;
+                    break;
+                case "dataInicio":
+                    ordenarPor = PeriodoOrdenarPor.DataInicio;
+                    break;
+                default:
+                    ordenarPor = PeriodoOrdenarPor.DataFim;
+                    break;
+            }
+
             filtro.Nome           = _datatablesHelper.PalavraChave;
-            filtro.OrdenarPor     = _datatablesHelper.OrdenarPor;
+            filtro.OrdenarPor     = ordenarPor;
             filtro.OrdenarSentido = _datatablesHelper.OrdenarSentido;
             filtro.PaginaIndex    = _datatablesHelper.PaginaIndex;
             filtro.PaginaTamanho  = _datatablesHelper.PaginaTamanho;
@@ -131,7 +146,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
             var filtro = new ProcurarPeriodo
             {
                 Nome = palavraChave,
-                OrdenarPor = "DataInicio",
+                OrdenarPor = PeriodoOrdenarPor.DataInicio,
                 OrdenarSentido = "DESC",
                 PaginaIndex = 1,
                 PaginaTamanho = 10

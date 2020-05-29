@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace JNogueira.Bufunfa.Web.Models
 {
     /// <summary>
     /// Classe de entrada para a procura de lançamentos
     /// </summary>
-    public class ProcurarLancamento : BaseProcurar
+    public class ProcurarLancamento : BaseProcurar<LancamentoOrdenarPor>
     {
         /// <summary>
         /// ID da conta
@@ -25,11 +26,22 @@ namespace JNogueira.Bufunfa.Web.Models
         /// <summary>
         /// Data de início do período para procura
         /// </summary>
+        [JsonConverter(typeof(JsonDateFormatConverter), "dd/MM/yyyy")]
         public DateTime DataInicio { get; set; }
 
         /// <summary>
         /// Data fim do período para procura
         /// </summary>
+        [JsonConverter(typeof(JsonDateFormatConverter), "dd/MM/yyyy")]
         public DateTime DataFim { get; set; }
+    }
+
+    public enum LancamentoOrdenarPor
+    {
+        CategoriaCaminho,
+        NomePessoa,
+        NomeConta,
+        Valor,
+        Data
     }
 }

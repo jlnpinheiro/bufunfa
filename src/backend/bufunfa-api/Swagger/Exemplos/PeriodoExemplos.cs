@@ -23,7 +23,7 @@ namespace JNogueira.Bufunfa.Api.Swagger.Exemplos
             {
                 Data = DateTime.Now.Date,
                 Nome = "JANEIRO",
-                OrdenarPor = "Nome",
+                OrdenarPor = PeriodoOrdenarPor.Nome,
                 OrdenarSentido = "ASC",
                 PaginaIndex = 1,
                 PaginaTamanho = 10

@@ -105,7 +105,7 @@ namespace JNogueira.Bufunfa.Api.Swagger.Exemplos
                 IdCategoria = 80,
                 IdConta = 1,
                 IdPessoa = null,
-                OrdenarPor = "Data",
+                OrdenarPor = LancamentoOrdenarPor.Data,
                 OrdenarSentido = "DESC",
                 PaginaIndex = 1,
                 PaginaTamanho = 50

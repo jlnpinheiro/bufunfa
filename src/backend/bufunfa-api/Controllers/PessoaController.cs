@@ -57,13 +57,12 @@ namespace JNogueira.Bufunfa.Api.Controllers
         {
             var entrada = new ProcurarPessoaEntrada(
                 base.ObterIdUsuarioClaim(),
+                model.Nome,
                 model.OrdenarPor,
                 model.OrdenarSentido,
                 model.PaginaIndex,
-                model.PaginaTamanho)
-            {
-                Nome = model.Nome
-            };
+                model.PaginaTamanho
+            );
 
             return new ApiResult(await _pessoaServico.ProcurarPessoas(entrada));
         }

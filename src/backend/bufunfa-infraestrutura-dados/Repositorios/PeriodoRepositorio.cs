@@ -62,7 +62,21 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             if (procurarEntrada.Data.HasValue)
                 query = query.Where(x => x.DataInicio <= procurarEntrada.Data.Value.Date && x.DataFim >= procurarEntrada.Data.Value.Date);
 
-            query = query.OrderByProperty(procurarEntrada.OrdenarPor, procurarEntrada.OrdenarSentido);
+            switch (procurarEntrada.OrdenarPor)
+            {
+                case PeriodoOrdenarPor.DataFim:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => x.DataFim) : query.OrderByDescending(x => x.DataFim);
+                    break;
+                case PeriodoOrdenarPor.DataInicio:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => x.DataInicio) : query.OrderByDescending(x => x.DataInicio);
+                    break;
+                case PeriodoOrdenarPor.Nome:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => x.Nome) : query.OrderByDescending(x => x.Nome);
+                    break;
+                default:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => x.Id) : query.OrderByDescending(x => x.Id);
+                    break;
+            }
 
             if (procurarEntrada.Paginar())
             {
@@ -70,7 +84,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
 
                 return new ProcurarSaida(
                     pagedList.ToList().Select(x => new PeriodoSaida(x)),
-                    procurarEntrada.OrdenarPor,
+                    procurarEntrada.OrdenarPor.ToString(),
                     procurarEntrada.OrdenarSentido,
                     pagedList.TotalItemCount,
                     pagedList.PageCount,
@@ -83,7 +97,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
 
                 return new ProcurarSaida(
                     query.ToList().Select(x => new PeriodoSaida(x)),
-                    procurarEntrada.OrdenarPor,
+                    procurarEntrada.OrdenarPor.ToString(),
                     procurarEntrada.OrdenarSentido,
                     totalRegistros);
             }

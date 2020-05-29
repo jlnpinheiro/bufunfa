@@ -63,16 +63,39 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
                     : query.AsEnumerable().Where(x => x.Parcelas.Any(y => y.ObterStatus() == StatusParcela.Aberta)).AsQueryable();
             }
 
+            switch (procurarEntrada.OrdenarPor)
+            {
+                case AgendamentoOrdenarPor.DataProximaParcela:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => x.ObterDataProximaParcelaAberta()).ThenBy(x => x.Id) : query.OrderByDescending(x => x.ObterDataProximaParcelaAberta()).ThenBy(x => x.Id);
+                    break;
+                case AgendamentoOrdenarPor.DataUltimaParcela:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => x.ObterDataUltimaParcelaAberta()).ThenBy(x => x.Id) : query.OrderByDescending(x => x.ObterDataUltimaParcelaAberta()).ThenBy(x => x.Id);
+                    break;
+                case AgendamentoOrdenarPor.CategoriaCaminho:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => x.Categoria.ObterCaminho()).ThenBy(x => x.Id) : query.OrderByDescending(x => x.Categoria.ObterCaminho()).ThenBy(x => x.Id);
+                    break;
+                case AgendamentoOrdenarPor.NomePessoa:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => (x.Pessoa != null) ? x.Pessoa.Nome : string.Empty).ThenBy(x => x.Id) : query.OrderByDescending(x => (x.Pessoa != null) ? x.Pessoa.Nome : string.Empty).ThenBy(x => x.Id);
+                    break;
+                case AgendamentoOrdenarPor.NomeConta:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => (x.Conta != null) ? x.Conta.Nome : string.Empty).ThenBy(x => x.Id) : query.OrderByDescending(x => (x.Conta != null) ? x.Conta.Nome : string.Empty).ThenBy(x => x.Id);
+                    break;
+                case AgendamentoOrdenarPor.NomeCartaoCredito:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => (x.CartaoCredito != null) ? x.CartaoCredito.Nome : string.Empty).ThenBy(x => x.Id) : query.OrderByDescending(x => (x.CartaoCredito != null) ? x.CartaoCredito.Nome : string.Empty).ThenBy(x => x.Id);
+                    break;
+                default:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => x.Id) : query.OrderByDescending(x => x.Id);
+                    break;
+            }
+
             if (procurarEntrada.Paginar())
             {
                 var pagedList = await query.ToPagedListAsync(procurarEntrada.PaginaIndex.Value, procurarEntrada.PaginaTamanho.Value);
 
-                var lst = pagedList.ToList().OrderBy(x => x.ObterDataProximaParcelaAberta()).ThenBy(x => x.Id).Select(x => new AgendamentoSaida(x));
-
                 return new ProcurarSaida(
-                    lst,
-                    "DataProximaParcelaAberta",
-                    "ASC",
+                    pagedList.ToList().Select(x => new AgendamentoSaida(x)),
+                    procurarEntrada.OrdenarPor.ToString(),
+                    procurarEntrada.OrdenarSentido,
                     pagedList.TotalItemCount,
                     pagedList.PageCount,
                     procurarEntrada.PaginaIndex,
@@ -83,9 +106,9 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
                 var totalRegistros = query.Count();
 
                 return new ProcurarSaida(
-                    query.ToList().OrderBy(x => x.ObterDataProximaParcelaAberta()).ThenBy(x => x.Id).Select(x => new AgendamentoSaida(x)),
-                    "DataProximaParcelaAberta",
-                    "ASC",
+                    query.ToList().Select(x => new AgendamentoSaida(x)),
+                    procurarEntrada.OrdenarPor.ToString(),
+                    procurarEntrada.OrdenarSentido,
                     totalRegistros);
             }
         }

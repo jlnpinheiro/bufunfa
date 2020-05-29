@@ -3,7 +3,7 @@
     /// <summary>
     /// Classe de entrada para a procura de categorias
     /// </summary>
-    public class ProcurarCategoria : BaseProcurar
+    public class ProcurarCategoria : BaseModel
     {
         /// <summary>
         /// Nome da categoria

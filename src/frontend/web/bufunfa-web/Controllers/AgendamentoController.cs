@@ -295,7 +295,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
             var pessoaSaida = await _proxy.ProcurarPessoas(new ProcurarPessoa
             {
                 Nome = entrada.NomePessoa,
-                OrdenarPor = "Nome",
+                OrdenarPor = PessoaOrdenarPor.Nome,
                 OrdenarSentido = "ASC",
                 PaginaIndex = 1,
                 PaginaTamanho = 10

@@ -924,6 +924,9 @@
                 }).on('click', function (i, row) {
                     AppModal.exibirPorRota(App.corrigirPathRota("/graficos/exibir-popup-periodo-grafico-valor-por-categoria?idPeriodo=" + row.id + "&idCategoria=" + idCategoria + "&ano=" + ano), function () {
                         KTApp.initPortlets();
+                        App.aplicarTabelaSelecionavel("#tblLancamentosDetalhe");
+                        App.aplicarTabelaSelecionavel("#tblDetalhesDetalhe");
+                        App.aplicarTabelaSelecionavel("#tblParcelasDetalhe");
                     });
                 });
 

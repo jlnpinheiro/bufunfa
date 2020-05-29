@@ -18,7 +18,7 @@ namespace JNogueira.Bufunfa.Dominio.Entidades
         public int IdUsuario { get; private set; }
 
         /// <summary>
-        /// Nome da período
+        /// Nome da pessoa
         /// </summary>
         public string Nome { get; private set; }
 

@@ -1,9 +1,12 @@
-﻿namespace JNogueira.Bufunfa.Web.Models
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace JNogueira.Bufunfa.Web.Models
 {
     /// <summary>
     /// Classe ancestral que contém todas as propriedades comuns relacionadas a procura
     /// </summary>
-    public abstract class BaseProcurar : BaseModel
+    public abstract class BaseProcurar<TOrdenarPor> : BaseModel
     {
         /// <summary>
         /// Indice da página
@@ -18,16 +21,12 @@
         /// <summary>
         /// Nome da propriedade pela qual os dados serão ordenados
         /// </summary>
-        public string OrdenarPor { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public TOrdenarPor OrdenarPor { get; set; }
 
         /// <summary>
         /// Sentido de ordenação dos dados
         /// </summary>
         public string OrdenarSentido { get; set; }
-
-        public BaseProcurar()
-        {
-            this.OrdenarSentido = "ASC";
-        }
     }
 }

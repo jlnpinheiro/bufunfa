@@ -32,7 +32,7 @@
                 {
                     data: "categoria",
                     title: "Categoria",
-                    orderable: false,
+                    orderable: true,
                     className: "all text-nowrap",
                     render: function (data, type, row) {
                         return '<i class="fa fa-tag kt-font-' + (row.tipoCategoria == 'C' ? 'success' : 'danger') + ' kt-font-sm"></i>  ' + data;
@@ -43,7 +43,7 @@
                 {
                     data: "valor",
                     title: "Valor",
-                    orderable: true,
+                    orderable: false,
                     className: "all coluna-valor",
                     render: function (data, type, row) {
                         return '<span class="kt-font-' + (row.tipoCategoria == 'C' ? 'success' : 'danger') + '">' + numeral(data).format('$0,0.00') + '</span>';

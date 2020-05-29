@@ -46,12 +46,12 @@
             <div class="kt-portlet__body" style="padding: 15px;">
                 @if (Model.Lancamentos?.Any() == true)
                 {
-                    <table class="table table-striped mb-0">
+                    <table class="table table-striped mb-0" id="tblLancamentosDetalhe">
                         <thead>
                             <tr>
                                 <td style="width:1px;" class="nowrap">Data</td>
                                 <td>Conta / Pessoa</td>
-                                <td style="width: 1px;">Valor</td>
+                                <td style="width: 1px;" class="text-center">Valor</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,7 +70,7 @@
                                             <br /><i>@lancamento.Observacao</i>
                                         }
                                     </td>
-                                    <td style="white-space: nowrap; line-height: 12px; text-align: right;">
+                                    <td class="coluna-valor">
                                         @lancamento.Valor.ToString("C2")
                                     </td>
                                 </tr>
@@ -105,12 +105,12 @@
             <div class="kt-portlet__body" style="padding: 15px;">
                 @if (Model.LancamentoDetalhes?.Any() == true)
                 {
-                    <table class="table table-striped mb-0">
+                    <table class="table table-striped mb-0" id="tblDetalhesDetalhe">
                         <thead>
                             <tr>
                                 <td style="width:1px;" class="nowrap">Data do lançamento</td>
                                 <td>Conta / Pessoa</td>
-                                <td style="width: 1px;">Valor</td>
+                                <td style="width: 1px;" class="text-center">Valor</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -129,7 +129,7 @@
                                             <br /><i>@detalhe.Observacao</i>
                                         }
                                     </td>
-                                    <td style="white-space: nowrap; line-height: 12px; text-align: right;">
+                                    <td class="coluna-valor">
                                         @detalhe.Valor.ToString("C2")
                                     </td>
                                 </tr>
@@ -164,12 +164,12 @@
             <div class="kt-portlet__body" style="padding: 15px;">
                 @if (Model.Parcelas?.Any() == true)
                 {
-                    <table class="table table-striped mb-0">
+                    <table class="table table-striped mb-0" id="tblParcelasDetalhe">
                         <thead>
                             <tr>
                                 <td style="width:1px;" class="nowrap">Data do lançamento</td>
                                 <td>Agendamento</td>
-                                <td style="width: 1px;">Valor</td>
+                                <td style="width: 1px;" class="text-center">Valor</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -185,7 +185,7 @@
                                         }
                                         <br /><i>Parcela @($"{parcela.Numero} de {parcela.Agendamento.QuantidadeParcelas}")</i>
                                     </td>
-                                    <td style="white-space: nowrap; line-height: 12px; text-align: right;">
+                                    <td class="coluna-valor">
                                         @parcela.Valor.ToString("C2")
                                     </td>
                                 </tr>

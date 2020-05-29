@@ -30,7 +30,15 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
             if (!string.IsNullOrEmpty(procurarEntrada.Nome))
                 query = query.Where(x => x.Nome.IndexOf(procurarEntrada.Nome, StringComparison.InvariantCultureIgnoreCase) != -1);
 
-            query = query.OrderByProperty(procurarEntrada.OrdenarPor, procurarEntrada.OrdenarSentido);
+            switch (procurarEntrada.OrdenarPor)
+            {
+                case PessoaOrdenarPor.Nome:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => x.Nome) : query.OrderByDescending(x => x.Nome);
+                    break;
+                default:
+                    query = procurarEntrada.OrdenarSentido == "ASC" ? query.OrderBy(x => x.Id) : query.OrderByDescending(x => x.Id);
+                    break;
+            }
 
             if (procurarEntrada.Paginar())
             {
@@ -38,7 +46,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
 
                 return new ProcurarSaida(
                     pagedList.ToList().Select(x => new PessoaSaida(x)),
-                    procurarEntrada.OrdenarPor,
+                    procurarEntrada.OrdenarPor.ToString(),
                     procurarEntrada.OrdenarSentido,
                     pagedList.TotalItemCount,
                     pagedList.PageCount,
@@ -51,7 +59,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
 
                 return new ProcurarSaida(
                     query.ToList().Select(x => new PessoaSaida(x)),
-                    procurarEntrada.OrdenarPor,
+                    procurarEntrada.OrdenarPor.ToString(),
                     procurarEntrada.OrdenarSentido,
                     totalRegistros);
             }

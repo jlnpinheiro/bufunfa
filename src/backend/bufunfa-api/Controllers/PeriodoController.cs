@@ -82,14 +82,13 @@ namespace JNogueira.Bufunfa.Api.Controllers
         {
             var entrada = new ProcurarPeriodoEntrada(
                 base.ObterIdUsuarioClaim(),
+                model.Nome,
+                model.Data,
                 model.OrdenarPor,
                 model.OrdenarSentido,
                 model.PaginaIndex,
-                model.PaginaTamanho)
-            {
-                Nome = model.Nome,
-                Data = model.Data
-            };
+                model.PaginaTamanho
+            );
 
             return new ApiResult(await _periodoServico.ProcurarPeriodos(entrada));
         }

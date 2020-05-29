@@ -52,7 +52,22 @@ namespace JNogueira.Bufunfa.Web.Controllers
             if (filtro == null)
                 return new FeedbackResult(new Feedback(TipoFeedback.Atencao, "As informações para a procura não foram preenchidas.", tipoAcao: TipoAcaoAoOcultarFeedback.Ocultar));
 
-            filtro.OrdenarPor = _datatablesHelper.OrdenarPor;
+            LancamentoOrdenarPor ordenarPor;
+
+            switch (_datatablesHelper.OrdenarPor)
+            {
+                case "categoria":
+                    ordenarPor = LancamentoOrdenarPor.CategoriaCaminho;
+                    break;
+                case "pessoa":
+                    ordenarPor = LancamentoOrdenarPor.NomePessoa;
+                    break;
+                default:
+                    ordenarPor = LancamentoOrdenarPor.Data;
+                    break;
+            }
+
+            filtro.OrdenarPor = ordenarPor;
             filtro.OrdenarSentido = _datatablesHelper.OrdenarSentido;
             filtro.PaginaIndex = _datatablesHelper.PaginaIndex;
             filtro.PaginaTamanho = _datatablesHelper.PaginaTamanho;

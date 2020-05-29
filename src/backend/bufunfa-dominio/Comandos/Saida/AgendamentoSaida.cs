@@ -17,46 +17,6 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         public int Id { get; }
 
         /// <summary>
-        /// Tipo do método de pagamento
-        /// </summary>
-        public MetodoPagamento CodigoTipoMetodoPagamento { get; }
-
-        /// <summary>
-        /// Descrição do tipo do método de pagamento
-        /// </summary>
-        public string DescricaoTipoMetodoPagamento { get; }
-
-        /// <summary>
-        /// Observação sobre o agendamento
-        /// </summary>
-        public string Observacao { get; }
-
-        /// <summary>
-        /// Conta associada ao agendamento
-        /// </summary>
-        public ContaSaida Conta { get; }
-
-        /// <summary>
-        /// Cartão de crédito associado ao agendamento
-        /// </summary>
-        public CartaoCreditoSaida CartaoCredito { get; }
-
-        /// <summary>
-        /// Pessoa associada ao agendamento
-        /// </summary>
-        public PessoaSaida Pessoa { get; }
-
-        /// <summary>
-        /// Categoria do agendamento
-        /// </summary>
-        public CategoriaSaida Categoria { get; }
-
-        /// <summary>
-        /// Parcelas do agendamento
-        /// </summary>
-        public IEnumerable<ParcelaSaida> Parcelas { get; }
-
-        /// <summary>
         /// Data de vencimento da próxima parcela aberta.
         /// </summary>
         [JsonConverter(typeof(JsonDateFormatConverter), "dd/MM/yyyy")]
@@ -102,6 +62,46 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         /// Indica se o agendamento foi concluído, isto é, o número total de parcelas é igual ao número de parcelas descartadas e lançadas.
         /// </summary>
         public bool Concluido { get; }
+
+        /// <summary>
+        /// Tipo do método de pagamento
+        /// </summary>
+        public MetodoPagamento CodigoTipoMetodoPagamento { get; }
+
+        /// <summary>
+        /// Descrição do tipo do método de pagamento
+        /// </summary>
+        public string DescricaoTipoMetodoPagamento { get; }
+
+        /// <summary>
+        /// Observação sobre o agendamento
+        /// </summary>
+        public string Observacao { get; }
+
+        /// <summary>
+        /// Conta associada ao agendamento
+        /// </summary>
+        public ContaSaida Conta { get; }
+
+        /// <summary>
+        /// Cartão de crédito associado ao agendamento
+        /// </summary>
+        public CartaoCreditoSaida CartaoCredito { get; }
+
+        /// <summary>
+        /// Pessoa associada ao agendamento
+        /// </summary>
+        public PessoaSaida Pessoa { get; }
+
+        /// <summary>
+        /// Categoria do agendamento
+        /// </summary>
+        public CategoriaSaida Categoria { get; }
+
+        /// <summary>
+        /// Parcelas do agendamento
+        /// </summary>
+        public IEnumerable<ParcelaSaida> Parcelas { get; }        
 
         public AgendamentoSaida(Agendamento agendamento)
         {

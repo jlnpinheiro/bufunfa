@@ -1,44 +1,52 @@
 ﻿using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.NotifiqueMe;
 using System;
+using System.ComponentModel;
 
 namespace JNogueira.Bufunfa.Dominio.Comandos
 {
     /// <summary>
     /// Classe com opções de filtro para procura de agendamentos
     /// </summary>
-    public class ProcurarAgendamentoEntrada : Notificavel
+    public class ProcurarAgendamentoEntrada : ProcurarEntrada<AgendamentoOrdenarPor>
     {
-        public int IdUsuario { get; private set; }
+        public int? IdCategoria { get; }
 
-        /// <summary>
-        /// Página atual da listagem que exibirá o resultado da pesquisa
-        /// </summary>
-        public int? PaginaIndex { get; set; }
+        public int? IdConta { get; }
 
-        /// <summary>
-        /// Quantidade de registros exibidos por página na listagem que exibirá o resultado da pesquisa
-        /// </summary>
-        public int? PaginaTamanho { get; set; }
+        public int? IdCartaoCredito { get; }
 
-        public int? IdCategoria { get; set; }
+        public int? IdPessoa { get; }
 
-        public int? IdConta { get; set; }
+        public DateTime? DataInicioParcela { get; }
 
-        public int? IdCartaoCredito { get; set; }
+        public DateTime? DataFimParcela { get; }
 
-        public int? IdPessoa { get; set; }
+        public bool? Concluido { get; }
 
-        public DateTime? DataInicioParcela { get; set; }
-
-        public DateTime? DataFimParcela { get; set; }
-
-        public bool? Concluido { get; set; }
-
-        public ProcurarAgendamentoEntrada(int idUsuario)
+        public ProcurarAgendamentoEntrada(
+            int idUsuario,
+            int? idCategoria = null,
+            int? idConta = null,
+            int? idCartaoCredito = null,
+            int? idPessoa = null,
+            DateTime? dataInicioParcela = null,
+            DateTime? dataFimParcela = null,
+            bool? concluido = null,
+            AgendamentoOrdenarPor ordenarPor = AgendamentoOrdenarPor.DataProximaParcela,
+            string ordenarSentido = "ASC",
+            int? paginaIndex = 1,
+            int? paginaTamanho = 10)
+            : base(idUsuario, ordenarPor, ordenarSentido, paginaIndex, paginaTamanho)
         {
-            this.IdUsuario = idUsuario;
-            
+            IdCategoria       = idCategoria;
+            IdConta           = idConta;
+            IdCartaoCredito   = idCartaoCredito;
+            IdPessoa          = idPessoa;
+            DataInicioParcela = dataInicioParcela;
+            DataFimParcela    = dataFimParcela;
+            Concluido         = concluido;
+
             this.Validar();
         }
 
@@ -50,10 +58,21 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             if (this.DataInicioParcela.HasValue && !this.DataFimParcela.HasValue || !this.DataInicioParcela.HasValue && this.DataFimParcela.HasValue)
                 this.AdicionarNotificacao(AgendamentoMensagem.Agendamento_Procurar_Periodo_Invalido);
         }
+    }
 
-        public bool Paginar()
-        {
-            return this.PaginaIndex.HasValue && this.PaginaTamanho.HasValue;
-        }
+    public enum AgendamentoOrdenarPor
+    {
+        [Description("Data da próxima parcela do agendamento")]
+        DataProximaParcela,
+        [Description("Data da última parcela do agendamento")]
+        DataUltimaParcela,
+        [Description("Caminho da categoria associada ao agendamento")]
+        CategoriaCaminho,
+        [Description("Nome da pessoa associada ao agendamento")]
+        NomePessoa,
+        [Description("Nome da conta associada ao agendamento")]
+        NomeConta,
+        [Description("Nome do cartão de crédito associado ao agendamento")]
+        NomeCartaoCredito
     }
 }

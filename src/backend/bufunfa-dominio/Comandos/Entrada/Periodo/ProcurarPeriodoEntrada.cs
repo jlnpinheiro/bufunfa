@@ -1,45 +1,52 @@
-﻿using JNogueira.Bufunfa.Dominio.Entidades;
-using JNogueira.Bufunfa.Dominio.Resources;
+﻿using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.NotifiqueMe;
 using System;
-using System.Reflection;
+using System.ComponentModel;
 
 namespace JNogueira.Bufunfa.Dominio.Comandos
 {
     /// <summary>
     /// Classe com opções de filtro para procura de períodos
     /// </summary>
-    public class ProcurarPeriodoEntrada : ProcurarEntrada
+    public class ProcurarPeriodoEntrada : ProcurarEntrada<PeriodoOrdenarPor>
     {
-        public string Nome { get; set; }
+        public string Nome { get; }
 
-        public DateTime? Data { get; set; }
+        public DateTime? Data { get; }
 
         public ProcurarPeriodoEntrada(
             int idUsuario,
-            string ordenarPor,
-            string ordenarSentido,
-            int? paginaIndex = null,
-            int? paginaTamanho = null)
-            : base(
-                idUsuario,
-                string.IsNullOrEmpty(ordenarPor) ? "DataInicio" : ordenarPor,
-                string.IsNullOrEmpty(ordenarSentido) ? "ASC" : ordenarSentido,
-                paginaIndex,
-                paginaTamanho)
+            string nome = null,
+            DateTime? data = null,
+            PeriodoOrdenarPor ordenarPor = PeriodoOrdenarPor.DataInicio,
+            string ordenarSentido = "ASC",
+            int? paginaIndex = 1,
+            int? paginaTamanho = 10)
+            : base(idUsuario, ordenarPor, ordenarSentido, paginaIndex, paginaTamanho)
         {
+            Nome = nome;
+            Data = data;
+
             this.Validar();
         }
 
         private void Validar()
         {
-            this.NotificarSeNulo(typeof(Periodo).GetProperty(this.OrdenarPor, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance), string.Format(Mensagem.Paginacao_OrdernarPor_Propriedade_Nao_Existe, this.OrdenarPor));
-
             if (!string.IsNullOrEmpty(this.Nome))
                 this.NotificarSePossuirTamanhoSuperiorA(this.Nome, 50, PeriodoMensagem.Nome_Tamanho_Maximo_Excedido);
 
             if (this.Data.HasValue)
                 this.NotificarSeMenorQue(this.Data.Value.Date, new DateTime(2015, 1, 1), string.Format(PeriodoMensagem.Periodo_Procura_Data_Invalida, new DateTime(2015, 1, 1).ToString("dd/MM/yyyy")));
         }
+    }
+
+    public enum PeriodoOrdenarPor
+    {
+        [Description("Nome do período")]
+        Nome,
+        [Description("Data início do período")]
+        DataInicio,
+        [Description("Data fim do período")]
+        DataFim
     }
 }

@@ -84,7 +84,7 @@ namespace JNogueira.Bufunfa.Api.Swagger.Exemplos
             return new ProcurarPessoaViewModel
             {
                 Nome = "Fulano",
-                OrdenarPor = "Nome",
+                OrdenarPor = PessoaOrdenarPor.Nome,
                 OrdenarSentido = "ASC",
                 PaginaIndex = 1,
                 PaginaTamanho = 50

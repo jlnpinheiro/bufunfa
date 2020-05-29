@@ -83,17 +83,16 @@ namespace JNogueira.Bufunfa.Api.Controllers
         {
             var entrada = new ProcurarLancamentoEntrada(
                 base.ObterIdUsuarioClaim(),
+                model.IdConta,
+                model.IdCategoria,
+                model.IdPessoa,
+                model.DataInicio,
+                model.DataFim,
                 model.OrdenarPor,
                 model.OrdenarSentido,
                 model.PaginaIndex,
-                model.PaginaTamanho)
-            {
-                DataFim     = model.DataFim,
-                DataInicio  = model.DataInicio,
-                IdCategoria = model.IdCategoria,
-                IdConta     = model.IdConta,
-                IdPessoa    = model.IdPessoa
-            };
+                model.PaginaTamanho
+            );
 
             return new ApiResult(await _lancamentoServico.ProcurarLancamentos(entrada));
         }

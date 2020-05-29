@@ -1,6 +1,9 @@
 ﻿using JNogueira.Bufunfa.Dominio;
+using JNogueira.Bufunfa.Dominio.Comandos;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace JNogueira.Bufunfa.Api.ViewModels
 {
@@ -43,6 +46,15 @@ namespace JNogueira.Bufunfa.Api.ViewModels
         /// Procurar apenas por agendamentos concluídos
         /// </summary>
         public bool? Concluido { get; set; }
+
+        [EnumDataType(typeof(AgendamentoOrdenarPor))]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public AgendamentoOrdenarPor OrdenarPor { get; set; }
+
+        /// <summary>
+        /// Sentido da ordenação que será utilizado ordernar os registros encontrados (ASC para crescente; DESC para decrescente)
+        /// </summary>
+        public string OrdenarSentido { get; set; }
 
         /// <summary>
         /// Página atual da listagem que exibirá o resultado da pesquisa

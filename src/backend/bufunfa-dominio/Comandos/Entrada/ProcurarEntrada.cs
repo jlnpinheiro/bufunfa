@@ -1,41 +1,40 @@
-﻿using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
-using JNogueira.Bufunfa.Dominio.Resources;
+﻿using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.NotifiqueMe;
 using System;
 
 namespace JNogueira.Bufunfa.Dominio.Comandos
 {
-    public abstract class ProcurarEntrada : Notificavel
+    public abstract class ProcurarEntrada<TOrdenarPor> : Notificavel
     {
-        public int IdUsuario { get; private set; }
+        public int IdUsuario { get; }
 
         /// <summary>
         /// Página atual da listagem que exibirá o resultado da pesquisa
         /// </summary>
-        public int? PaginaIndex { get; private set; }
+        public int? PaginaIndex { get; }
 
         /// <summary>
         /// Quantidade de registros exibidos por página na listagem que exibirá o resultado da pesquisa
         /// </summary>
-        public int? PaginaTamanho { get; private set; }
+        public int? PaginaTamanho { get; }
 
         /// <summary>
-        /// Nome da propriedade que deverá ser utilizada para ordenação do resultado da pesquisa
+        /// Tipo de ordenação que deverá ser utilizada no resultado da pesquisa
         /// </summary>
-        public string OrdenarPor { get; private set; }
+        public TOrdenarPor OrdenarPor { get; }
 
         /// <summary>
         /// Sentido da ordenação do resultado da pesquisa: "ASC" para crescente / "DESC" para decrescente
         /// </summary>
-        public string OrdenarSentido { get; private set; }
+        public string OrdenarSentido { get; }
 
-        public ProcurarEntrada(int idUsuario, string ordenarPor, string ordenarSentido, int? paginaIndex = null, int? paginaTamanho = null)
+        public ProcurarEntrada(int idUsuario, TOrdenarPor ordenarPor, string ordenarSentido = "ASC", int? paginaIndex = 1, int? paginaTamanho = 10)
         {
             this.IdUsuario = idUsuario;
             this.OrdenarPor = ordenarPor;
-            this.OrdenarSentido = !string.Equals(ordenarSentido, "ASC", StringComparison.InvariantCultureIgnoreCase) && !string.Equals(ordenarSentido, "DESC", StringComparison.InvariantCultureIgnoreCase)
+            this.OrdenarSentido = !string.Equals(ordenarSentido, "ASC", StringComparison.CurrentCultureIgnoreCase) && !string.Equals(ordenarSentido, "DESC", StringComparison.InvariantCultureIgnoreCase)
                 ? "ASC"
-                : ordenarSentido;
+                : ordenarSentido.ToUpper();
             this.PaginaIndex = paginaIndex;
             this.PaginaTamanho = paginaTamanho;
 

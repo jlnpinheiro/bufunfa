@@ -66,6 +66,12 @@ namespace JNogueira.Bufunfa.Api.Swagger.Filters
 
             foreach (OpenApiInteger enumOption in enums)
             {
+                if (enumType.Name.EndsWith("OrdenarPor"))
+                {
+                    enumDescriptions.Add($"\"{(Enum)Enum.ToObject(enumType, enumOption.Value)}\" = {((Enum)Enum.ToObject(enumType, enumOption.Value)).ObterDescricao()}");
+                    continue;
+                }
+
                 if (Convert.ToInt32(enumOption.Value) != -1)
                     enumDescriptions.Add($"{enumOption.Value} = {((Enum)Enum.ToObject(enumType, enumOption.Value)).ObterDescricao()}");
             }

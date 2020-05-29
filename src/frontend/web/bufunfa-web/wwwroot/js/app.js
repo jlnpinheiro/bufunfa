@@ -61,6 +61,9 @@ var App = function () {
 
         // Aplica um efeito em um table, quando uma tr é selecionada
         aplicarTabelaSelecionavel: function (selector) {
+            if (!$(selector).length)
+                return;
+
             $(selector + " tbody tr").each(function () {
                 $(this).click(function () {
                     if ($(this).hasClass('selected')) {

@@ -67,13 +67,12 @@ namespace JNogueira.Bufunfa.Api.Controllers
         [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(ProcurarCategoriaResponseExemplo))]
         public async Task<IActionResult> Procurar([FromBody, SwaggerParameter("Parâmetros utilizados para realizar a procura.", Required = true)] ProcurarCategoriaViewModel model)
         {
-            var entrada = new ProcurarCategoriaEntrada(base.ObterIdUsuarioClaim())
-            {
-                IdCategoriaPai = model.IdCategoriaPai,
-                Nome           = model.Nome,
-                Tipo           = model.Tipo,
-                Caminho        = model.Caminho
-            };
+            var entrada = new ProcurarCategoriaEntrada(
+                base.ObterIdUsuarioClaim(),
+                model.Nome,
+                model.IdCategoriaPai,
+                model.Tipo,
+                model.Caminho);
 
             return new ApiResult(await _categoriaServico.ProcurarCategorias(entrada));
         }
