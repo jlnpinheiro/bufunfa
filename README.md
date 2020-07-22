@@ -16,9 +16,9 @@ Desde então, esse projeto já foi construído em ASP.NET 2.0 com Webforms e EXT
 **Backend** (API ASP.NET Core + MySQL)
 ![Backend](https://raw.githubusercontent.com/jlnpinheiro/bufunfa/master/docs/tela-backend-01.png)
 
-Existe uma versão em https://bufunfa.jnogueira.net.br, rodando em containers do [Docker](https://www.docker.com) em uma máquina com 1 GB de memória, 25 GB de disco com Ubuntu 18.04 na [Digital Ocean](https://digitalocean.com), sendo que:
+Existe uma versão em https://bufunfa.jnogueira.dev.br, rodando em containers do [Docker](https://www.docker.com) em uma máquina com 1 GB de memória, 25 GB de disco com Ubuntu 18.04 na [Digital Ocean](https://digitalocean.com), sendo que:
 * 1 container roda o frontend
-* 1 container roda o backend (em [https://bufunfa.jnogueira.net.br/api](https://bufunfa.jnogueira.net.br/api))
+* 1 container roda o backend (em [https://bufunfa.jnogueira.dev.br/api](https://bufunfa.jnogueira.dev.br/api))
 * 1 container roda o banco de dados MySQL
 
 ## Algumas funcionalidades
