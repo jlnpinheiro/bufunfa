@@ -22,7 +22,13 @@
                 @foreach (var analise in Model)
                 {
                     <tr>
-                        <td class="text-nowrap">@analise.SiglaAtivo @Html.Raw(analise.CodigoTipo == (int)TipoConta.FII ? "<span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> <small class=\"kt-font-bolder kt-font-primary\">FII</small>" : string.Empty)</td>
+                        <td class="text-nowrap">
+                            @analise.SiglaAtivo @Html.Raw(analise.CodigoTipo == (int)TipoConta.FII ? "<span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> <small class=\"kt-font-bolder kt-font-primary\">FII</small>" : string.Empty)
+                            @if (analise.CodigoTipo == (int)TipoConta.FII)
+                            {
+                                <a href="https://www.fundsexplorer.com.br/funds/@(analise.SiglaAtivo)" target="_blank" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables info-acao" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Informações do ativo"><span class="la la-info-circle"></span></a>
+                            }
+                        </td>
                         <td class="text-nowrap">@analise.NomeAtivo</td>
                         <td class="text-right text-nowrap">@analise.QuantidadeEmCarteira.ToString("N0")</td>
                         <td class="text-nowrap text-right kt-font-bold @(analise.ValorTotalCompra > 0 ? "kt-font-danger" : string.Empty)">@(analise.ValorTotalCompra.ToString("C2"))</td>
