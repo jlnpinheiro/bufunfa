@@ -30,8 +30,8 @@
                     <div class="kt-widget4">
                         <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
                             <div class="kt-widget4__info">
-                                <span class="kt-widget4__title">Em carteira</span>
-                                <p class="kt-widget4__text">@(Model.QuantidadeEmCarteira == 0 ? "nenhuma" : Model.QuantidadeEmCarteira + (Model.QuantidadeEmCarteira == 1 ? " ação" : " ações"))</p>
+                                <span class="kt-widget4__title">Quantidade</span>
+                                <p class="kt-widget4__text">@(Model.QuantidadeEmCarteira == 0 ? "nenhuma" : Model.QuantidadeEmCarteira.ToString())</p>
                             </div>
                         </div>
                         <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
@@ -107,7 +107,7 @@
                                                 @if (operacao.QuantidadeAcoes > 0)
                                                 {
                                                     <br />
-                                                    <span class="kt-font-dark kt-font-sm">@(operacao.ValorPorAcao.ToString("c2")) und.</span>
+                                                    <span class="kt-font-dark kt-font-sm">@(operacao.QuantidadeAcoes.ToString() + " x " + operacao.ValorPorAcao.ToString("c2"))</span>
                                                 }
                                             </span>
                                         </td>

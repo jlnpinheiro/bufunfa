@@ -10,7 +10,7 @@
                 <thead>
                     <tr>
                         <td class="text-nowrap">Sigla</td>
-                        <td class="text-nowrap" style="width:15%;">Em carteira</td>
+                        <td class="text-nowrap" style="width:15%;">Quantidade</td>
                         <td style="width:1px"></td>
                     </tr>
                 </thead>
@@ -22,7 +22,7 @@
                                 <span class="kt-widget11__title">@analise.SiglaAcao</span>
                                 <span class="kt-widget11__sub">@analise.NomeAcao</span>
                             </td>
-                            <td class="text-nowrap">@analise.QuantidadeEmCarteira.ToString("N0") @(analise.QuantidadeEmCarteira > 1 ? "ativos" : "ativo")</td>
+                            <td class="text-nowrap">@analise.QuantidadeEmCarteira.ToString("N0")</td>
                             <td><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables detalhar-acao" data-id-acao="@analise.IdConta" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Detalhar ação"><span class="la la-search-plus"></span></button></td>
                         </tr>
                     }
