@@ -20,14 +20,14 @@ namespace JNogueira.Bufunfa.Web.Proxy
         public async Task<Saida<IEnumerable<Conta>>> ObterContas() => await _httpClientHelper.FazerRequest<Saida<IEnumerable<Conta>>>("conta/obter", MetodoHttp.GET);
 
         /// <summary>
-        /// Obtém a análise de uma determinada ação
+        /// Obtém a análise de uma determinado ativo
         /// </summary>
-        public async Task<Saida<RendaVariavelAnalise>> ObterAnaliseAcao(int id, decimal valorCotacao = 0) => await _httpClientHelper.FazerRequest<Saida<RendaVariavelAnalise>>($"conta/obter-analise-acao?idAcao={id}&valorCotacao={valorCotacao.ToString("N2", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))}", MetodoHttp.GET);
+        public async Task<Saida<RendaVariavelAnalise>> ObterAnaliseAtivo(int id, decimal valorCotacao = 0) => await _httpClientHelper.FazerRequest<Saida<RendaVariavelAnalise>>($"conta/obter-analise-ativo?idAcao={id}&valorCotacao={valorCotacao.ToString("N2", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))}", MetodoHttp.GET);
         
         /// <summary>
-        /// Obtém a análise das ações do usuário
+        /// Obtém a análise dos ativos do usuário
         /// </summary>
-        public async Task<Saida<IEnumerable<RendaVariavelAnalise>>> ObterAnaliseAcoes() => await _httpClientHelper.FazerRequest<Saida<IEnumerable<RendaVariavelAnalise>>>("conta/obter-analise-acoes", MetodoHttp.GET);
+        public async Task<Saida<IEnumerable<RendaVariavelAnalise>>> ObterAnaliseAtivos() => await _httpClientHelper.FazerRequest<Saida<IEnumerable<RendaVariavelAnalise>>>("conta/obter-analise-ativos", MetodoHttp.GET);
 
         /// <summary>
         /// Cadastra uma nova conta

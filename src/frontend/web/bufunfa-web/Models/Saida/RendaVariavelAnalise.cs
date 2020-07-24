@@ -15,14 +15,24 @@ namespace JNogueira.Bufunfa.Web.Models
         public int IdConta { get; set; }
 
         /// <summary>
-        /// Sigla da ação
+        /// Sigla do ativo
         /// </summary>
-        public string SiglaAcao { get; set; }
+        public string SiglaAtivo { get; set; }
 
         /// <summary>
-        /// Nome da ação
+        /// Nome do ativo
         /// </summary>
-        public string NomeAcao { get; set; }
+        public string NomeAtivo { get; set; }
+
+        /// <summary>
+        /// Tipo do ativo
+        /// </summary>
+        public int CodigoTipo { get; set; }
+
+        /// <summary>
+        /// Descrição do tipo do ativo
+        /// </summary>
+        public string DescricaoTipo { get; set; }
 
         /// <summary>
         /// Quantidade de ações na carteira

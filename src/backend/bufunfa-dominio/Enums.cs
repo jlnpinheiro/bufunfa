@@ -59,8 +59,10 @@ namespace JNogueira.Bufunfa.Dominio
         Poupanca = 2,
         [Description("Renda fixa")]
         RendaFixa = 3,
-        [Description("Renda variável")]
-        RendaVariavel = 4
+        [Description("Ações")]
+        Acoes = 4,
+        [Description("FII")]
+        FII = 5
     }
 
     /// <summary>

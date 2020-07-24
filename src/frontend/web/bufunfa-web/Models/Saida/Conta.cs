@@ -76,6 +76,7 @@
         ContaCorrente = 1,
         Poupanca      = 2,
         RendaFixa     = 3,
-        RendaVariavel = 4
+        RendaVariavel = 4,
+        FII = 5
     }
 }

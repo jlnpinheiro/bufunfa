@@ -17,14 +17,24 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         public int IdConta { get; }
 
         /// <summary>
-        /// Sigla da ação
+        /// Sigla do ativo
         /// </summary>
-        public string SiglaAcao { get; }
+        public string SiglaAtivo { get; }
 
         /// <summary>
-        /// Nome da ação
+        /// Nome do ativo
         /// </summary>
-        public string NomeAcao { get; }
+        public string NomeAtivo { get; }
+
+        /// <summary>
+        /// Tipo do ativo
+        /// </summary>
+        public int CodigoTipo { get; }
+
+        /// <summary>
+        /// Descrição do tipo do ativo
+        /// </summary>
+        public string DescricaoTipo { get; }
 
         /// <summary>
         /// Quantidade de ações na carteira
@@ -104,8 +114,10 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         public RendaVariavelAnaliseSaida(ContaSaida acao, IEnumerable<Lancamento> operacoes, RendaVariavelCotacaoSaida cotacao)
         {
             this.IdConta = acao.Id;
-            this.SiglaAcao = acao.Nome;
-            this.NomeAcao = acao.NomeInstituicao;
+            this.SiglaAtivo = acao.Nome;
+            this.NomeAtivo = acao.NomeInstituicao;
+            this.CodigoTipo = acao.CodigoTipo;
+            this.DescricaoTipo = acao.DescricaoTipo;
 
             this.QuantidadeComprada = operacoes.Where(x => x.IdCategoria == (int)TipoCategoriaEspecial.CompraAcoes).Sum(x => x.QtdRendaVariavel.HasValue ? x.QtdRendaVariavel.Value : 0);
             this.ValorTotalCompra = operacoes.Where(x => x.IdCategoria == (int)TipoCategoriaEspecial.CompraAcoes).Sum(x => x.Valor);
@@ -129,6 +141,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         public RendaVariavelAnaliseSaida(
             string siglaAcao,
             string nomeAcao,
+            TipoConta tipo,
             int quantidadeEmCarteira,
             int quantidadeComprada,
             decimal valorTotalCompra,
@@ -140,8 +153,10 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             RendaVariavelCotacaoSaida cotacao,
             IEnumerable<RendaVariavelOperacaoSaida> operacoes)
         {
-            SiglaAcao                 = siglaAcao;
-            NomeAcao                  = nomeAcao;
+            SiglaAtivo                 = siglaAcao;
+            NomeAtivo                  = nomeAcao;
+            CodigoTipo                = (int)tipo;
+            DescricaoTipo             = tipo.ObterDescricao();
             QuantidadeEmCarteira      = quantidadeEmCarteira;
             QuantidadeComprada        = quantidadeComprada;
             ValorTotalCompra          = valorTotalCompra;

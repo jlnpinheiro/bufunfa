@@ -178,13 +178,13 @@
     <value>O tipo da conta é inválido ou não foi informado.</value>
   </data>
   <data name="Analise_Carteira_Obtida_Com_Sucesso" xml:space="preserve">
-    <value>Análise da carteira da ação obtida com sucesso.</value>
+    <value>Análise da carteira do ativo obtida com sucesso.</value>
   </data>
   <data name="Analise_Carteira_Acoes_Obtida_Com_Sucesso" xml:space="preserve">
-    <value>Análise da carteira de ações obtida com sucesso.</value>
+    <value>Análise da carteira de ativos obtida com sucesso.</value>
   </data>
   <data name="Analise_Carteira_Somente_Conta_Renda_Variavel" xml:space="preserve">
-    <value>A análise da carteira só é possível para contas do tipo renda variável.</value>
+    <value>A análise da carteira só é possível para contas do tipo renda variável (ações ou FII).</value>
   </data>
   <data name="Conta_Destino_Transferencia_Nao_Existe" xml:space="preserve">
     <value>A conta de destino da transferência, com o ID informado não existe.</value>

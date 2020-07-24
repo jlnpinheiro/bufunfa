@@ -53,7 +53,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             string numero = null)
         {
             this.IdUsuario         = idUsuario;
-            this.Nome              = tipo == TipoConta.RendaVariavel ? nome.ToUpper() : nome;
+            this.Nome              = tipo == TipoConta.Acoes ? nome.ToUpper() : nome;
             this.Tipo              = tipo;
             this.ValorSaldoInicial = valorSaldoInicial.HasValue && valorSaldoInicial.Value == 0
                 ? null

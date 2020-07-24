@@ -164,7 +164,7 @@ namespace JNogueira.Bufunfa.Web.Helpers
                     contasSaida = _proxy.ObterContas().Result;
 
                     if (contasSaida.Sucesso && contasSaida.Retorno != null)
-                        contas.AddRange(contasSaida.Retorno.Where(x => x.CodigoTipo != (int)TipoConta.RendaVariavel));
+                        contas.AddRange(contasSaida.Retorno.Where(x => x.CodigoTipo != (int)TipoConta.Acoes));
 
                     cartoesCreditoSaida = _proxy.ObterCartoesCredito().Result;
 
@@ -179,7 +179,7 @@ namespace JNogueira.Bufunfa.Web.Helpers
                     contasSaida = _proxy.ObterContas().Result;
 
                     if (contasSaida.Sucesso && contasSaida.Retorno != null)
-                        contas.AddRange(contasSaida.Retorno.Where(x => x.CodigoTipo != (int)TipoConta.RendaVariavel));
+                        contas.AddRange(contasSaida.Retorno.Where(x => x.CodigoTipo != (int)TipoConta.Acoes));
 
                     if (contas.Count == 0)
                         return new HtmlString("<div class=\"kt-font-warning kt-font-bolder text-center\">Nenhuma conta encontrada.</div>");

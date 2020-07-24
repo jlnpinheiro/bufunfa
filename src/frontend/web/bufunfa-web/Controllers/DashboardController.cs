@@ -48,7 +48,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
             if (!saida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as contas.", saida.Mensagens));
 
-            return PartialView("ListarContas", saida.Retorno?.Where(x => x.CodigoTipo != (int)TipoConta.RendaVariavel));
+            return PartialView("ListarContas", saida.Retorno?.Where(x => x.CodigoTipo != (int)TipoConta.Acoes && x.CodigoTipo != (int)TipoConta.FII));
         }
 
         [HttpGet]
@@ -67,7 +67,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
         [Route("listar-acoes")]
         public async Task<IActionResult> ListarAcoes()
         {
-            var saida = await _proxy.ObterAnaliseAcoes();
+            var saida = await _proxy.ObterAnaliseAtivos();
 
             if (!saida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as ações.", saida.Mensagens));

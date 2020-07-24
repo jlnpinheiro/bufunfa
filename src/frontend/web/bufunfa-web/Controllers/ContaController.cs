@@ -38,15 +38,15 @@ namespace JNogueira.Bufunfa.Web.Controllers
                 if (!saida.Sucesso)
                     return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as contas.", saida.Mensagens));
 
-                return PartialView("ListarRendaFixa", saida.Retorno?.Where(x => x.CodigoTipo != (int)TipoConta.RendaVariavel));
+                return PartialView("ListarRendaFixa", saida.Retorno?.Where(x => x.CodigoTipo != (int)TipoConta.Acoes && x.CodigoTipo != (int)TipoConta.FII));
             }
            
-            var analiseSaida = await _proxy.ObterAnaliseAcoes();
+            var analiseSaida = await _proxy.ObterAnaliseAtivos();
 
             if (!analiseSaida.Sucesso)
-                return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter a análise das ações.", analiseSaida.Mensagens));
+                return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter os ativos.", analiseSaida.Mensagens));
 
-            return PartialView("ListarRendaVariavel", analiseSaida.Retorno);
+            return PartialView("ListarRendaVariavel", analiseSaida.Retorno.OrderBy(x => x.CodigoTipo).ThenBy(x => x.SiglaAtivo));
         }
 
         [HttpGet]
@@ -82,7 +82,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
             if (!saida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível exibir as informações da conta.", saida.Mensagens));
 
-            return PartialView(saida.Retorno.CodigoTipo != (int)TipoConta.RendaVariavel ? "ManterRendaFixa" : "ManterRendaVariavel", saida.Retorno);
+            return PartialView(saida.Retorno.CodigoTipo != (int)TipoConta.Acoes && saida.Retorno.CodigoTipo != (int)TipoConta.FII ? "ManterRendaFixa" : "ManterRendaVariavel", saida.Retorno);
         }
 
         [HttpPost]
@@ -113,13 +113,13 @@ namespace JNogueira.Bufunfa.Web.Controllers
         }
 
         [HttpGet]
-        [Route("obter-analise-por-acao")]
-        public async Task<IActionResult> ObterAnalisePorAcao(int id, decimal valorCotacao = 0)
+        [Route("obter-analise-por-ativo")]
+        public async Task<IActionResult> ObterAnalisePorAtivo(int id, decimal valorCotacao = 0)
         {
-            var saida = await _proxy.ObterAnaliseAcao(id, valorCotacao);
+            var saida = await _proxy.ObterAnaliseAtivo(id, valorCotacao);
 
             if (!saida.Sucesso)
-                return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter a análise da ação.", saida.Mensagens));
+                return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter a análise do ativo.", saida.Mensagens));
 
             return PartialView("PopupAcao", saida.Retorno);
         }
@@ -161,7 +161,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
             if (!saida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as informações das contas.", saida.Mensagens));
 
-            return PartialView("PopupConta", saida.Retorno?.Where(x => x.CodigoTipo != (int)TipoConta.RendaVariavel).ToList());
+            return PartialView("PopupConta", saida.Retorno?.Where(x => x.CodigoTipo != (int)TipoConta.Acoes).ToList());
         }
 
         [HttpGet]

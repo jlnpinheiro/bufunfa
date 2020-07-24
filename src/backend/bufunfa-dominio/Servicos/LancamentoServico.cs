@@ -101,7 +101,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             var conta = await _contaRepositorio.ObterPorId(entrada.IdConta);
 
             // Verifica se a quantidade de ações vendidas é maior que o total de ações disponíveis na carteira.
-            if (conta.Tipo == TipoConta.RendaVariavel && entrada.IdCategoria == (int)TipoCategoriaEspecial.VendaAcoes)
+            if (conta.Tipo == TipoConta.Acoes && entrada.IdCategoria == (int)TipoCategoriaEspecial.VendaAcoes)
             {
                 var operacoes = await _lancamentoRepositorio.ObterPorPeriodo(conta.Id, new DateTime(2019, 1, 1), DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59));
 
@@ -168,7 +168,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             var conta = await _contaRepositorio.ObterPorId(lancamento.IdConta);
 
             // Verifica se a quantidade de ações vendidas é maior que o total de ações disponíveis na carteira.
-            if (conta.Tipo == TipoConta.RendaVariavel && lancamento.IdCategoria == (int)TipoCategoriaEspecial.VendaAcoes)
+            if (conta.Tipo == TipoConta.Acoes && lancamento.IdCategoria == (int)TipoCategoriaEspecial.VendaAcoes)
             {
                 var operacoes = await _lancamentoRepositorio.ObterPorPeriodo(conta.Id, new DateTime(2019, 1, 1), DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59));
 

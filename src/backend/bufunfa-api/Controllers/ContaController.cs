@@ -57,30 +57,30 @@ namespace JNogueira.Bufunfa.Api.Controllers
         }
 
         /// <summary>
-        /// Obtém a análise de uma determinada ação
+        /// Obtém a análise de um determinado ativo
         /// </summary>
         [HttpGet]
-        [Route("conta/obter-analise-acao")]
+        [Route("conta/obter-analise-ativo")]
         [SwaggerOperation(Description = "Caso o valor da cotação não seja informado, o valor é obtido através da consulta à API da Alpha Vantage (https://www.alphavantage.co/documentation/).")]
-        [SwaggerResponse((int)HttpStatusCode.OK, "Análise da ação obtida com sucesso.", typeof(Response))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Análise do ativo obtida com sucesso.", typeof(Response))]
         [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(ObterAnaliseAcaoResponseExemplo))]
         public async Task<IActionResult> ObterAnaliseAcao(
-            [FromQuery, SwaggerParameter("ID da ação (conta).", Required = true)] int idAcao, 
-            [FromQuery, SwaggerParameter("Valor da cotação da ação.", Required = false)] decimal valorCotacao = 0)
+            [FromQuery, SwaggerParameter("ID da ativo (conta).", Required = true)] int idAcao, 
+            [FromQuery, SwaggerParameter("Valor da cotação do ativo.", Required = false)] decimal valorCotacao = 0)
         {
-            return new ApiResult(await _contaServico.ObterAnaliseAcao(idAcao, base.ObterIdUsuarioClaim(), valorCotacao));
+            return new ApiResult(await _contaServico.ObterAnaliseAtivo(idAcao, base.ObterIdUsuarioClaim(), valorCotacao));
         }
 
         /// <summary>
-        /// Obtém a análise das ações do usuário autenticado
+        /// Obtém a análise dos ativos do usuário autenticado
         /// </summary>
         [HttpGet]
-        [Route("conta/obter-analise-acoes")]
-        [SwaggerResponse((int)HttpStatusCode.OK, "Análise das ações obtida com sucesso.", typeof(Response))]
+        [Route("conta/obter-analise-ativos")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Análise dos ativos obtida com sucesso.", typeof(Response))]
         [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(ObterAnaliseAcoesResponseExemplo))]
-        public async Task<IActionResult> ObterAnaliseAcoesPorUsuario()
+        public async Task<IActionResult> ObterAnaliseAtivosPorUsuario()
         {
-            return new ApiResult(await _contaServico.ObterAnaliseAcoesPorUsuario(base.ObterIdUsuarioClaim()));
+            return new ApiResult(await _contaServico.ObterAnaliseAtivosPorUsuario(base.ObterIdUsuarioClaim()));
         }
 
         /// <summary>

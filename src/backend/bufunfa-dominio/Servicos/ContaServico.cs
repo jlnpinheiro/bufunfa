@@ -159,7 +159,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             return new Saida(true, new[] { ContaMensagem.Conta_Excluida_Com_Sucesso }, new ContaSaida(conta));
         }
 
-        public async Task<ISaida> ObterAnaliseAcao(int idConta, int idUsuario, decimal? valorCotacao = null)
+        public async Task<ISaida> ObterAnaliseAtivo(int idConta, int idUsuario, decimal? valorCotacao = null)
         {
             var saida = await ObterContaPorId(idConta, idUsuario);
 
@@ -168,7 +168,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
 
             var conta = (ContaSaida)saida.Retorno;
 
-            this.NotificarSeFalso(conta.CodigoTipo == (int)TipoConta.RendaVariavel, ContaMensagem.Analise_Carteira_Somente_Conta_Renda_Variavel);
+            this.NotificarSeFalso(conta.CodigoTipo == (int)TipoConta.Acoes || conta.CodigoTipo == (int)TipoConta.FII, ContaMensagem.Analise_Carteira_Somente_Conta_Renda_Variavel);
 
             if (this.Invalido)
                 return new Saida(false, this.Mensagens, null);
@@ -183,7 +183,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             else if (valorCotacao.HasValue && valorCotacao.Value == 0)
             {
                 // Obtém a cotação da ação junto a API
-                var apiSaida = await _apiAlphaVantageProxy.ObterCotacaoPorSiglaAcao(conta.Nome);
+                var apiSaida = await _apiAlphaVantageProxy.ObterCotacaoPorSiglaAtivo(conta.Nome);
 
                 var cotacao = apiSaida != null
                     ? new RendaVariavelCotacaoSaida(apiSaida.Price, apiSaida.ChangePercent, apiSaida.LatestTradingDay)
@@ -197,14 +197,14 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             }
         }
 
-        public async Task<ISaida> ObterAnaliseAcoesPorUsuario(int idUsuario)
+        public async Task<ISaida> ObterAnaliseAtivosPorUsuario(int idUsuario)
         {
             this.NotificarSeMenorOuIgualA(idUsuario, 0, Mensagem.Id_Usuario_Invalido);
 
             if (this.Invalido)
                 return new Saida(false, this.Mensagens, null);
 
-            var lstRendaVariavel = (await _contaRepositorio.ObterPorUsuario(idUsuario)).Where(x => x.Tipo == TipoConta.RendaVariavel);
+            var lstRendaVariavel = (await _contaRepositorio.ObterPorUsuario(idUsuario)).Where(x => x.Tipo == TipoConta.Acoes || x.Tipo == TipoConta.FII);
 
             if (lstRendaVariavel == null || !lstRendaVariavel.Any())
                 return new Saida(true, new[] { ContaMensagem.Nenhuma_Conta_Encontrada }, null);
@@ -213,7 +213,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
 
             foreach (var acao in lstRendaVariavel)
             {
-                var analiseCarteiraSaida = await ObterAnaliseAcao(acao.Id, idUsuario, null);
+                var analiseCarteiraSaida = await ObterAnaliseAtivo(acao.Id, idUsuario, null);
 
                 if (analiseCarteiraSaida.Sucesso && analiseCarteiraSaida.Retorno != null)
                     lstAnalise.Add((RendaVariavelAnaliseSaida)analiseCarteiraSaida.Retorno);
@@ -299,7 +299,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
 
         private async Task<decimal?> CalcularSaldoDisponivelAtual(Conta conta)
         {
-            if (conta.Tipo == TipoConta.RendaVariavel)
+            if (conta.Tipo == TipoConta.Acoes)
                 return null;
 
             var dataInicio = new DateTime(2019, 1, 1);

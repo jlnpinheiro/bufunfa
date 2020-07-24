@@ -90,7 +90,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
 
                 this
                     .NotificarSeNulo(conta, ContaMensagem.Id_Conta_Nao_Existe)
-                    .NotificarSeVerdadeiro(conta?.Tipo == TipoConta.RendaVariavel, AgendamentoMensagem.Tipo_Conta_Invalida);
+                    .NotificarSeVerdadeiro(conta?.Tipo == TipoConta.Acoes, AgendamentoMensagem.Tipo_Conta_Invalida);
             }
             else
             {

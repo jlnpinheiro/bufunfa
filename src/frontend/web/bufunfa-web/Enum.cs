@@ -8,7 +8,8 @@
         ContaCorrente = 1,
         Poupanca = 2,
         RendaFixa = 3,
-        RendaVariavel = 4
+        Acoes = 4,
+        FII = 5
     }
 
     /// <summary>

@@ -702,7 +702,7 @@
         if (valorCotacao == "" || valorCotacao == null || valorCotacao == undefined)
             valorCotacao = "0";
 
-        AppModal.exibirPorRota(App.corrigirPathRota("/contas/obter-analise-por-acao?id=" + id + "&valorCotacao=" + valorCotacao.toString().replace(",", ".")), function () {
+        AppModal.exibirPorRota(App.corrigirPathRota("/contas/obter-analise-por-ativo?id=" + id + "&valorCotacao=" + valorCotacao.toString().replace(",", ".")), function () {
             KTApp.initTooltips();
             KTApp.initPortlets();
 

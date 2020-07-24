@@ -22,8 +22,8 @@
                 @foreach (var analise in Model)
                 {
                     <tr>
-                        <td class="text-nowrap">@analise.SiglaAcao</td>
-                        <td class="text-nowrap">@analise.NomeAcao</td>
+                        <td class="text-nowrap">@analise.SiglaAtivo @Html.Raw(analise.CodigoTipo == (int)TipoConta.FII ? "<span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> <small class=\"kt-font-bolder kt-font-primary\">FII</small>" : string.Empty)</td>
+                        <td class="text-nowrap">@analise.NomeAtivo</td>
                         <td class="text-right text-nowrap">@analise.QuantidadeEmCarteira.ToString("N0")</td>
                         <td class="text-nowrap text-right kt-font-bold @(analise.ValorTotalCompra > 0 ? "kt-font-danger" : string.Empty)">@(analise.ValorTotalCompra.ToString("C2"))</td>
                         <td class="text-nowrap text-right kt-font-bold @(analise.ValorTotalVenda > 0 ? "kt-font-success" : string.Empty)">@(analise.ValorTotalVenda.ToString("C2"))</td>

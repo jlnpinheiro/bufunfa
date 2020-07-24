@@ -53,6 +53,7 @@ namespace JNogueira.Bufunfa.Api.Swagger.Exemplos
             : base(
                 "BIDI4",
                 "Banco Inter",
+                TipoConta.Acoes,
                 5,
                 20,
                 650,

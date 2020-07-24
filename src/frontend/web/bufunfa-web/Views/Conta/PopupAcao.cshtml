@@ -6,7 +6,7 @@
     <div class="kt-portlet__head popup">
         <div class="kt-portlet__head-label">
             <h3 class="kt-portlet__head-title">
-                @Model.SiglaAcao <small class="kt-hidden-mobile">@Model.NomeAcao</small>
+                @Model.SiglaAtivo <small class="kt-hidden-mobile">@Model.NomeAtivo</small>
             </h3>
         </div>
         <div class="kt-portlet__head-toolbar">
@@ -28,6 +28,12 @@
             <div class="tab-pane active" id="aba-info-acao">
                 <div class="table-responsive">
                     <div class="kt-widget4">
+                        <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                            <div class="kt-widget4__info">
+                                <span class="kt-widget4__title">Tipo</span>
+                                <p class="kt-widget4__text">@(Model.DescricaoTipo)</p>
+                            </div>
+                        </div>
                         <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
                             <div class="kt-widget4__info">
                                 <span class="kt-widget4__title">Quantidade</span>

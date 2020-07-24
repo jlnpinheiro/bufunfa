@@ -1,4 +1,5 @@
 ﻿@using JNogueira.Bufunfa.Web.Helpers
+@using JNogueira.Bufunfa.Web
 
 @model JNogueira.Bufunfa.Web.Models.Conta
 
@@ -14,11 +15,29 @@
         <input type="hidden" id="iIdConta" name="iIdConta" value="@(Model != null ? Model.Id.ToString() : string.Empty)">
         <div class="kt-portlet__body">
             <div class="form-group row">
-                <div class="col-md-6 col-lg-3 form-group-sub">
+                <div class="col-md-6 form-group-sub">
                     <label>Sigla</label> @CustomHtmlHelper.IconeCampoObrigatorio()
                     <input type="text" class="form-control text-uppercase" id="iNome" name="iNome" value="@Model?.Nome">
                 </div>
-                <div class="col-md-6 col-lg-9 form-group-sub">
+
+                <div class="col-md-6 form-group-sub">
+                    <label>Tipo</label> @CustomHtmlHelper.IconeCampoObrigatorio()
+                    @{
+                        var lstTipo = new List<SelectListItem>()
+                                                                                                                                                                                                                                                                                                        {
+                            new SelectListItem(string.Empty, string.Empty, Model == null),
+                            new SelectListItem("Ação", ((int)TipoConta.Acoes).ToString(), Model != null && Model.CodigoTipo == (int)TipoConta.Acoes),
+                            new SelectListItem("FII", ((int)TipoConta.FII).ToString(), Model != null && Model.CodigoTipo == (int)TipoConta.FII)
+                        };
+                    }
+                    <select class="form-control" id="sTipo" name="sTipo" style="width: 100%;" asp-items="@lstTipo">
+                    </select>
+                    <span class="form-text text-muted"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-12 form-group-sub">
                     <label>Descrição</label>
                     <input type="text" class="form-control" id="iNomeInstituicao" name="iNomeInstituicao" value="@Model?.NomeInstituicao">
                 </div>

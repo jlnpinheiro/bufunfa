@@ -95,7 +95,7 @@
                     let conta = {
                         Id: $("#iIdConta").val(),
                         Nome: $("#iNome").val(),
-                        Tipo: tipo == "RF" ? $("#sTipo").val() : 4, // <-- Renda variável
+                        Tipo: $("#sTipo").val(),
                         ValorSaldoInicial: $("#iSaldoInicial").val(),
                         NomeInstituicao: $("#iNomeInstituicao").val(),
                         Numero: $("#iNumero").val(),
@@ -149,6 +149,15 @@
                     placeholder: '0',
                     rightAlign: false,
                     prefix: ''
+                });
+            } else {
+                $('#sTipo').select2({
+                    allowClear: false,
+                    placeholder: "Selecione um tipo",
+                    dropdownParent: $('.jc-bs3-container'),
+                    minimumResultsForSearch: -1
+                }).on("change", function () {
+                    $(this).valid();
                 });
             }
         });

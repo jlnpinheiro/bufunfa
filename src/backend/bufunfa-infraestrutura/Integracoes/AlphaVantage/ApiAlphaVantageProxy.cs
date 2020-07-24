@@ -20,7 +20,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Integracoes.AlphaVantage
             _configHelper = configHelper;
         }
 
-        public async Task<GlobalQuoteSaida> ObterCotacaoPorSiglaAcao(string sigla)
+        public async Task<GlobalQuoteSaida> ObterCotacaoPorSiglaAtivo(string sigla)
         {
             if (string.IsNullOrEmpty(sigla) || string.IsNullOrEmpty(_configHelper.ApiAlphaVantageConfig.UrlGlobalQuotes) || string.IsNullOrEmpty(_configHelper.ApiAlphaVantageConfig.Key))
                 return null;

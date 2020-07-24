@@ -35,14 +35,14 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Servicos
         Task<ISaida> ExcluirConta(int idConta, int idUsuario);
 
         /// <summary>
-        /// Obtém a análise de uma ação
+        /// Obtém a análise de um ativo
         /// </summary>
-        Task<ISaida> ObterAnaliseAcao(int idConta, int idUsuario, decimal? valorCotacao = null);
+        Task<ISaida> ObterAnaliseAtivo(int idConta, int idUsuario, decimal? valorCotacao = null);
 
         /// <summary>
-        /// Obtém a análise das ações de um usuário.
+        /// Obtém a análise dos ativos de um usuário.
         /// </summary>
-        Task<ISaida> ObterAnaliseAcoesPorUsuario(int idUsuario);
+        Task<ISaida> ObterAnaliseAtivosPorUsuario(int idUsuario);
 
         /// <summary>
         /// Realiza uma transferência de valores entre duas contas
