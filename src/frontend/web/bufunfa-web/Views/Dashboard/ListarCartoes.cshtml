@@ -12,7 +12,7 @@
                     <tr>
                         <td class="text-nowrap">Nome</td>
                         <td style="width:30%;" class="text-right text-nowrap">Débitos em aberto</td>
-                        <td style="width:30%;" class="text-right text-nowrap kt-hidden-mobile">Crédito disponível</td>
+                        <td style="width:30%;" class="text-right text-nowrap kt-hidden-mobile">Limite disponível</td>
                         <td style="width:1px"></td>
                     </tr>
                 </thead>
@@ -26,7 +26,7 @@
                                 <span class="kt-widget11__title">@cartao.Nome</span>
                             </td>
                             <td class="text-nowrap text-right @((cartao.ValorLimite - valorLimiteDisponivel) == 0 ? "kt-font-success" : "kt-font-danger") kt-font-bold">@((cartao.ValorLimite - valorLimiteDisponivel).ToString("c2"))</td>
-                            <td class="text-right text-nowrap kt-hidden-mobile">@valorLimiteDisponivel.ToString("c2")</td>
+                            <td class="text-right text-nowrap kt-hidden-mobile kt-font-bold">@valorLimiteDisponivel.ToString("c2")</td>
                             <td><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables consultar-fatura" data-id-cartao="@cartao.Id" data-mes="@DateTime.Now.ConverterHorarioOficialBrasil().Month" data-ano="@DateTime.Now.ConverterHorarioOficialBrasil().Year" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Fatura atual"><span class="fa fa-barcode"></span></button></td>
                         </tr>
                     }

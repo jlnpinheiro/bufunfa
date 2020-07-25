@@ -12,6 +12,7 @@
                     <th>Descrição</th>
                     <th class="text-right text-nowrap" style="width: 10%;">Quantidade</th>
                     <th class="text-right text-nowrap" style="width: 10%;">Total compra</th>
+                    <th class="text-right text-nowrap" style="width: 10%;">Total dividendos</th>
                     <th class="text-right text-nowrap" style="width: 10%;">Total venda</th>
                     <th style="width:1px;"></th>
                     <th style="width:1px;"></th>
@@ -36,6 +37,7 @@
                         <td class="text-nowrap">@analise.NomeAtivo</td>
                         <td class="text-right text-nowrap">@analise.QuantidadeEmCarteira.ToString("N0")</td>
                         <td class="text-nowrap text-right kt-font-bold @(analise.ValorTotalCompra > 0 ? "kt-font-danger" : string.Empty)">@(analise.ValorTotalCompra.ToString("C2"))</td>
+                        <td class="text-nowrap text-right kt-font-bold kt-font-success">@(analise.ObterValorTotalJurosDividendosEmReais())</td>
                         <td class="text-nowrap text-right kt-font-bold @(analise.ValorTotalVenda > 0 ? "kt-font-success" : string.Empty)">@(analise.ValorTotalVenda.ToString("C2"))</td>
                         <td><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables detalhar-conta-rv" data-id-conta="@analise.IdConta" data-tipo="RV" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Detalhar"><span class="la la-search-plus"></span></button></td>
                         <td><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables alterar-conta-rv" data-id-conta="@analise.IdConta" data-tipo="RV" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Alterar"><span class="la la-edit"></span></button></td>
@@ -46,11 +48,13 @@
             <tfoot>
                 @{
                     var somaValorTotalCompra = Model.Sum(x => x.ValorTotalCompra);
+                    var somaValorTotalDividendos = Model.Sum(x => x.ValorTotalJurosDividendos);
                     var somaValorTotalVenda = Model.Sum(x => x.ValorTotalVenda);
                 }
                 <tr>
                     <td class="text-right kt-font-bold" colspan="3">TOTAL</td>
                     <td class="text-right kt-font-boldest @(somaValorTotalCompra > 0 ? "kt-font-danger" : string.Empty)">@somaValorTotalCompra.ToString("c2")</td>
+                    <td class="text-right kt-font-boldest @(somaValorTotalCompra > 0 ? "kt-font-success" : string.Empty)">@somaValorTotalDividendos.ToString("c2")</td>
                     <td class="text-right kt-font-boldest @(somaValorTotalVenda > 0 ? "kt-font-success" : string.Empty)">@somaValorTotalVenda.ToString("c2")</td>
                     <td colspan="3"></td>
                 </tr>
