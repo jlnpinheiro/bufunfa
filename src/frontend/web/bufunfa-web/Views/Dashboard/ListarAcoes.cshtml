@@ -12,6 +12,7 @@
                         <td class="text-nowrap">Sigla</td>
                         <td class="text-nowrap" style="width:15%;">Quantidade</td>
                         <td style="width:1px"></td>
+                        <td style="width:1px"></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,14 +22,20 @@
                             <td class="text-nowrap">
                                 <span class="kt-widget11__title">
                                     @analise.SiglaAtivo @Html.Raw(analise.CodigoTipo == (int)TipoConta.FII ? "<span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> <small class=\"kt-font-bolder kt-font-primary\">FII</small>" : string.Empty)
-                                    @if (analise.CodigoTipo == (int)TipoConta.FII)
-                                    {
-                                        <a href="https://www.fundsexplorer.com.br/funds/@(analise.SiglaAtivo)" target="_blank" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables info-acao" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Informações do ativo"><span class="la la-info-circle"></span></a>
-                                    }
                                 </span>
                                 <span class="kt-widget11__sub">@analise.NomeAtivo</span>
                             </td>
                             <td class="text-nowrap">@analise.QuantidadeEmCarteira.ToString("N0")</td>
+                            <td>
+                                @if (analise.CodigoTipo == (int)TipoConta.FII)
+                                {
+                                    <a href="https://www.fundsexplorer.com.br/funds/@(analise.SiglaAtivo)" target="_blank" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables info-acao" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Informações do ativo"><span class="la la-info-circle"></span></a>
+                                }
+                                else
+                                {
+                                    <a href="https://www.sunoresearch.com.br/acoes/@(analise.SiglaAtivo)/" target="_blank" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables info-acao" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Informações do ativo"><span class="la la-info-circle"></span></a>
+                                }
+                            </td>
                             <td><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables detalhar-acao" data-id-acao="@analise.IdConta" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Detalhar ativo"><span class="la la-search-plus"></span></button></td>
                         </tr>
                     }
