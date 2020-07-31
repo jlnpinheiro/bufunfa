@@ -100,7 +100,8 @@ namespace JNogueira.Bufunfa.Api.Controllers
                 model.ValorSaldoInicial,
                 model.NomeInstituicao,
                 model.NumeroAgencia,
-                model.Numero);
+                model.Numero,
+                model.Ranking);
 
             return new ApiResult(await _contaServico.CadastrarConta(entrada));
         }
@@ -145,7 +146,8 @@ namespace JNogueira.Bufunfa.Api.Controllers
                 model.ValorSaldoInicial,
                 model.NomeInstituicao,
                 model.NumeroAgencia,
-                model.Numero);
+                model.Numero,
+                model.Ranking);
 
             return new ApiResult(await _contaServico.AlterarConta(idConta, entrada));
         }

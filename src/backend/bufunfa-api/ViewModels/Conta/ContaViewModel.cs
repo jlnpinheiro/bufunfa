@@ -42,5 +42,10 @@ namespace JNogueira.Bufunfa.Api.ViewModels
         /// </summary>
         [MaxLength(20, ErrorMessageResourceType = typeof(ContaMensagem), ErrorMessageResourceName = "Numero_Tamanho_Maximo_Excedido")]
         public string Numero { get; set; }
+
+        /// <summary>
+        /// Ranking
+        /// </summary>
+        public int? Ranking { get; set; }
     }
 }

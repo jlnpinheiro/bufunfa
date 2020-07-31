@@ -38,7 +38,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
                 if (!saida.Sucesso)
                     return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as contas.", saida.Mensagens));
 
-                return PartialView("ListarRendaFixa", saida.Retorno?.Where(x => x.CodigoTipo != (int)TipoConta.Acoes && x.CodigoTipo != (int)TipoConta.FII));
+                return PartialView("ListarRendaFixa", saida.Retorno?.Where(x => x.TipoInvestimento == null || x.TipoInvestimento == TipoInvestimento.RendaFixa));
             }
            
             var analiseSaida = await _proxy.ObterAnaliseAtivos();
@@ -46,7 +46,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
             if (!analiseSaida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter os ativos.", analiseSaida.Mensagens));
 
-            return PartialView("ListarRendaVariavel", analiseSaida.Retorno.OrderBy(x => x.CodigoTipo).ThenBy(x => x.SiglaAtivo));
+            return PartialView("ListarRendaVariavel", analiseSaida.Retorno);
         }
 
         [HttpGet]

@@ -99,7 +99,8 @@
                         ValorSaldoInicial: $("#iSaldoInicial").val(),
                         NomeInstituicao: $("#iNomeInstituicao").val(),
                         Numero: $("#iNumero").val(),
-                        NumeroAgencia: $("#iNumeroAgencia").val()
+                        NumeroAgencia: $("#iNumeroAgencia").val(),
+                        Ranking: $("#iRanking").length ? $("#iRanking").val() : null
                     };
 
                     $.post(App.corrigirPathRota(cadastro ? "/contas/cadastrar-conta" : "/contas/alterar-conta"), { entrada: conta })
@@ -158,6 +159,12 @@
                     minimumResultsForSearch: -1
                 }).on("change", function () {
                     $(this).valid();
+                });
+
+                $('#iRanking').inputmask({
+                    mask: "9",
+                    repeat: 2,
+                    greedy: false
                 });
             }
         });

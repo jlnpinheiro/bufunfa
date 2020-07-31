@@ -18,6 +18,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Maps
             builder.Property(x => x.NomeInstituicao);
             builder.Property(x => x.NumeroAgencia);
             builder.Property(x => x.Numero);
+            builder.Property(x => x.Ranking);
         }
     }
 }

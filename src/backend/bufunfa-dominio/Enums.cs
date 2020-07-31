@@ -57,12 +57,14 @@ namespace JNogueira.Bufunfa.Dominio
         ContaCorrente = 1,
         [Description("Poupança")]
         Poupanca = 2,
-        [Description("Renda fixa")]
-        RendaFixa = 3,
+        [Description("Tesouro Direto")]
+        TesouroDireto = 3,
         [Description("Ações")]
         Acoes = 4,
         [Description("FII")]
-        FII = 5
+        FII = 5,
+        [Description("CDB")]
+        CDB = 6
     }
 
     /// <summary>
@@ -84,6 +86,17 @@ namespace JNogueira.Bufunfa.Dominio
         VendaAcoes = 6,
         [Description("Impostos")]
         Impostos = 7,
+    }
+
+    /// <summary>
+    /// Tipo de investimento
+    /// </summary>
+    public enum TipoInvestimento
+    {
+        [Description("Renda Fixa")]
+        RendaFixa = 1,
+        [Description("Renda Variável")]
+        RendaVariavel = 2
     }
 
     public static class ExtensionMethods

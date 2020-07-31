@@ -48,6 +48,11 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         public string Numero { get; }
 
         /// <summary>
+        /// Ranking da conta
+        /// </summary>
+        public int? Ranking { get; }
+
+        /// <summary>
         /// Valor do saldo atual
         /// </summary>
         public decimal? ValorSaldoAtual { get; }
@@ -65,6 +70,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             this.NomeInstituicao   = conta.NomeInstituicao;
             this.NumeroAgencia     = conta.NumeroAgencia;
             this.Numero            = conta.Numero;
+            this.Ranking           = conta.Ranking;
             this.ValorSaldoAtual   = valorSaldoAtual;
         }
 
@@ -76,7 +82,8 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             string nomeInstituicao,
             string numeroAgencia,
             string numero,
-            decimal? valorSaldoAtual = null)
+            decimal? valorSaldoAtual = null,
+            int? ranking = null)
         {
             Id                = id;
             Nome              = nome;
@@ -86,6 +93,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             NomeInstituicao   = nomeInstituicao;
             NumeroAgencia     = numeroAgencia;
             Numero            = numero;
+            Ranking           = ranking;
             ValorSaldoAtual   = valorSaldoAtual;
         }
 

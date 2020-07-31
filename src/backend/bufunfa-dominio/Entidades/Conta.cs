@@ -47,6 +47,11 @@ namespace JNogueira.Bufunfa.Dominio.Entidades
         /// </summary>
         public string Numero { get; private set; }
 
+        /// <summary>
+        /// Ranking da conta
+        /// </summary>
+        public int? Ranking { get; private set; }
+
         private Conta()
         {
 
@@ -65,6 +70,7 @@ namespace JNogueira.Bufunfa.Dominio.Entidades
             this.NomeInstituicao   = entrada.NomeInstituicao;
             this.NumeroAgencia     = entrada.NumeroAgencia;
             this.Numero            = entrada.Numero;
+            this.Ranking           = entrada.Ranking;
         }
 
         public void Alterar(ContaEntrada entrada)
@@ -78,6 +84,7 @@ namespace JNogueira.Bufunfa.Dominio.Entidades
             this.NomeInstituicao   = entrada.NomeInstituicao;
             this.NumeroAgencia     = entrada.NumeroAgencia;
             this.Numero            = entrada.Numero;
+            this.Ranking           = entrada.Ranking;
         }
 
         public override string ToString()

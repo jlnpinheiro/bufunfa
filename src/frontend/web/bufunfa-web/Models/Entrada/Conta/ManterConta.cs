@@ -39,5 +39,10 @@
         /// Número da conta
         /// </summary>
         public string Numero { get; set; }
+
+        /// <summary>
+        /// Ranking da conta
+        /// </summary>
+        public int? Ranking { get; set; }
     }
 }

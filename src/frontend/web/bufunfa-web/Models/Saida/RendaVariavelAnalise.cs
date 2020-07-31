@@ -15,6 +15,11 @@ namespace JNogueira.Bufunfa.Web.Models
         public int IdConta { get; set; }
 
         /// <summary>
+        /// Ranking do ativo
+        /// </summary>
+        public int? RankingAtivo { get; set; }
+
+        /// <summary>
         /// Sigla do ativo
         /// </summary>
         public string SiglaAtivo { get; set; }

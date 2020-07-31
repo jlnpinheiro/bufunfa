@@ -48,7 +48,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
             if (!saida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as contas.", saida.Mensagens));
 
-            return PartialView("ListarContas", saida.Retorno?.Where(x => x.CodigoTipo != (int)TipoConta.Acoes && x.CodigoTipo != (int)TipoConta.FII));
+            return PartialView("ListarContas", saida.Retorno?.Where(x => x.CodigoTipo != (int)TipoConta.Acoes && x.CodigoTipo != (int)TipoConta.FII && x.ValorSaldoAtual != 0));
         }
 
         [HttpGet]
@@ -72,7 +72,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
             if (!saida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as ações.", saida.Mensagens));
 
-            return PartialView("ListarAcoes", saida.Retorno);
+            return PartialView("ListarAcoes", saida.Retorno.Where(x => x.ValorTotalCompra > 0));
         }
     }
 }

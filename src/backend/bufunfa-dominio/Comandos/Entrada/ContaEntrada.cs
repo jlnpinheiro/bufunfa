@@ -43,6 +43,11 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         /// </summary>
         public string Numero { get; }
 
+        /// <summary>
+        /// Ranking da conta
+        /// </summary>
+        public int? Ranking { get; }
+
         public ContaEntrada(
             int idUsuario,
             string nome,
@@ -50,7 +55,8 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             decimal? valorSaldoInicial = null,
             string nomeInstituicao = null,
             string numeroAgencia = null,
-            string numero = null)
+            string numero = null,
+            int? ranking = null)
         {
             this.IdUsuario         = idUsuario;
             this.Nome              = tipo == TipoConta.Acoes ? nome.ToUpper() : nome;
@@ -61,6 +67,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             this.NomeInstituicao   = nomeInstituicao;
             this.NumeroAgencia     = numeroAgencia;
             this.Numero            = numero;
+            this.Ranking           = ranking;
 
             this.Validar();
         }

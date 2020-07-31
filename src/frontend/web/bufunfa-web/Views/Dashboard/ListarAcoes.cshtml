@@ -22,13 +22,13 @@
                         <tr>
                             <td class="text-nowrap">
                                 <span class="kt-widget11__title">
-                                    @analise.SiglaAtivo @Html.Raw(analise.CodigoTipo == (int)TipoConta.FII ? "<span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> <small class=\"kt-font-bolder kt-font-primary\">FII</small>" : string.Empty)
+                                    @analise.SiglaAtivo @Html.Raw(analise.CodigoTipo == (int)TipoConta.FII ? "<span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> <small class=\"kt-font-bolder kt-font-primary\">FII</small>" : string.Empty) @Html.Raw(analise.RankingAtivo.HasValue ? "<span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> <small class=\"kt-font-bolder kt-font-warning\">" + analise.RankingAtivo + "</small>" : string.Empty)
                                 </span>
                                 <span class="kt-widget11__sub"><small style="font-size: 85%;">@analise.NomeAtivo</small></span>
                             </td>
                             <td class="text-nowrap text-right">
                                 <span class="kt-font-bold">@analise.ValorTotalCompra.ToString("c2")</span><br />
-                                <small>@analise.QuantidadeEmCarteira.ToString("N0") @(analise.CodigoTipo == (int)TipoConta.RendaVariavel ? (analise.QuantidadeEmCarteira > 1 ? "ações" : "ação") : (analise.QuantidadeEmCarteira > 1 ? "cotas" : "cota"))</small>
+                                <small>@analise.QuantidadeEmCarteira.ToString("N0") @(analise.CodigoTipo == (int)TipoConta.Acoes ? (analise.QuantidadeEmCarteira > 1 ? "ações" : "ação") : (analise.QuantidadeEmCarteira > 1 ? "cotas" : "cota"))</small>
                             </td>
                             <td class="text-nowrap text-right">
                                 <span class="kt-font-success kt-font-bold">@analise.ObterValorTotalJurosDividendosEmReais()</span><br />

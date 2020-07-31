@@ -211,7 +211,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
 
             var lstAnalise = new List<RendaVariavelAnaliseSaida>();
 
-            foreach (var acao in lstRendaVariavel)
+            foreach (var acao in lstRendaVariavel.OrderBy(x => (int)x.Tipo).ThenBy(x => x.Ranking).ThenBy(x => x.Nome))
             {
                 var analiseCarteiraSaida = await ObterAnaliseAtivo(acao.Id, idUsuario, null);
 

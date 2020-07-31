@@ -46,6 +46,35 @@
         public string Numero { get; set; }
 
         /// <summary>
+        /// Ranking da conta
+        /// </summary>
+        public int? Ranking { get; set; }
+
+        /// <summary>
+        /// Tipo de investimento
+        /// </summary>
+        public TipoInvestimento? TipoInvestimento
+        {
+            get
+            {
+                switch (this.CodigoTipo)
+                {
+                    case (int)TipoConta.ContaCorrente:
+                    case (int)TipoConta.Poupanca:
+                        return null;
+                    case (int)TipoConta.TesouroDireto:
+                    case (int)TipoConta.CDB:
+                        return Models.TipoInvestimento.RendaFixa;
+                    case (int)TipoConta.Acoes:
+                    case (int)TipoConta.FII:
+                        return Models.TipoInvestimento.RendaVariavel;
+                    default:
+                        return null;
+                }
+            }
+        }
+
+        /// <summary>
         /// Valor do saldo atual da conta
         /// </summary>
         public decimal? ValorSaldoAtual { get; set; }
@@ -58,10 +87,16 @@
         {
             switch (this.CodigoTipo)
             {
-                case (int)TipoConta.ContaCorrente: return "#30BBBB";
-                case (int)TipoConta.Poupanca: return "#00C0EF";
-                case (int)TipoConta.RendaFixa: return "#555299";
-                case (int)TipoConta.RendaVariavel: return "#FF7701";
+                case (int)TipoConta.ContaCorrente:
+                    return "#30BBBB";
+                case (int)TipoConta.Poupanca: 
+                    return "#00C0EF";
+                case (int)TipoConta.TesouroDireto:
+                case (int)TipoConta.CDB:
+                    return "#555299";
+                case (int)TipoConta.Acoes:
+                case (int)TipoConta.FII:
+                    return "#FF7701";
             }
 
             return string.Empty;
@@ -75,8 +110,18 @@
     {
         ContaCorrente = 1,
         Poupanca      = 2,
-        RendaFixa     = 3,
-        RendaVariavel = 4,
-        FII = 5
+        TesouroDireto = 3,
+        Acoes         = 4,
+        FII           = 5,
+        CDB           = 6
+    }
+
+    /// <summary>
+    /// Tipo de investimento
+    /// </summary>
+    public enum TipoInvestimento
+    {
+        RendaFixa,
+        RendaVariavel
     }
 }

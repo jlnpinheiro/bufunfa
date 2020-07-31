@@ -113,7 +113,7 @@
                                                 @if (operacao.QuantidadeAcoes > 0)
                                                 {
                                                     <br />
-                                                    <span class="small">@(operacao.QuantidadeAcoes) @(Model.CodigoTipo == (int)TipoConta.RendaVariavel ? (operacao.QuantidadeAcoes > 1 ? "ações" : "ação") : (operacao.QuantidadeAcoes > 1 ? "cotas" : "cota"))</span>
+                                                    <span class="small">@(operacao.QuantidadeAcoes) @(Model.CodigoTipo == (int)TipoConta.Acoes ? (operacao.QuantidadeAcoes > 1 ? "ações" : "ação") : (operacao.QuantidadeAcoes > 1 ? "cotas" : "cota"))</span>
                                                 }
                                             </span>
                                         </td>
@@ -160,7 +160,7 @@
                                     <div class="kt-widget4__info">
                                         <span class="kt-widget4__title">Valor total de compra <span class="kt-font-boldest"> (D1)</span></span>
                                         <p class="kt-widget4__text">
-                                            <span class="kt-font-md">Valor total gasto na compra das @(Model.CodigoTipo == (int)TipoConta.RendaVariavel ? "ações" : "cotas").</span>
+                                            <span class="kt-font-md">Valor total gasto na compra das @(Model.CodigoTipo == (int)TipoConta.Acoes ? "ações" : "cotas").</span>
                                             <span class="pull-right kt-font-bold kt-font-danger">@(Model.ObterValorTotalCompraEmReais())</span>
                                         </p>
                                     </div>
@@ -168,9 +168,9 @@
 
                                 <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
                                     <div class="kt-widget4__info">
-                                        <span class="kt-widget4__title">@(Model.CodigoTipo == (int)TipoConta.RendaVariavel ? "Ações" : "Cotas") compradas</span>
+                                        <span class="kt-widget4__title">@(Model.CodigoTipo == (int)TipoConta.Acoes ? "Ações" : "Cotas") compradas</span>
                                         <p class="kt-widget4__text">
-                                            <span class="kt-font-md">Quantidade total de @(Model.CodigoTipo == (int)TipoConta.RendaVariavel ? "ações" : "cotas") compradas.</span>
+                                            <span class="kt-font-md">Quantidade total de @(Model.CodigoTipo == (int)TipoConta.Acoes ? "ações" : "cotas") compradas.</span>
                                             <span class="pull-right kt-font-bold">@(Model.QuantidadeComprada)</span>
                                         </p>
                                     </div>
@@ -180,7 +180,7 @@
                                     <div class="kt-widget4__info">
                                         <span class="kt-widget4__title">Valor médio de compra</span>
                                         <p class="kt-widget4__text">
-                                            <span class="kt-font-md">Valor total gasto na compra, dividido pela quantidade de @(Model.CodigoTipo == (int)TipoConta.RendaVariavel ? "ações" : "cotas") compradas.</span>
+                                            <span class="kt-font-md">Valor total gasto na compra, dividido pela quantidade de @(Model.CodigoTipo == (int)TipoConta.Acoes ? "ações" : "cotas") compradas.</span>
                                             <span class="pull-right kt-font-bold">@(Model.ObterValorMedioCompraEmReais())</span>
                                         </p>
                                     </div>
@@ -216,7 +216,7 @@
                                     <div class="kt-widget4__info">
                                         <span class="kt-widget4__title">Valor total de venda <span class="kt-font-boldest"> (C1)</span></span>
                                         <p class="kt-widget4__text">
-                                            <span class="kt-font-md">Valor total ganho na venda das @(Model.CodigoTipo == (int)TipoConta.RendaVariavel ? "ações" : "cotas").</span>
+                                            <span class="kt-font-md">Valor total ganho na venda das @(Model.CodigoTipo == (int)TipoConta.Acoes ? "ações" : "cotas").</span>
                                             <span class="pull-right kt-font-bold kt-font-success">@(Model.ObterValorTotalVendaEmReais())</span>
                                         </p>
                                     </div>
@@ -226,7 +226,7 @@
                                     <div class="kt-widget4__info">
                                         <span class="kt-widget4__title">Ações vendidas</span>
                                         <p class="kt-widget4__text">
-                                            <span class="kt-font-md">Quantidade total de @(Model.CodigoTipo == (int)TipoConta.RendaVariavel ? "ações" : "cotas") vendidas.</span>
+                                            <span class="kt-font-md">Quantidade total de @(Model.CodigoTipo == (int)TipoConta.Acoes ? "ações" : "cotas") vendidas.</span>
                                             <span class="pull-right kt-font-bold">@(Model.QuantidadeVendida)</span>
                                         </p>
                                     </div>
@@ -236,7 +236,7 @@
                                     <div class="kt-widget4__info">
                                         <span class="kt-widget4__title">Valor médio de venda</span>
                                         <p class="kt-widget4__text">
-                                            <span class="kt-font-md">Valor total ganho na venda, dividido pela quantidade de @(Model.CodigoTipo == (int)TipoConta.RendaVariavel ? "ações" : "cotas") vendidas.</span>
+                                            <span class="kt-font-md">Valor total ganho na venda, dividido pela quantidade de @(Model.CodigoTipo == (int)TipoConta.Acoes ? "ações" : "cotas") vendidas.</span>
                                             <span class="pull-right kt-font-bold">@(Model.ObterValorMedioVendaEmReais())</span>
                                         </p>
                                     </div>
@@ -279,7 +279,7 @@
                                         <div class="kt-widget4__info">
                                             <span class="kt-widget4__title">Valor de mercado</span>
                                             <p class="kt-widget4__text">
-                                                <span class="kt-font-md">Valor da cotação atual da @(Model.CodigoTipo == (int)TipoConta.RendaVariavel ? "ação" : "cota") * quantidade de @(Model.CodigoTipo == (int)TipoConta.RendaVariavel ? "ações" : "cotas") em carteira.</span>
+                                                <span class="kt-font-md">Valor da cotação atual da @(Model.CodigoTipo == (int)TipoConta.Acoes ? "ação" : "cota") * quantidade de @(Model.CodigoTipo == (int)TipoConta.Acoes ? "ações" : "cotas") em carteira.</span>
                                                 <span class="pull-right kt-font-bold">@(Model.ObterValorMercadoEmReais())</span>
                                             </p>
                                         </div>

@@ -22,6 +22,11 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         public string SiglaAtivo { get; }
 
         /// <summary>
+        /// Ranking do ativo
+        /// </summary>
+        public int? RankingAtivo { get; }
+
+        /// <summary>
         /// Nome do ativo
         /// </summary>
         public string NomeAtivo { get; }
@@ -114,6 +119,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         public RendaVariavelAnaliseSaida(ContaSaida acao, IEnumerable<Lancamento> operacoes, RendaVariavelCotacaoSaida cotacao)
         {
             this.IdConta = acao.Id;
+            this.RankingAtivo = acao.Ranking;
             this.SiglaAtivo = acao.Nome;
             this.NomeAtivo = acao.NomeInstituicao;
             this.CodigoTipo = acao.CodigoTipo;
@@ -151,22 +157,24 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             decimal valorTotalImpostos,
             decimal valorGanhoPrejuizo,
             RendaVariavelCotacaoSaida cotacao,
-            IEnumerable<RendaVariavelOperacaoSaida> operacoes)
+            IEnumerable<RendaVariavelOperacaoSaida> operacoes,
+            int? ranking = null)
         {
             SiglaAtivo                 = siglaAcao;
             NomeAtivo                  = nomeAcao;
-            CodigoTipo                = (int)tipo;
-            DescricaoTipo             = tipo.ObterDescricao();
-            QuantidadeEmCarteira      = quantidadeEmCarteira;
-            QuantidadeComprada        = quantidadeComprada;
-            ValorTotalCompra          = valorTotalCompra;
-            QuantidadeVendida         = quantidadeVendida;
-            ValorTotalVenda           = valorTotalVenda;
-            ValorTotalJurosDividendos = valorTotalJurosDividendos;
-            ValorTotalImpostos        = valorTotalImpostos;
-            ValorGanhoPrejuizo        = valorGanhoPrejuizo;
-            Cotacao                   = cotacao;
-            Operacoes                 = operacoes;
+            CodigoTipo                 = (int)tipo;
+            DescricaoTipo              = tipo.ObterDescricao();
+            QuantidadeEmCarteira       = quantidadeEmCarteira;
+            QuantidadeComprada         = quantidadeComprada;
+            ValorTotalCompra           = valorTotalCompra;
+            QuantidadeVendida          = quantidadeVendida;
+            ValorTotalVenda            = valorTotalVenda;
+            ValorTotalJurosDividendos  = valorTotalJurosDividendos;
+            ValorTotalImpostos         = valorTotalImpostos;
+            ValorGanhoPrejuizo         = valorGanhoPrejuizo;
+            Cotacao                    = cotacao;
+            Operacoes                  = operacoes;
+            RankingAtivo               = ranking;
         }
     }
 

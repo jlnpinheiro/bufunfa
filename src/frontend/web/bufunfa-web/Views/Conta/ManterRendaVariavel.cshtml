@@ -24,7 +24,7 @@
                     <label>Tipo</label> @CustomHtmlHelper.IconeCampoObrigatorio()
                     @{
                         var lstTipo = new List<SelectListItem>()
-                                                                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                                                                                    {
                             new SelectListItem(string.Empty, string.Empty, Model == null),
                             new SelectListItem("Ação", ((int)TipoConta.Acoes).ToString(), Model != null && Model.CodigoTipo == (int)TipoConta.Acoes),
                             new SelectListItem("FII", ((int)TipoConta.FII).ToString(), Model != null && Model.CodigoTipo == (int)TipoConta.FII)
@@ -40,6 +40,14 @@
                 <div class="col-md-12 form-group-sub">
                     <label>Descrição</label>
                     <input type="text" class="form-control" id="iNomeInstituicao" name="iNomeInstituicao" value="@Model?.NomeInstituicao">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-12 col-lg-6 form-group-sub">
+                    <label>Ranking</label>
+                    <input type="text" class="form-control" id="iRanking" name="iRanking" value="@Model?.Ranking">
+                    <span class="form-text text-muted">O ranking indica a prioridade por futuros aportes.</span>
                 </div>
             </div>
         </div>
