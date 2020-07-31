@@ -49,7 +49,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
             if (!saida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as contas.", saida.Mensagens));
 
-            return PartialView("ListarContas", saida.Retorno?.Where(x => x.TipoInvestimento == TipoInvestimento.RendaFixa && x.ValorSaldoAtual != 0));
+            return PartialView("ListarContas", saida.Retorno?.Where(x => (x.TipoInvestimento == TipoInvestimento.RendaFixa || x.TipoInvestimento == null) && x.ValorSaldoAtual != 0));
         }
 
         [HttpGet]
