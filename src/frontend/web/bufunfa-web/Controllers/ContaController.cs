@@ -82,7 +82,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
             if (!saida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível exibir as informações da conta.", saida.Mensagens));
 
-            return PartialView(saida.Retorno.CodigoTipo != (int)TipoConta.Acoes && saida.Retorno.CodigoTipo != (int)TipoConta.FII ? "ManterRendaFixa" : "ManterRendaVariavel", saida.Retorno);
+            return PartialView(saida.Retorno.TipoInvestimento == TipoInvestimento.RendaFixa ? "ManterRendaFixa" : "ManterRendaVariavel", saida.Retorno);
         }
 
         [HttpPost]
@@ -161,7 +161,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
             if (!saida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as informações das contas.", saida.Mensagens));
 
-            return PartialView("PopupConta", saida.Retorno?.Where(x => x.CodigoTipo != (int)TipoConta.Acoes).ToList());
+            return PartialView("PopupConta", saida.Retorno?.Where(x => x.TipoInvestimento != TipoInvestimento.RendaVariavel).ToList());
         }
 
         [HttpGet]
