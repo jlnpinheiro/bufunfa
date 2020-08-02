@@ -206,7 +206,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
 
             var lstRendaVariavel = (await _contaRepositorio.ObterPorUsuario(idUsuario)).Where(x => x.Tipo == TipoConta.Acoes || x.Tipo == TipoConta.FII);
 
-            if (lstRendaVariavel == null || !lstRendaVariavel.Any())
+            if (lstRendaVariavel?.Any() != true)
                 return new Saida(true, new[] { ContaMensagem.Nenhuma_Conta_Encontrada }, null);
 
             var lstAnalise = new List<RendaVariavelAnaliseSaida>();

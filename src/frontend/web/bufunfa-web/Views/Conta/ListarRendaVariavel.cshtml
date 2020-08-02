@@ -11,7 +11,7 @@
                     <th>Sigla</th>
                     <th>Descrição</th>
                     <th class="text-right text-nowrap" style="width: 10%;">Quantidade</th>
-                    <th class="text-right text-nowrap kt-pl15-tablet-and-mobile" style="width: 10%;">Total compra</th>
+                    <th class="text-right text-nowrap kt-pl15-tablet-and-mobile" style="width: 10%;">Total investido</th>
                     <th class="text-right text-nowrap kt-pl15-tablet-and-mobile" style="width: 10%;">Total dividendos</th>
                     <th class="text-right text-nowrap kt-pl15-tablet-and-mobile" style="width: 10%;">Total venda</th>
                     <th style="width:1px;"></th>
@@ -32,10 +32,10 @@
                             {
                                 <a href="https://www.sunoresearch.com.br/acoes/@(analise.SiglaAtivo)/" target="_blank" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables info-acao" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Informações do ativo"><span class="la la-info-circle"></span></a>
                             }
-                            @analise.SiglaAtivo @Html.Raw(analise.CodigoTipo == (int)TipoConta.FII ? "<span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> <small class=\"kt-font-bolder kt-font-primary\">FII</small>" : string.Empty) @Html.Raw(analise.RankingAtivo.HasValue ? "<span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span> <small class=\"kt-font-bolder kt-font-warning\">" + analise.RankingAtivo + "</small>" : string.Empty)
+                            @Html.Raw(analise.RankingAtivo.HasValue ? "<small class=\"kt-font-bolder kt-font-warning\">" + analise.RankingAtivo + "</small> <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span>" : string.Empty) @analise.SiglaAtivo <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <small class="kt-font-bolder kt-font-primary">@(Html.Raw(analise.CodigoTipo == (int)TipoConta.FII ? "FII" : "Ações"))</small>
                         </td>
                         <td class="text-nowrap">@analise.NomeAtivo</td>
-                        <td class="text-right text-nowrap">@analise.QuantidadeEmCarteira.ToString("N0")</td>
+                        <td class="text-right text-nowrap">@analise.QuantidadeEmCarteira.ToString("N0") @(analise.CodigoTipo == (int)TipoConta.Acoes ? (analise.QuantidadeEmCarteira > 1 ? "ações" : "ação") : (analise.QuantidadeEmCarteira > 1 ? "cotas" : "cota"))</td>
                         <td class="text-nowrap text-right kt-font-bold @(analise.ValorTotalCompra > 0 ? "kt-font-danger" : string.Empty)">@(analise.ValorTotalCompra.ToString("C2"))</td>
                         <td class="text-nowrap text-right kt-font-bold kt-font-success">@(analise.ObterValorTotalJurosDividendosEmReais())</td>
                         <td class="text-nowrap text-right kt-font-bold @(analise.ValorTotalVenda > 0 ? "kt-font-success" : string.Empty)">@(analise.ValorTotalVenda.ToString("C2"))</td>

@@ -1,0 +1,105 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+@using JNogueira.Bufunfa.Web.Proxy
+
+@inject BackendProxy _proxy
+
+@{
+    decimal totalRendaFixa = 0;
+    decimal totalRendaVariavel = 0;
+    decimal porcentagemRendaFixa = 0;
+    decimal porcentagemRendaVariavel = 0;
+
+    try
+    {
+        var rendaFixaSaida = await _proxy.ObterContas();
+
+        if (rendaFixaSaida.Sucesso)
+        {
+            totalRendaFixa = rendaFixaSaida.Retorno.Where(x => x.TipoInvestimento == TipoInvestimento.RendaFixa).Sum(x => x.ValorSaldoAtual) ?? 0;
+        }
+
+        var rendaVariavelSaida = await _proxy.ObterAnaliseAtivos();
+
+        if (rendaVariavelSaida.Sucesso)
+        {
+            totalRendaVariavel = rendaVariavelSaida.Retorno.Sum(x => x.ValorTotalCompra);
+        }
+
+        porcentagemRendaFixa = 100 * totalRendaFixa / (totalRendaFixa + totalRendaVariavel);
+
+        porcentagemRendaVariavel = 100 - porcentagemRendaFixa;
+    }
+    catch
+    {
+
+    }
+ }
+
+<div class="kt-portlet">
+    <div class="kt-portlet__body  kt-portlet__body--fit">
+        <div class="row row-no-padding row-col-separator-lg">
+            <div class="col-md-12 col-lg-6">
+
+                <div class="kt-widget24">
+                    <div class="kt-widget24__details">
+                        <div class="kt-widget24__info">
+                            <h4 class="kt-widget24__title" style="line-height: 22px; font-weight: 600; margin-bottom:0;">
+                                Renda fixa
+                                &nbsp;<button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables" id="btn-detalhar-investimentos-rf" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Detalhar investimentos"><span class="la la-search-plus"></span></button>
+                            </h4>
+                            <span class="kt-widget24__desc">
+                                Total investido
+                            </span>
+                        </div>
+                        <span class="kt-widget24__stats kt-font-primary" style="font-size: 1.55rem;">
+                            @(totalRendaFixa.ToString("c2"))
+                        </span>
+                    </div>
+                    <div class="progress" style="margin: 1rem 0 .5rem 0; height: 1rem;">
+                        <div class="progress-bar progress-bar-striped progress-lg kt-bg-primary" role="progressbar" style="width: @(porcentagemRendaFixa.ToString("N0"))%;"></div>
+                    </div>
+                    <div class="kt-widget24__action">
+                        <span class="kt-widget24__change">
+
+                        </span>
+                        <span class="kt-widget24__number">
+                            @(porcentagemRendaFixa.ToString("N0"))%
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-12 col-lg-6">
+
+                <div class="kt-widget24">
+                    <div class="kt-widget24__details">
+                        <div class="kt-widget24__info">
+                            <h4 class="kt-widget24__title" style="line-height: 22px; font-weight: 600; margin-bottom:0;">
+                                Renda variável
+                                &nbsp;<button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables" id="btn-detalhar-investimentos-rv" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Detalhar investimentos"><span class="la la-search-plus"></span></button>
+                            </h4>
+                            <span class="kt-widget24__desc">
+                                Total investido
+                            </span>
+                        </div>
+                        <span class="kt-widget24__stats kt-font-primary" style="font-size: 1.55rem;">
+                            @(totalRendaVariavel.ToString("c2"))
+                        </span>
+                    </div>
+                    <div class="progress progress--sm" style="margin: 1rem 0 .5rem 0; height: 1rem;">
+                        <div class="progress-bar progress-bar-striped progress-lg kt-bg-primary" role="progressbar" style="width: @(porcentagemRendaVariavel.ToString("N0"))%;"></div>
+                    </div>
+                    <div class="kt-widget24__action">
+                        <span class="kt-widget24__change">
+
+                        </span>
+                        <span class="kt-widget24__number">
+                            @(porcentagemRendaVariavel.ToString("N0"))%
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

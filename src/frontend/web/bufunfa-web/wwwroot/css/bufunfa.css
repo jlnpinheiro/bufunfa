@@ -518,3 +518,10 @@ table.dataTable.table-sm .sorting:after, table.dataTable.table-sm .sorting_asc:a
     .table .selected td.coluna-valor {
         background-color: #FFFEAA !important;
     }
+
+@media (min-width: 1025px) {
+    .row.row-col-separator-lg > div {
+        border-bottom: 0;
+        border-right: 20px solid #ebedf2;
+    }
+}

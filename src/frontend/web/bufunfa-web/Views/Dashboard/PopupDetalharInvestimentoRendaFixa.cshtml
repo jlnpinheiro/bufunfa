@@ -1,0 +1,132 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+@using JNogueira.Bufunfa.Web.Proxy
+
+@inject BackendProxy _proxy
+
+@{
+    decimal totalRendaFixa = 0;
+
+    Saida<IEnumerable<Conta>> rendaFixaSaida = null;
+
+    try
+    {
+        rendaFixaSaida = await _proxy.ObterContas();
+
+        if (rendaFixaSaida.Sucesso)
+        {
+            totalRendaFixa = rendaFixaSaida.Retorno.Where(x => x.TipoInvestimento == TipoInvestimento.RendaFixa).Sum(x => x.ValorSaldoAtual) ?? 0;
+        }
+    }
+    catch
+    {
+
+    }
+}
+
+<div class="kt-portlet app-modal-md" style="margin-bottom:0;">
+    <div class="kt-portlet__head popup">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Renda fixa <small class="kt-hidden-mobile">Detalhamento</small>
+            </h3>
+        </div>
+    </div>
+    <form class="kt-form kt-form--label-right" id="form-valor-cotacao">
+        <div class="kt-portlet__body" style="padding-bottom: 0; padding-top: 0;">
+            <div class="kt-widget24" style="padding:10px 0 0 0">
+                <div class="kt-widget24__details">
+                    <div class="kt-widget24__info">
+                        <h4 class="kt-widget24__title">
+                            Total investido
+                        </h4>
+                    </div>
+                    <span class="kt-widget24__stats kt-font-primary kt-font-bold">
+                        @(totalRendaFixa.ToString("C2"))
+                    </span>
+                </div>
+            </div>
+            <div class="kt-widget25__items">
+                <div class="kt-widget25__item kt-pt5 kt-pb-0">
+                    @{
+                        var totalRendaFixaCdb = rendaFixaSaida.Retorno.Where(x => x.TipoInvestimento == TipoInvestimento.RendaFixa && x.CodigoTipo == (int)TipoConta.CDB).Sum(x => x.ValorSaldoAtual) ?? 0;
+
+                        var percentualCdb = totalRendaFixa != 0 ? 100 * totalRendaFixaCdb / totalRendaFixa : 0;
+                    }
+                    <span class="kt-widget25__number kt-font-bolder">
+                        CDB
+                    </span>
+                    <div class="progress kt-progress--sm">
+                        <div class="progress-bar progress-bar-striped progress-lg kt-bg-primary" role="progressbar" style="width: @(percentualCdb.ToString("N0"))%;"></div>
+                    </div>
+                    <div class="kt-widget25__desc kt-pt5" style="text-align: right;">
+                        <span class="kt-font-bolder">@(percentualCdb.ToString("N0"))%</span> <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <span class="kt-font-primary kt-font-bold">@(totalRendaFixaCdb.ToString("C2"))</span>
+                    </div>
+                </div>
+                <div class="kt-widget25__item kt-pt0 kt-pb-10">
+                    @{
+                        var totalRendaFixaTd = rendaFixaSaida.Retorno.Where(x => x.TipoInvestimento == TipoInvestimento.RendaFixa && x.CodigoTipo == (int)TipoConta.TesouroDireto).Sum(x => x.ValorSaldoAtual) ?? 0;
+
+                        var percentualTd = totalRendaFixa != 0 ? 100 * totalRendaFixaTd / totalRendaFixa : 0;
+                    }
+                    <span class="kt-widget25__number kt-font-bolder">
+                        Tesouro Direto
+                    </span>
+                    <div class="progress kt-progress--sm">
+                        <div class="progress-bar progress-bar-striped progress-lg kt-bg-primary" role="progressbar" style="width: @(percentualTd.ToString("N0"))%;"></div>
+                    </div>
+                    <div class="kt-widget25__desc kt-pt5" style="text-align: right;">
+                        <span class="kt-font-bolder">@(percentualTd.ToString("N0"))%</span> <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <span class="kt-font-primary kt-font-bold">@(totalRendaFixaTd.ToString("C2"))</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="kt-widget31">
+                @{ 
+                    var totalItens = rendaFixaSaida.Retorno.Count(x => x.TipoInvestimento == TipoInvestimento.RendaFixa && x.ValorSaldoAtual > 0);
+                    var cont = 0;
+
+                    foreach (var conta in rendaFixaSaida.Retorno.Where(x => x.TipoInvestimento == TipoInvestimento.RendaFixa && x.ValorSaldoAtual > 0).OrderByDescending(x => x.ValorSaldoAtual).ThenBy(x => x.Nome))
+                    {
+                        cont++;
+
+                        <div class="kt-widget31__item" style="padding: 1.07rem 0; margin: 0; @(cont != totalItens ? "border-bottom: 1px dashed #ebedf2;" : string.Empty)">
+                            <div class="kt-widget31__content">
+                                <div class="kt-widget31__info" style="padding: 0;">
+                                    <span class="kt-widget31__username">
+                                        @conta.Nome
+                                    </span>
+                                    <p class="kt-widget31__text">
+                                        <small style="font-size: 85%;"><i class="fa fa-university" style="color: @(conta.ObterCorPorTipoConta());"></i> @conta.DescricaoTipo</small>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="kt-widget31__content">
+                                <div class="kt-widget31__progress" style="padding-right: 0;">
+                                    @{ 
+                                        var percentual = 100 * conta.ValorSaldoAtual / totalRendaFixa;
+                                    }
+                                    <a href="#" class="kt-widget31__stats">
+                                        <span class="kt-font-bolder">@(percentual?.ToString("N0"))%</span>
+                                        <span class="kt-font-bold">@conta.ObterSaldoAtualEmReais()</span>
+                                    </a>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar bg-dark" role="progressbar" style="width: @(percentual?.ToString("N0"))%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="kt-portlet__foot popup">
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-12 kt-align-right">
+                        <button type="reset" class="btn btn-sm btn-outline-hover-primary btn-elevate btn-fechar"><i class="la la-close"></i> Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

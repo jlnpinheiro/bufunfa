@@ -84,6 +84,10 @@ var Dashboard = function () {
         });
     };
 
+    var _detalharInvestimentos = function (tipo) {
+        AppModal.exibirPorRota(App.corrigirPathRota("/dashboard/exibir-popup-detalhar-investimentos-" + (tipo === "RF" ? "renda-fixa" : "renda-variavel")));
+    };
+
     //== Public Functions
     return {
         // public functions
@@ -92,6 +96,14 @@ var Dashboard = function () {
             _listarContas();
             _listarCartoes();
             _listarAcoes();
+
+            $("#btn-detalhar-investimentos-rf").click(function () {
+                _detalharInvestimentos("RF");
+            });
+
+            $("#btn-detalhar-investimentos-rv").click(function () {
+                _detalharInvestimentos("RV");
+            })
 
             $.validator.addMethod("periodo_valido", function () {
                 let inicio = moment($("#iProcurarDataInicio").val(), "DD/MM/YYYY").toDate();

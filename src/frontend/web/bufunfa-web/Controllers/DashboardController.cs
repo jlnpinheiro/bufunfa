@@ -73,7 +73,21 @@ namespace JNogueira.Bufunfa.Web.Controllers
             if (!saida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as ações.", saida.Mensagens));
 
-            return PartialView("ListarAcoes", saida.Retorno.Where(x => x.ValorTotalCompra > 0));
+            return PartialView("ListarAcoes", saida.Retorno?.Where(x => x.ValorTotalCompra > 0));
+        }
+
+        [HttpGet]
+        [Route("exibir-popup-detalhar-investimentos-renda-fixa")]
+        public IActionResult ExibirPopupDetalharInvestimentosRendaFixa()
+        {
+            return PartialView("PopupDetalharInvestimentoRendaFixa");
+        }
+
+        [HttpGet]
+        [Route("exibir-popup-detalhar-investimentos-renda-variavel")]
+        public IActionResult ExibirPopupDetalharInvestimentosRendaVariavel()
+        {
+            return PartialView("PopupDetalharInvestimentoRendaVariavel");
         }
     }
 }

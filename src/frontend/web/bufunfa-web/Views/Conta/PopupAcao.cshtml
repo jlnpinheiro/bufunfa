@@ -47,7 +47,7 @@
                         <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
                             <div class="kt-widget4__info">
                                 <span class="kt-widget4__title">Quantidade</span>
-                                <p class="kt-widget4__text">@(Model.QuantidadeEmCarteira == 0 ? "nenhuma" : Model.QuantidadeEmCarteira.ToString())</p>
+                                <p class="kt-widget4__text">@(Model.QuantidadeEmCarteira == 0 ? "nenhuma" : Model.QuantidadeEmCarteira.ToString()) @(Model.CodigoTipo == (int)TipoConta.Acoes ? (Model.QuantidadeEmCarteira > 1 ? "ações" : "ação") : (Model.QuantidadeEmCarteira > 1 ? "cotas" : "cota"))</p>
                             </div>
                         </div>
                         <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
@@ -158,7 +158,7 @@
                             <div class="kt-widget4">
                                 <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
                                     <div class="kt-widget4__info">
-                                        <span class="kt-widget4__title">Valor total de compra <span class="kt-font-boldest"> (D1)</span></span>
+                                        <span class="kt-widget4__title">Valor total investido <span class="kt-font-boldest"> (D1)</span></span>
                                         <p class="kt-widget4__text">
                                             <span class="kt-font-md">Valor total gasto na compra das @(Model.CodigoTipo == (int)TipoConta.Acoes ? "ações" : "cotas").</span>
                                             <span class="pull-right kt-font-bold kt-font-danger">@(Model.ObterValorTotalCompraEmReais())</span>
@@ -214,7 +214,7 @@
                             <div class="kt-widget4">
                                 <div class="kt-widget4__item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
                                     <div class="kt-widget4__info">
-                                        <span class="kt-widget4__title">Valor total de venda <span class="kt-font-boldest"> (C1)</span></span>
+                                        <span class="kt-widget4__title">Valor total na venda <span class="kt-font-boldest"> (C1)</span></span>
                                         <p class="kt-widget4__text">
                                             <span class="kt-font-md">Valor total ganho na venda das @(Model.CodigoTipo == (int)TipoConta.Acoes ? "ações" : "cotas").</span>
                                             <span class="pull-right kt-font-bold kt-font-success">@(Model.ObterValorTotalVendaEmReais())</span>

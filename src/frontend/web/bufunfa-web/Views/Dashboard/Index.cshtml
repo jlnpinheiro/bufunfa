@@ -50,6 +50,9 @@
         <!--End::Portlet-->
     </div>
     <div class="col-xl-6 order-lg-1 order-xl-1">
+
+        @await Html.PartialAsync("~/Views/Dashboard/TilesTotalInvestidoPorTipoInvestimento.cshtml")
+
         <div class="kt-portlet" data-ktportlet="true">
             <div class="kt-portlet__head popup">
                 <div class="kt-portlet__head-label">
@@ -75,27 +78,6 @@
             <div class="kt-portlet__head popup">
                 <div class="kt-portlet__head-label">
                     <span class="kt-portlet__head-icon kt-hidden-mobile">
-                        <i class="fa fa-credit-card"></i>
-                    </span>
-                    <h3 class="kt-portlet__head-title">Cartões<small class="kt-hidden-mobile">Limite disponível</small></h3>
-                </div>
-                <div class="kt-portlet__head-toolbar">
-                    <div class="kt-portlet__head-actions">
-                        <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="kt-portlet__body">
-                <div class="kt-portlet__content">
-                    <div id="div-listar-cartoes"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="kt-portlet" data-ktportlet="true">
-            <div class="kt-portlet__head popup">
-                <div class="kt-portlet__head-label">
-                    <span class="kt-portlet__head-icon kt-hidden-mobile">
                         <i class="flaticon2-line-chart"></i>
                     </span>
                     <h3 class="kt-portlet__head-title">Renda variável</h3>
@@ -109,6 +91,27 @@
             <div class="kt-portlet__body">
                 <div class="kt-portlet__content">
                     <div id="div-listar-acoes"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-portlet" data-ktportlet="true">
+            <div class="kt-portlet__head popup">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon kt-hidden-mobile">
+                        <i class="fa fa-credit-card"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-title">Cartões<small class="kt-hidden-mobile">Limite disponível</small></h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-actions">
+                        <a href="#" data-ktportlet-tool="toggle" class="btn btn-sm btn-icon btn-clean btn-icon-md"><i class="la la-angle-down"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="kt-portlet__content">
+                    <div id="div-listar-cartoes"></div>
                 </div>
             </div>
         </div>
