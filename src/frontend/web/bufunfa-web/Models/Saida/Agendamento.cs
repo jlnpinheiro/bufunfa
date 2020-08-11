@@ -82,6 +82,16 @@ namespace JNogueira.Bufunfa.Web.Models
         public int QuantidadeParcelasAbertas { get; set; }
 
         /// <summary>
+        /// Quantidade total de parcelas lançadas.
+        /// </summary>
+        public int QuantidadeParcelasLancadas { get; set; }
+
+        /// <summary>
+        /// Quantidade total de parcelas descartadas.
+        /// </summary>
+        public int QuantidadeParcelasDescartadas { get; set; }
+
+        /// <summary>
         /// Quantidade total de parcelas fechadas.
         /// </summary>
         public int QuantidadeParcelasFechadas { get; set; }

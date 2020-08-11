@@ -6,29 +6,64 @@
             <div class="kt-widget24__details">
                 <div class="kt-widget24__info">
                     <h4 class="kt-widget24__title">
-                        Parcelas fechadas
+                        Parcelas lançadas
                     </h4>
                 </div>
 
                 <span class="kt-widget24__stats kt-font-success" style="font-size: 1.3rem;">
-                    @Model.QuantidadeParcelasFechadas
+                    @Model.QuantidadeParcelasLancadas
                 </span>
             </div>
-
+            @{
+                var percentualLancada = (Model.QuantidadeParcelasLancadas * 100) / Model.QuantidadeParcelas;
+            }
             <div class="progress progress--sm" style="margin:.5rem 0 .5rem 0;">
-                <div class="progress-bar kt-bg-success" role="progressbar" style="width: @(Model.PercentualConclusao.ToString("N0"))%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar kt-bg-success" role="progressbar" style="width: @(percentualLancada.ToString("N0"))%;"></div>
             </div>
 
             <div class="kt-widget24__action">
                 <span class="kt-widget24__change">
                 </span>
                 <span class="kt-widget24__number">
-                    <span class="kt-font-bold">@(Model.Parcelas.Where(x => x.Lancada || x.Descartada).Sum(x => x.Valor).ToString("C2"))</span><span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm ml-2 mr-2"></span>@(Model.PercentualConclusao.ToString("N0"))%
+                    <span class="kt-font-bold">@(Model.Parcelas.Where(x => x.Lancada).Sum(x => x.Valor).ToString("C2"))</span><span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm ml-2 mr-2"></span>@(percentualLancada.ToString("N0"))%
                 </span>
             </div>
         </div>
     </div>
+
     <div class="col-sm-12 col-md-6">
+        <div class="kt-widget24" style="padding:5px;">
+            <div class="kt-widget24__details">
+                <div class="kt-widget24__info">
+                    <h4 class="kt-widget24__title">
+                        Parcelas descartadas
+                    </h4>
+                </div>
+
+                <span class="kt-widget24__stats kt-font-dark" style="font-size: 1.3rem;">
+                    @Model.QuantidadeParcelasDescartadas
+                </span>
+            </div>
+            @{
+                var percentualDescartada = (Model.QuantidadeParcelasDescartadas * 100) / Model.QuantidadeParcelas;
+            }
+            <div class="progress progress--sm" style="margin:.5rem 0 .5rem 0;">
+                <div class="progress-bar kt-bg-dark" role="progressbar" style="width: @(percentualDescartada.ToString("N0"))%;"></div>
+            </div>
+
+            <div class="kt-widget24__action">
+                <span class="kt-widget24__change">
+                </span>
+                <span class="kt-widget24__number">
+                    <span class="kt-font-bold">@(Model.Parcelas.Where(x => x.Descartada).Sum(x => x.Valor).ToString("C2"))</span><span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm ml-2 mr-2"></span>@(percentualDescartada.ToString("N0"))%
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
         <div class="kt-widget24" style="padding:5px;">
             <div class="kt-widget24__details">
                 <div class="kt-widget24__info">
@@ -57,6 +92,7 @@
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-sm-12">
         <button class="btn btn-sm btn-secondary btn-hover-primary" id="btn-cadastrar-parcela">
@@ -84,7 +120,7 @@
                     @foreach (var parcela in Model.Parcelas.OrderBy(x => x.Numero))
                     {
                         <tr>
-                            <td class="text-right"><span class=" kt-badge kt-badge--@(parcela.Lancada || parcela.Descartada ? "success" : "warning") kt-badge--square">@parcela.Numero</span></td>
+                            <td class="text-right"><span class=" kt-badge  kt-badge--@(parcela.Lancada ? "success" : (parcela.Descartada ? "dark" : "warning")) kt-badge--square">@parcela.Numero</span></td>
                             <td>
                                 @parcela.Observacao
                                 @if (parcela.Descartada)

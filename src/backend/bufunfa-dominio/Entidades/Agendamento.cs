@@ -192,6 +192,20 @@ namespace JNogueira.Bufunfa.Dominio.Entidades
             : this.Parcelas.Count(x => x.ObterStatus() == StatusParcela.Aberta);
 
         /// <summary>
+        /// Quantidade total de parcelas lançadas.
+        /// </summary>
+        public int ObterQuantidadeParcelasLancadas() => this.Parcelas?.Any() != true
+            ? 0
+            : this.Parcelas.Count(x => x.Lancada);
+
+        /// <summary>
+        /// Quantidade total de parcelas descartadas.
+        /// </summary>
+        public int ObterQuantidadeParcelasDescartadas() => this.Parcelas?.Any() != true
+            ? 0
+            : this.Parcelas.Count(x => x.Descartada);
+
+        /// <summary>
         /// Quantidade total de parcelas fechadas.
         /// </summary>
         public int ObterQuantidadeParcelasFechadas() => this.Parcelas?.Any() != true
