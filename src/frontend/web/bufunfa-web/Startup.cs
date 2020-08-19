@@ -38,7 +38,9 @@ namespace JNogueira.Bufunfa.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpContextAccessor();
+            services
+                .AddHttpContextAccessor()
+                .AddHttpClient();            
 
             // Extrai as informações do arquivo de configuração (appSettings.*.json) ou das variáveis de ambiente
             var configHelper = new ConfigurationHelper(Configuration);
@@ -46,11 +48,11 @@ namespace JNogueira.Bufunfa.Web
             // AddSingleton: instância configurada de forma que uma única referência das mesmas seja empregada durante todo o tempo em que a aplicação permanecer em execução
             services.AddSingleton(configHelper);
 
-            services.AddTransient<HttpClientHelper, HttpClientHelper>();
-            services.AddTransient<DatatablesHelper, DatatablesHelper>();
-            services.AddTransient<CookieHelper, CookieHelper>();
-            services.AddTransient<CustomHtmlHelper, CustomHtmlHelper>();
-            services.AddTransient<BackendProxy, BackendProxy>();
+            services.AddTransient<HttpClientHelper>();
+            services.AddTransient<DatatablesHelper>();
+            services.AddTransient<CookieHelper>();
+            services.AddTransient<CustomHtmlHelper>();
+            services.AddTransient<BackendProxy>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie(options =>

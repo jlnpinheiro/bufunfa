@@ -35,6 +35,7 @@ namespace JNogueira.Bufunfa.Web
 
                     logging.AddFilter<DiscordLoggerProvider>("JNogueira.Bufunfa.Web", LogLevel.Warning);
                     logging.AddFilter<DiscordLoggerProvider>("Microsoft.AspNetCore.Antiforgery", LogLevel.None);
+                    logging.AddFilter<DiscordLoggerProvider>("System", LogLevel.Warning);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
