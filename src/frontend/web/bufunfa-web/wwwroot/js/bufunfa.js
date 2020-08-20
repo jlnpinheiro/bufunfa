@@ -535,11 +535,11 @@
             let valorTotalFatura = _calcularTotalFatura();
 
             if (valorTotalAdicional < 0) {
-                $("#span-valor-adicional-total").removeClass('kt-font-dark').removeClass('kt-font-danger').addClass('kt-font-success');
+                $("#span-valor-adicional-total").removeClass('kt-font-dark').removeClass('kt-font-success').addClass('kt-font-danger');
             } else if (valorTotalAdicional == 0) {
                 $("#span-valor-adicional-total").removeClass('kt-font-danger').removeClass('kt-font-success').addClass('kt-font-dark');
             } else {
-                $("#span-valor-adicional-total").removeClass('kt-font-dark').removeClass('kt-font-success').addClass('kt-font-danger');
+                $("#span-valor-adicional-total").removeClass('kt-font-dark').removeClass('kt-font-danger').addClass('kt-font-success');
             }
 
             _aplicarEfeitoContagem("span-valor-adicional-total", valorTotalAdicional);
@@ -551,11 +551,11 @@
             let valorTotalFatura = _calcularTotalFatura();
 
             if (valorTotalAdicional < 0) {
-                $("#span-valor-adicional-total").removeClass('kt-font-dark').removeClass('kt-font-danger').addClass('kt-font-success');
+                $("#span-valor-adicional-total").removeClass('kt-font-dark').removeClass('kt-font-success').addClass('kt-font-danger');
             } else if (valorTotalAdicional == 0) {
                 $("#span-valor-adicional-total").removeClass('kt-font-danger').removeClass('kt-font-success').addClass('kt-font-dark');
             } else {
-                $("#span-valor-adicional-total").removeClass('kt-font-dark').removeClass('kt-font-success').addClass('kt-font-danger');
+                $("#span-valor-adicional-total").removeClass('kt-font-dark').removeClass('kt-font-danger').addClass('kt-font-success');
             }
 
             _aplicarEfeitoContagem("span-valor-adicional-total", valorTotalAdicional);
@@ -592,7 +592,7 @@
         let valorAdicionalCredito = numeral($("#iValorCreditoAdicionalFatura").val()).value() == null ? 0 : numeral($("#iValorCreditoAdicionalFatura").val()).value();
         let valorAdicionalDebito = numeral($("#iValorDebitoAdicionalFatura").val()).value() == null ? 0 : numeral($("#iValorDebitoAdicionalFatura").val()).value();
 
-        return valorAdicionalDebito - valorAdicionalCredito;
+        return valorAdicionalCredito - valorAdicionalDebito;
     };
 
     var _calcularTotalFatura = function () {

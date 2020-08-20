@@ -1,5 +1,9 @@
 ﻿@using JNogueira.Bufunfa.Web.Models
 
+@{ 
+    var cartao = Model.FirstOrDefault()?.CartaoCredito;
+}
+
 @model IEnumerable<Agendamento>
 
 <div class="table-responsive no-padding">
@@ -47,5 +51,28 @@
                 </tr>
             }
         </tbody>
+        @if (cartao != null)
+        {
+            var totalProximasParcelasDebito = Model.Where(x => x.Categoria.ObterTipo() == TipoCategoria.Debito).Sum(x => x.ValorProximaParcelaAberta);
+
+            var totalProximasParcelasCredito = Model.Where(x => x.Categoria.ObterTipo() == TipoCategoria.Credito).Sum(x => x.ValorProximaParcelaAberta);
+
+            var somaProximasParcelas = totalProximasParcelasCredito - totalProximasParcelasDebito;
+
+            if (somaProximasParcelas < 0)
+                somaProximasParcelas *= -1;
+
+            <tfoot>
+                <tr>
+                    <td class="text-right kt-font-bold" colspan="3">TOTAL</td>
+                    <td class="text-center kt-font-bolder">@somaProximasParcelas?.ToString("c2")</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    @*<td class="text-right kt-font-bold @(valorTotal >= 0 ? "kt-font-success" : "kt-font-danger") kt-font-boldest">@valorTotal.ToString("c2")</td>
+                    <td colspan="2"></td>*@
+                </tr>
+            </tfoot>
+        }
     </table>
 </div>

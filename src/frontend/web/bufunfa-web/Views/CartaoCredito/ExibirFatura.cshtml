@@ -77,10 +77,9 @@
                             var valorAdicionalCredito = Model.ValorAdicionalCredito.HasValue ? Model.ValorAdicionalCredito.Value : 0;
                             var valorAdicionalDebito = Model.ValorAdicionalDebito.HasValue ? Model.ValorAdicionalDebito.Value : 0;
 
-                            var valorTotalAdicional = valorAdicionalDebito - valorAdicionalCredito;
+                            var valorTotalAdicional = valorAdicionalCredito - valorAdicionalDebito;
                         }
                         <span class="kt-widget24__stats kt-font-@(valorTotalAdicional < 0 ? "success" : (valorTotalAdicional == 0 ? "dark" : "danger"))" style="font-size: 1.4rem;" id="span-valor-adicional-total">
-
                             @((valorAdicionalDebito - valorAdicionalCredito).ToString("C2"))
                         </span>
                     </div>
@@ -145,9 +144,19 @@
                             }
                         </tbody>
                         <tfoot>
+                            @{ 
+                                var totalParcelasDebito = Model.Parcelas.Where(x => x.Agendamento.ObterTipo() == TipoCategoria.Debito).Sum(x => x.Valor);
+
+                                var totalParcelasCredito = Model.Parcelas.Where(x => x.Agendamento.ObterTipo() == TipoCategoria.Credito).Sum(x => x.Valor);
+
+                                var somaParcelas = totalParcelasCredito - totalParcelasDebito;
+
+                                if (somaParcelas < 0)
+                                    somaParcelas *= -1;
+                            }
                             <tr>
                                 <td colspan="4" class="text-right kt-font-bold">TOTAL</td>
-                                <td class="text-right kt-font-bolder" style="white-space:nowrap;">@(Model.Parcelas.Sum(x => x.Valor).ToString("C2"))</td>
+                                <td class="text-right kt-font-bolder" style="white-space:nowrap;">@(somaParcelas.ToString("C2"))</td>
                             </tr>
                         </tfoot>
                     </table>

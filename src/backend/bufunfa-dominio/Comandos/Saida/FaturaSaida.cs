@@ -63,7 +63,17 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         /// <summary>
         /// Valor total da fatura
         /// </summary>
-        public decimal ValorTotalParcelas => this.Parcelas?.Sum(x => x.Valor) ?? 0;
+        public decimal ValorTotalParcelas
+        {
+            get
+            {
+                var totalParcelasDebito = this.Parcelas.Where(x => ((dynamic)x.Agendamento).CategoriaTipo == TipoCategoria.Debito).Sum(x => x.Valor);
+
+                var totalParcelasCredito = this.Parcelas.Where(x => ((dynamic)x.Agendamento).CategoriaTipo == TipoCategoria.Credito).Sum(x => x.Valor);
+
+                return totalParcelasCredito - totalParcelasDebito;
+            }
+        }
 
         /// <summary>
         /// Valor total adicional (crédito - débito)
@@ -73,7 +83,9 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         /// <summary>
         /// Valor total da fatura (com o acréscimo do valor adicional de crédito e substraindo o valor adicional de débito)
         /// </summary>
-        public decimal ValorFatura => this.ValorTotalParcelas - this.ValorTotalAdicional;
+        public decimal ValorFatura => this.ValorTotalParcelas < 0 
+            ? (this.ValorTotalParcelas * -1) - this.ValorTotalAdicional 
+            : this.ValorTotalAdicional - this.ValorTotalAdicional;
 
         public FaturaSaida(Fatura fatura, IEnumerable<ParcelaSaida> parcelas)
         {
