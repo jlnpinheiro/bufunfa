@@ -598,7 +598,9 @@
     var _calcularTotalFatura = function () {
         let totalParcelas = numeral($("#span-valor-total-parcelas").data("valor-total-parcelas")).value();
 
-        return totalParcelas + _calcularTotalAdicionalFatura();
+        var totalFatura = totalParcelas + _calcularTotalAdicionalFatura();
+
+        return (totalFatura < 0) ? totalFatura * -1 : totalFatura;
     };
 
     var _pagarFatura = function () {

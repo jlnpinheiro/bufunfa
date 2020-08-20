@@ -31,7 +31,7 @@
                     <label>Data</label> @CustomHtmlHelper.IconeCampoObrigatorio()
                     <div class="input-group date">
                         <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
-                        <input type="text" class="form-control datepicker" id="iTransferenciaData" name="iTransferenciaData" data-date-end-date="0d">
+                        <input type="text" class="form-control datepicker" id="iTransferenciaData" name="iTransferenciaData" data-date-end-date="0d" value="@DateTime.Now.ToString("dd/MM/yyyy")">
                     </div>
                 </div>
 

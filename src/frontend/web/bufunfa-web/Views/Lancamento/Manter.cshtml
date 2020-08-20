@@ -27,7 +27,7 @@
                     <label>Data</label> @CustomHtmlHelper.IconeCampoObrigatorio()
                     <div class="input-group date">
                         <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
-                        <input type="text" class="form-control datepicker" id="iLancamentoData" name="iLancamentoData" value="@(Model != null && Model.Data != DateTime.MinValue ? Model.Data.ToString("dd/MM/yyyy") : string.Empty)" data-date-end-date="0d">
+                        <input type="text" class="form-control datepicker" id="iLancamentoData" name="iLancamentoData" value="@(Model != null && Model.Data != DateTime.MinValue ? Model.Data.ToString("dd/MM/yyyy") : DateTime.Now.ToString("dd/MM/yyyy"))" data-date-end-date="0d">
                     </div>
                 </div>
 

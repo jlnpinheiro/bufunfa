@@ -253,7 +253,14 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             // Obtém todas as parcelas que compôem a fatura
             var parcelas = await _parcelaRepositorio.ObterPorCartaoCredito(entrada.IdCartaoCredito, dataFatura);
 
-            var valorFatura = parcelas?.Where(x => !x.Lancada && !x.Descartada).Sum(x => x.Valor) + (entrada.ValorAdicionalDebito.HasValue ? entrada.ValorAdicionalDebito.Value : 0) - (entrada.ValorAdicionalCredito.HasValue ? entrada.ValorAdicionalCredito.Value : 0) ?? 0;
+            var totalParcelasDebito = parcelas?.Where(x => !x.Lancada && !x.Descartada && x.Agendamento.Categoria.Tipo == TipoCategoria.Debito).Sum(x => x.Valor);
+            var totalParcelasCredito = parcelas?.Where(x => !x.Lancada && !x.Descartada && x.Agendamento.Categoria.Tipo == TipoCategoria.Credito).Sum(x => x.Valor);
+
+            var totalParcelas = totalParcelasCredito - totalParcelasDebito < 0 
+                ? (totalParcelasCredito - totalParcelasDebito) * -1 
+                : totalParcelasCredito - totalParcelasDebito;
+
+            var valorFatura = totalParcelas + (entrada.ValorAdicionalDebito.HasValue ? entrada.ValorAdicionalDebito.Value : 0) - (entrada.ValorAdicionalCredito.HasValue ? entrada.ValorAdicionalCredito.Value : 0) ?? 0;
 
             // Verifica se o valor do pagamento é suficiente para o pagamento da fatura
             this.NotificarSeMenorQue(entrada.ValorPagamento, valorFatura, CartaoCreditoMensagem.Fatura_Valor_Pagamento_Menor_Valor_Total_Fatura);

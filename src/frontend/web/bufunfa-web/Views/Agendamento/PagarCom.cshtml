@@ -63,7 +63,7 @@
                     <label>Data da compra</label> @CustomHtmlHelper.IconeCampoObrigatorio()
                     <div class="input-group date">
                         <div class="input-group-prepend"><span class="input-group-text"><i class="la la-calendar"></i></span></div>
-                        <input type="text" class="form-control datepicker" id="iPagarComDataCompra" name="iPagarComDataCompra" data-date-end-date="0d">
+                        <input type="text" class="form-control datepicker" id="iPagarComDataCompra" name="iPagarComDataCompra" value="@DateTime.Now.ToString("dd/MM/yyyy")" data-date-end-date="0d">
                     </div>
                 </div>
 

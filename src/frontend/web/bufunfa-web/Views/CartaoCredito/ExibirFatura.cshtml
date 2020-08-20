@@ -79,8 +79,8 @@
 
                             var valorTotalAdicional = valorAdicionalCredito - valorAdicionalDebito;
                         }
-                        <span class="kt-widget24__stats kt-font-@(valorTotalAdicional < 0 ? "success" : (valorTotalAdicional == 0 ? "dark" : "danger"))" style="font-size: 1.4rem;" id="span-valor-adicional-total">
-                            @((valorAdicionalDebito - valorAdicionalCredito).ToString("C2"))
+                        <span class="kt-widget24__stats kt-font-@(valorTotalAdicional > 0 ? "success" : (valorTotalAdicional == 0 ? "dark" : "danger"))" style="font-size: 1.4rem;" id="span-valor-adicional-total">
+                            @((valorAdicionalCredito - valorAdicionalDebito).ToString("C2"))
                         </span>
                     </div>
                 </div>
