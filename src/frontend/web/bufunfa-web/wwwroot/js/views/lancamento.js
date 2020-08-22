@@ -107,6 +107,23 @@
                 style: 'single',
                 info: false
             },
+            footerCallback: function (row, data, start, end, display) {
+                var api = this.api(), data;
+
+                let totalLancamentoCredito = 0;
+                let totalLancamentoDebito = 0;
+
+                data.forEach(function (item) {
+                    if (item.tipoCategoria === "C")
+                        totalLancamentoCredito += item.valor;
+                    else
+                        totalLancamentoDebito += item.valor;
+                });
+
+                let total = totalLancamentoCredito + totalLancamentoDebito;
+
+                $(api.column(4).footer()).html('<span class="kt-font-bolder kt-font-' + (total >= 0 ? 'success' : 'danger') + '">' + numeral(total).format('$0,0.00') + '</span>');
+            },
             autoWidth: false,
             serverSide: true,
             responsive: false,

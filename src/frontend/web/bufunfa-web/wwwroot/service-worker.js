@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var cacheVersion = 1;
+var cacheVersion = 2;
 var currentCache = {
     offline: 'bufunfa-cache' + cacheVersion
 };
