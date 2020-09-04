@@ -82,7 +82,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
             if (!saida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível exibir as informações da conta.", saida.Mensagens));
 
-            return PartialView(saida.Retorno.TipoInvestimento == TipoInvestimento.RendaFixa ? "ManterRendaFixa" : "ManterRendaVariavel", saida.Retorno);
+            return PartialView(saida.Retorno.TipoInvestimento == null || saida.Retorno.TipoInvestimento == TipoInvestimento.RendaFixa ? "ManterRendaFixa" : "ManterRendaVariavel", saida.Retorno);
         }
 
         [HttpPost]
