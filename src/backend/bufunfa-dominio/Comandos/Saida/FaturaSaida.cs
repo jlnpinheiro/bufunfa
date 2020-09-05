@@ -67,9 +67,13 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         {
             get
             {
-                var totalParcelasDebito = this.Parcelas.Where(x => ((dynamic)x.Agendamento).CategoriaTipo == TipoCategoria.Debito).Sum(x => x.Valor);
+                var totalParcelasDebito = (from parcela in this.Parcelas
+                                           where parcela.Agendamento.GetType().GetProperties().FirstOrDefault(y => y.Name == "CategoriaTipo")?.GetValue(parcela.Agendamento).ToString() == TipoCategoria.Debito
+                                           select parcela).Sum(x => x.Valor);
 
-                var totalParcelasCredito = this.Parcelas.Where(x => ((dynamic)x.Agendamento).CategoriaTipo == TipoCategoria.Credito).Sum(x => x.Valor);
+                var totalParcelasCredito = (from parcela in this.Parcelas
+                                            where parcela.Agendamento.GetType().GetProperties().FirstOrDefault(y => y.Name == "CategoriaTipo")?.GetValue(parcela.Agendamento).ToString() == TipoCategoria.Credito
+                                            select parcela).Sum(x => x.Valor);
 
                 return totalParcelasCredito - totalParcelasDebito;
             }
