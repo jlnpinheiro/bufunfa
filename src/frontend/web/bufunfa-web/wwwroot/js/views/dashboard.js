@@ -85,7 +85,17 @@ var Dashboard = function () {
     };
 
     var _detalharInvestimentos = function (tipo) {
-        AppModal.exibirPorRota(App.corrigirPathRota("/dashboard/exibir-popup-detalhar-investimentos-" + (tipo === "RF" ? "renda-fixa" : "renda-variavel")));
+        AppModal.exibirPorRota(App.corrigirPathRota("/dashboard/exibir-popup-detalhar-investimentos-" + (tipo === "RF" ? "renda-fixa" : "renda-variavel")), function () {
+            KTApp.initTooltips();
+            $("button[class*='btn-detalhar-ativo']").each(function () {
+                let idAcao = $(this).data("id-acao");
+
+                $(this).click(function (e) {
+                    e.preventDefault();
+                    Bufunfa.exibirAcao(idAcao, false);
+                });
+            });
+        }, true, 'popup-detalhar-investimentos');
     };
 
     //== Public Functions

@@ -698,8 +698,8 @@
         });
     };
 
-    var _detalharAcao = function (id, valorCotacao) {
-        AppModal.ocultar(true);
+    var _detalharAcao = function (id, valorCotacao, fecharTudo = true) {
+        AppModal.ocultar(fecharTudo);
 
         if (valorCotacao == "" || valorCotacao == null || valorCotacao == undefined)
             valorCotacao = "0";
@@ -745,7 +745,7 @@
 
             $(".btn-fechar-widget").click(function () {
                 $("body").css("overflow", "auto");
-                AppModal.ocultar(true);
+                AppModal.ocultarPorTitulo("popup-acao");
             });
         }, true, "popup-acao");
     };
@@ -1424,8 +1424,8 @@
         },
 
         // Exibe o popup com as informações de uma ação
-        exibirAcao: function (idAcao) {
-            _detalharAcao(idAcao, null);
+        exibirAcao: function (idAcao, fecharTudo = true) {
+            _detalharAcao(idAcao, null, fecharTudo);
         },
 
         detalharPeriodoAtual: function () {

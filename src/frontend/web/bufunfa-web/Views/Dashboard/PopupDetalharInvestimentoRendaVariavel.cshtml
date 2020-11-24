@@ -14,7 +14,7 @@
 
         if (rendaVariavelSaida.Sucesso)
         {
-            totalRendaVariavel = rendaVariavelSaida.Retorno?.Sum(x => x.ValorTotalCompra) ?? 0;
+            totalRendaVariavel = rendaVariavelSaida.Retorno?.Where(x => x.QuantidadeEmCarteira > 0).Sum(x => x.ValorTotalCompra) ?? 0;
         }
     }
     catch
@@ -47,7 +47,7 @@
             <div class="kt-widget25__items">
                 <div class="kt-widget25__item kt-pt5 kt-pb-0">
                     @{
-                        var totalRendaVariavelAcoes = rendaVariavelSaida.Retorno?.Where(x => x.CodigoTipo == (int)TipoConta.Acoes).Sum(x => x.ValorTotalCompra) ?? 0;
+                        var totalRendaVariavelAcoes = rendaVariavelSaida.Retorno?.Where(x => x.CodigoTipo == (int)TipoConta.Acoes && x.QuantidadeEmCarteira > 0).Sum(x => x.ValorTotalCompra) ?? 0;
 
                         var percentualAcoes = totalRendaVariavel != 0 ? 100 * totalRendaVariavelAcoes / totalRendaVariavel : 0;
                     }
@@ -58,12 +58,12 @@
                         <div class="progress-bar progress-bar-striped progress-lg kt-bg-primary" role="progressbar" style="width: @(percentualAcoes.ToString("N0"))%;"></div>
                     </div>
                     <div class="kt-widget25__desc kt-pt5" style="text-align: right;">
-                        <span class="kt-font-bolder">@(percentualAcoes.ToString("N0"))%</span> <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <span class="kt-font-primary kt-font-bold">@(totalRendaVariavelAcoes.ToString("C2"))</span>
+                        <span class="kt-font-bolder">@(percentualAcoes.ToString("N2"))%</span> <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <span class="kt-font-primary kt-font-bold">@(totalRendaVariavelAcoes.ToString("C2"))</span>
                     </div>
                 </div>
                 <div class="kt-widget25__item kt-pt0 kt-pb-10">
                     @{
-                        var totalRendaVariavelFii = rendaVariavelSaida.Retorno?.Where(x => x.CodigoTipo == (int)TipoConta.FII).Sum(x => x.ValorTotalCompra) ?? 0;
+                        var totalRendaVariavelFii = rendaVariavelSaida.Retorno?.Where(x => x.CodigoTipo == (int)TipoConta.FII && x.QuantidadeEmCarteira > 0).Sum(x => x.ValorTotalCompra) ?? 0;
 
                         var percentualFii = totalRendaVariavel != 0 ? 100 * totalRendaVariavelFii / totalRendaVariavel : 0;
                     }
@@ -74,17 +74,17 @@
                         <div class="progress-bar progress-bar-striped progress-lg kt-bg-primary" role="progressbar" style="width: @(percentualFii.ToString("N0"))%;"></div>
                     </div>
                     <div class="kt-widget25__desc kt-pt5" style="text-align: right;">
-                        <span class="kt-font-bolder">@(percentualFii.ToString("N0"))%</span> <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <span class="kt-font-primary kt-font-bold">@(totalRendaVariavelFii.ToString("C2"))</span>
+                        <span class="kt-font-bolder">@(percentualFii.ToString("N2"))%</span> <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <span class="kt-font-primary kt-font-bold">@(totalRendaVariavelFii.ToString("C2"))</span>
                     </div>
                 </div>
             </div>
             
             <div class="kt-widget31">
                 @{ 
-                    var totalItens = rendaVariavelSaida.Retorno?.Count(x => x.ValorTotalCompra > 0) ?? 0;
+                    var totalItens = rendaVariavelSaida.Retorno?.Count(x => x.ValorTotalCompra > 0 && x.QuantidadeEmCarteira > 0) ?? 0;
                     var cont = 0;
 
-                    foreach (var analise in rendaVariavelSaida.Retorno?.Where(x => x.ValorTotalCompra > 0).OrderByDescending(x => x.ValorTotalCompra).ThenBy(x => x.CodigoTipo).ToList() ?? new List<RendaVariavelAnalise>())
+                    foreach (var analise in rendaVariavelSaida.Retorno?.Where(x => x.ValorTotalCompra > 0 && x.QuantidadeEmCarteira > 0).OrderByDescending(x => x.ValorTotalCompra).ThenBy(x => x.CodigoTipo).ToList() ?? new List<RendaVariavelAnalise>())
                     {
                         cont++;
 
@@ -92,7 +92,7 @@
                             <div class="kt-widget31__content">
                                 <div class="kt-widget31__info" style="padding: 0;">
                                     <span class="kt-widget31__username">
-                                        @Html.Raw(analise.RankingAtivo.HasValue ? "<small class=\"kt-font-bolder kt-font-warning\">" + analise.RankingAtivo + "</small> <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span>" : string.Empty) @analise.SiglaAtivo <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <small class="kt-font-bolder kt-font-primary">@(Html.Raw(analise.CodigoTipo == (int)TipoConta.FII ? "FII" : "Ações"))</small>
+                                        @Html.Raw(analise.RankingAtivo.HasValue ? "<small class=\"kt-font-bolder kt-font-warning\">" + analise.RankingAtivo + "</small> <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span>" : string.Empty) @analise.SiglaAtivo <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <small class="kt-font-bolder kt-font-primary">@(Html.Raw(analise.CodigoTipo == (int)TipoConta.FII ? "FII" : "Ações"))</small> <button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables btn-detalhar-ativo" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Detalhar ativo" data-id-acao="@analise.IdConta"><span class="la la-search-plus"></span></button>
                                     </span>
                                     <p class="kt-widget31__text">
                                         <small style="font-size: 85%;">@(analise.NomeAtivo)</small>

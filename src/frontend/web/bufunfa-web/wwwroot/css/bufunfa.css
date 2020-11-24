@@ -525,3 +525,7 @@ table.dataTable.table-sm .sorting:after, table.dataTable.table-sm .sorting_asc:a
         border-right: 20px solid #ebedf2;
     }
 }
+
+.kt-widget31 .kt-widget31__item .kt-widget31__content .kt-widget31__info .kt-widget31__username:hover {
+    color: #595d6e;
+}

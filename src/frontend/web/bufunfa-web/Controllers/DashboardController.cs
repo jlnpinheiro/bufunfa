@@ -73,7 +73,7 @@ namespace JNogueira.Bufunfa.Web.Controllers
             if (!saida.Sucesso)
                 return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as ações.", saida.Mensagens));
 
-            return PartialView("ListarAcoes", saida.Retorno?.Where(x => x.ValorTotalCompra > 0));
+            return PartialView("ListarAcoes", saida.Retorno?.Where(x => x.ValorTotalCompra > 0 && x.QuantidadeEmCarteira > 0));
         }
 
         [HttpGet]

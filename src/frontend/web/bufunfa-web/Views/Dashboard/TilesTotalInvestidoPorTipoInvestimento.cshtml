@@ -22,7 +22,7 @@
 
         if (rendaVariavelSaida.Sucesso)
         {
-            totalRendaVariavel = rendaVariavelSaida.Retorno.Sum(x => x.ValorTotalCompra);
+            totalRendaVariavel = rendaVariavelSaida.Retorno.Where(x => x.QuantidadeEmCarteira > 0).Sum(x => x.ValorTotalCompra);
         }
 
         porcentagemRendaFixa = 100 * totalRendaFixa / (totalRendaFixa + totalRendaVariavel);
@@ -62,8 +62,8 @@
                         <span class="kt-widget24__change">
 
                         </span>
-                        <span class="kt-widget24__number">
-                            @(porcentagemRendaFixa.ToString("N0"))%
+                        <span class="kt-widget24__number kt-font-bolder">
+                            @(porcentagemRendaFixa.ToString("N2"))%
                         </span>
                     </div>
                 </div>
@@ -93,8 +93,8 @@
                         <span class="kt-widget24__change">
 
                         </span>
-                        <span class="kt-widget24__number">
-                            @(porcentagemRendaVariavel.ToString("N0"))%
+                        <span class="kt-widget24__number kt-font-bolder">
+                            @(porcentagemRendaVariavel.ToString("N2"))%
                         </span>
                     </div>
                 </div>
