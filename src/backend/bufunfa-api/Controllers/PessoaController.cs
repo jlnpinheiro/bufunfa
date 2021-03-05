@@ -2,7 +2,7 @@
 using JNogueira.Bufunfa.Api.Swagger.Exemplos;
 using JNogueira.Bufunfa.Api.ViewModels;
 using JNogueira.Bufunfa.Dominio.Comandos;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
+using JNogueira.Bufunfa.Dominio.Servicos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -25,9 +25,9 @@ namespace JNogueira.Bufunfa.Api.Controllers
     [SwaggerTag("Permite a gestão e consulta das pessoas.")]
     public class PessoaController : BaseController
     {
-        private readonly IPessoaServico _pessoaServico;
+        private readonly PessoaServico _pessoaServico;
 
-        public PessoaController(IPessoaServico pessoaServico)
+        public PessoaController(PessoaServico pessoaServico)
         {
             _pessoaServico = pessoaServico;
         }

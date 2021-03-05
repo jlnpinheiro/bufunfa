@@ -2,7 +2,6 @@
 using JNogueira.Bufunfa.Api.Middlewares;
 using JNogueira.Bufunfa.Api.Swagger.Filters;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Servicos;
 using JNogueira.Bufunfa.Infraestrutura;
 using JNogueira.Bufunfa.Infraestrutura.Dados;
@@ -71,18 +70,18 @@ namespace JNogueira.Bufunfa.Api
             services.AddScoped<IPessoaRepositorio, PessoaRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
-            services.AddScoped<IAgendamentoServico, AgendamentoServico>();
-            services.AddScoped<IAtalhoServico, AtalhoServico>();
-            services.AddScoped<ICartaoCreditoServico, CartaoCreditoServico>();
-            services.AddScoped<ICategoriaServico, CategoriaServico>();
-            services.AddScoped<IContaServico, ContaServico>();
-            services.AddScoped<IGraficoServico, GraficoServico>();
-            services.AddScoped<ILancamentoServico, LancamentoServico>();
-            services.AddScoped<IPeriodoServico, PeriodoServico>();
-            services.AddScoped<IPessoaServico, PessoaServico>();
-            services.AddScoped<IUsuarioServico, UsuarioServico>();
+            services.AddScoped<AgendamentoServico>();
+            services.AddScoped<AtalhoServico>();
+            services.AddScoped<CartaoCreditoServico>();
+            services.AddScoped<CategoriaServico>();
+            services.AddScoped<ContaServico>();
+            services.AddScoped<GraficoServico>();
+            services.AddScoped<LancamentoServico>();
+            services.AddScoped<PeriodoServico>();
+            services.AddScoped<PessoaServico>();
+            services.AddScoped<UsuarioServico>();
 
-            services.AddScoped<ApiAlphaVantageProxy, ApiAlphaVantageProxy>();
+            services.AddScoped<ApiAlphaVantageProxy>();
 
             services
                 // AddAuthentication: especificará os schemas utilizados para a autenticação do tipo Bearer

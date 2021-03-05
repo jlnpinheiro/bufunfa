@@ -2,7 +2,6 @@
 using JNogueira.Bufunfa.Dominio.Entidades;
 using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.NotifiqueMe;
 using System.Linq;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace JNogueira.Bufunfa.Dominio.Servicos
 {
-    public class CategoriaServico : Notificavel, ICategoriaServico
+    public class CategoriaServico : Notificavel
     {
         private readonly ICategoriaRepositorio _categoriaRepositorio;
         private readonly IUnitOfWork _uow;

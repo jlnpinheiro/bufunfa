@@ -3,7 +3,7 @@ using JNogueira.Bufunfa.Api.Swagger;
 using JNogueira.Bufunfa.Api.Swagger.Exemplos;
 using JNogueira.Bufunfa.Api.ViewModels;
 using JNogueira.Bufunfa.Dominio.Comandos;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
+using JNogueira.Bufunfa.Dominio.Servicos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -27,9 +27,9 @@ namespace JNogueira.Bufunfa.Api.Controllers
     [SwaggerTag("Permite a gestão e consulta dos agendamentos.")]
     public class AgendamentoController : BaseController
     {
-        private readonly IAgendamentoServico _agendamentoServico;
+        private readonly AgendamentoServico _agendamentoServico;
 
-        public AgendamentoController(IAgendamentoServico agendamentoServico)
+        public AgendamentoController(AgendamentoServico agendamentoServico)
         {
             _agendamentoServico = agendamentoServico;
         }

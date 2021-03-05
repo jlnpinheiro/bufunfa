@@ -2,17 +2,15 @@
 using JNogueira.Bufunfa.Dominio.Entidades;
 using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.NotifiqueMe;
 using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace JNogueira.Bufunfa.Dominio.Servicos
 {
-    public class LancamentoServico : Notificavel, ILancamentoServico
+    public class LancamentoServico : Notificavel
     {
         private readonly ICategoriaRepositorio _categoriaRepositorio;
         private readonly IContaRepositorio _contaRepositorio;

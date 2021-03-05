@@ -4,7 +4,7 @@ using JNogueira.Bufunfa.Api.ViewModels;
 using JNogueira.Bufunfa.Dominio.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
+using JNogueira.Bufunfa.Dominio.Servicos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -28,10 +28,10 @@ namespace JNogueira.Bufunfa.Api.Controllers
     [SwaggerTag("Permite a gestão e consulta dos lançamentos.")]
     public class LancamentoController : BaseController
     {
-        private readonly ILancamentoServico _lancamentoServico;
+        private readonly LancamentoServico _lancamentoServico;
         private readonly ILancamentoAnexoRepositorio _anexoRepositorio;
 
-        public LancamentoController(ILancamentoServico lancamentoServico, ILancamentoAnexoRepositorio anexoRepositorio)
+        public LancamentoController(LancamentoServico lancamentoServico, ILancamentoAnexoRepositorio anexoRepositorio)
         {
             _lancamentoServico = lancamentoServico;
             _anexoRepositorio = anexoRepositorio;

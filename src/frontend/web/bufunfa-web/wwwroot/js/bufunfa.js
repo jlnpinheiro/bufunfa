@@ -444,6 +444,18 @@
                     $("#form-manter-agendamento").submit();
                 });
 
+                $("#table-parcelas").DataTable({
+                    fixedColumns: true,
+                    serverSide: false,
+                    responsive: false,
+                    searching: false,
+                    ordering: false,
+                    pagingType: 'full',
+                    paging: true,
+                    pageLength: 20,
+                    lengthChange: false
+                });
+
                 _definirAcoesParcela();
             }
         }, true, "manter-agendamento");
@@ -747,6 +759,19 @@
                 $("body").css("overflow", "auto");
                 AppModal.ocultarPorTitulo("popup-acao");
             });
+
+            $("#tblOperacao").DataTable({
+                fixedColumns: true,
+                serverSide: false,
+                responsive: false,
+                searching: false,
+                ordering: false,
+                paging: true,
+                pagingType: 'full',
+                pageLength: 10,
+                lengthChange: false
+            });
+
         }, true, "popup-acao");
     };
 

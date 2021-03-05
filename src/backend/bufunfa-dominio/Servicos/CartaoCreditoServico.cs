@@ -2,7 +2,6 @@
 using JNogueira.Bufunfa.Dominio.Entidades;
 using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.NotifiqueMe;
 using System;
@@ -12,11 +11,10 @@ using System.Threading.Tasks;
 
 namespace JNogueira.Bufunfa.Dominio.Servicos
 {
-    public class CartaoCreditoServico : Notificavel, ICartaoCreditoServico
+    public class CartaoCreditoServico : Notificavel
     {
         private readonly ICartaoCreditoRepositorio _cartaoCreditoRepositorio;
-        private readonly IContaRepositorio _contaRepositorio;
-        private readonly IContaServico _contaServico;
+        private readonly ContaServico _contaServico;
         private readonly IFaturaRepositorio _faturaRepositorio;
         private readonly ILancamentoRepositorio _lancamentoRepositorio;
         private readonly IParcelaRepositorio _parcelaRepositorio;
@@ -25,8 +23,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
 
         public CartaoCreditoServico(
             ICartaoCreditoRepositorio cartaoCreditoRepositorio,
-            IContaRepositorio contaRepositorio,
-            IContaServico contaServico,
+            ContaServico contaServico,
             IFaturaRepositorio faturaRepositorio,
             ILancamentoRepositorio lancamentoRepositorio,
             IParcelaRepositorio parcelaRepositorio,
@@ -34,7 +31,6 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             IUnitOfWork uow)
         {
             _cartaoCreditoRepositorio = cartaoCreditoRepositorio;
-            _contaRepositorio         = contaRepositorio;
             _contaServico             = contaServico;
             _faturaRepositorio        = faturaRepositorio;
             _lancamentoRepositorio    = lancamentoRepositorio;

@@ -115,6 +115,7 @@ CREATE TABLE `conta` (
   `NomeInstituicao` varchar(500) DEFAULT NULL COMMENT 'Nome da instituição (por exemplo "Banco Santander S/A", "Banco Inter")',
   `NumeroAgencia` varchar(20) DEFAULT NULL COMMENT 'Número da agência',
   `Numero` varchar(20) DEFAULT NULL COMMENT 'Número de identificação da conta.',
+  `Ranking` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdConta`),
   KEY `fk_conta_usuario_idx` (`IdUsuario`),
   CONSTRAINT `fk_conta_usuario` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`IdUsuario`) ON DELETE CASCADE ON UPDATE NO ACTION

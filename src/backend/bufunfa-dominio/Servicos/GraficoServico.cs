@@ -1,7 +1,6 @@
 ﻿using JNogueira.Bufunfa.Dominio.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.NotifiqueMe;
 using System;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace JNogueira.Bufunfa.Dominio.Servicos
 {
-    public class GraficoServico : Notificavel, IGraficoServico
+    public class GraficoServico : Notificavel
     {
         private readonly IPeriodoRepositorio _periodoRepositorio;
         private readonly ILancamentoRepositorio _lancamentoRepositorio;

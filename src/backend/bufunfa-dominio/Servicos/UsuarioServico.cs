@@ -1,14 +1,13 @@
 ﻿using JNogueira.Bufunfa.Dominio.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.NotifiqueMe;
 using System.Threading.Tasks;
 
 namespace JNogueira.Bufunfa.Dominio.Servicos
 {
-    public class UsuarioServico : Notificavel, IUsuarioServico
+    public class UsuarioServico : Notificavel
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
         private readonly IUnitOfWork _uow;

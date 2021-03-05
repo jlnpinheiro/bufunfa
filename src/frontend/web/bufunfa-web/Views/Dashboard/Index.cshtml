@@ -11,6 +11,17 @@
     var periodoAtual = ViewBag.PeriodoAtual != null ? (Periodo)ViewBag.PeriodoAtual : null;
 }
 
+@section VendorsCss
+{
+    <link rel="stylesheet" href="~/plugins/custom/datatables/datatables.bundle.css">
+}
+
+@section VendorsJs
+{
+    <script src="~/plugins/custom/datatables/datatables.bundle.js"></script>
+}
+
+
 @section ViewsJs
 {
     <environment include="Development">

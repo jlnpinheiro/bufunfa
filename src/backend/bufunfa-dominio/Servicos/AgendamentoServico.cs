@@ -2,7 +2,6 @@
 using JNogueira.Bufunfa.Dominio.Entidades;
 using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.NotifiqueMe;
 using System;
@@ -11,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace JNogueira.Bufunfa.Dominio.Servicos
 {
-    public class AgendamentoServico : Notificavel, IAgendamentoServico
+    public class AgendamentoServico : Notificavel
     {
         private readonly IAgendamentoRepositorio _agendamentoRepositorio;
         private readonly ICartaoCreditoRepositorio _cartaoCreditoRepositorio;
-        private readonly ICartaoCreditoServico _cartaoCreditoServico;
+        private readonly CartaoCreditoServico _cartaoCreditoServico;
         private readonly ICategoriaRepositorio _categoriaRepositorio;
         private readonly IContaRepositorio _contaRepositorio;
         private readonly ILancamentoRepositorio _lancamentoRepositorio;
@@ -31,7 +30,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             ILancamentoRepositorio lancamentoRepositorio,
             IParcelaRepositorio parcelaRepositorio,
             IPessoaRepositorio pessoaRepositorio,
-            ICartaoCreditoServico cartaoCreditoServico,
+            CartaoCreditoServico cartaoCreditoServico,
             IUnitOfWork uow)
         {
             _agendamentoRepositorio   = agendamentoRepositorio;

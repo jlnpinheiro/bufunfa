@@ -2,8 +2,8 @@
 using JNogueira.Bufunfa.Api.Swagger.Exemplos;
 using JNogueira.Bufunfa.Api.ViewModels;
 using JNogueira.Bufunfa.Dominio.Comandos;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Resources;
+using JNogueira.Bufunfa.Dominio.Servicos;
 using JNogueira.Bufunfa.Infraestrutura;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,9 +29,9 @@ namespace JNogueira.Bufunfa.Api.Controllers
     [SwaggerTag("Permite a gestão e consulta dos usuários.")]
     public class UsuarioController : BaseController
     {
-        private readonly IUsuarioServico _usuarioServico;
+        private readonly UsuarioServico _usuarioServico;
 
-        public UsuarioController(IUsuarioServico usuarioServico)
+        public UsuarioController(UsuarioServico usuarioServico)
         {
             _usuarioServico = usuarioServico;
         }

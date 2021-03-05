@@ -92,18 +92,18 @@
                 @if (Model.Operacoes.Any())
                 {
                     <div class="table-responsive">
-                        <table class="table table-striped mb-0">
+                        <table class="table table-striped mb-0" id="tblOperacao">
                             <thead>
                                 <tr>
-                                    <td>Data</td>
-                                    <td>Categoria</td>
-                                    <td style="width: 1px;">Valor</td>
-                                    <td style="width: 1px;"></td>
-                                    <td style="width: 1px;"></td>
+                                    <th style="width:1px;">Data</th>
+                                    <th>Categoria</th>
+                                    <th style="width: 1px;" class="text-center">Valor</th>
+                                    <th style="width: 1px;"></th>
+                                    <th style="width: 1px;"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var operacao in Model.Operacoes)
+                                @foreach (var operacao in Model.Operacoes.OrderByDescending(x => x.Data))
                                 {
                                     <tr>
                                         <td class="kt-font-sm" style="white-space: nowrap;">@operacao.Data.ToString("dd/MM/yyyy")</td>
@@ -127,8 +127,8 @@
                                                 }
                                             </span>
                                         </td>
-                                        <td style="padding: 0;"><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables alterar-operacao pull-right" data-id="@operacao.IdLancamento" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Alterar"><span class="la la-edit"></span></button></td>
-                                        <td style="padding: 0;"><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables excluir-operacao pull-right" data-id-conta="@Model.IdConta" data-id="@operacao.IdLancamento" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Excluir"><span class="la la-trash"></span></button></td>
+                                        <td style="padding: 0; width:1px;"><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables alterar-operacao pull-right" data-id="@operacao.IdLancamento" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Alterar"><span class="la la-edit"></span></button></td>
+                                        <td style="padding: 0; width:1px;"><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables excluir-operacao pull-right" data-id-conta="@Model.IdConta" data-id="@operacao.IdLancamento" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Excluir"><span class="la la-trash"></span></button></td>
                                     </tr>
                                 }
                             </tbody>

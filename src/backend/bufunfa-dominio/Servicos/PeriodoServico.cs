@@ -2,7 +2,6 @@
 using JNogueira.Bufunfa.Dominio.Entidades;
 using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.NotifiqueMe;
 using System;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace JNogueira.Bufunfa.Dominio.Servicos
 {
-    public class PeriodoServico : Notificavel, IPeriodoServico
+    public class PeriodoServico : Notificavel
     {
         private readonly IPeriodoRepositorio _periodoRepositorio;
         private readonly IUnitOfWork _uow;

@@ -3,7 +3,6 @@ using JNogueira.Bufunfa.Dominio.Comandos;
 using JNogueira.Bufunfa.Dominio.Entidades;
 using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.Bufunfa.Infraestrutura.Integracoes.AlphaVantage;
 using JNogueira.NotifiqueMe;
@@ -14,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace JNogueira.Bufunfa.Dominio.Servicos
 {
-    public class ContaServico : Notificavel, IContaServico
+    public class ContaServico : Notificavel
     {
         private readonly ApiAlphaVantageProxy _apiAlphaVantageProxy;
         private readonly IAgendamentoRepositorio _agendamentoRepositorio;

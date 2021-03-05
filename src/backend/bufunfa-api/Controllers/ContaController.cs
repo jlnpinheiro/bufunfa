@@ -2,7 +2,7 @@
 using JNogueira.Bufunfa.Api.Swagger.Exemplos;
 using JNogueira.Bufunfa.Api.ViewModels;
 using JNogueira.Bufunfa.Dominio.Comandos;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
+using JNogueira.Bufunfa.Dominio.Servicos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -25,9 +25,9 @@ namespace JNogueira.Bufunfa.Api.Controllers
     [SwaggerTag("Permite a gestão e consulta das contas.")]
     public class ContaController : BaseController
     {
-        private readonly IContaServico _contaServico;
+        private readonly ContaServico _contaServico;
 
-        public ContaController(IContaServico contaServico)
+        public ContaController(ContaServico contaServico)
         {
             this._contaServico = contaServico;
         }

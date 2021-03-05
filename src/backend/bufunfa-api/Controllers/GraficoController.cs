@@ -1,6 +1,6 @@
 ﻿using JNogueira.Bufunfa.Api.Swagger;
 using JNogueira.Bufunfa.Api.Swagger.Exemplos;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
+using JNogueira.Bufunfa.Dominio.Servicos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -23,9 +23,9 @@ namespace JNogueira.Bufunfa.Api.Controllers
     [SwaggerTag("Permite obter as informações utilizadas para geração de gráficos.")]
     public class GraficoController : BaseController
     {
-        private readonly IGraficoServico _graficoServico;
+        private readonly GraficoServico _graficoServico;
 
-        public GraficoController(IGraficoServico graficoServico)
+        public GraficoController(GraficoServico graficoServico)
         {
             _graficoServico = graficoServico;
         }
