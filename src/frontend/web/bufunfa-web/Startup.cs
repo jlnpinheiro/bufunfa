@@ -40,13 +40,14 @@ namespace JNogueira.Bufunfa.Web
         {
             services
                 .AddHttpContextAccessor()
-                .AddHttpClient();            
+                .AddHttpClient();
 
             // Extrai as informações do arquivo de configuração (appSettings.*.json) ou das variáveis de ambiente
             var configHelper = new ConfigurationHelper(Configuration);
 
             // AddSingleton: instância configurada de forma que uma única referência das mesmas seja empregada durante todo o tempo em que a aplicação permanecer em execução
             services.AddSingleton(configHelper);
+            services.AddSingleton(new GitInfoHelper());
 
             services.AddTransient<HttpClientHelper>();
             services.AddTransient<DatatablesHelper>();

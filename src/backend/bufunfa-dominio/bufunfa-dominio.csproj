@@ -14,5 +14,4 @@
   <ItemGroup>
     <ProjectReference Include="..\bufunfa-infraestrutura\bufunfa-infraestrutura.csproj" />
   </ItemGroup>
-
 </Project>

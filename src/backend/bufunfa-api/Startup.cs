@@ -127,6 +127,15 @@ namespace JNogueira.Bufunfa.Api
                                         $"<li>Ambiente atual: <b>{Environment.EnvironmentName}</b></li>" +
                                     "</ul>";
 
+            var gitInfoHelper = new GitInfoHelper();
+
+            swaggerDescricao += "<p>Informa&ccedil;&otilde;es do Git:</p>" +
+                                "<ul>" +
+                                    "<li>Reposit&oacute;rio: <a href=\"https://github.com/jlnpinheiro/bufunfa/tree/master/src/backend\" target =\"_blank\">https://github.com/jlnpinheiro/bufunfa/tree/master/src/backend</a></li>" +
+                                    $"<li>Branch: {gitInfoHelper.Branch}</li>" +
+                                    $"<li>Commit: <a href=\"https://github.com/jlnpinheiro/bufunfa/commit/{gitInfoHelper.Commit}\" target=\"_blank\">{gitInfoHelper.Versao}</a> <i>(por {gitInfoHelper.ResponsavelCommit} em {gitInfoHelper.DataComit})</i></li>" +
+                                "</ul>";
+
             // Configuração do Swagger para documentação da API
             services.AddSwaggerGen(options =>
             {

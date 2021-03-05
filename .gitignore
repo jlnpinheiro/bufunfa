@@ -357,3 +357,4 @@ MigrationBackup/
 /src/_mysql
 /src/_docker/_mysql
 /src/frontend/web/bufunfa-web/git-info.txt
+/src/backend/bufunfa-infraestrutura/git-info.txt

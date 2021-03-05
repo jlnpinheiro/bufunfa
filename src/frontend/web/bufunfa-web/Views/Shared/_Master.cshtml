@@ -3,27 +3,13 @@
 @using JNogueira.Utilzao
 @using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Http.Extensions
-@using System.IO
 
 @inject CookieHelper cookieHelper
+@inject GitInfoHelper gitInfoHelper
 @inject IHttpContextAccessor httpContext
 
 @{
     var url = UriHelper.GetDisplayUrl(httpContext.HttpContext.Request);
-
-    IEnumerable<string> gitInfo;
-
-    using (var stream = typeof(JNogueira.Bufunfa.Web.Feedback).Assembly.GetManifestResourceStream("JNogueira.Bufunfa.Web.git-info.txt"))
-    {
-        using (var reader = new StreamReader(stream))
-        {
-            gitInfo = reader.ReadToEnd().Split('\n');
-        }
-    }
-
-    var versao = gitInfo.ElementAt(1).Substring(0, 7);
-    var commit = gitInfo.ElementAt(1);
-    var dataCommit = gitInfo.ElementAt(3);
 }
 
 <!DOCTYPE html>
@@ -47,20 +33,21 @@
     <link href="~/css/relatorio.min.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/vendors/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/vendors/offline/offline-js.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet">
     <!--end::Global Theme Styles -->
     <!--begin::Global Theme Styles(used by all pages) -->
     <environment include="Development">
-        <link href="~/css/app-modal.css" rel="stylesheet" type="text/css" media="all" />
-        <link href="~/css/bufunfa.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="~/css/app-modal.css?v=@gitInfoHelper.Versao" rel="stylesheet" type="text/css" media="all" />
+        <link href="~/css/bufunfa.css?v=@gitInfoHelper.Versao" rel="stylesheet" type="text/css" media="all" />
     </environment>
     <environment exclude="Development">
-        <link href="~/css/app-modal.min.css" rel="stylesheet" type="text/css" media="all" />
-        <link href="~/css/bufunfa.min.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="~/css/app-modal.min.css?v=@gitInfoHelper.Versao" rel="stylesheet" type="text/css" media="all" />
+        <link href="~/css/bufunfa.min.css?v=@gitInfoHelper.Versao" rel="stylesheet" type="text/css" media="all" />
     </environment>
     <!--end::Global Theme Styles -->
     <link rel="apple-touch-icon" href="~/img/icon-192x192.png">
     <link rel="shortcut icon" href="~/img/favicon.png" />
-    <link rel="manifest" href="~/manifest.json">
+    <link rel="manifest" href="~/manifest.json?v=@gitInfoHelper.Versao">
     <meta name="#333">
 </head>
 <!-- end::Head -->
@@ -303,7 +290,7 @@
                 <div class="kt-footer  kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop" id="kt_footer">
                     <div class="kt-container  kt-container--fluid ">
                         <div class="kt-footer__copyright" style="display: -webkit-box;">
-                            <small>v. <a href="https://github.com/jlnpinheiro/bufunfa/commit/@(commit)" class="kt-link" target="_blank">@(versao)</a></small>&nbsp;<span class="kt-badge kt-badge--primary kt-badge--dot kt-badge--sm"></span>&nbsp;2019&nbsp;&copy;&nbsp;<a href="https://jnogueira.net.br/" target="_blank" class="kt-link">Jorge Nogueira</a>
+                            <small>v. <a href="https://github.com/jlnpinheiro/bufunfa/commit/@(gitInfoHelper.Commit)" class="kt-link" target="_blank">@(gitInfoHelper.Versao)</a></small>&nbsp;<span class="kt-badge kt-badge--primary kt-badge--dot kt-badge--sm"></span>&nbsp;2019&nbsp;&copy;&nbsp;<a href="https://jnogueira.net.br/" target="_blank" class="kt-link">Jorge Nogueira</a>
                         </div>
                         <div class="kt-footer__menu">
                             <a href="https://github.com/jlnpinheiro/bufunfa" target="_blank" class="kt-footer__menu-link kt-link" data-toggle="kt-tooltip" data-boundary="window" data-placement="left" data-original-title="Repositório no Github"><i class="fab fa-github"></i></a>
@@ -337,6 +324,7 @@
     <!--begin::Global Theme Bundle(used by all pages) -->
     <script src="~/plugins/plugins.bundle.js" type="text/javascript"></script>
     <script src="~/js/scripts.bundle.js" type="text/javascript"></script>
+    <script src="~/plugins/custom/datatables/datatables.bundle.js"></script>
     <!--end::Global Theme Bundle -->
     <!--begin:: Global Mandatory Vendors -->
     <script src="~/vendors/select2/i18n/pt-BR.js" type="text/javascript"></script>
@@ -353,22 +341,22 @@
     @RenderSection("VendorsJs", required: false)
     <!--end:: PAge Optional Vendors -->
     <environment include="Development">
-        <script defer src="~/js/app.js" type="text/javascript"></script>
+        <script defer src="~/js/app.js?v=@gitInfoHelper.Versao" type="text/javascript"></script>
         <script defer src="~/js/app-modal.js" type="text/javascript"></script>
         <script defer src="~/js/app-feedback.js" type="text/javascript"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/js/app.min.js" type="text/javascript"></script>
+        <script src="~/js/app.min.js?v=@gitInfoHelper.Versao" type="text/javascript"></script>
         <script src="~/js/app-modal.min.js" type="text/javascript"></script>
         <script src="~/js/app-feedback.min.js" type="text/javascript"></script>
     </environment>
     <!--end::Global Theme Bundle -->
     <!--begin::Page Scripts(used by this page) -->
     <environment include="Development">
-        <script src="~/js/bufunfa.js" type="text/javascript"></script>
+        <script src="~/js/bufunfa.js?v=@gitInfoHelper.Versao" type="text/javascript"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/js/bufunfa.min.js" type="text/javascript"></script>
+        <script src="~/js/bufunfa.min.js?v=@gitInfoHelper.Versao" type="text/javascript"></script>
     </environment>
     <script type="text/javascript">
         $(document).ajaxStart(function () { App.bloquear(); });

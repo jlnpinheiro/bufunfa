@@ -1,0 +1,3 @@
+echo Executando pre-build...
+git rev-parse --abbrev-ref HEAD > "git-info.txt"
+git show --format="%%H%%n%%cn%%n%%cd" --quiet --date=format:"%%d/%%m/%%Y %%H:%%M" >> "git-info.txt"

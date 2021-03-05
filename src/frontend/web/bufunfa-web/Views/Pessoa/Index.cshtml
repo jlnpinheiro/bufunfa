@@ -1,25 +1,19 @@
-﻿@{
+﻿@using JNogueira.Bufunfa.Web.Helpers
+
+@inject GitInfoHelper gitInfoHelper
+
+@{
     ViewData["Titulo"] = "Pessoas";
     Layout = "_Master";
-}
-
-@section VendorsCss
-{
-    <link rel="stylesheet" href="~/plugins/custom/datatables/datatables.bundle.css">
-}
-
-@section VendorsJs
-{
-    <script src="~/plugins/custom/datatables/datatables.bundle.js"></script>
 }
 
 @section ViewsJs
 {
     <environment include="Development">
-        <script src="~/js/views/pessoa.js"></script>
+        <script src="~/js/views/pessoa.js?v=@gitInfoHelper.Versao"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/js/views/pessoa.min.js"></script>
+        <script src="~/js/views/pessoa.min.js?v=@gitInfoHelper.Versao"></script>
     </environment>
 }
 
