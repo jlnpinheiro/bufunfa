@@ -64,8 +64,8 @@ namespace JNogueira.Bufunfa.Infraestrutura.Integracoes.AlphaVantage.Comandos
                 return;
 
             this.LatestTradingDay = globalQuoteParams?.LatestTradingDay?.ConverterDataPorFormato("yyyy-MM-dd");
-            this.ChangePercent    = Convert.ToDecimal(globalQuoteParams.ChangePercent.Replace("%", string.Empty), new System.Globalization.CultureInfo("en-US"));
-            this.Price            = Convert.ToDecimal(globalQuoteParams.Price, new System.Globalization.CultureInfo("en-US"));
+            this.ChangePercent    = Convert.ToDecimal(globalQuoteParams?.ChangePercent?.Replace("%", string.Empty), new System.Globalization.CultureInfo("en-US"));
+            this.Price            = Convert.ToDecimal(globalQuoteParams?.Price, new System.Globalization.CultureInfo("en-US"));
         }
     }
 }
