@@ -275,6 +275,18 @@
     var _carregarParcelasPorAgendamento = function (idAgendamento) {
         $.get(App.corrigirPathRota("/agendamentos/listar-parcelas-por-agendamento?idAgendamento=" + idAgendamento), function (html) {
             $("#divParcelas").html(html);
+
+            $("#table-parcelas").DataTable({
+                fixedColumns: true,
+                serverSide: false,
+                responsive: false,
+                searching: false,
+                ordering: false,
+                pagingType: 'full',
+                paging: true,
+                pageLength: 20,
+                lengthChange: false
+            });
         }).done(function () {
             _definirAcoesParcela();
         }).fail(function (jqXhr) {
