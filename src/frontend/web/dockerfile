@@ -26,4 +26,9 @@ RUN rm -rf publish cs de es fr it ja ko pl ru tr zh-* web.config bufunfa-web *.b
 # Define o environment
 ENV ASPNETCORE_ENVIRONMENT=Production
 
+ENV TZ=America/Sao_Paulo
+ENV LANG pt_BR.UTF-8
+ENV LANGUAGE ${LANG}
+ENV LC_ALL ${LANG}
+
 ENTRYPOINT ["dotnet", "bufunfa-web.dll"]
