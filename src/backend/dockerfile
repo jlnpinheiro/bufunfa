@@ -20,4 +20,9 @@ COPY --from=build-env /src/bufunfa-api/publish .
 # Define o environment
 ENV ASPNETCORE_ENVIRONMENT=Production
 
+ENV TZ=America/Sao_Paulo
+ENV LANG pt_BR.UTF-8
+ENV LANGUAGE ${LANG}
+ENV LC_ALL ${LANG}
+
 ENTRYPOINT ["dotnet", "bufunfa-api.dll"]
