@@ -15,6 +15,10 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 # Biblioteca necessária para geração de PDF utilizando o componente "Rotativa"
 RUN ["apt-get", "update"]
 RUN ["apt-get", "-y", "install", "libgdiplus"]
+# Adicionando bibliotecas para a cultura PT-BR
+RUN apt-get install -y locales
+RUN sed -i -e 's/# pt_BR.UTF-8 UTF-8/pt_BR.UTF-8 UTF-8/' /etc/locale.gen && \
+    locale-gen
 
 WORKDIR /app
 
