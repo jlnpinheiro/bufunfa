@@ -260,15 +260,6 @@
             });
         });
 
-        // Código necessário para corrigir a exibição de menu dropdown dentro da classe CSS "table-responsive"
-        $('.table-responsive').on('show.bs.dropdown', function () {
-            $('.table-responsive').css("overflow", "inherit");
-        });
-
-        $('.table-responsive').on('hide.bs.dropdown', function () {
-            $('.table-responsive').css("overflow", "auto");
-        });
-
         KTApp.initTooltips();
     };
 
@@ -276,8 +267,11 @@
         $.get(App.corrigirPathRota("/agendamentos/listar-parcelas-por-agendamento?idAgendamento=" + idAgendamento), function (html) {
             $("#divParcelas").html(html);
 
+            _definirAcoesParcela();
+
+            $("#table-parcelas").DataTable().destroy();
+
             $("#table-parcelas").DataTable({
-                fixedColumns: true,
                 serverSide: false,
                 responsive: false,
                 searching: false,
@@ -287,8 +281,6 @@
                 pageLength: 20,
                 lengthChange: false
             });
-        }).done(function () {
-            _definirAcoesParcela();
         }).fail(function (jqXhr) {
             let feedback = Feedback.converter(jqXhr.responseJSON);
             feedback.exibir();
@@ -456,19 +448,18 @@
                     $("#form-manter-agendamento").submit();
                 });
 
+                _definirAcoesParcela();
+
                 $("#table-parcelas").DataTable({
-                    fixedColumns: true,
                     serverSide: false,
                     responsive: false,
-                    searching: false,
+                    searching: true,
                     ordering: false,
                     pagingType: 'full',
                     paging: true,
                     pageLength: 20,
                     lengthChange: false
                 });
-
-                _definirAcoesParcela();
             }
         }, true, "manter-agendamento");
     };
@@ -773,7 +764,6 @@
             });
 
             $("#tblOperacao").DataTable({
-                fixedColumns: true,
                 serverSide: false,
                 responsive: false,
                 searching: false,
