@@ -55,11 +55,11 @@
                     orderable: false,
                     render: function (data, type, row) {
                         if (row.idParcela != null)
-                            return '<i class="fa fa-calendar-alt kt-font-primary kt-padding-l-5 kt-padding-r-5 visualizar-agendamento" style="cursor: pointer;" data-id-agendamento="' + row.idAgendamento + '" data-toggle="kt-popover" data-boundary="window" title="" data-content="Lançamento criado a partir do lançamento de uma parcela." data-original-title="Lançamento de parcela"></i>';
+                            return '<button data-id-agendamento="' + row.idAgendamento + '" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables btn-badge visualizar-agendamento" data-toggle="kt-tooltip" data-boundary="window"  data-placement="top" data-original-title="Lançamento de parcela"><i class="fa fa-calendar-alt kt-font-primary"></i></button>';
                         else if (row.idTransferencia != null)
                             return '<i class="fa fa-share-square kt-font-primary kt-padding-l-5 kt-padding-r-5" style="cursor: help;" data-toggle="kt-popover" data-boundary="window" title="" data-content="Lançamento criado a partir de um transferência entre contas." data-original-title="Transferência"></i>';
                         else if (row.pagamentoFatura)
-                            return '<i class="fa fa-credit-card kt-font-primary kt-padding-l-5 kt-padding-r-5 visualizar-fatura" style="cursor: pointer;" data-id-lancamento="' + row.id + '" data-toggle="kt-popover" data-boundary="window" title="" data-content="Lançamento criado para o pagamento de uma fatura de cartão de crédito." data-original-title="Pagamento de fatura"></i>';
+                            return '<button data-id-lancamento="' + row.id + '" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables btn-badge visualizar-fatura" data-toggle="kt-tooltip" data-boundary="window"  data-placement="top" data-original-title="Lançamento criado para o pagamento de uma fatura de cartão de crédito."><i class="fa fa-credit-card kt-font-primary"></i></button>';
 
                         return '';
                     }
@@ -194,7 +194,7 @@
                 });
             });
 
-            $("i[class*='visualizar-agendamento']").each(function () {
+            $("button[class*='visualizar-agendamento']").each(function () {
                 let idAgendamento = $(this).data("id-agendamento");
 
                 $(this).click(function () {
@@ -202,7 +202,7 @@
                 });
             });
 
-            $("i[class*='visualizar-fatura']").each(function () {
+            $("button[class*='visualizar-fatura']").each(function () {
                 let idLancamento = $(this).data("id-lancamento");
 
                 $(this).click(function () {
