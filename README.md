@@ -17,12 +17,12 @@ Desde então, esse projeto já foi construído em ASP.NET 2.0 com Webforms e EXT
 ![Backend](https://raw.githubusercontent.com/jlnpinheiro/bufunfa/master/docs/tela-backend-01.png)
 
 Existe uma versão em https://bufunfa.jnogueira.dev.br, rodando em containers do [Docker](https://www.docker.com) em uma máquina com 1 GB de memória, 25 GB de disco com Ubuntu 18.04 na [Digital Ocean](https://digitalocean.com), sendo que:
-* 1 container roda o frontend
-* 1 container roda o backend (em [https://bufunfa.jnogueira.dev.br/api](https://bufunfa.jnogueira.dev.br/api))
-* 1 container roda o banco de dados MySQL
+* 1 container => frontend
+* 1 container => backend (em [https://bufunfa.jnogueira.dev.br/api](https://bufunfa.jnogueira.dev.br/api))
+* 1 container => banco de dados MySQL
 
 ## Algumas funcionalidades
-* Cadastro de contas, cartões de créditos e ativos
+* Cadastro de contas, cartões de créditos e ativos (FIIs e ações)
 * Cadastro de agendamentos (compras a prestação, débitos ou créditos mensais)
 * Cadastro de lançamentos em conta
 * Cadastro de categorias (permitem categorizar lançamentos e agendamentos)
@@ -31,7 +31,7 @@ Existe uma versão em https://bufunfa.jnogueira.dev.br, rodando em containers do
 * Emissão de extrato de uma conta (geração de PDF)
 * Geração de gráficos
 
-## Algumas características...
+## Algumas características
 * Backend com documentação utilizando [Swashbuckle (Swagger)](https://docs.microsoft.com/pt-br/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio)
 * Integração com o [Google Drive API](https://developers.google.com/drive), para armazenamento de arquivos (comprovantes de pagamento, boletos bancários, etc).
 * Integração com a API [Alpha Vantage](https://www.alphavantage.co/), para obtenção de indicadores financeiros.
@@ -46,11 +46,11 @@ Existe uma versão em https://bufunfa.jnogueira.dev.br, rodando em containers do
 * Persistência utilizando Entity Framework com MySQL
 
 # Colocando pra funcionar...
-É possível subir um ambiente necessário para o funcionamento do Bufunfa de duas maneiras: 
+É possível subir o ambiente necessário para o funcionamento do Bufunfa de duas maneiras: 
 * Utilizando containers
 * Publicando individualmente os projetos
 
-## Configurações necessárias (ou não tão necessárias assim...)
+## Configurações necessárias (ou nem tão necessárias assim...)
 Para o correto funcionamento do sistema, é necessário configurar algumas variáveis de ambientes. Dependendo da maneira escolhida para subir o ambiente, essas variáveis deverão ser informadas:
 * Containers => variáveis definidas no arquivo **docker-compose.yml** ou no comando *docker run*;
 * Publicando individualmente os projetos => variáveis definidas no arquivo **appSettings.json**;
@@ -168,7 +168,7 @@ Login: administrador@bufunfa.net
 Senha: admin
 ```
 
-Se tudo estiver ok...bem-vindo e faça bom uso do Bufunfa!
+Se tudo estiver ok...parabéns e faça bom uso do Bufunfa!
 
 
 ## Feedback...sempre muito bem-vindo!
